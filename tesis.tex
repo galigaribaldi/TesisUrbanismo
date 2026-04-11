@@ -1,124 +1,136 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                     Bachelor thesis template 
-%						 Science Faculty 
-%								at 
-%			National Autonomous University of Mexico (UNAM)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% based on Harish Bhanderi's PhD/MPhil template, then Uni Cambridge
-% http://www-h.eng.cam.ac.uk/help/tpl/textprocessing/ThesisStyle/
-% corrected and extended in 2007 by Jakob Suckale, then MPI-iCBG PhD programme
-% and made available through OpenWetWare.org - the free biology wiki
-%
-%                     Under GNU License v3
-%
-% Adapted for the Engineering School at UNAM by Jesús Velázquez y Marco Ruiz
-% Then, adapter fot he Science Faculty at UNAM by Jonathan Urrutia
-%
-%
-%
-% All used packages are found in  
-%
-%					./Latex/Classes/PhDthesisPSnPDF.cls
-%
-% within this las documments there are some lines to be UnCommented for a printed or a digital version of the output file:
-%
-%			line 184
-%			lines 231-261
-%
-%	Since this is a template for a thesis made at UNAM (Mexico) the titles may be in spaninish but within PhDthesisPSnPDF.cls it can be change
-%
+% !TeX program = xelatex
+\documentclass[12pt,letterpaper,oneside]{book} % 12pt es el estándar de tesis UNAM
 
-\documentclass[11pt]{Latex/Classes/PhDthesisPSnPDF}
-
-\usepackage{blindtext}         %  For dummy text.
-% The \blindtext or \Blindtext commands throughout this template generate dummy text to fill the template out.
-
-\include{Latex/Comands}           % Special commands written by the author
-
+% --- PAQUETES DE FORMATO ---
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{graphicx}
 \usepackage{setspace}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm}
+\usepackage{fancyhdr} % Para encabezados y pies de página
+\usepackage{titlesec} % Para personalizar títulos de capítulos
+\usepackage{longtable}
+\usepackage{array}
 
-%%-------------------------------------------------------------------------------
-%                                  Information of the Student                                
-%-------------------------------------------------------------------------------
-\title{Study on something really important}
-\author{Author}       
-\degree{Degree}% Physics
-\director{Director}% Thesis director
-\degreedate{Year}% Year of the dissertation
-\lugar{Place}% Place of the dissertation
-\portadatrue
+% --- PAQUETES MATEMÁTICOS (Para el modelo VFT) ---
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{bm} % Para negritas en fórmulas
 
-% ----------------------------- Datos del jurado
-\student{Paternal last name\\ Maternal Last name\\ Names\\ Telefon number\\ Universidad Nacional Autónoma de México\\ Facultad de Ciencias\\ Física\\ Student Number}
-\secretario{Dr \\ Secretary (thesis director) \\ Last name \\ Last name}
-\presidente{Dr \\ President \\ Last name \\ Last name}
-\vocal{Dr \\ Vocal \\ Last name \\ Last name}
-\supuno{Dr \\ substitute 1 \\ Last name \\ Last name}
-\supdos{Dr \\ Substitute 2 \\ Last name \\ Last name}
-\pags{pages}
+% --- BIBLIOGRAFÍA (Estilo APA/UNAM) ---
+\usepackage[backend=biber,style=apa]{biblatex}
+% Comando para centrar verticalmente los logos
+\newcommand{\vcenteredinclude}[1]{\begingroup
+\setbox0=\hbox{\includegraphics[width=2.8cm,height=2.8cm,keepaspectratio]{#1}}%
+\parbox{\wd0}{\box0}\endgroup}
 
-\keywords{tesis,autor,tutor,etc}            % For metadata 
-\subject{tema_1,tema_2}                     % Sebjucts for metadata
+\addbibresource{referencias.bib} % Aquí vivirán tus citas
 
+% --- CONFIGURACIÓN DE ENCABEZADOS ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize \leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
 
-%-------------------------------------------------------------------------------
-%                                   COVER                                   
-%-------------------------------------------------------------------------------
 \begin{document}
-%
-\maketitle									
-%-------------------------------------------------------------------------------
-%                                   FRONT MATTER                                
-%-------------------------------------------------------------------------------
+
+% --- PORTADA ---
+\begin{titlepage}
+    \centering
+    
+    % --- ENCABEZADO CON LOGOS ---
+    \begin{small}
+    \begin{longtable}{@{} m{0.25\textwidth} @{} m{0.50\textwidth} @{} m{0.25\textwidth} @{}}
+        % Logo UNAM Izquierda
+        \centering \vcenteredinclude{Logos/UNAM_crest_blue.pdf} & 
+        % Texto Central
+        \centering \textbf{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO} \\
+        \vspace{0.2cm}
+        \textbf{PROGRAMA DE MAESTRÍA Y DOCTORADO EN URBANISMO} \\
+        \vspace{0.1cm}
+        \textbf{FACULTAD DE ARQUITECTURA} & 
+        % Logo FES Derecha
+        \centering \vcenteredinclude{Logos/escudo-fes-azul.png}
+    \end{longtable}
+    \end{small}
+    
+    \vspace{0.5cm}
+    \rule{\textwidth}{1pt}
+    \vspace{1.2cm}
+
+    % --- TÍTULO ---
+    {\Large \textbf{Transportes Anillares y su Importancia en la Ciudad de México y el Área Metropolitana}} \\
+    
+    \vspace{2.0cm}
+    
+    {\large \textbf{TESIS}} \\
+    \vspace{0.3cm}
+    {QUE PARA OPTAR POR EL GRADO DE:} \\
+    {\large \textbf{MAESTRO EN URBANISMO}} \\
+    
+    \vspace{1.5cm}
+    
+    {PRESENTA:} \\
+    {\large \textbf{Hernán Galileo Cabrera Garibaldi}} \\
+    
+    \vspace{1.5cm}
+    
+    {TUTOR:} \\
+    {\large \textbf{DR. DAVID LÓPEZ FLORES}} \\
+    
+    \vspace{1.2cm}
+    
+    {\small \textbf{MIEMBROS DEL COMITÉ TUTOR:}} \\
+    \vspace{0.3cm}
+    {\footnotesize 1. \rule{6cm}{0.4pt} \\ 2. \rule{6cm}{0.4pt} \\ 3. \rule{6cm}{0.4pt}} \\
+
+    \vfill
+    
+    \rule{0.7\textwidth}{0.4pt} \\
+    {\footnotesize UNIDAD DE POSGRADO DE LA FACULTAD DE ARQUITECTURA Y URBANISMO} \\
+    \vspace{0.4cm}
+    {Ciudad Universitaria, CDMX. \hfill 4 de febrero del 2026}
+\end{titlepage}
+
+% --- PÁGINAS PRELIMINARES ---
 \frontmatter
-
-\include{0-1-Acknowledgments/1-Acknowledgments}          
-\include{0-2-Declaration/1-Declaration}
-\include{0-3-Quote/1-Quote}                  
-\include{0-4-Resumen/1-Resumen}       
+\onehalfspacing % Espaciado 1.5
+\tableofcontents
+\listoffigures
 
 %-------------------------------------------------------------------------------
-%                                INDICES                                    |
+%                                MAIN MATTER
 %-------------------------------------------------------------------------------
-%
-\setcounter{secnumdepth}{3} % organisational level that receives a numbers
-\setcounter{tocdepth}{3}    % print table of contents for level 3
-
-\tableofcontents            % Print main index
-
-%: ----------------------- list of figures/tables ------------------------
-%\listoffigures              % Genera el ínidce de figuras, comentar línea si no se usa
-%\listoftables               % Genera índice de tablas, comentar línea si no se usa
-
-
-%-------------------------------------------------------------------------------
-%                                MAIN MATTER                                   %-------------------------------------------------------------------------------
-% the main text starts here with the introduction, 1st chapter,...
 \mainmatter
 
-\def\baselinestretch{1}                   % Line spacing
+% Capítulo 1: Introducción
+\input{1-Introduccion/1-Introduccion}
 
-\input{0-5-Introduccion/1-Motivation-Structure}            
-\input{1-Theory/1-Basics}
-	\input{1-Theory/2-Something_more_specific}
-\input{2-Results/1-Something}
-\input{3-Conclusions/1-Conclusions}        
+% Capítulo 2: Antecedentes
+\input{2-MarcoTeorico/1-Antecedentes}
 
-%-------------------------------------------------------------------------------
-%                               References                                   |
-%-------------------------------------------------------------------------------
+% Capítulo 3: Conceptos e Indicadores (dividido por secciones)
+\input{3-Conceptos-Indicadores/3-1-Definiciones}
+\input{3-Conceptos-Indicadores/3-2-Grafos-Matematicas}
+\input{3-Conceptos-Indicadores/3-3-Indicadores-Formula}
 
-\appendix
-\input{5-Apendices/1-Something_extra.tex}  
+% Capítulo 4: Capas de Código
+\input{4-Capas-Codigo/4-1-Apimetro}
+\input{4-Capas-Codigo/4-2-VFTModel}
+\input{4-Capas-Codigo/4-3-Visualizacion}
 
-\setlength\bibitemsep{.1\itemsep}
-\printbibliography
+% Capítulo 5: Resultados
+\input{5-Resultados/1-Resultados}
 
-\printindex
-%-------------------------------------------------------------------------------
-%                              Appendix                                   |
-%-------------------------------------------------------------------------------
+% Capítulo 6: Análisis Socio-Espacial
+\input{6-Analisis-SocioEspacial/1-Analisis}
 
+% Capítulo 7: Conclusiones
+\input{7-Conclusiones/1-Conclusiones}
+% \input{1-Theory/1-Basics} % Descomenta cuando lo crees
 
-           
+% --- BIBLIOGRAFÍA ---
+\backmatter
+\printbibliography[title={Bibliografía}]
+
 \end{document}

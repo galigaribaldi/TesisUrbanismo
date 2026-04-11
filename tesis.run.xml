@@ -44,34 +44,33 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>tesis.aux</file>
-      <file>tesis-blx.bib</file>
+      <file>tesis.bcf</file>
     </provides>
     <requires type="dynamic">
       <file>tesis.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
+      <file>apa.dbx</file>
+      <file>blx-unicode.def</file>
       <file>blx-compat.def</file>
-      <file>blx-bibtex.def</file>
       <file>biblatex.def</file>
-      <file>trad-abbrv.bbx</file>
-      <file>trad-standard.bbx</file>
       <file>standard.bbx</file>
-      <file>numeric-comp.cbx</file>
+      <file>apa.bbx</file>
+      <file>apa.cbx</file>
       <file>biblatex.cfg</file>
       <file>spanish.lbx</file>
+      <file>spanish-apa.lbx</file>
     </requires>
   </internal>
   <external package="biblatex" priority="5" active="0">
-    <generic>bibtex</generic>
+    <generic>biber</generic>
     <cmdline>
-      <binary>bibtex</binary>
-      <option>-min-crossrefs 2</option>
+      <binary>biber</binary>
       <infile>tesis</infile>
     </cmdline>
     <input>
-      <file>tesis.aux</file>
+      <file>tesis.bcf</file>
     </input>
     <output>
       <file>tesis.bbl</file>
@@ -80,14 +79,10 @@
       <file>tesis.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>tesis.aux</file>
-      <file>tesis-blx.bib</file>
+      <file>tesis.bcf</file>
     </requires>
     <requires type="editable">
-      <file>4-References/references.bib</file>
-    </requires>
-    <requires type="static">
-      <file>biblatex.bst</file>
+      <file>referencias.bib</file>
     </requires>
   </external>
 </requests>
