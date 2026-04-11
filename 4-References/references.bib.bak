@@ -1,0 +1,598 @@
+% -------------------------------------------
+%---------------------------------------------------------- Bibliography
+% -----------------------------------------------  Books
+%
+% ------------------------------------------------------------------------
+@book{mun2015nanobiosensors,
+  title={Nanobiosensors and Nanobioanalyses},
+  author={Mun'delanji, C Vestergaard and Kerman, Kagan and Hsing, I-Ming and Tamiya, Eiichi},
+  year={2015},
+  publisher={Springer}
+}
+
+@book{tsang2000scattering,
+  title={Scattering of electromagnetic waves: theories and applications},
+  author={Tsang, Leung and Kong, Jin Au and Ding, Kung-Hau},
+  year={2000},
+  publisher={John Wiley \& Sons}
+}
+
+@book{ashcroft1976solid,
+  author = 	 {N.W. Ashcroft and N.D. Mermin},
+  title = 	 {{Solid State Physics}},
+  publisher = 	 {Saunders College},
+  year = 	 1976,
+  address = 	 {Philadelphia},
+}
+
+@book{hecht1998optics,
+  title={Optics},
+  author={Hecht, Eugene},
+  publisher={Addison Wesley},
+  year={1998},
+  edition={4$^\circ$}}
+
+@book{maier2007plasmonics,
+  title={Plasmonics: fundamentals and applications},
+  author={Maier, Stefan Alexander},
+  year={2007},
+  publisher={Springer Science \& Business Media}
+}
+
+@book{bohren1998absorption,
+  title={Absorption and scattering of light by small particles},
+  author={Bohren, Craig F and Huffman, Donald R},
+  year={1998},
+  publisher={John Wiley \& Sons}
+}
+
+@book{ibach2003solid,
+  title={Solid-state physics: an introduction to principles of material science},
+  author={Ibach, Harald and L{\"u}th, Hans},
+  year={2003},
+  publisher={Springer}
+}
+
+@book{gross2014festkorperphysik,
+  title={Festk{\"o}rperphysik},
+  author={Gross, Rudolf and Marx, Achim},
+  year={2014},
+  publisher={Walter de Gruyter GmbH \& Co KG}
+}
+
+@book{hulst1981light,
+  title={Light scattering by small particles},
+  author={ van de Hulst, Hendrik C},
+  year={1981},
+  publisher={Dover Publications}
+}
+
+@book{landau1960electro,
+  title={Course of theoretical physics, vol. 8: Electrodynamics of continuous},
+  author={Landau, Lev Davidovuch and Lifshitz, Evgeny Mikhailovich},
+  year={1960},
+  publisher={Pergamon Press}
+}
+
+@book{novotny2006principles,
+  title={Principles of nano-optics},
+  author={Novotny, Lukas and Hecht, Bert},
+  year={2006},
+  publisher={Cambridge university press}
+}
+
+@book{kreibig1995clusters,
+  title={Optical Properties of Metal Clusters},
+  author={Kreibig, Uwe and Vollmer, Michael},
+  year={1995},
+  publisher={Springer}
+}
+
+@book{arfken2001methods,
+  title={Mathematical methods for physicists},
+  author={Arfken, George Brown and Weber, Hans J},
+  year={2001},
+  publisher={Harcourt Academic Press}
+}
+
+@book{griffiths2013electrodynamics,
+  title={Introduction to electrodynamics},
+  author={Griffiths, David Jeffrey},
+  year={2013},
+  edition={4$^\circ$},
+  publisher={Pearson}
+}
+
+@book{sihvola1999mixing,
+  title={Electromagnetic mixing formulas and applications},
+  author={Sihvola, Ari},
+  number={47},
+  year={1999},
+  publisher={Iet}
+}
+
+@book{jackson1999electrodynamics,
+  title={Classical electrodynamics},
+  author={Jackson, John David},
+  year={1999},
+  publisher={John Wiley \& Sons},
+  edition = {3$^\circ$}
+}  
+
+%-------------------------------------------------------------
+@article{wuithschick2015turkevich,
+author = {Wuithschick, Maria and Birnbaum, Alexander and Witte, Steffen and Sztucki, Michael and Vainio, Ulla and Pinna, Nicola and Rademann, Klaus and Emmerling, Franziska and Kraehnert, Ralph and Polte, J{\"{o}}rg},
+doi = {10.1021/acsnano.5b01579},
+file = {:mnt/ACEC99E0EC99A55C/Users/Jonathan/Documents/Libros/Articles/TurkMethod Wuithschick 2015.pdf:pdf},
+issn = {1936086X},
+journal = {ACS Nano},
+keywords = {SAXS,Turkevich,gold nanoparticles,growth mechanism,size control,tetrachloroauric acid},
+mendeley-groups = {Bachelor Thesis/Conclusiones},
+number = {7},
+pages = {7052--7071},
+title = {{Turkevich in New Robes: Key Questions Answered for the Most Common Gold Nanoparticle Synthesis}},
+volume = {9},
+year = {2015}
+}
+
+
+@article{raja2019dielectric,
+author = {Raja, Archana and Waldecker, Lutz and Zipfel, Jonas and Cho, Yeongsu and Brem, Samuel and Ziegler, Jonas D and Kulig, Marvin and Taniguchi, Takashi and Watanabe, Kenji and Malic, Ermin and Heinz, Tony F and Berkelbach, Timothy C and Chernikov, Alexey},
+doi = {10.1038/s41565-019-0520-0},
+isbn = {4156501905200},
+issn = {1748-3395},
+journal = {Nature Nanotechnology},
+number = {September},
+publisher = {Springer US},
+title = {{Dielectric disorder in two-dimensional materials}},
+url = {http://dx.doi.org/10.1038/s41565-019-0520-0},
+volume = {14},
+year = {2019}
+}
+
+@article{hale973optical,
+author = {Hale, George M. and Querry, Marvin R.},
+doi = {10.1364/ao.12.000555},
+issn = {0003-6935},
+journal = {Applied Optics},
+number = {3},
+pages = {555},
+pmid = {20125343},
+title = {{Optical Constants of Water in the 200-nm to 200-$\mu$m Wavelength Region}},
+volume = {12},
+year = {1973}
+}
+
+
+@article{brian2009sensitivity,
+author = {Brian, Bj{\"{o}}rn and Sep{\'{u}}lveda, Borja and Alaverdyan, Yury and Lechuga, Laura M. and K{\"{a}}ll, Mikael},
+doi = {10.1364/oe.17.002015},
+isbn = {1180611810},
+issn = {1094-4087},
+journal = {Optics Express},
+mendeley-groups = {Plasmonics},
+number = {3},
+pages = {2015},
+title = {{Sensitivity enhancement of nanoplasmonic sensors in low refractive index substrates}},
+volume = {17},
+year = {2009}
+}
+
+
+
+@article{cahill1997surface,
+author = {Cahill, Colin P. and Johnston, Kyle S. and Yee, Sinclair S.},
+doi = {10.1016/S0925-4005(97)00290-6},
+issn = {09254005},
+journal = {Sensors and Actuators, B: Chemical},
+keywords = {Optical,SPR,Sensor,Surface plasmon},
+mendeley-groups = {Plasmonics},
+number = {2},
+pages = {161--166},
+title = {{A surface plasmon resonance sensor probe based on retro-reflection}},
+volume = {45},
+year = {1997}
+}
+
+
+@article{svedendahl2009refractometric,
+author = {Svedendahl, Mikael and Chen, Si and Dmitriev, Alexandre and K{\"{a}}ll, Mikael},
+doi = {10.1021/nl902721z},
+issn = {15306984},
+journal = {Nano Letters},
+number = {12},
+pages = {4428--4433},
+title = {{Refractometric sensing using propagating versus localized surface plasmons: A direct comparison}},
+volume = {9},
+year = {2009}
+}
+
+
+@article{vakevainen2013plasmonic,
+  title={Plasmonic surface lattice resonances at the strong coupling regime},
+  author = {V{\"a}kev{\"a}inen, A I and Moerland, R J and Rekola, H T and Eskelinen, A -P and Martikainen, J -P and Kim, D -H and T{\"o}rm{\"a}, P.},
+    journal={Nano letters},
+  volume={14},
+  number={4},
+  pages={1721--1727},
+  year={2013},
+  publisher={ACS Publications}
+}
+
+@article{barrera1991optical,
+author = {Barrera, R G and del Castillo-Mussot, M. and Monsivais, G. and Villase{\~{n}}or, P. and Moch{\'{a}}n, W L},
+doi = {10.1103/PhysRevB.43.13819},
+file = {:home/jonathan/Dropbox/Escuela/3.- Tesis/Biblio{\_}teo/Articulos/Dipolar Model 2D/(DLM) Dipolar Limit Model.pdf:pdf},
+journal = {Phys. Rev. B},
+mendeley-groups = {Bachelor Thesis/Dipolar Model},
+number = {17},
+pages = {13819--13826},
+title = {{Optical properties of two-dimensional disordered systems on a substrate}},
+volume = {43},
+year = {1991}
+}
+
+
+@article{svetovoy2008optical,
+author = {Svetovoy, V. B. and {Van Zwol}, P. J. and Palasantzas, G. and {De Hosson}, J. Th M.},
+doi = {10.1103/PhysRevB.77.035439},
+file = {:mnt/ACEC99E0EC99A55C/Users/Jonathan/Documents/Libros/Articles/13-[Paper] Svetovoy, Optical properties of gold films and the Casimir force PRB 77 035439 (2008).pdf:pdf},
+issn = {10980121},
+journal = {Physical Review B - Condensed Matter and Materials Physics},
+mendeley-groups = {Bachelor Thesis/Drude Model},
+number = {3},
+pages = {1--12},
+title = {{Optical properties of gold films and the Casimir force}},
+volume = {77},
+year = {2008}
+}
+
+@article{mendoza2014determination,
+author = {{Mendoza Herrera}, Luis J. and Arboleda, David Mu{\~{n}}et{\'{o}}n and Schinca, Daniel C. and Scaffardi, Luc{\'{i}}a B.},
+doi = {10.1063/1.4904349},
+issn = {10897550},
+journal = {Journal of Applied Physics},
+mendeley-groups = {Bachelor Thesis/Drude Model},
+number = {23},
+pages = {233105},
+title = {{Determination of plasma frequency, damping constant, and size distribution from the complex dielectric function of noble metal nanoparticles}},
+volume = {116},
+year = {2014}
+}
+
+
+@article{noguez2007surface,
+author = {Noguez, Cecilia},
+journal = {J. Phys. Chem},
+number = {111},
+pages = {3806--3819},
+title = {{Surface Plasmons on Metal Nanoparticles : The Influence of Shape and Physical Environment}},
+volume = {100},
+year = {2007},
+publisher={American Chemical Society}
+}
+
+@article{reyes2018analytical,
+author = {Reyes-Coronado, Aljandro and Morales-Luna, Gesuri and V{\'{a}}zquez-Estrada, Omar and Garc{\'{i}}a-Valenzuela, Augusto and Barrera, Rub{\'{e}}n G.},
+doi = {10.1364/OE.26.012660},
+file = {:home/jonathan/Dropbox/Escuela/3.- Tesis/Biblio{\_}teo/Articulos/CSM/2-Manuscript generated by PRISM system - 314380.pdf:pdf},
+issn = {10944087},
+journal = {Optics Express},
+mendeley-groups = {Bachelor Thesis,Bachelor Thesis/CSM,Bachelor Thesis/Dipolar Model},
+pages = {6697--6706},
+title = {{Analytical modeling of optical reflectivity of random plasmonic nano-monolayers}},
+volume = {9594},
+year = {2018}
+}
+
+
+@article{gutierrez2012overview,
+author = {Guti{\'{e}}rrez-Reyes, Edah{\'{i}} and Garc{\'{i}}a-Valenzuela, Augusto and Barrera, Rub{\'{e}}n G},
+doi = {10.1002/pssb.201100735},
+file = {:home/jonathan/Dropbox/Escuela/3.- Tesis/Biblio{\_}teo/10.1.1.707.7036.pdf:pdf},
+issn = {03701972},
+journal = {Physica Status Solidi (B) Basic Research},
+keywords = {Colloids,Effective-medium theory,Inhomogeneous media,Reflection,Refraction},
+mendeley-groups = {Bachelor Thesis/CSM},
+number = {6},
+pages = {1140--1147},
+title = {{Overview of an effective-medium approach to the reflection and refraction of light at a turbid colloidal half-space}},
+url = {www.pss-b.com},
+volume = {249},
+year = {2012}
+}
+
+@article{garcia2012multiple,
+  title={Multiple-scattering model for the coherent reflection and transmission of light from a disordered monolayer of particles},
+  author={Garc{\'{i}}a-Valenzuela, Augusto and Guti{\'{e}}rrez-Reyes, Edah{\'{i}} and Barrera, Rub{\'{e}}n G},
+  journal={JOSA A},
+  volume={29},
+  number={6},
+  pages={1161--1179},
+  year={2012},
+  publisher={Optical Society of America}
+}
+
+@article{barrera2003coherent,
+  title={Coherent reflectance in a system of random {Mie} scatterers and its relation to the effective-medium approach},
+  author={Barrera, Rub{\'{e}}n G and Garc{\'{i}}a-Valenzuela, Augusto},
+  journal={JOSA A},
+  volume={20},
+  number={2},
+  pages={296--311},
+  year={2003},
+  publisher={Optical Society of America}
+}
+
+@article{pena-gomar2006coherent,
+author = {Pe{\~{n}}a-Gomar, Mary Carmen and Castillo, Francisco and Garc{\'{i}}a-Valenzuela, Augusto and Barrera, Rub{\'{e}}n G and P{\'{e}}rez, El{\'{i}}as},
+doi = {10.1364/AO.45.000626},
+issn = {0003-6935},
+journal = {Applied optics},
+pages = {626--632},
+pmid = {16485672},
+title = {{Coherent optical reflectance from a monolayer of large particles adsorbed on a glass surface.}},
+volume = {45},
+year = {2006}
+}
+
+
+@article{boverhof2015comparative,
+  title={Comparative assessment of nanomaterial definitions and safety evaluation considerations},
+  author={Boverhof, Darrell R and Bramante, Christina M and Butala, John H and Clancy, Shaun F and Lafranconi, Mark and West, Jay and Gordon, Steve C},
+  journal={Regulatory toxicology and pharmacology},
+  volume={73},
+  number={1},
+  pages={137--150},
+  year={2015},
+  publisher={Elsevier}
+}
+
+
+@article{stockman2011nanoplasmonics,
+  title={Nanoplasmonics: The physics behind the applications},
+  author={Stockman, Mark I},
+  journal={Phys. Today},
+  volume={64},
+  number={2},
+  pages={39--44},
+  year={2011}
+}
+
+@article{jain2008noble,
+  title={Noble metals on the nanoscale: optical and photothermal properties and some applications in imaging, sensing, biology, and medicine},
+  author={Jain, Prashant K and Huang, Xiaohua and El-Sayed, Ivan H and El-Sayed, Mostafa A},
+  journal={Accounts of chemical research},
+  volume={41},
+  number={12},
+  pages={1578--1586},
+  year={2008},
+  publisher={ACS Publications}
+}
+
+@article{zhao2008methods,
+  title={Methods for describing the electromagnetic properties of silver and gold nanoparticles},
+  author={Zhao, Jing and Pinchuk, Anatoliy O and McMahon, Jeffrey M and Li, Shuzhou and Ausman, Logan K and Atkinson, Ariel L and Schatz, George C},
+  journal={Accounts of chemical research},
+  volume={41},
+  number={12},
+  pages={1710--1720},
+  year={2008},
+  publisher={ACS Publications}
+}
+
+@article{kabashin2009plasmonic,
+  title={Plasmonic nanorod metamaterials for biosensing},
+  author={Kabashin, A V and Evans, P. and Pastkovsky, S. and Hendren, W. and Wurtz, G A and Atkinson, R. and Pollard, R. and Podolskiy, V A and Zayats, A V},
+  journal={Nature materials},
+  volume={8},
+  number={11},
+  pages={867--871},
+  year={2009},
+  publisher={Nature Publishing Group}
+}
+
+@article{danilov2018ultra,
+  title={Ultra-narrow surface lattice resonances in plasmonic metamaterial arrays for biosensing applications},
+  author={Danilov, Artem and Tselikov, Gleb and Wu, Fan and Kravets, Vasyl G and Ozerov, Igor and Bedu, Frederic and Grigorenko, Alexander N and Kabashin, Andrei V},
+  journal={Biosensors and Bioelectronics},
+  volume={104},
+  pages={102--112},
+  year={2018},
+  publisher={Elsevier}
+}
+
+@article{sihvola2007dielectric,
+  title={Dielectric polarization and particle shape effects},
+  author={Sihvola, Ari},
+  journal={Journal of Nanomaterials},
+  volume={2007},
+  number={1},
+  pages={5--5},
+  year={2007},
+  publisher={Hindawi Publishing Corp.}
+}
+
+@article{atkinson2006anisotropic,
+  title={Anisotropic optical properties of arrays of gold nanorods embedded in alumina},
+  author={Atkinson, Ron and Hendren, William R and Wurtz, Gregory A and Dickson, Wayne and Zayats, Anatoly V and Evans, Paul and Pollard, Robert J},
+  journal={Physical Review B},
+  volume={73},
+  number={23},
+  pages={235402},
+  year={2006},
+  publisher={APS}
+}
+
+@article{mie1908metallosung,
+author = {Mie, Gustav},
+doi = {10.1002/andp.19083300302},
+isbn = {1521-3889},
+issn = {15213889},
+journal = {Annalen der Physik},
+mendeley-groups = {Plasmonics/Mie Solution-related papers},
+number = {3},
+pages = {377--445},
+title = {{Beitr\"age zur Optik tr\"uber Medien, speziell kolloidaler Metall\"osungen}},
+volume = {330},
+year = {1908}
+}
+
+@article{horvath2009historic,
+author = {Horvath, Helmuth},
+doi = {10.1016/j.jqsrt.2009.02.022},
+isbn = {0022-4073},
+issn = {00224073},
+journal = {Journal of Quantitative Spectroscopy and Radiative Transfer},
+keywords = {Absorption,Mie theory,Polarization,Scattering},
+number = {11},
+pages = {787--799},
+title = {{Gustav Mie and the scattering and absorption of light by particles: Historic developments and basics}},
+volume = {110},
+year = {2009}
+}
+
+@article{johnson1972constants,
+  title={Optical constants of the noble metals},
+  author={Johnson, Peter B and Christy, R W},
+  journal={Physical review B},
+  volume={6},
+  number={12},
+  pages={4370},
+  year={1972},
+  publisher={APS}
+}
+
+@article{kwan2002really,
+  title={Who really discovered {Snell's} law?},
+  author={Kwan, Alistair and Dudley, John and Lantz, Eric},
+  journal={Physics World},
+  volume={15},
+  number={4},
+  pages={64},
+  year={2002},
+  publisher={IOP Publishing}
+}
+
+@article{bosetti2002silver,
+author = {Bosetti, M. and Mass\`{e}, A. and Tobin, E. and Cannas, M.},
+issn = {0142-9612},
+journal = {Biomaterials},
+keywords = {biocompatibility,cytotoxicity,external fixation,genotoxicity,silver},
+mendeley-groups = {Bachelor Thesis},
+number = {3},
+pages = {887--92},
+pmid = {11771707},
+title = {{Silver coated materials for external fixation devices: in vitro biocompatibility and genotoxicity.}},
+url = {http://www.ncbi.nlm.nih.gov/pubmed/11771707},
+volume = {23},
+year = {2002}
+}
+
+%@article{fan2009bio,
+%author = {Fan, J H and Hung, W I and Li, W T and Yeh, J M},
+%isbn = {978-3-540-92841-6},
+%keywords = {biocompatibility,differen-,gold nanoparticle,huh-7,mesenchymal stem cell,tiation},
+%mendeley-groups = {Bachelor Thesis},
+%pages = {870--873},
+%title = {{Biocompatibility Study of Gold Nanoparticles to Human Cells BT  - 13th International Conference on Biomedical Engineering}},
+%year = {2009}
+%}
+
+@InProceedings{fan2009bio,
+author={Fan, J. H.	and Hung, W. I.	and Li, W. T.	and Yeh, J. M.},
+editor={Lim, Chwee Teck	and Goh, James C. H.},
+title={Biocompatibility Study of Gold Nanoparticles to Human Cells},
+booktitle={13th International Conference on Biomedical Engineering},
+year={2009},
+publisher={Springer Berlin Heidelberg},
+address={Berlin, Heidelberg},
+pages={870--873},
+isbn={978-3-540-92841-6}
+}
+
+@misc{estevez2014trends,
+author = {Estevez, M. Carmen and Otte, Marinus A and Sepulveda, Borja and Lechuga, Laura M},
+booktitle = {Analytica Chimica Acta},
+doi = {10.1016/j.aca.2013.10.048},
+issn = {00032670},
+keywords = {Bioanalytical applications,Nanoplasmonic sensors,Optical biosensors,Plasmonic sensors,Surface biofunctionalization},
+mendeley-groups = {Taller Escritura Acad{\'{e}}mica},
+pages = {55--73},
+publisher = {Elsevier B.V.},
+title = {{Trends and challenges of refractometric nanoplasmonic biosensors: A review}},
+url = {http://dx.doi.org/10.1016/j.aca.2013.10.048},
+volume = {806},
+year = {2014}
+}
+
+%-----------------------------------------------------------------------------
+
+@mastersthesis{maciel2017momentum,
+  author       = {{Maciel Escudero}, Carlos Alberto }, 
+  title        = {Linear momentum transfer from swift electrons to small metallic nanoparticles: dipole approximation},
+  school       = {Universidad Nacional Aut\'onoma de M\'exico},
+  year         = 2017,
+  address      = {Ciudad de M\'exico, M\'exico},
+  month        = 10,
+}
+
+@phdthesis{aizpurua1998coupling,
+  title={Coupling of electrons and electromagnetic surface modes in scanning transmission electron microscopy},
+  author={Aizpurua, J.},
+  year={1998},
+  school={Universidad de Pa\'is Vasco},
+  address ={Pa\'is Vasco, Espa\~na}
+}
+
+@phdthesis{trugler2011properties,
+  title={Optical properties of metallic
+nanoparticles},
+  author={Tr\"ugler, A.},
+  year={2011},
+  school={Karl--Franzens--Universit\"at Granz},
+  address ={Graz, Alemania}
+}
+
+%-----------------------------------------------------------------------------
+
+@book{gauglitz2014handbook,
+  title={Handbook of spectroscopy},
+  author={Gauglitz, G{\"u}nter and Moore, David Steven},
+  volume={2},
+  year={2014},
+  publisher={John Wiley \& Sons}
+}
+
+@manual{schott2019datasheet,
+    organization  = {SCHOTT AG},
+    title         = {Optical Glass Data Sheets},
+    year          = {2019},
+    month         = {05},
+    url          = {https://www.schott.com/d/advanced\_optics/ac85c64c-60a0-4113-a9df-23ee1be20428/1.14/schott-optical-glass-collection-datasheets-english-may-2019.pdf}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

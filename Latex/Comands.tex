@@ -1,0 +1,47 @@
+%--------------------Cambiar captio de las subfiguras -------------------
+\renewcommand*{\thesubfigure}{\alph{subfigure})}   %Cambia caption y también el \ref{   }  
+
+	\newcommand{\beqhalf}{\noindent \begin{minipage}[c]{.5\linewidth} \begin{equation}}
+	\newcommand{\eeqhalf}{\end{equation} \end{minipage} }
+	\newcommand{\eqhalf}[1]{\beqhalf #1 \eeqhalf}	
+
+
+\usepackage{animate}  %pARA EL GIF
+
+
+
+%\makeatletter
+%\newenvironment{taggedsubequations}[1]
+% {%
+%  % \end{subequations} will advance `equation`
+%  \addtocounter{equation}{-1}%
+%  \begin{subequations}%
+%  % set the current label
+%  \def\@currentlabel{#1 \emph{bis}}%
+%  % redefine \theequation
+%  \renewcommand{\theequation}{#1\alph{equation} \emph{bis}}%
+% }
+% {\end{subequations}}
+%\makeatother %not \makeatletter
+
+\makeatletter
+\newenvironment{taggedsubequations}[1]
+ {%
+  % \end{subequations} will advance `equation`
+  \addtocounter{equation}{-1}%
+  \begin{subequations}%
+  % set the current label
+  \def\@currentlabel{#1}%
+  % redefine \theequation
+  \renewcommand{\theequation}{#1\alph{equation}}%
+ }
+ {\end{subequations}}
+\makeatother %not \makeatletter
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "~/Documents/LaTeX/CUEDThesisPSnPDF/thesis"
+%%% End:
