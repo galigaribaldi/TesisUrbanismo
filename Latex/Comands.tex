@@ -1,47 +1,248 @@
-%--------------------Cambiar captio de las subfiguras -------------------
-\renewcommand*{\thesubfigure}{\alph{subfigure})}   %Cambia caption y también el \ref{   }  
+% =============================================================================
+%  Comands.tex — Comandos y paquetes personalizados
+%  Tesis: Transportes Anillares y su Importancia en la CDMX
+%  Hernán Galileo Cabrera Garibaldi, UNAM 2026
+%
+%  NOTA: Este archivo se carga desde tesis.tex mediante \input{Latex/Comands}
+%        DESPUÉS de haber declarado todos los paquetes base. No usar
+%        \documentclass ni \begin{document} aquí.
+% =============================================================================
 
-	\newcommand{\beqhalf}{\noindent \begin{minipage}[c]{.5\linewidth} \begin{equation}}
-	\newcommand{\eeqhalf}{\end{equation} \end{minipage} }
-	\newcommand{\eqhalf}[1]{\beqhalf #1 \eeqhalf}	
+
+% =============================================================================
+%  1. PAQUETES ADICIONALES
+% =============================================================================
+
+% --- Figuras y subfiguras ---
+\usepackage{caption}           % Control fino de pies de figura y tabla
+\usepackage{subcaption}        % Subfiguras (a), (b), (c)...
+\usepackage{float}             % Opción [H] para fijar figuras en su lugar
+\usepackage{wrapfig}           % Figuras con texto envolvente (útil en mapas pequeños)
+
+% --- Tablas ---
+\usepackage{booktabs}          % Líneas profesionales: \toprule, \midrule, \bottomrule
+\usepackage{tabularx}          % Tablas con columna X de ancho ajustable
+\usepackage{multirow}          % Celdas que abarcan múltiples filas
+
+% --- Código fuente (Go, Python, SQL, JSON) ---
+\usepackage{listings}          % Bloques de código con resaltado de sintaxis
+\usepackage{xcolor}            % Colores personalizados para el resaltado
+
+% --- Diagramas y gráficos vectoriales ---
+\usepackage{tikz}              % Diagramas vectoriales (grafos, esquemas de red)
+\usetikzlibrary{
+  arrows.meta,                 % Puntas de flecha modernas
+  positioning,                 % Posicionamiento relativo de nodos
+  shapes.geometric,            % Formas: círculo, rectángulo, diamante, etc.
+  fit,                         % Nodo que envuelve a otros
+  backgrounds,                 % Capas de fondo en diagramas
+  calc                         % Cálculos de coordenadas
+}
+\usepackage{pgfplots}          % Gráficas de datos (barras, líneas, dispersión)
+\pgfplotsset{compat=1.18}
+
+% --- Animaciones (GIFs exportados como PDF animado) ---
+\usepackage{animate}
 
 
-\usepackage{animate}  %pARA EL GIF
+% =============================================================================
+%  2. CONFIGURACIÓN DE COLORES INSTITUCIONALES
+% =============================================================================
+
+% Paleta UNAM
+\definecolor{unamAzul}    {RGB}{0,  56, 147}   % Azul UNAM oficial
+\definecolor{unamOro}     {RGB}{244,180,  0}   % Oro/amarillo UNAM
+\definecolor{unamGrisClaro}{RGB}{240,240,240}  % Fondo gris claro para tablas
+
+% Paleta de transporte (para mapas y diagramas de red)
+\definecolor{colorMetro}    {RGB}{ 30, 136, 229}  % Azul metro
+\definecolor{colorMetrobus} {RGB}{229,  57,  53}  % Rojo Metrobús
+\definecolor{colorCablebus} {RGB}{ 67, 160,  71}  % Verde Cablebús
+\definecolor{colorPeriferico}{RGB}{255, 143,   0} % Naranja Periférico Sur
+\definecolor{colorPropuesto} {RGB}{142,  36, 170} % Morado corredor propuesto
+
+% Paleta para código fuente
+\definecolor{codeGray}   {RGB}{245,245,245}
+\definecolor{codeComment}{RGB}{117,117,117}
+\definecolor{codeKeyword}{RGB}{  0, 98, 179}
+\definecolor{codeString} {RGB}{183, 28,  28}
+\definecolor{codeNumber} {RGB}{ 46,125,  50}
 
 
+% =============================================================================
+%  3. CONFIGURACIÓN DE BLOQUES DE CÓDIGO (listings)
+% =============================================================================
 
-%\makeatletter
-%\newenvironment{taggedsubequations}[1]
-% {%
-%  % \end{subequations} will advance `equation`
-%  \addtocounter{equation}{-1}%
-%  \begin{subequations}%
-%  % set the current label
-%  \def\@currentlabel{#1 \emph{bis}}%
-%  % redefine \theequation
-%  \renewcommand{\theequation}{#1\alph{equation} \emph{bis}}%
-% }
-% {\end{subequations}}
-%\makeatother %not \makeatletter
+% --- Estilo base compartido ---
+\lstdefinestyle{estiloBase}{
+  backgroundcolor = \color{codeGray},
+  basicstyle      = \ttfamily\small,
+  breaklines      = true,
+  breakatwhitespace = true,
+  frame           = single,
+  framerule       = 0.4pt,
+  rulecolor       = \color{gray!50},
+  numbers         = left,
+  numberstyle     = \tiny\color{gray},
+  numbersep       = 8pt,
+  showstringspaces= false,
+  tabsize         = 4,
+  captionpos      = b,
+  keepspaces      = true,
+  commentstyle    = \color{codeComment}\itshape,
+  stringstyle     = \color{codeString},
+  keywordstyle    = \color{codeKeyword}\bfseries,
+}
+
+% --- Go (Golang) — para Apimetro / backend ---
+\lstdefinelanguage{Go}{
+  morekeywords = {
+    func, package, import, var, const, type, struct, interface,
+    return, if, else, for, range, switch, case, default, defer,
+    go, chan, select, map, make, new, nil, true, false,
+    string, int, int64, float64, bool, byte, error
+  },
+  sensitive    = true,
+  morecomment  = [l]{//},
+  morecomment  = [s]{/*}{*/},
+  morestring   = [b]",
+  morestring   = [b]`,
+}
+
+\lstdefinestyle{estiloGo}{
+  style    = estiloBase,
+  language = Go,
+}
+
+% --- Python — para análisis de grafos / GeoPandas ---
+\lstdefinestyle{estiloPython}{
+  style    = estiloBase,
+  language = Python,
+}
+
+% --- SQL / PostGIS ---
+\lstdefinestyle{estiloSQL}{
+  style    = estiloBase,
+  language = SQL,
+}
+
+% --- GeoJSON / JSON ---
+\lstdefinelanguage{JSON}{
+  morestring   = [b]",
+  morekeywords = {true, false, null},
+  sensitive    = false,
+}
+
+\lstdefinestyle{estiloJSON}{
+  style    = estiloBase,
+  language = JSON,
+}
+
+% Etiqueta por defecto para todos los listings
+\renewcommand{\lstlistingname}{Código}
+\renewcommand{\lstlistlistingname}{Índice de Código}
+
+
+% =============================================================================
+%  4. CONFIGURACIÓN DE FIGURAS Y SUBFIGURAS
+% =============================================================================
+
+% Subfiguras con etiqueta (a), (b), (c)... en lugar de (a (por el Comands original)
+\renewcommand*{\thesubfigure}{(\alph{subfigure})}
+
+% Estilo de pies de figura: fuente pequeña, etiqueta en negrita
+\captionsetup{
+  font       = small,
+  labelfont  = bf,
+  labelsep   = period,
+  justification = raggedright,
+  singlelinecheck = false
+}
+
+% Comando abreviado para fuente de figura
+% Uso: \fuentefigura{García-López (2019, p.~3).}
+\newcommand{\fuentefigura}[1]{%
+  \par\vspace{2pt}%
+  {\small\textit{Fuente: #1}}%
+}
+
+
+% =============================================================================
+%  5. COMANDOS MATEMÁTICOS — Modelo de Transporte y Teoría de Grafos
+% =============================================================================
+
+% --- Notación de grafos ---
+\newcommand{\grafo}{\mathcal{G}}          % Grafo G
+\newcommand{\nodos}{\mathcal{V}}          % Conjunto de vértices/nodos V
+\newcommand{\aristas}{\mathcal{E}}        % Conjunto de aristas E
+\newcommand{\nodo}[1]{v_{#1}}             % Nodo individual: \nodo{i}
+\newcommand{\arista}[2]{e_{#1#2}}         % Arista: \arista{i}{j}
+\newcommand{\peso}[2]{w_{#1#2}}           % Peso de arista: \peso{i}{j}
+\newcommand{\costo}[2]{c_{#1#2}}          % Costo total: \costo{i}{j}
+
+% --- Función de costo total (modelo ponderado) ---
+% Uso: \costototal{i}{j} genera c_{ij} = d_{ij} + \alpha·a_{ij} + \beta·\delta_{ij}
+\newcommand{\costototal}[2]{%
+  c_{#1#2} = d_{#1#2} + \alpha \cdot a_{#1#2} + \beta \cdot \delta_{#1#2}%
+}
+
+% --- Notación de caminos mínimos ---
+\newcommand{\dijkstra}{\textsc{Dijkstra}}
+\newcommand{\floyd}{\textsc{Floyd-Warshall}}
+\newcommand{\kruskal}{\textsc{Kruskal}}
+
+% --- Modelo de 4 etapas ---
+\newcommand{\generacion}{T_i^{\text{gen}}}     % Viajes generados en zona i
+\newcommand{\atraccion}{T_j^{\text{atr}}}      % Viajes atraídos en zona j
+\newcommand{\distribucion}{T_{ij}}             % Viajes distribuidos i→j
+\newcommand{\particion}{p_m}                   % Partición modal modo m
+
+% --- Índices de accesibilidad ---
+\newcommand{\accesibilidad}{A_i}               % Índice de accesibilidad zona i
+\newcommand{\impedancia}{f(c_{ij})}            % Función de impedancia
+
+% --- Vectores y matrices (heredado del Comands original) ---
+\newcommand{\beqhalf}{%
+  \noindent\begin{minipage}[c]{.5\linewidth}\begin{equation}}
+\newcommand{\eeqhalf}{\end{equation}\end{minipage}}
+\newcommand{\eqhalf}[1]{\beqhalf #1 \eeqhalf}
+
+
+% =============================================================================
+%  6. ENTORNO DE SUBECUACIONES ETIQUETADAS (heredado del Comands original)
+% =============================================================================
 
 \makeatletter
 \newenvironment{taggedsubequations}[1]
  {%
-  % \end{subequations} will advance `equation`
-  \addtocounter{equation}{-1}%
-  \begin{subequations}%
-  % set the current label
-  \def\@currentlabel{#1}%
-  % redefine \theequation
-  \renewcommand{\theequation}{#1\alph{equation}}%
+   \addtocounter{equation}{-1}%
+   \begin{subequations}%
+   \def\@currentlabel{#1}%
+   \renewcommand{\theequation}{#1\alph{equation}}%
  }
  {\end{subequations}}
-\makeatother %not \makeatletter
+\makeatother
 
 
+% =============================================================================
+%  7. COMANDOS DE UTILIDAD GENERAL
+% =============================================================================
 
+% Abreviaturas frecuentes en el texto
+\newcommand{\cdmx}{Ciudad de México}
+\newcommand{\zmvm}{Zona Metropolitana del Valle de México}
+\newcommand{\brt}{\textsc{brt}}             % Bus Rapid Transit
+\newcommand{\gis}{\textsc{gis}}             % Geographic Information System
+\newcommand{\gtfs}{\textsc{gtfs}}           % General Transit Feed Specification
+\newcommand{\api}{\textsc{api}}             % Application Programming Interface
+\newcommand{\geojson}{GeoJSON}
 
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "~/Documents/LaTeX/CUEDThesisPSnPDF/thesis"
-%%% End:
+% Nota al margen para revisión (solo en borrador — comentar antes de entregar)
+% Uso: \pendiente{Completar con datos de campo}
+\newcommand{\pendiente}[1]{%
+  \marginpar{\footnotesize\color{red}\textbf{[Pendiente:} #1\textbf{]}}%
+}
+
+% Resaltado de término definido por primera vez
+% Uso: \termino{fragmentación urbana}
+\newcommand{\termino}[1]{\textit{#1}}

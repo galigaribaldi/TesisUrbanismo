@@ -1,120 +1,193 @@
 % !TeX program = xelatex
-\documentclass[12pt,letterpaper,oneside]{book} % 12pt es el estándar de tesis UNAM
+% !TeX encoding = UTF-8
+\documentclass[12pt,letterpaper,oneside]{book}
 
-% --- PAQUETES DE FORMATO ---
-\usepackage[spanish,es-tabla]{babel}
-\usepackage{graphicx}
-\usepackage{setspace}
+% =============================================================================
+%  PAQUETES DE IDIOMA Y CODIFICACIÓN
+% =============================================================================
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+\usepackage{csquotes}          % Requerido por biblatex+babel; habilita \blockquote
+
+% =============================================================================
+%  PAQUETES DE FORMATO Y TIPOGRAFÍA
+% =============================================================================
+\usepackage{graphicx}          % Inclusión de imágenes
+\usepackage{setspace}          % Espaciado entre líneas
+\usepackage{microtype}         % Mejoras tipográficas automáticas (kerning, etc.)
+\usepackage{emptypage}         % Páginas en blanco realmente vacías (sin encabezado)
+
+% --- Geometría de página (márgenes estándar UNAM) ---
 \usepackage{geometry}
-\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm}
-\usepackage{fancyhdr} % Para encabezados y pies de página
-\usepackage{titlesec} % Para personalizar títulos de capítulos
-\usepackage{longtable}
-\usepackage{array}
+\geometry{
+  top    = 2.5cm,
+  bottom = 2.5cm,
+  left   = 3.0cm,
+  right  = 2.5cm
+}
 
-% --- PAQUETES MATEMÁTICOS (Para el modelo VFT) ---
+% =============================================================================
+%  PAQUETES DE ESTRUCTURA Y ESTILO
+% =============================================================================
+\usepackage{fancyhdr}          % Encabezados y pies de página personalizados
+\setlength{\headheight}{15pt}  % Evita warning de fancyhdr (mínimo recomendado: 14.5pt)
+\addtolength{\topmargin}{-2.5pt} % Compensa el aumento de headheight
+
+\usepackage{titlesec}          % Personalización de títulos de capítulos y secciones
+\usepackage{longtable}         % Tablas largas (usadas en portada y contenido)
+\usepackage{array}             % Columnas con tipo 'm{}' en tablas
+
+% =============================================================================
+%  PAQUETES MATEMÁTICOS
+% =============================================================================
 \usepackage{amsmath, amsfonts, amssymb}
-\usepackage{bm} % Para negritas en fórmulas
+\usepackage{bm}                % Negritas en fórmulas matemáticas
 
-% --- BIBLIOGRAFÍA (Estilo APA/UNAM) ---
-\usepackage[backend=biber,style=apa]{biblatex}
-% Comando para centrar verticalmente los logos
-\newcommand{\vcenteredinclude}[1]{\begingroup
-\setbox0=\hbox{\includegraphics[width=2.8cm,height=2.8cm,keepaspectratio]{#1}}%
-\parbox{\wd0}{\box0}\endgroup}
+% =============================================================================
+%  PAQUETES DE HIPERENLACES Y PDF
+% =============================================================================
+\usepackage[
+  hidelinks,                   % Sin recuadros de color en los enlaces
+  unicode,
+  pdftitle  = {Transportes Anillares y su Importancia en la CDMX y el Área Metropolitana},
+  pdfauthor = {Hernán Galileo Cabrera Garibaldi},
+  pdfsubject= {Tesis de Maestría en Urbanismo, UNAM}
+]{hyperref}
 
-\addbibresource{referencias.bib} % Aquí vivirán tus citas
+% =============================================================================
+%  BIBLIOGRAFÍA — biblatex + biber (estilo APA)
+% =============================================================================
+\usepackage[
+  backend  = biber,
+  style    = apa,
+  sortlocale = es_MX,          % Ordenamiento alfabético en español
+  uniquename = false,
+  uniquelist = false
+]{biblatex}
+\addbibresource{referencias.bib}
 
-% --- CONFIGURACIÓN DE ENCABEZADOS ---
+% =============================================================================
+%  COMANDOS PERSONALIZADOS
+% =============================================================================
+% Centrado vertical de logos en la portada
+\newcommand{\vcenteredinclude}[1]{%
+  \begingroup
+  \setbox0=\hbox{\includegraphics[width=2.8cm,height=2.8cm,keepaspectratio]{#1}}%
+  \parbox{\wd0}{\box0}%
+  \endgroup
+}
+
+% Carga de comandos adicionales (Comands.tex)
+\input{Latex/Comands}
+
+% =============================================================================
+%  CONFIGURACIÓN DE ENCABEZADOS (fancyhdr)
+% =============================================================================
 \pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\footnotesize \leftmark}
-\fancyhead[R]{\thepage}
+\fancyhf{}                          % Limpia encabezados y pies por defecto
+\fancyhead[L]{\footnotesize\leftmark}  % Nombre del capítulo a la izquierda
+\fancyhead[R]{\thepage}             % Número de página a la derecha
 \renewcommand{\headrulewidth}{0.4pt}
 
+% Estilo para páginas de inicio de capítulo (plain)
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% =============================================================================
+%  INICIO DEL DOCUMENTO
+% =============================================================================
 \begin{document}
 
-% --- PORTADA ---
+% ---------------------------------------------------------------------------
+%  PORTADA
+% ---------------------------------------------------------------------------
 \begin{titlepage}
+  \centering
+
+  % Encabezado con logos y nombre institucional
+  \begin{small}
+  \begin{longtable}{@{} m{0.25\textwidth} @{} m{0.50\textwidth} @{} m{0.25\textwidth} @{}}
+    \centering \vcenteredinclude{Logos/UNAM_crest_blue.pdf} &
     \centering
-    
-    % --- ENCABEZADO CON LOGOS ---
-    \begin{small}
-    \begin{longtable}{@{} m{0.25\textwidth} @{} m{0.50\textwidth} @{} m{0.25\textwidth} @{}}
-        % Logo UNAM Izquierda
-        \centering \vcenteredinclude{Logos/UNAM_crest_blue.pdf} & 
-        % Texto Central
-        \centering \textbf{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO} \\
-        \vspace{0.2cm}
-        \textbf{PROGRAMA DE MAESTRÍA Y DOCTORADO EN URBANISMO} \\
-        \vspace{0.1cm}
-        \textbf{FACULTAD DE ARQUITECTURA} & 
-        % Logo FES Derecha
-        \centering \vcenteredinclude{Logos/escudo-fes-azul.png}
-    \end{longtable}
-    \end{small}
-    
-    \vspace{0.5cm}
-    \rule{\textwidth}{1pt}
-    \vspace{1.2cm}
+      \textbf{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO} \\
+      \vspace{0.2cm}
+      \textbf{PROGRAMA DE MAESTRÍA Y DOCTORADO EN URBANISMO} \\
+      \vspace{0.1cm}
+      \textbf{FACULTAD DE ARQUITECTURA} &
+    \centering \vcenteredinclude{Logos/escudo-fes-azul.png}
+  \end{longtable}
+  \end{small}
 
-    % --- TÍTULO ---
-    {\Large \textbf{Transportes Anillares y su Importancia en la Ciudad de México y el Área Metropolitana}} \\
-    
-    \vspace{2.0cm}
-    
-    {\large \textbf{TESIS}} \\
-    \vspace{0.3cm}
-    {QUE PARA OPTAR POR EL GRADO DE:} \\
-    {\large \textbf{MAESTRO EN URBANISMO}} \\
-    
-    \vspace{1.5cm}
-    
-    {PRESENTA:} \\
-    {\large \textbf{Hernán Galileo Cabrera Garibaldi}} \\
-    
-    \vspace{1.5cm}
-    
-    {TUTOR:} \\
-    {\large \textbf{DR. DAVID LÓPEZ FLORES}} \\
-    
-    \vspace{1.2cm}
-    
-    {\small \textbf{MIEMBROS DEL COMITÉ TUTOR:}} \\
-    \vspace{0.3cm}
-    {\footnotesize 1. \rule{6cm}{0.4pt} \\ 2. \rule{6cm}{0.4pt} \\ 3. \rule{6cm}{0.4pt}} \\
+  \vspace{0.5cm}
+  \rule{\textwidth}{1pt}
+  \vspace{1.2cm}
 
-    \vfill
-    
-    \rule{0.7\textwidth}{0.4pt} \\
-    {\footnotesize UNIDAD DE POSGRADO DE LA FACULTAD DE ARQUITECTURA Y URBANISMO} \\
-    \vspace{0.4cm}
-    {Ciudad Universitaria, CDMX. \hfill 4 de febrero del 2026}
+  % Título
+  {\Large \textbf{Transportes Anillares y su Importancia en la Ciudad de México
+  y el Área Metropolitana}} \\
+
+  \vspace{2.0cm}
+
+  {\large \textbf{TESIS}} \\
+  \vspace{0.3cm}
+  {QUE PARA OPTAR POR EL GRADO DE:} \\
+  {\large \textbf{MAESTRO EN URBANISMO}} \\
+
+  \vspace{1.5cm}
+
+  {PRESENTA:} \\
+  {\large \textbf{Hernán Galileo Cabrera Garibaldi}} \\
+
+  \vspace{1.5cm}
+
+  {TUTOR:} \\
+  {\large \textbf{DR. DAVID LÓPEZ FLORES}} \\
+
+  \vspace{1.2cm}
+
+  {\small \textbf{MIEMBROS DEL COMITÉ TUTOR:}} \\
+  \vspace{0.3cm}
+  {\footnotesize
+    1.~\rule{6cm}{0.4pt} \\
+    2.~\rule{6cm}{0.4pt} \\
+    3.~\rule{6cm}{0.4pt}
+  } \\
+
+  \vfill
+
+  \rule{0.7\textwidth}{0.4pt} \\
+  {\footnotesize UNIDAD DE POSGRADO DE LA FACULTAD DE ARQUITECTURA Y URBANISMO} \\
+  \vspace{0.4cm}
+  {\footnotesize Ciudad Universitaria, CDMX. \hfill 4 de febrero del 2026}
 \end{titlepage}
 
-% --- PÁGINAS PRELIMINARES ---
+% ---------------------------------------------------------------------------
+%  PÁGINAS PRELIMINARES
+% ---------------------------------------------------------------------------
 \frontmatter
-\onehalfspacing % Espaciado 1.5
+\onehalfspacing          % Espaciado 1.5 para toda la tesis
 \tableofcontents
 \listoffigures
 
-%-------------------------------------------------------------------------------
-%                                MAIN MATTER
-%-------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------
+%  CUERPO PRINCIPAL
+% ---------------------------------------------------------------------------
 \mainmatter
 
 % Capítulo 1: Introducción
 \input{1-Introduccion/1-Introduccion}
 
-% Capítulo 2: Antecedentes
+% Capítulo 2: Antecedentes y Marco Teórico
 \input{2-MarcoTeorico/1-Antecedentes}
 
-% Capítulo 3: Conceptos e Indicadores (dividido por secciones)
+% Capítulo 3: Conceptos e Indicadores
 \input{3-Conceptos-Indicadores/3-1-Definiciones}
 \input{3-Conceptos-Indicadores/3-2-Grafos-Matematicas}
 \input{3-Conceptos-Indicadores/3-3-Indicadores-Formula}
 
-% Capítulo 4: Capas de Código
+% Capítulo 4: Arquitectura Computacional (Capas de Código)
 \input{4-Capas-Codigo/4-1-Apimetro}
 \input{4-Capas-Codigo/4-2-VFTModel}
 \input{4-Capas-Codigo/4-3-Visualizacion}
@@ -127,9 +200,10 @@
 
 % Capítulo 7: Conclusiones
 \input{7-Conclusiones/1-Conclusiones}
-% \input{1-Theory/1-Basics} % Descomenta cuando lo crees
 
-% --- BIBLIOGRAFÍA ---
+% ---------------------------------------------------------------------------
+%  BIBLIOGRAFÍA
+% ---------------------------------------------------------------------------
 \backmatter
 \printbibliography[title={Bibliografía}]
 

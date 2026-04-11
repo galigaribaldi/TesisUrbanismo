@@ -19,27 +19,18 @@
 
 \refsection{0}
   \datalist[entry]{apa/apasortcite//global/global}
-    \entry{aldous2019optimal}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=9662995a683a5829e6d1672b29c92203}{%
-           family={Aldous},
-           familyi={A\bibinitperiod},
-           given={David\bibnamedelima J},
-           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=1675b58cd3901f401ee7cd3cf3ee15a4}{%
-           family={Barthélemy},
-           familyi={B\bibinitperiod},
-           given={Marc},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
+    \entry{efe2023}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=54dc7d9dd139c45ba79a251e1aa30ea6}{%
+           family={{Agencia EFE}},
+           familyi={A\bibinitperiod}}}%
       }
-      \strng{namehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{fullhash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{bibnamehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{authorbibnamehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{authornamehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{authorfullhash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{namehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{fullhash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{bibnamehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{authorbibnamehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{authornamehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{authorfullhash}{54dc7d9dd139c45ba79a251e1aa30ea6}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
@@ -47,37 +38,368 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Physical Review E}
-      \field{number}{5}
-      \field{title}{The optimal geometry of transportation networks}
-      \field{volume}{99}
+      \field{howpublished}{SWI swissinfo.ch}
+      \field{month}{3}
+      \field{title}{Putin inaugura la {Gran Línea Circular} del metro de {Moscú}}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.swissinfo.ch/spa/putin-inaugura-la-gran-l%C3%ADnea-circular-del-metro-de-mosc%C3%BA/48325108
+      \endverb
+      \verb{url}
+      \verb https://www.swissinfo.ch/spa/putin-inaugura-la-gran-l%C3%ADnea-circular-del-metro-de-mosc%C3%BA/48325108
+      \endverb
+    \endentry
+    \entry{cano2002}{article}{}
+      \name{author}{1}{}{%
+        {{hash=02cba9b5a2c22536d50368d24f4a4c87}{%
+           family={Cano},
+           familyi={C\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{fullhash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{bibnamehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{authorbibnamehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{authornamehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{authorfullhash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Revista Ciencias}
+      \field{number}{70}
+      \field{title}{Vialidad y vialidades en la {Ciudad} de {México}: Un contexto para el segundo piso}
+      \field{year}{2002}
+      \verb{urlraw}
+      \verb https://www.revistacienciasunam.com/pt/83-revistas/revista-ciencias-70/690-vialidad-y-vialidades-en-la-ciudad-de-mexicoun-contexto-para-el-segundo-piso.html
+      \endverb
+      \verb{url}
+      \verb https://www.revistacienciasunam.com/pt/83-revistas/revista-ciencias-70/690-vialidad-y-vialidades-en-la-ciudad-de-mexicoun-contexto-para-el-segundo-piso.html
+      \endverb
+    \endentry
+    \entry{franco2022}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=b894f10686fe395afc448224a0f6c6a2}{%
+           family={Franco\bibnamedelimb de\bibnamedelimb los\bibnamedelima Reyes},
+           familyi={F\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim l\bibinitperiod\bibinitdelim R\bibinitperiod},
+           given={D.\bibnamedelimi A.},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Universidad Nacional Autónoma de México}%
+      }
+      \strng{namehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{fullhash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{bibnamehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{authorbibnamehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{authornamehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{authorfullhash}{b894f10686fe395afc448224a0f6c6a2}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Hacia la urbe motorizada: {La} adopción de la automovilidad en la {Ciudad} de {México}, 1903--1933}
+      \field{type}{Tesis doctoral}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://www.academia.edu/89422475/
+      \endverb
+      \verb{url}
+      \verb https://www.academia.edu/89422475/
+      \endverb
+    \endentry
+    \entry{garcia2019allroads}{article}{}
+      \name{author}{1}{}{%
+        {{hash=7a871cab6b2fa3c1d04a957ccc0710b7}{%
+           family={García-López},
+           familyi={G\bibinithyphendelim L\bibinitperiod},
+           given={Miquel-Àngel},
+           giveni={M\bibinithyphendelim À\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{fullhash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{bibnamehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{authorbibnamehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{authornamehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{authorfullhash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Regional Science and Urban Economics}
+      \field{title}{All roads lead to {Rome}{\ldots} and to sprawl? {Evidence} from {European} cities}
+      \field{volume}{79}
       \field{year}{2019}
-      \field{pages}{052303}
+      \field{pages}{103467}
       \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.regsciurbeco.2019.103467
+      \endverb
+    \endentry
+    \entry{jia2010}{article}{}
+      \name{author}{2}{}{%
+        {{hash=22b78ecbdff411dd79957da2b21b6b6c}{%
+           family={Jia},
+           familyi={J\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=afd6de30ce9fde696cfacd1c50bf1dd8}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Bin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{fullhash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{bibnamehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{authorbibnamehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{authornamehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{authorfullhash}{e861cda04ae2fe6aec91d5941074792e}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Geography}
+      \field{number}{3}
+      \field{title}{Measuring urban sprawl of metropolitan areas in {China}}
+      \field{volume}{30}
+      \field{year}{2010}
+      \field{pages}{374\bibrangedash 384}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.apgeog.2009.12.002
+      \endverb
+    \endentry
+    \entry{molinero2002}{book}{}
+      \name{author}{2}{}{%
+        {{hash=50d653d9dd4675da5f9fa46ff0462d55}{%
+           family={Molinero\bibnamedelima Molinero},
+           familyi={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Ángel},
+           giveni={Á\bibinitperiod}}}%
+        {{hash=b5ea7cb2da86c487e79e59f835b76945}{%
+           family={Sánchez\bibnamedelima Arellano},
+           familyi={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           given={Ignacio},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Fundación ICA}%
+      }
+      \strng{namehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{fullhash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{bibnamehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{authorbibnamehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{authornamehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{authorfullhash}{0054c8f3c4c50f514978c969dafadcca}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Transporte público: Planeación, diseño, operación y administración}
+      \field{year}{2002}
+    \endentry
+    \entry{obras2025}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=012cd2e619a18aea0ed194e90ddd5f63}{%
+           family={{Obras / Expansión}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{fullhash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{bibnamehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{authorbibnamehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{authornamehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{authorfullhash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Obras / Expansión}
+      \field{month}{1}
+      \field{title}{En la periferia de la {ZMVM} faltan opciones de transporte público}
+      \field{year}{2025}
+    \endentry
+    \entry{ortiz2007}{article}{}
+      \name{author}{2}{}{%
+        {{hash=94519277363b3609414cc9017ee938c2}{%
+           family={Ortiz-Chao},
+           familyi={O\bibinithyphendelim C\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d1ee793d6661aa997816a7e8d827760e}{%
+           family={Hillier},
+           familyi={H\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Istanbul Technical University}%
+      }
+      \strng{namehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{fullhash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{bibnamehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{authorbibnamehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{authornamehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{authorfullhash}{7c6d1c44d032435ec257676bf32fa8df}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the 6th International Space Syntax Symposium}
+      \field{title}{In search of patterns of land-use in Mexico City using logistic regression at the plot level}
+      \field{year}{2007}
+      \field{pages}{063-01\bibrangedash 063-17}
+      \range{pages}{-1}
+    \endentry
+    \entry{owais2020}{article}{}
+      \name{author}{4}{}{%
+        {{hash=48a1e38ed63a73d782e8e3f42cec0591}{%
+           family={Owais},
+           familyi={O\bibinitperiod},
+           given={Mahmoud},
+           giveni={M\bibinitperiod}}}%
+        {{hash=77aa7ed8191e75275e6b33ea77f0ff1f}{%
+           family={Ahmed},
+           familyi={A\bibinitperiod},
+           given={Aya\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=2d36f3676257b38e56eb9e8eef3b6f15}{%
+           family={Moussa},
+           familyi={M\bibinitperiod},
+           given={Ghada\bibnamedelima S.},
+           giveni={G\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=42f2de088aede249f32e2ae0720fdb0a}{%
+           family={Khalil},
+           familyi={K\bibinitperiod},
+           given={Ahmed\bibnamedelima A.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9598a9c5fd6a7c1b16bac3b09fdaf573}
+      \strng{fullhash}{7a2d9c8da33a829585821f3ba3186089}
+      \strng{bibnamehash}{7a2d9c8da33a829585821f3ba3186089}
+      \strng{authorbibnamehash}{7a2d9c8da33a829585821f3ba3186089}
+      \strng{authornamehash}{9598a9c5fd6a7c1b16bac3b09fdaf573}
+      \strng{authorfullhash}{7a2d9c8da33a829585821f3ba3186089}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sustainability}
+      \field{number}{22}
+      \field{title}{An optimal metro design for transit networks in existing square cities based on non-demand criterion}
+      \field{volume}{12}
+      \field{year}{2020}
+      \field{pages}{9566}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/su12229566
+      \endverb
+    \endentry
+    \entry{semovi2020diagnostico}{report}{}
+      \name{author}{1}{}{%
+        {{hash=74020e218f54d20a6f7945a04010dab2}{%
+           family={{Secretaría de Movilidad (SEMOVI)}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Gobierno de la Ciudad de México}%
+      }
+      \list{location}{1}{%
+        {Ciudad de México}%
+      }
+      \strng{namehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{fullhash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{bibnamehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{authorbibnamehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{authornamehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{authorfullhash}{74020e218f54d20a6f7945a04010dab2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Diagnóstico Técnico: Programa Integral de Movilidad de la {Ciudad} de {México} 2020--2024}
+      \field{type}{techreport}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://www.semovi.cdmx.gob.mx/
+      \endverb
+      \verb{url}
+      \verb https://www.semovi.cdmx.gob.mx/
+      \endverb
+    \endentry
+    \entry{suburbanrailloop2021}{report}{}
+      \name{author}{1}{}{%
+        {{hash=31c74dc8b256b538962e4aa67fe3b249}{%
+           family={{Suburban Rail Loop Authority}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Victoria State Government}%
+      }
+      \strng{namehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{fullhash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{bibnamehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{authorbibnamehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{authornamehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{authorfullhash}{31c74dc8b256b538962e4aa67fe3b249}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Suburban {Rail} {Loop}: Business and investment case key findings}
+      \field{type}{techreport}
+      \field{year}{2021}
     \endentry
   \enddatalist
   \datalist[entry]{apa/global//global/global}
-    \entry{aldous2019optimal}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=9662995a683a5829e6d1672b29c92203}{%
-           family={Aldous},
-           familyi={A\bibinitperiod},
-           given={David\bibnamedelima J},
-           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=1675b58cd3901f401ee7cd3cf3ee15a4}{%
-           family={Barthélemy},
-           familyi={B\bibinitperiod},
-           given={Marc},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
+    \entry{efe2023}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=54dc7d9dd139c45ba79a251e1aa30ea6}{%
+           family={{Agencia EFE}},
+           familyi={A\bibinitperiod}}}%
       }
-      \strng{namehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{fullhash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{bibnamehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{authorbibnamehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{authornamehash}{71043fe7796de30d35e0074d82a1be03}
-      \strng{authorfullhash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{namehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{fullhash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{bibnamehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{authorbibnamehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{authornamehash}{54dc7d9dd139c45ba79a251e1aa30ea6}
+      \strng{authorfullhash}{54dc7d9dd139c45ba79a251e1aa30ea6}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
@@ -85,13 +407,353 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Physical Review E}
-      \field{number}{5}
-      \field{title}{The optimal geometry of transportation networks}
-      \field{volume}{99}
+      \field{howpublished}{SWI swissinfo.ch}
+      \field{month}{3}
+      \field{title}{Putin inaugura la {Gran Línea Circular} del metro de {Moscú}}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.swissinfo.ch/spa/putin-inaugura-la-gran-l%C3%ADnea-circular-del-metro-de-mosc%C3%BA/48325108
+      \endverb
+      \verb{url}
+      \verb https://www.swissinfo.ch/spa/putin-inaugura-la-gran-l%C3%ADnea-circular-del-metro-de-mosc%C3%BA/48325108
+      \endverb
+    \endentry
+    \entry{cano2002}{article}{}
+      \name{author}{1}{}{%
+        {{hash=02cba9b5a2c22536d50368d24f4a4c87}{%
+           family={Cano},
+           familyi={C\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{fullhash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{bibnamehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{authorbibnamehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{authornamehash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \strng{authorfullhash}{02cba9b5a2c22536d50368d24f4a4c87}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Revista Ciencias}
+      \field{number}{70}
+      \field{title}{Vialidad y vialidades en la {Ciudad} de {México}: Un contexto para el segundo piso}
+      \field{year}{2002}
+      \verb{urlraw}
+      \verb https://www.revistacienciasunam.com/pt/83-revistas/revista-ciencias-70/690-vialidad-y-vialidades-en-la-ciudad-de-mexicoun-contexto-para-el-segundo-piso.html
+      \endverb
+      \verb{url}
+      \verb https://www.revistacienciasunam.com/pt/83-revistas/revista-ciencias-70/690-vialidad-y-vialidades-en-la-ciudad-de-mexicoun-contexto-para-el-segundo-piso.html
+      \endverb
+    \endentry
+    \entry{franco2022}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=b894f10686fe395afc448224a0f6c6a2}{%
+           family={Franco\bibnamedelimb de\bibnamedelimb los\bibnamedelima Reyes},
+           familyi={F\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim l\bibinitperiod\bibinitdelim R\bibinitperiod},
+           given={D.\bibnamedelimi A.},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Universidad Nacional Autónoma de México}%
+      }
+      \strng{namehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{fullhash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{bibnamehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{authorbibnamehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{authornamehash}{b894f10686fe395afc448224a0f6c6a2}
+      \strng{authorfullhash}{b894f10686fe395afc448224a0f6c6a2}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Hacia la urbe motorizada: {La} adopción de la automovilidad en la {Ciudad} de {México}, 1903--1933}
+      \field{type}{Tesis doctoral}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://www.academia.edu/89422475/
+      \endverb
+      \verb{url}
+      \verb https://www.academia.edu/89422475/
+      \endverb
+    \endentry
+    \entry{garcia2019allroads}{article}{}
+      \name{author}{1}{}{%
+        {{hash=7a871cab6b2fa3c1d04a957ccc0710b7}{%
+           family={García-López},
+           familyi={G\bibinithyphendelim L\bibinitperiod},
+           given={Miquel-Àngel},
+           giveni={M\bibinithyphendelim À\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{fullhash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{bibnamehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{authorbibnamehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{authornamehash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \strng{authorfullhash}{7a871cab6b2fa3c1d04a957ccc0710b7}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Regional Science and Urban Economics}
+      \field{title}{All roads lead to {Rome}{\ldots} and to sprawl? {Evidence} from {European} cities}
+      \field{volume}{79}
       \field{year}{2019}
-      \field{pages}{052303}
+      \field{pages}{103467}
       \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.regsciurbeco.2019.103467
+      \endverb
+    \endentry
+    \entry{jia2010}{article}{}
+      \name{author}{2}{}{%
+        {{hash=22b78ecbdff411dd79957da2b21b6b6c}{%
+           family={Jia},
+           familyi={J\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=afd6de30ce9fde696cfacd1c50bf1dd8}{%
+           family={Jiang},
+           familyi={J\bibinitperiod},
+           given={Bin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{fullhash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{bibnamehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{authorbibnamehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{authornamehash}{e861cda04ae2fe6aec91d5941074792e}
+      \strng{authorfullhash}{e861cda04ae2fe6aec91d5941074792e}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Geography}
+      \field{number}{3}
+      \field{title}{Measuring urban sprawl of metropolitan areas in {China}}
+      \field{volume}{30}
+      \field{year}{2010}
+      \field{pages}{374\bibrangedash 384}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.apgeog.2009.12.002
+      \endverb
+    \endentry
+    \entry{molinero2002}{book}{}
+      \name{author}{2}{}{%
+        {{hash=50d653d9dd4675da5f9fa46ff0462d55}{%
+           family={Molinero\bibnamedelima Molinero},
+           familyi={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Ángel},
+           giveni={Á\bibinitperiod}}}%
+        {{hash=b5ea7cb2da86c487e79e59f835b76945}{%
+           family={Sánchez\bibnamedelima Arellano},
+           familyi={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           given={Ignacio},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Fundación ICA}%
+      }
+      \strng{namehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{fullhash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{bibnamehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{authorbibnamehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{authornamehash}{0054c8f3c4c50f514978c969dafadcca}
+      \strng{authorfullhash}{0054c8f3c4c50f514978c969dafadcca}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Transporte público: Planeación, diseño, operación y administración}
+      \field{year}{2002}
+    \endentry
+    \entry{obras2025}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=012cd2e619a18aea0ed194e90ddd5f63}{%
+           family={{Obras / Expansión}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{fullhash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{bibnamehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{authorbibnamehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{authornamehash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \strng{authorfullhash}{012cd2e619a18aea0ed194e90ddd5f63}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Obras / Expansión}
+      \field{month}{1}
+      \field{title}{En la periferia de la {ZMVM} faltan opciones de transporte público}
+      \field{year}{2025}
+    \endentry
+    \entry{ortiz2007}{article}{}
+      \name{author}{2}{}{%
+        {{hash=94519277363b3609414cc9017ee938c2}{%
+           family={Ortiz-Chao},
+           familyi={O\bibinithyphendelim C\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d1ee793d6661aa997816a7e8d827760e}{%
+           family={Hillier},
+           familyi={H\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Istanbul Technical University}%
+      }
+      \strng{namehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{fullhash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{bibnamehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{authorbibnamehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{authornamehash}{7c6d1c44d032435ec257676bf32fa8df}
+      \strng{authorfullhash}{7c6d1c44d032435ec257676bf32fa8df}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the 6th International Space Syntax Symposium}
+      \field{title}{In search of patterns of land-use in Mexico City using logistic regression at the plot level}
+      \field{year}{2007}
+      \field{pages}{063-01\bibrangedash 063-17}
+      \range{pages}{-1}
+    \endentry
+    \entry{owais2020}{article}{}
+      \name{author}{4}{}{%
+        {{hash=48a1e38ed63a73d782e8e3f42cec0591}{%
+           family={Owais},
+           familyi={O\bibinitperiod},
+           given={Mahmoud},
+           giveni={M\bibinitperiod}}}%
+        {{hash=77aa7ed8191e75275e6b33ea77f0ff1f}{%
+           family={Ahmed},
+           familyi={A\bibinitperiod},
+           given={Aya\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=2d36f3676257b38e56eb9e8eef3b6f15}{%
+           family={Moussa},
+           familyi={M\bibinitperiod},
+           given={Ghada\bibnamedelima S.},
+           giveni={G\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=42f2de088aede249f32e2ae0720fdb0a}{%
+           family={Khalil},
+           familyi={K\bibinitperiod},
+           given={Ahmed\bibnamedelima A.},
+           giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9598a9c5fd6a7c1b16bac3b09fdaf573}
+      \strng{fullhash}{7a2d9c8da33a829585821f3ba3186089}
+      \strng{bibnamehash}{7a2d9c8da33a829585821f3ba3186089}
+      \strng{authorbibnamehash}{7a2d9c8da33a829585821f3ba3186089}
+      \strng{authornamehash}{9598a9c5fd6a7c1b16bac3b09fdaf573}
+      \strng{authorfullhash}{7a2d9c8da33a829585821f3ba3186089}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sustainability}
+      \field{number}{22}
+      \field{title}{An optimal metro design for transit networks in existing square cities based on non-demand criterion}
+      \field{volume}{12}
+      \field{year}{2020}
+      \field{pages}{9566}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/su12229566
+      \endverb
+    \endentry
+    \entry{semovi2020diagnostico}{report}{}
+      \name{author}{1}{}{%
+        {{hash=74020e218f54d20a6f7945a04010dab2}{%
+           family={{Secretaría de Movilidad (SEMOVI)}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Gobierno de la Ciudad de México}%
+      }
+      \list{location}{1}{%
+        {Ciudad de México}%
+      }
+      \strng{namehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{fullhash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{bibnamehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{authorbibnamehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{authornamehash}{74020e218f54d20a6f7945a04010dab2}
+      \strng{authorfullhash}{74020e218f54d20a6f7945a04010dab2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Diagnóstico Técnico: Programa Integral de Movilidad de la {Ciudad} de {México} 2020--2024}
+      \field{type}{techreport}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://www.semovi.cdmx.gob.mx/
+      \endverb
+      \verb{url}
+      \verb https://www.semovi.cdmx.gob.mx/
+      \endverb
+    \endentry
+    \entry{suburbanrailloop2021}{report}{}
+      \name{author}{1}{}{%
+        {{hash=31c74dc8b256b538962e4aa67fe3b249}{%
+           family={{Suburban Rail Loop Authority}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Victoria State Government}%
+      }
+      \strng{namehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{fullhash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{bibnamehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{authorbibnamehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{authornamehash}{31c74dc8b256b538962e4aa67fe3b249}
+      \strng{authorfullhash}{31c74dc8b256b538962e4aa67fe3b249}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Suburban {Rail} {Loop}: Business and investment case key findings}
+      \field{type}{techreport}
+      \field{year}{2021}
     \endentry
   \enddatalist
 \endrefsection
