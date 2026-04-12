@@ -1,19 +1,19 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'tesis.blg'
-[31] biber:340> INFO - === sáb abr 11, 2026, 11:51:43
+[31] biber:340> INFO - === sáb abr 11, 2026, 21:01:09
 [38] Biber.pm:419> INFO - Reading 'tesis.bcf'
-[76] Biber.pm:979> INFO - Found 21 citekeys in bib section 0
-[84] Biber.pm:4419> INFO - Processing section 0
-[89] Biber.pm:4610> INFO - Looking for bibtex file 'referencias.bib' for section 0
-[90] bibtex.pm:1713> INFO - LaTeX decoding ...
-[101] bibtex.pm:1519> INFO - Found BibTeX data source 'referencias.bib'
-[175] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[175] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'variable = shifted' with 'variable = non-ignorable'
-[175] Biber.pm:4239> INFO - Sorting list 'apa/apasortcite//global/global' of type 'entry' with template 'apa' and locale 'es_MX'
-[191] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'variable = shifted' with 'variable = non-ignorable'
-[191] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[192] Biber.pm:4239> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'es_MX'
-[202] bbl.pm:660> INFO - Writing 'tesis.bbl' with encoding 'UTF-8'
-[208] bbl.pm:763> INFO - Output to tesis.bbl
-[208] Biber.pm:131> WARN - Duplicate entry key: 'ugur2025' in file 'referencias.bib', skipping ...
-[208] Biber.pm:133> INFO - WARNINGS: 1
+[75] Biber.pm:979> INFO - Found 24 citekeys in bib section 0
+[83] Biber.pm:4419> INFO - Processing section 0
+[88] Biber.pm:4610> INFO - Looking for bibtex file 'referencias.bib' for section 0
+[89] bibtex.pm:1713> INFO - LaTeX decoding ...
+[100] bibtex.pm:1519> INFO - Found BibTeX data source 'referencias.bib'
+[169] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'variable = shifted' with 'variable = non-ignorable'
+[169] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[169] Biber.pm:4239> INFO - Sorting list 'apa/apasortcite//global/global' of type 'entry' with template 'apa' and locale 'es_MX'
+[188] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[188] UCollate.pm:68> INFO - Overriding locale 'es_MX' defaults 'variable = shifted' with 'variable = non-ignorable'
+[188] Biber.pm:4239> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'es_MX'
+[200] bbl.pm:660> INFO - Writing 'tesis.bbl' with encoding 'UTF-8'
+[206] bbl.pm:763> INFO - Output to tesis.bbl
+[206] Biber.pm:131> WARN - Duplicate entry key: 'ugur2025' in file 'referencias.bib', skipping ...
+[206] Biber.pm:133> INFO - WARNINGS: 1

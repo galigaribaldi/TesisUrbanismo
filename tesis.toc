@@ -45,3 +45,39 @@
 \contentsline {subsubsection}{Integración Multimodal y Conectividad a Nivel de Nodo}{29}{subsubsection*.19}%
 \contentsline {subsubsection}{Medición de la Conectividad de Parada y Penalización por Transbordo}{30}{subsubsection*.20}%
 \contentsline {subsubsection}{El Grafo Multimodal como Marco Formal de Evaluación}{30}{subsubsection*.21}%
+\contentsline {section}{\numberline {3.2}Indicadores de Análisis: Definición, Formulación y Aplicación al Caso de Estudio}{32}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Nivel de Cobertura de la Red de Transporte $C$}{33}{subsection.3.2.1}%
+\contentsline {subsubsection}{Definición y Fundamentación}{33}{subsubsection*.23}%
+\contentsline {subsubsection}{Fórmula}{33}{subsubsection*.24}%
+\contentsline {subsubsection}{Consideraciones de Implementación}{34}{subsubsection*.26}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{34}{subsubsection*.27}%
+\contentsline {subsection}{\numberline {3.2.2}Nivel de Alimentación Capilar --- Fuerza Nodal ($C_i$)}{35}{subsection.3.2.2}%
+\contentsline {subsubsection}{Definición y Fundamentación}{35}{subsubsection*.29}%
+\contentsline {subsubsection}{Fórmula}{36}{subsubsection*.30}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{37}{subsubsection*.32}%
+\contentsline {subsection}{\numberline {3.2.3}Índice de Ruta Directa --- \textit {Detour Factor} ($DI$)}{37}{subsection.3.2.3}%
+\contentsline {subsubsection}{Definición y Fundamentación}{37}{subsubsection*.34}%
+\contentsline {subsubsection}{Fórmula}{38}{subsubsection*.35}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{39}{subsubsection*.37}%
+\contentsline {subsection}{\numberline {3.2.4}Tiempo de Viaje Promedio ($T$)}{39}{subsection.3.2.4}%
+\contentsline {subsubsection}{Definición y Fundamentación}{39}{subsubsection*.39}%
+\contentsline {subsubsection}{Fórmula}{40}{subsubsection*.40}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{41}{subsubsection*.42}%
+\contentsline {subsection}{\numberline {3.2.5}Penalización por Transferencia ($W_{s,h}$)}{41}{subsection.3.2.5}%
+\contentsline {subsubsection}{Definición y Fundamentación}{42}{subsubsection*.44}%
+\contentsline {subsubsection}{Fórmulas}{42}{subsubsection*.45}%
+\contentsline {subsubsection}{Nota Metodológica sobre Fuentes de Datos}{43}{subsubsection*.47}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{43}{subsubsection*.48}%
+\contentsline {subsection}{\numberline {3.2.6}Coeficiente de Fricción Vial ($CF_h$)}{44}{subsection.3.2.6}%
+\contentsline {subsubsection}{Definición y Fundamentación}{44}{subsubsection*.50}%
+\contentsline {subsubsection}{Fórmula}{44}{subsubsection*.51}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{44}{subsubsection*.52}%
+\contentsline {subsection}{\numberline {3.2.7}Centralidad de Intermediación ($B(v)$)}{45}{subsection.3.2.7}%
+\contentsline {subsubsection}{Definición y Fundamentación}{45}{subsubsection*.54}%
+\contentsline {subsubsection}{Fórmula}{45}{subsubsection*.55}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{46}{subsubsection*.57}%
+\contentsline {subsection}{\numberline {3.2.8}Robustez Geométrica --- Vulnerabilidad ($\Delta E$)}{47}{subsection.3.2.8}%
+\contentsline {subsubsection}{Definición y Fundamentación}{47}{subsubsection*.59}%
+\contentsline {subsubsection}{Fórmula}{47}{subsubsection*.60}%
+\contentsline {subsubsection}{Ejemplo Práctico: Ciudad de México{} y Zona Metropolitana}{48}{subsubsection*.62}%
+\contentsline {subsection}{\numberline {3.2.9}Resumen de Indicadores y Fases de Construcción}{49}{subsection.3.2.9}%

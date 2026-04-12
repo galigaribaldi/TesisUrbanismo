@@ -49,6 +49,72 @@
       \verb https://www.swissinfo.ch/spa/putin-inaugura-la-gran-l%C3%ADnea-circular-del-metro-de-mosc%C3%BA/48325108
       \endverb
     \endentry
+    \entry{aldous2019optimal}{article}{}
+      \name{author}{2}{}{%
+        {{hash=9662995a683a5829e6d1672b29c92203}{%
+           family={Aldous},
+           familyi={A\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=1675b58cd3901f401ee7cd3cf3ee15a4}{%
+           family={Barthélemy},
+           familyi={B\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{fullhash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{bibnamehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{authorbibnamehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{authornamehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{authorfullhash}{71043fe7796de30d35e0074d82a1be03}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review E}
+      \field{number}{5}
+      \field{title}{The optimal geometry of transportation networks}
+      \field{volume}{99}
+      \field{year}{2019}
+      \field{pages}{052303}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevE.99.052303
+      \endverb
+    \endentry
+    \entry{allauca2023}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dc623a5c8ba0cde8849c748c4dc2b299}{%
+           family={Allauca\bibnamedelima Melena},
+           familyi={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Juan\bibnamedelima Eduardo},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{fullhash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{bibnamehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{authorbibnamehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{authornamehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{authorfullhash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Revista CINTE}
+      \field{number}{1}
+      \field{title}{Aplicación de la teoría de grafos en la optimización de redes de transporte}
+      \field{volume}{1}
+      \field{year}{2023}
+      \field{pages}{1\bibrangedash 15}
+      \range{pages}{15}
+    \endentry
     \entry{biblioteca1935}{book}{}
       \name{author}{1}{}{%
         {{hash=085ba34650c995cfe9a115af9c1c5aaf}{%
@@ -284,6 +350,53 @@
       \range{pages}{11}
       \verb{doi}
       \verb 10.1016/j.apgeog.2009.12.002
+      \endverb
+    \endentry
+    \entry{lee2008}{article}{}
+      \name{author}{4}{}{%
+        {{hash=da107a14392dfdec7859066f89bbc80a}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Keumsook},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5fff87ce7efefdb14346c8eb16ac767c}{%
+           family={Jung},
+           familyi={J\bibinitperiod},
+           given={Woo-Sung},
+           giveni={W\bibinithyphendelim S\bibinitperiod}}}%
+        {{hash=48dcc29a34dce2d495eaef932dc63c5b}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Jong\bibnamedelima S.},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=e5510c051ea667f265108a4028c59ef3}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={M.\bibnamedelimi Y.},
+           giveni={M\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{e291589f52d760d37b61a02077fef91e}
+      \strng{fullhash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \strng{bibnamehash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \strng{authorbibnamehash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \strng{authornamehash}{e291589f52d760d37b61a02077fef91e}
+      \strng{authorfullhash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physica A: Statistical Mechanics and its Applications}
+      \field{number}{24}
+      \field{title}{Statistical analysis of the {Metropolitan Seoul Subway System}: Network structure and passenger flows}
+      \field{volume}{387}
+      \field{year}{2008}
+      \field{pages}{6231\bibrangedash 6234}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1016/j.physa.2008.06.035
       \endverb
     \endentry
     \entry{loterovélez2014}{article}{}
@@ -745,6 +858,72 @@
       \verb https://www.swissinfo.ch/spa/putin-inaugura-la-gran-l%C3%ADnea-circular-del-metro-de-mosc%C3%BA/48325108
       \endverb
     \endentry
+    \entry{aldous2019optimal}{article}{}
+      \name{author}{2}{}{%
+        {{hash=9662995a683a5829e6d1672b29c92203}{%
+           family={Aldous},
+           familyi={A\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=1675b58cd3901f401ee7cd3cf3ee15a4}{%
+           family={Barthélemy},
+           familyi={B\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{fullhash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{bibnamehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{authorbibnamehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{authornamehash}{71043fe7796de30d35e0074d82a1be03}
+      \strng{authorfullhash}{71043fe7796de30d35e0074d82a1be03}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physical Review E}
+      \field{number}{5}
+      \field{title}{The optimal geometry of transportation networks}
+      \field{volume}{99}
+      \field{year}{2019}
+      \field{pages}{052303}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevE.99.052303
+      \endverb
+    \endentry
+    \entry{allauca2023}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dc623a5c8ba0cde8849c748c4dc2b299}{%
+           family={Allauca\bibnamedelima Melena},
+           familyi={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Juan\bibnamedelima Eduardo},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{fullhash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{bibnamehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{authorbibnamehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{authornamehash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \strng{authorfullhash}{dc623a5c8ba0cde8849c748c4dc2b299}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Revista CINTE}
+      \field{number}{1}
+      \field{title}{Aplicación de la teoría de grafos en la optimización de redes de transporte}
+      \field{volume}{1}
+      \field{year}{2023}
+      \field{pages}{1\bibrangedash 15}
+      \range{pages}{15}
+    \endentry
     \entry{biblioteca1935}{book}{}
       \name{author}{1}{}{%
         {{hash=085ba34650c995cfe9a115af9c1c5aaf}{%
@@ -980,6 +1159,53 @@
       \range{pages}{11}
       \verb{doi}
       \verb 10.1016/j.apgeog.2009.12.002
+      \endverb
+    \endentry
+    \entry{lee2008}{article}{}
+      \name{author}{4}{}{%
+        {{hash=da107a14392dfdec7859066f89bbc80a}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Keumsook},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5fff87ce7efefdb14346c8eb16ac767c}{%
+           family={Jung},
+           familyi={J\bibinitperiod},
+           given={Woo-Sung},
+           giveni={W\bibinithyphendelim S\bibinitperiod}}}%
+        {{hash=48dcc29a34dce2d495eaef932dc63c5b}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Jong\bibnamedelima S.},
+           giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=e5510c051ea667f265108a4028c59ef3}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={M.\bibnamedelimi Y.},
+           giveni={M\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{e291589f52d760d37b61a02077fef91e}
+      \strng{fullhash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \strng{bibnamehash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \strng{authorbibnamehash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \strng{authornamehash}{e291589f52d760d37b61a02077fef91e}
+      \strng{authorfullhash}{62c4aebf2d8cff6c06aa02a67bbad222}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Physica A: Statistical Mechanics and its Applications}
+      \field{number}{24}
+      \field{title}{Statistical analysis of the {Metropolitan Seoul Subway System}: Network structure and passenger flows}
+      \field{volume}{387}
+      \field{year}{2008}
+      \field{pages}{6231\bibrangedash 6234}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1016/j.physa.2008.06.035
       \endverb
     \endentry
     \entry{loterovélez2014}{article}{}

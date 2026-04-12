@@ -11,3 +11,10 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Estructura relacional de archivos \textsc {gtfs}{}}}{26}{figure.caption.14}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Indices de Grafos \textsc {gtfs}{}}}{29}{figure.caption.18}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Índice de Conectividad Simplificado en la línea M7 de Estambul}}{32}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Diagrama del indicador de Cobertura $C$}}{34}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Diagrama del indicador de Alimentación Capilar $C_i$}}{36}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Diagrama del \textit {Detour Factor} $DI$}}{38}{figure.caption.36}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Diagrama del indicador de Tiempo de Viaje Promedio $T$}}{41}{figure.caption.41}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Diagrama del indicador de Penalización por Transferencia $W_{s,h}$}}{43}{figure.caption.46}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Diagrama de Centralidad de Intermediación $B(v)$}}{46}{figure.caption.56}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Diagrama del indicador de Robustez Geométrica $\Delta E$}}{48}{figure.caption.61}%

@@ -3,92 +3,95 @@
 \documentclass[12pt,letterpaper,oneside]{book}
 
 % =============================================================================
-%  PAQUETES DE IDIOMA Y CODIFICACIÓN
+%  1. IDIOMA Y CODIFICACIÓN
+%  babel debe ir primero: establece el idioma que todos los demás consultan
 % =============================================================================
 \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
 \usepackage{csquotes}          % Requerido por biblatex+babel; habilita \blockquote
 
 % =============================================================================
-%  PAQUETES DE FORMATO Y TIPOGRAFÍA
+%  2. TIPOGRAFÍA Y LAYOUT BASE
 % =============================================================================
-\usepackage{graphicx}          % Inclusión de imágenes
-\usepackage{setspace}          % Espaciado entre líneas
-\usepackage{microtype}         % Mejoras tipográficas automáticas (kerning, etc.)
-\usepackage{emptypage}         % Páginas en blanco realmente vacías (sin encabezado)
-
-% --- Geometría de página (márgenes estándar UNAM) ---
 \usepackage{geometry}
-\geometry{
-  top    = 2.5cm,
-  bottom = 2.5cm,
-  left   = 3.0cm,
-  right  = 2.5cm
-}
+\geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm}
+\usepackage{setspace}
+\usepackage{emptypage}
+\usepackage{microtype}         % Con XeLaTeX solo activa tracking; es normal
 
 % =============================================================================
-%  PAQUETES DE ESTRUCTURA Y ESTILO
+%  3. GRÁFICOS
 % =============================================================================
-\usepackage{fancyhdr}          % Encabezados y pies de página personalizados
-\setlength{\headheight}{15pt}  % Evita warning de fancyhdr (mínimo recomendado: 14.5pt)
-\addtolength{\topmargin}{-2.5pt} % Compensa el aumento de headheight
-
-\usepackage{titlesec}          % Personalización de títulos de capítulos y secciones
-\usepackage{longtable}         % Tablas largas (usadas en portada y contenido)
-\usepackage{array}             % Columnas con tipo 'm{}' en tablas
+\usepackage{graphicx}
 
 % =============================================================================
-%  PAQUETES MATEMÁTICOS
+%  4. MATEMÁTICAS
+%  amsmath debe ir antes de hyperref: redefine internals que hyperref parchea
 % =============================================================================
 \usepackage{amsmath, amsfonts, amssymb}
-\usepackage{bm}                % Negritas en fórmulas matemáticas
+\usepackage{bm}
 
 % =============================================================================
-%  PAQUETES DE HIPERENLACES Y PDF
+%  5. ENCABEZADOS
 % =============================================================================
-\usepackage[
-  hidelinks,                   % Sin recuadros de color en los enlaces
-  unicode,
-  pdftitle  = {Transportes Anillares y su Importancia en la CDMX y el Área Metropolitana},
-  pdfauthor = {Hernán Galileo Cabrera Garibaldi},
-  pdfsubject= {Tesis de Maestría en Urbanismo, UNAM}
-]{hyperref}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\addtolength{\topmargin}{-2.5pt}
 
 % =============================================================================
-%  BIBLIOGRAFÍA — biblatex + biber (estilo APA)
+%  6. TÍTULOS DE CAPÍTULO
+%  titlesec DEBE ir antes de hyperref.
+%  bookmark corrige los bookmarks PDF que titlesec rompe.
+% =============================================================================
+\usepackage{titlesec}
+\usepackage{bookmark}
+
+% =============================================================================
+%  7. BIBLIOGRAFÍA
+%  biblatex DEBE ir antes de hyperref
 % =============================================================================
 \usepackage[
-  backend  = biber,
-  style    = apa,
-  sortlocale = es_MX,          % Ordenamiento alfabético en español
+  backend    = biber,
+  style      = apa,
+  sortlocale = es_MX,
   uniquename = false,
   uniquelist = false
 ]{biblatex}
 \addbibresource{referencias.bib}
 
 % =============================================================================
-%  COMANDOS PERSONALIZADOS
+%  8. COMANDOS Y PAQUETES ADICIONALES
+%  Carga tablas, figuras, código, TikZ, colores y todos los \newcommand
 % =============================================================================
-% Centrado vertical de logos en la portada
-\newcommand{\vcenteredinclude}[1]{%
-  \begingroup
-  \setbox0=\hbox{\includegraphics[width=2.8cm,height=2.8cm,keepaspectratio]{#1}}%
-  \parbox{\wd0}{\box0}%
-  \endgroup
-}
-
-% Carga de comandos adicionales (Comands.tex)
 \input{Latex/Comands}
+
+% =============================================================================
+%  9. HIPERVÍNCULOS Y PDF
+%  hyperref VA AL FINAL del preámbulo; unamAzul ya está definido en Comands.tex
+% =============================================================================
+\usepackage{hyperref}
+\hypersetup{
+    pdftitle   = {Transportes Anillares y su Importancia en la Ciudad de Mexico},
+    pdfauthor  = {Hernan Galileo Cabrera Garibaldi},
+    pdfsubject = {Tesis de Maestria en Urbanismo, UNAM},
+    pdfcreator = {XeLaTeX + biblatex/biber},
+    colorlinks = true,
+    linkcolor  = unamAzul,
+    citecolor  = unamAzul,
+    urlcolor   = unamAzul,
+    breaklinks = true,
+    unicode    = true,
+    pdfencoding= auto
+}
 
 % =============================================================================
 %  CONFIGURACIÓN DE ENCABEZADOS (fancyhdr)
 % =============================================================================
 \pagestyle{fancy}
-\fancyhf{}                          % Limpia encabezados y pies por defecto
-\fancyhead[L]{\footnotesize\leftmark}  % Nombre del capítulo a la izquierda
-\fancyhead[R]{\thepage}             % Número de página a la derecha
+\fancyhf{}
+\fancyhead[L]{\footnotesize\leftmark}
+\fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
-% Estilo para páginas de inicio de capítulo (plain)
 \fancypagestyle{plain}{
   \fancyhf{}
   \fancyfoot[C]{\thepage}
@@ -106,7 +109,6 @@
 \begin{titlepage}
   \centering
 
-  % Encabezado con logos y nombre institucional
   \begin{small}
   \begin{longtable}{@{} m{0.25\textwidth} @{} m{0.50\textwidth} @{} m{0.25\textwidth} @{}}
     \centering \vcenteredinclude{Logos/UNAM_crest_blue.pdf} &
@@ -124,7 +126,6 @@
   \rule{\textwidth}{1pt}
   \vspace{1.2cm}
 
-  % Título
   {\Large \textbf{Transportes Anillares y su Importancia en la Ciudad de México
   y el Área Metropolitana}} \\
 
@@ -167,7 +168,7 @@
 %  PÁGINAS PRELIMINARES
 % ---------------------------------------------------------------------------
 \frontmatter
-\onehalfspacing          % Espaciado 1.5 para toda la tesis
+\onehalfspacing
 \tableofcontents
 \listoffigures
 
@@ -176,29 +177,16 @@
 % ---------------------------------------------------------------------------
 \mainmatter
 
-% Capítulo 1: Introducción
 \input{1-Introduccion/1-Introduccion}
-
-% Capítulo 2: Antecedentes y Marco Teórico
 \input{2-MarcoTeorico/1-Antecedentes}
-
-% Capítulo 3: Conceptos e Indicadores
 \input{3-Conceptos-Indicadores/3-1-Definiciones}
 \input{3-Conceptos-Indicadores/3-2-Grafos-Matematicas}
 \input{3-Conceptos-Indicadores/3-3-Indicadores-Formula}
-
-% Capítulo 4: Arquitectura Computacional (Capas de Código)
 \input{4-Capas-Codigo/4-1-Apimetro}
 \input{4-Capas-Codigo/4-2-VFTModel}
 \input{4-Capas-Codigo/4-3-Visualizacion}
-
-% Capítulo 5: Resultados
 \input{5-Resultados/1-Resultados}
-
-% Capítulo 6: Análisis Socio-Espacial
 \input{6-Analisis-SocioEspacial/1-Analisis}
-
-% Capítulo 7: Conclusiones
 \input{7-Conclusiones/1-Conclusiones}
 
 % ---------------------------------------------------------------------------

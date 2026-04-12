@@ -1,35 +1,46 @@
 % =============================================================================
-%  Comands.tex — Comandos y paquetes personalizados
+%  Comands.tex — Paquetes adicionales y comandos personalizados
 %  Tesis: Transportes Anillares y su Importancia en la CDMX
 %  Hernán Galileo Cabrera Garibaldi, UNAM 2026
 %
 %  NOTA: Este archivo se carga desde tesis.tex mediante \input{Latex/Comands}
-%        DESPUÉS de haber declarado todos los paquetes base. No usar
-%        \documentclass ni \begin{document} aquí.
+%        DESPUÉS de los paquetes base y ANTES de \usepackage{hyperref}.
+%        No incluir \documentclass ni \begin{document} aquí.
 % =============================================================================
 
 
 % =============================================================================
-%  1. PAQUETES ADICIONALES
+%  1. TABLAS
 % =============================================================================
+\usepackage{longtable}         % Tablas que abarcan varias páginas (portada, anexos)
+\usepackage{array}             % Extensiones de columnas en tabular
+\usepackage{booktabs}          % Líneas profesionales: \toprule, \midrule, \bottomrule
+\usepackage{tabularx}          % Columna X de ancho ajustable
+\usepackage{multirow}          % Celdas que abarcan múltiples filas
 
-% --- Figuras y subfiguras ---
+
+% =============================================================================
+%  2. FIGURAS Y SUBFIGURAS
+%  caption DEBE cargarse antes de hyperref; subcaption depende de caption
+% =============================================================================
 \usepackage{caption}           % Control fino de pies de figura y tabla
 \usepackage{subcaption}        % Subfiguras (a), (b), (c)...
 \usepackage{float}             % Opción [H] para fijar figuras en su lugar
-\usepackage{wrapfig}           % Figuras con texto envolvente (útil en mapas pequeños)
+\usepackage{wrapfig}           % Figuras con texto envolvente
 
-% --- Tablas ---
-\usepackage{booktabs}          % Líneas profesionales: \toprule, \midrule, \bottomrule
-\usepackage{tabularx}          % Tablas con columna X de ancho ajustable
-\usepackage{multirow}          % Celdas que abarcan múltiples filas
 
-% --- Código fuente (Go, Python, SQL, JSON) ---
+% =============================================================================
+%  3. CÓDIGO FUENTE
+%  listings debe cargarse antes de hyperref
+% =============================================================================
+\usepackage{xcolor}            % Colores personalizados (también usado por TikZ)
 \usepackage{listings}          % Bloques de código con resaltado de sintaxis
-\usepackage{xcolor}            % Colores personalizados para el resaltado
 
-% --- Diagramas y gráficos vectoriales ---
-\usepackage{tikz}              % Diagramas vectoriales (grafos, esquemas de red)
+
+% =============================================================================
+%  4. DIAGRAMAS Y GRÁFICOS VECTORIALES
+% =============================================================================
+\usepackage{tikz}
 \usetikzlibrary{
   arrows.meta,                 % Puntas de flecha modernas
   positioning,                 % Posicionamiento relativo de nodos
@@ -38,23 +49,26 @@
   backgrounds,                 % Capas de fondo en diagramas
   calc                         % Cálculos de coordenadas
 }
-\usepackage{pgfplots}          % Gráficas de datos (barras, líneas, dispersión)
+\usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-
-% --- Animaciones (GIFs exportados como PDF animado) ---
-\usepackage{animate}
 
 
 % =============================================================================
-%  2. CONFIGURACIÓN DE COLORES INSTITUCIONALES
+%  5. ANIMACIONES
+% =============================================================================
+\usepackage[xetex]{animate}    % GIFs exportados como PDF animado (driver XeLaTeX)
+
+
+% =============================================================================
+%  6. COLORES INSTITUCIONALES Y DE TRANSPORTE
 % =============================================================================
 
 % Paleta UNAM
-\definecolor{unamAzul}    {RGB}{0,  56, 147}   % Azul UNAM oficial
-\definecolor{unamOro}     {RGB}{244,180,  0}   % Oro/amarillo UNAM
-\definecolor{unamGrisClaro}{RGB}{240,240,240}  % Fondo gris claro para tablas
+\definecolor{unamAzul}     {RGB}{  0,  56, 147}  % Azul UNAM oficial
+\definecolor{unamOro}      {RGB}{244, 180,   0}  % Oro/amarillo UNAM oficial
+\definecolor{unamGrisClaro}{RGB}{240, 240, 240}  % Fondo gris claro para tablas
 
-% Paleta de transporte (para mapas y diagramas de red)
+% Paleta de transporte (mapas y diagramas de red)
 \definecolor{colorMetro}    {RGB}{ 30, 136, 229}  % Azul metro
 \definecolor{colorMetrobus} {RGB}{229,  57,  53}  % Rojo Metrobús
 \definecolor{colorCablebus} {RGB}{ 67, 160,  71}  % Verde Cablebús
@@ -62,39 +76,39 @@
 \definecolor{colorPropuesto} {RGB}{142,  36, 170} % Morado corredor propuesto
 
 % Paleta para código fuente
-\definecolor{codeGray}   {RGB}{245,245,245}
-\definecolor{codeComment}{RGB}{117,117,117}
-\definecolor{codeKeyword}{RGB}{  0, 98, 179}
-\definecolor{codeString} {RGB}{183, 28,  28}
-\definecolor{codeNumber} {RGB}{ 46,125,  50}
+\definecolor{codeGray}   {RGB}{245, 245, 245}
+\definecolor{codeComment}{RGB}{117, 117, 117}
+\definecolor{codeKeyword}{RGB}{  0,  98, 179}
+\definecolor{codeString} {RGB}{183,  28,  28}
+\definecolor{codeNumber} {RGB}{ 46, 125,  50}
 
 
 % =============================================================================
-%  3. CONFIGURACIÓN DE BLOQUES DE CÓDIGO (listings)
+%  7. CONFIGURACIÓN DE BLOQUES DE CÓDIGO (listings)
 % =============================================================================
 
 % --- Estilo base compartido ---
 \lstdefinestyle{estiloBase}{
-  backgroundcolor = \color{codeGray},
-  basicstyle      = \ttfamily\small,
-  breaklines      = true,
-  breakatwhitespace = true,
-  frame           = single,
-  framerule       = 0.4pt,
-  rulecolor       = \color{gray!50},
-  numbers         = left,
-  numberstyle     = \tiny\color{gray},
-  numbersep       = 8pt,
-  showstringspaces= false,
-  tabsize         = 4,
-  captionpos      = b,
-  keepspaces      = true,
-  commentstyle    = \color{codeComment}\itshape,
-  stringstyle     = \color{codeString},
-  keywordstyle    = \color{codeKeyword}\bfseries,
+  backgroundcolor  = \color{codeGray},
+  basicstyle       = \ttfamily\small,
+  breaklines       = true,
+  breakatwhitespace= true,
+  frame            = single,
+  framerule        = 0.4pt,
+  rulecolor        = \color{gray!50},
+  numbers          = left,
+  numberstyle      = \tiny\color{gray},
+  numbersep        = 8pt,
+  showstringspaces = false,
+  tabsize          = 4,
+  captionpos       = b,
+  keepspaces       = true,
+  commentstyle     = \color{codeComment}\itshape,
+  stringstyle      = \color{codeString},
+  keywordstyle     = \color{codeKeyword}\bfseries,
 }
 
-% --- Go (Golang) — para Apimetro / backend ---
+% --- Go (Golang) ---
 \lstdefinelanguage{Go}{
   morekeywords = {
     func, package, import, var, const, type, struct, interface,
@@ -102,29 +116,16 @@
     go, chan, select, map, make, new, nil, true, false,
     string, int, int64, float64, bool, byte, error
   },
-  sensitive    = true,
-  morecomment  = [l]{//},
-  morecomment  = [s]{/*}{*/},
-  morestring   = [b]",
-  morestring   = [b]`,
+  sensitive   = true,
+  morecomment = [l]{//},
+  morecomment = [s]{/*}{*/},
+  morestring  = [b]",
+  morestring  = [b]`,
 }
 
-\lstdefinestyle{estiloGo}{
-  style    = estiloBase,
-  language = Go,
-}
-
-% --- Python — para análisis de grafos / GeoPandas ---
-\lstdefinestyle{estiloPython}{
-  style    = estiloBase,
-  language = Python,
-}
-
-% --- SQL / PostGIS ---
-\lstdefinestyle{estiloSQL}{
-  style    = estiloBase,
-  language = SQL,
-}
+\lstdefinestyle{estiloGo}    {style=estiloBase, language=Go}
+\lstdefinestyle{estiloPython}{style=estiloBase, language=Python}
+\lstdefinestyle{estiloSQL}   {style=estiloBase, language=SQL}
 
 % --- GeoJSON / JSON ---
 \lstdefinelanguage{JSON}{
@@ -132,11 +133,7 @@
   morekeywords = {true, false, null},
   sensitive    = false,
 }
-
-\lstdefinestyle{estiloJSON}{
-  style    = estiloBase,
-  language = JSON,
-}
+\lstdefinestyle{estiloJSON}{style=estiloBase, language=JSON}
 
 % Etiqueta por defecto para todos los listings
 \renewcommand{\lstlistingname}{Código}
@@ -144,31 +141,44 @@
 
 
 % =============================================================================
-%  4. CONFIGURACIÓN DE FIGURAS Y SUBFIGURAS
+%  8. CONFIGURACIÓN DE FIGURAS Y SUBFIGURAS
 % =============================================================================
 
-% Subfiguras con etiqueta (a), (b), (c)... en lugar de (a (por el Comands original)
+% Subfiguras con etiqueta (a), (b), (c)...
 \renewcommand*{\thesubfigure}{(\alph{subfigure})}
 
 % Estilo de pies de figura: fuente pequeña, etiqueta en negrita
 \captionsetup{
-  font       = small,
-  labelfont  = bf,
-  labelsep   = period,
-  justification = raggedright,
+  font            = small,
+  labelfont       = bf,
+  labelsep        = period,
+  justification   = raggedright,
   singlelinecheck = false
-}
-
-% Comando abreviado para fuente de figura
-% Uso: \fuentefigura{García-López (2019, p.~3).}
-\newcommand{\fuentefigura}[1]{%
-  \par\vspace{2pt}%
-  {\small\textit{Fuente: #1}}%
 }
 
 
 % =============================================================================
-%  5. COMANDOS MATEMÁTICOS — Modelo de Transporte y Teoría de Grafos
+%  9. COMANDOS DE PRESENTACIÓN
+% =============================================================================
+
+% Centrado vertical de logos (portada)
+% Uso: \vcenteredinclude{Logos/UNAM_crest_blue.pdf}
+\newcommand{\vcenteredinclude}[1]{%
+  \begingroup
+  \setbox0=\hbox{\includegraphics[width=2.8cm,height=2.8cm,keepaspectratio]{#1}}%
+  \parbox{\wd0}{\box0}%
+  \endgroup
+}
+
+% Fuente de figura debajo del pie
+% Uso: \fuentefigura{Elaboración propia con base en \textcite{garcia2019}.}
+\newcommand{\fuentefigura}[1]{%
+  \par\vspace{2pt}{\small\textit{Fuente: #1}}%
+}
+
+
+% =============================================================================
+%  10. COMANDOS MATEMÁTICOS — Teoría de Grafos y Modelo de Transporte
 % =============================================================================
 
 % --- Notación de grafos ---
@@ -180,13 +190,13 @@
 \newcommand{\peso}[2]{w_{#1#2}}           % Peso de arista: \peso{i}{j}
 \newcommand{\costo}[2]{c_{#1#2}}          % Costo total: \costo{i}{j}
 
-% --- Función de costo total (modelo ponderado) ---
-% Uso: \costototal{i}{j} genera c_{ij} = d_{ij} + \alpha·a_{ij} + \beta·\delta_{ij}
+% Función de costo total ponderado
+% Uso: \costototal{i}{j}
 \newcommand{\costototal}[2]{%
   c_{#1#2} = d_{#1#2} + \alpha \cdot a_{#1#2} + \beta \cdot \delta_{#1#2}%
 }
 
-% --- Notación de caminos mínimos ---
+% --- Algoritmos de caminos mínimos ---
 \newcommand{\dijkstra}{\textsc{Dijkstra}}
 \newcommand{\floyd}{\textsc{Floyd-Warshall}}
 \newcommand{\kruskal}{\textsc{Kruskal}}
@@ -198,10 +208,10 @@
 \newcommand{\particion}{p_m}                   % Partición modal modo m
 
 % --- Índices de accesibilidad ---
-\newcommand{\accesibilidad}{A_i}               % Índice de accesibilidad zona i
-\newcommand{\impedancia}{f(c_{ij})}            % Función de impedancia
+\newcommand{\accesibilidad}{A_i}
+\newcommand{\impedancia}{f(c_{ij})}
 
-% --- Vectores y matrices (heredado del Comands original) ---
+% --- Ecuaciones en dos columnas (uso en comparativas) ---
 \newcommand{\beqhalf}{%
   \noindent\begin{minipage}[c]{.5\linewidth}\begin{equation}}
 \newcommand{\eeqhalf}{\end{equation}\end{minipage}}
@@ -209,9 +219,8 @@
 
 
 % =============================================================================
-%  6. ENTORNO DE SUBECUACIONES ETIQUETADAS (heredado del Comands original)
+%  11. ENTORNO DE SUBECUACIONES ETIQUETADAS
 % =============================================================================
-
 \makeatletter
 \newenvironment{taggedsubequations}[1]
  {%
@@ -225,7 +234,7 @@
 
 
 % =============================================================================
-%  7. COMANDOS DE UTILIDAD GENERAL
+%  12. COMANDOS DE UTILIDAD GENERAL
 % =============================================================================
 
 % Abreviaturas frecuentes en el texto
@@ -237,7 +246,7 @@
 \newcommand{\api}{\textsc{api}}             % Application Programming Interface
 \newcommand{\geojson}{GeoJSON}
 
-% Nota al margen para revisión (solo en borrador — comentar antes de entregar)
+% Nota al margen para revisión (comentar antes de entrega final)
 % Uso: \pendiente{Completar con datos de campo}
 \newcommand{\pendiente}[1]{%
   \marginpar{\footnotesize\color{red}\textbf{[Pendiente:} #1\textbf{]}}%
@@ -246,3 +255,44 @@
 % Resaltado de término definido por primera vez
 % Uso: \termino{fragmentación urbana}
 \newcommand{\termino}[1]{\textit{#1}}
+
+
+% =============================================================================
+%  13. NOTACIÓN ESPECÍFICA DE INDICADORES
+% =============================================================================
+
+% Indicador de cobertura
+\newcommand{\cobertura}{C}
+
+% Fuerza nodal / alimentación capilar
+\newcommand{\fuerzanodal}[1]{C_{#1}}
+
+% Detour Factor
+\newcommand{\detourfactor}{DI}
+\newcommand{\deuclidiana}[2]{d_{\text{euclidiana}}(#1,\,#2)}
+\newcommand{\dred}[2]{d_{\text{red}}(#1,\,#2)}
+
+% Tiempo de viaje promedio y delta
+\newcommand{\Tprom}{T}
+\newcommand{\DeltaT}{\Delta T}
+
+% Coeficiente de fricción vial
+\newcommand{\CFh}{CF_h}
+\newcommand{\Tideal}{T_{\text{ideal}}}
+\newcommand{\Treal}[1]{T_{\text{real},#1}}
+
+% Penalización por transferencia
+\newcommand{\Wsh}{W_{s,h}}
+\newcommand{\Twalk}[2]{T_{\text{walk}}(#1,\,#2)}
+\newcommand{\Twait}[2]{T_{\text{wait}}(#1,\,#2)}
+
+% Centralidad de intermediación
+\newcommand{\betw}[1]{B(#1)}
+\newcommand{\betww}[2]{B(#1,\,#2)}
+\newcommand{\sigmast}[2]{\sigma_{#1#2}}
+\newcommand{\sigmastnodo}[3]{\sigma_{#1#2}(#3)}
+
+% Robustez geométrica
+\newcommand{\DeltaE}{\Delta E}
+\newcommand{\Ezero}{E_0}
+\newcommand{\Efallido}{E_f}
