@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2026.4.10)  11 APR 2026 00:11
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2026.4.10)  11 APR 2026 11:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1196,14 +1196,16 @@ File: Logos/escudo-fes-azul.png Graphic file (type bmp)
 LaTeX Info: Redefining \sptext on input line 1.
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-)
-\tf@toc=\write6
-\openout6 = `tesis.toc'.
-
  [1
 
 
-] (./tesis.lof
+])
+\tf@toc=\write6
+\openout6 = `tesis.toc'.
+
+LaTeX Info: Redefining \. on input line 172.
+LaTeX Info: Redefining \% on input line 172.
+ [2] (./tesis.lof
 LaTeX Info: Redefining \sptext on input line 1.
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -1211,7 +1213,7 @@ LaTeX Info: Redefining \% on input line 1.
 \tf@lof=\write7
 \openout7 = `tesis.lof'.
 
- [2
+ [3
 
 ] (./1-Introduccion/1-Introduccion.tex
 Capítulo 1.
@@ -1256,16 +1258,93 @@ LaTeX Info: Redefining \% on input line 411.
  [10]
 LaTeX Info: Redefining \. on input line 458.
 LaTeX Info: Redefining \% on input line 458.
- [11]) (./2-MarcoTeorico/1-Antecedentes.tex) (./3-Conceptos-Indicadores/3-1-Definiciones.tex) (./3-Conceptos-Indicadores/3-2-Grafos-Matematicas.tex) (./3-Conceptos-Indicadores/3-3-Indicadores-Formula.tex) (./4-Capas-Codigo/4-1-Apimetro.tex) (./4-Capas-Codigo/4-2-VFTModel.tex) (./4-Capas-Codigo/4-3-Visualizacion.tex) (./5-Resultados/1-Resultados.tex) (./6-Analisis-SocioEspacial/1-Analisis.tex) (./7-Conclusiones/1-Conclusiones.tex)
+ [11]) (./2-MarcoTeorico/1-Antecedentes.tex
+LaTeX Info: Redefining \. on input line 3.
+LaTeX Info: Redefining \% on input line 3.
+ [12]
+Capítulo 2.
+[13
+
+]
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [14]
+File: Figures/Cap1/Uruchurtu1.png Graphic file (type bmp)
+<Figures/Cap1/Uruchurtu1.png>
+LaTeX Info: Redefining \. on input line 112.
+LaTeX Info: Redefining \% on input line 112.
+ [15]
+LaTeX Info: Redefining \. on input line 125.
+LaTeX Info: Redefining \% on input line 125.
+ [16]
+Overfull \hbox (5.72252pt too wide) in paragraph at lines 164--164
+|[]\TU/lmr/bx/n/17.28 Marco Teórico: Dispersión, Fragmentación y Equi-
+ []
+
+LaTeX Info: Redefining \. on input line 173.
+LaTeX Info: Redefining \% on input line 173.
+[17]
+LaTeX Info: Redefining \. on input line 220.
+LaTeX Info: Redefining \% on input line 220.
+ [18]
+LaTeX Info: Redefining \. on input line 259.
+LaTeX Info: Redefining \% on input line 259.
+ [19]) (./3-Conceptos-Indicadores/3-1-Definiciones.tex
+LaTeX Info: Redefining \. on input line 3.
+LaTeX Info: Redefining \% on input line 3.
+ [20]
+Capítulo 3.
+[21
+
+]
+LaTeX Info: Redefining \. on input line 86.
+LaTeX Info: Redefining \% on input line 86.
+ [22]
+File: Figures/Cap3/TopologiaNodos.png Graphic file (type bmp)
+<Figures/Cap3/TopologiaNodos.png>
+LaTeX Info: Redefining \. on input line 125.
+LaTeX Info: Redefining \% on input line 125.
+ [23]
+LaTeX Info: Redefining \. on input line 152.
+LaTeX Info: Redefining \% on input line 152.
+ [24]
+LaTeX Info: Redefining \. on input line 192.
+LaTeX Info: Redefining \% on input line 192.
+ [25]
+File: Figures/Cap3/DiagramCompleteDataSetGTFS.png Graphic file (type bmp)
+<Figures/Cap3/DiagramCompleteDataSetGTFS.png>
+LaTeX Info: Redefining \. on input line 241.
+LaTeX Info: Redefining \% on input line 241.
+ [26]
+LaTeX Info: Redefining \. on input line 286.
+LaTeX Info: Redefining \% on input line 286.
+ [27]
+File: Figures/Cap3/TablaIndicatorsAdaptedGraphTeory.png Graphic file (type bmp)
+<Figures/Cap3/TablaIndicatorsAdaptedGraphTeory.png>
+LaTeX Info: Redefining \. on input line 322.
+LaTeX Info: Redefining \% on input line 322.
+ [28]
+LaTeX Info: Redefining \. on input line 354.
+LaTeX Info: Redefining \% on input line 354.
+ [29]
+LaTeX Info: Redefining \. on input line 396.
+LaTeX Info: Redefining \% on input line 396.
+ [30]
+File: Figures/Cap3/M7Estambul.png Graphic file (type bmp)
+<Figures/Cap3/M7Estambul.png>
+) (./3-Conceptos-Indicadores/3-2-Grafos-Matematicas.tex) (./3-Conceptos-Indicadores/3-3-Indicadores-Formula.tex)
+LaTeX Info: Redefining \. on input line 189.
+LaTeX Info: Redefining \% on input line 189.
+ [31] (./4-Capas-Codigo/4-1-Apimetro.tex) (./4-Capas-Codigo/4-2-VFTModel.tex) (./4-Capas-Codigo/4-3-Visualizacion.tex) (./5-Resultados/1-Resultados.tex) (./6-Analisis-SocioEspacial/1-Analisis.tex) (./7-Conclusiones/1-Conclusiones.tex)
 LaTeX Info: Redefining \. on input line 207.
 LaTeX Info: Redefining \% on input line 207.
- [12] [13
+ [32] [33
 
 
 ]
 LaTeX Info: Redefining \. on input line 210.
 LaTeX Info: Redefining \% on input line 210.
- [14] (./tesis.aux
+ [34] (./tesis.aux
 LaTeX Info: Redefining \sptext on input line 20.
 LaTeX Info: Redefining \. on input line 20.
 LaTeX Info: Redefining \% on input line 20.
@@ -1275,18 +1354,18 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `tesis.out' has not changed.
-(rerunfilecheck)             Checksum: 43A68DC2F78843E39AC6B467B7A54129;3537.
+(rerunfilecheck)             Checksum: C1EDE6DA97AEAA5CC5166B453477ECC6;8306.
 Package logreq Info: Writing requests to 'tesis.run.xml'.
 \openout1 = `tesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 48274 strings out of 474878
- 1066381 string characters out of 5762516
- 2112663 words of memory out of 5000000
- 69535 multiletter control sequences out of 15000+600000
- 568440 words of font info for 89 fonts, out of 8000000 for 9000
+ 48465 strings out of 474878
+ 1072053 string characters out of 5762516
+ 2120983 words of memory out of 5000000
+ 69718 multiletter control sequences out of 15000+600000
+ 568456 words of font info for 91 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,13n,90p,1178b,5403s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,13n,90p,1178b,5437s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on tesis.pdf (17 pages).
+Output written on tesis.pdf (38 pages).
