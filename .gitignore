@@ -1,3 +1,9 @@
+# PDF compilado (generado localmente o por CI en main — no rastrear en desarrollo)
+tesis.pdf
+
+# Archivos de configuración de TeXShop (editor macOS)
+*.texshop
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
