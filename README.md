@@ -4,8 +4,8 @@
 Hernán Galileo Cabrera Garibaldi  
 Tutor: Dr. David López Flores — Posgrado en Urbanismo, UNAM
 
-[![Compilar Tesis PDF](https://github.com/galigaribaldi/Tesis_Latex/actions/workflows/compile-tesis.yml/badge.svg)](https://github.com/galigaribaldi/Tesis_Latex/actions/workflows/compile-tesis.yml)
-[![Última versión](https://img.shields.io/github/v/release/galigaribaldi/Tesis_Latex?label=versión)](https://github.com/galigaribaldi/Tesis_Latex/releases/latest)
+[![Compilar Tesis PDF](https://github.com/galigaribaldi/TesisUrbanismo/actions/workflows/compile-tesis.yml/badge.svg)](https://github.com/galigaribaldi/TesisUrbanismo/actions/workflows/compile-tesis.yml)
+[![Última versión](https://img.shields.io/github/v/release/galigaribaldi/TesisUrbanismo?label=versión)](https://github.com/galigaribaldi/TesisUrbanismo/releases/latest)
 [![Licencia: CC BY-NC 4.0](https://img.shields.io/badge/Licencia-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
 ---
