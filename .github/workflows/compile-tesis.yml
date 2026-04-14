@@ -1,0 +1,62 @@
+name: Compilar y publicar Tesis PDF
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Compilar tesis con XeLaTeX + Biber
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: tesis.tex
+          latexmk_use_xelatex: true
+          extra_packages: >-
+            biber
+            biblatex
+            babel-spanish
+            csquotes
+            microtype
+            emptypage
+            setspace
+            fancyhdr
+            titlesec
+            bookmark
+            caption
+            subcaption
+            listings
+            xcolor
+            tikz
+            pgf
+            animate
+
+      - name: Subir PDF como artefacto descargable
+        uses: actions/upload-artifact@v4
+        with:
+          name: tesis-${{ github.ref_name }}
+          path: tesis.pdf
+          retention-days: 90
+
+      - name: Crear Release y adjuntar PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Tesis — ${{ github.ref_name }}"
+          tag_name: ${{ github.ref_name }}
+          body: |
+            ## Transportes Anillares y su Importancia en la CDMX
+
+            Versión compilada automáticamente desde el tag `${{ github.ref_name }}`.
+
+            **Descarga el PDF** desde los archivos adjuntos abajo.
+          files: tesis.pdf
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
