@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xelatex:*)",
+      "Bash(biber:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git rebase:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  },
+  "env": {
+    "LATEX_ENGINE": "xelatex",
+    "BIB_ENGINE": "biber",
+    "MAIN_FILE": "tesis.tex",
+    "COMMANDS_FILE": "Latex/Comands.tex",
+    "BIB_FILE": "referencias.bib"
+  }
+}
