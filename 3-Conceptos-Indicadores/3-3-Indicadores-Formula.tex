@@ -29,7 +29,7 @@ con datos del área de estudio.
 \label{subsec:indicador-cobertura}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{fortin2016}
+\textbf{Fuente principal:} \textcite{fortin2016innovative}
  
 \subsubsection{Definición y Fundamentación}
  
@@ -39,7 +39,7 @@ requiere que el grafo de la red esté completamente interconectado. Mide la
 proporción del territorio urbano que queda dentro de una distancia caminable de
 algún nodo de la red de transporte.
  
-\textcite{fortin2016} explican en su sección de evaluación de accesibilidad que los
+\textcite{fortin2016innovative} explican en su sección de evaluación de accesibilidad que los
 indicadores de cobertura más comunes se calculan trazando áreas de influencia
 ---típicamente un \textit{buffer} de 500 metros o 400 metros como radio de caminata
 promedio aceptable--- alrededor de cada parada de la red. A partir de estas áreas,
@@ -73,7 +73,7 @@ Insertar figura del indicador C cuando esté disponible
     indicador $C$: polígono de la zona de estudio (Área Total), nodos de transporte
     y círculos de radio 400\,m (Área Cubierta).}
     \label{fig:indicador-C}
-    \fuentefigura{Elaboración propia con base en \textcite{fortin2016}.}
+    \fuentefigura{Elaboración propia con base en \textcite{fortin2016innovative}.}
 \end{figure}
 
 
@@ -236,14 +236,14 @@ feeder_degree = {
 \label{subsec:ruta-directa}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{fortin2016}
+\textbf{Fuente principal:} \textcite{fortin2016innovative}
  
 \subsubsection{Definición y Fundamentación}
  
 El Índice de Ruta Directa cuantifica qué tan eficiente es la topología de la red en
 términos geométricos puros: mide cuánto se alarga un viaje al estar obligado a
 seguir la infraestructura real de la red en lugar de desplazarse en línea recta entre
-origen y destino. \textcite{fortin2016} proponen este indicador como parte de su
+origen y destino. \textcite{fortin2016innovative} proponen este indicador como parte de su
 método orientado a grafos para caracterizar sistemáticamente redes de transporte a
 partir de datos \gtfs{}, donde el análisis de la topología implica calcular los caminos
 mínimos entre pares de nodos y derivar indicadores de desempeño.
@@ -284,7 +284,7 @@ a los usuarios a rodeos significativos respecto al desplazamiento ideal.
     distancia en red (arco curvado) y la distancia euclidiana (línea punteada)
     entre origen O y destino D.}
     \label{fig:indicador-DI}
-    \fuentefigura{Elaboración propia con base en \textcite{fortin2016}.}
+    \fuentefigura{Elaboración propia con base en \textcite{fortin2016innovative}.}
 \end{figure}
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
@@ -482,7 +482,7 @@ Donde:
  
 El uso de horarios \gtfs{} estáticos para estimar $T_{\text{wait}}$ introduce un
 sesgo conocido: los datos estandarizados representan únicamente horarios
-planificados, no tiempos reales de operación. \textcite{fortin2016} reconocen esta
+planificados, no tiempos reales de operación. \textcite{fortin2016innovative} reconocen esta
 limitación y señalan que los horarios inscritos pueden ser incorrectos debido a la
 congestión o a errores de codificación. Para mitigar este sesgo, la variante
 dinámica de la penalización se calibrará mediante peticiones automatizadas a la
@@ -516,14 +516,14 @@ a condiciones históricas reales en distintos cortes horarios.
 \label{subsec:friccion-vial}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{fortin2016}
+\textbf{Fuente principal:} \textcite{fortin2016innovative}
  
 \subsubsection{Definición y Fundamentación}
  
 El Coeficiente de Fricción Vial es un multiplicador dinámico que corrige la
 sobreestimación de eficiencia que ocurre cuando se asigna a las rutas de transporte
 de superficie un tiempo de viaje ideal, sin considerar el efecto de la congestión
-vehicular. \textcite{fortin2016} reconocen que los datos estandarizados del \gtfs{}
+vehicular. \textcite{fortin2016innovative} reconocen que los datos estandarizados del \gtfs{}
 representan únicamente horarios planificados, y que utilizar tiempos ajustados a las
 condiciones reales de tráfico devuelve estimaciones sustancialmente más precisas al
 ejecutar el algoritmo de \dijkstra{}.

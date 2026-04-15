@@ -18,11 +18,11 @@ para vehículos particulares y de carga. Este desarrollo de infraestructura y se
 de transporte público fue el factor determinante en la ubicación y conectividad de los
 nuevos fraccionamientos con el centro de la ciudad \parencite{franco2022}.
 
-Con esto en mente, podemos entender que los transportes siguieron la constante
-necesidad de trasladarse a diferentes puntos de la capital. Una consecuencia de ello
-fue la construcción de vialidades de mayor capacidad para sostener el creciente
-número de traslados y con ello la expansión de la mancha urbana tanto de vivienda,
-empleo y traslado.
+En este contexto, la dinámica de movilidad respondió a la constante necesidad
+de desplazamiento entre distintos puntos de la capital. Una consecuencia directa
+de ello fue la construcción de vialidades de mayor capacidad para sostener el
+creciente volumen de traslados, lo cual propició, a su vez, la expansión de la
+mancha urbana en sus dimensiones habitacional, laboral y de servicios.
 
 \begin{quote}
 ``Entre éstas destacaron la Avenida de los Insurgentes, que se extendió hasta el
@@ -71,10 +71,12 @@ largo de ejes como Tlalpan o Periférico Sur corresponde a un patrón lineal; mi
 que los nuevos desarrollos en Milpa Alta y Tláhuac muestran rasgos de patrón
 saltón, al estar aislados de la mancha urbana consolidada.
 
-Siguiendo esta misma línea, la presente investigación busca analizar la propuesta
-de un corredor circular orientado al transporte público masivo en la sección Sur del
-Periférico de la Ciudad de México, la cual va desde la intersección con el Canal de
-Chalco hasta iniciar el tramo elevado de San Antonio en la Ciudad de México.
+En este marco, la presente investigación analiza la viabilidad y el impacto de
+implementar un corredor circular de transporte público masivo en la \zmvm{},
+evaluando su efecto sobre la estructura topológica de la red mediante el modelado
+de grafos matemáticos. El caso de validación central es la sección sur del Anillo
+Periférico de la \cdmx{}, cuya configuración concentra de manera paradigmática
+las deficiencias estructurales del sistema metropolitano en su conjunto.
 
 %-----------------------------------------------------------------------
 \section{Problemática}
@@ -106,54 +108,49 @@ viajes inducidos.
 \label{sec:planteamiento}
 %-----------------------------------------------------------------------
 
-En la sección anterior se expuso la problemática, evidenciando que la sección sur
-—desde el Canal de Chalco hasta el tramo elevado de San Antonio— del Anillo
-Periférico Sur de la Ciudad de México presenta una insuficiencia de transporte
-público masivo. Esta limitación genera una fuerte dependencia del transporte
-privado (automóvil particular) y, en menor medida, del transporte concesionado, el
-cual resulta insuficiente y de baja capacidad para la magnitud de la demanda.
+La problemática expuesta anteriormente revela que la Zona Metropolitana del Valle de México (ZMVM) padece una desarticulación 
+topográfica profunda, donde el sistema de transporte masivo estructurado presenta una cobertura insuficiente en las franjas 
+periféricas que componen el \textbf{Tercer y Cuarto Contorno} metropolitano \parencite{semovi2020diagnostico}. Esta limitación
+técnica genera una dependencia crítica del transporte público concesionado de baja capacidad y del automóvil particular, 
+lo cual resulta ineficiente para mitigar una demanda de movilidad que desborda las fronteras administrativas de la capital.
 
-Diversos diagnósticos urbanos han señalado que el transporte masivo mantiene una
-cobertura limitada en las zonas periféricas de la Ciudad de México, lo cual obliga a
-los habitantes a recurrir a colectivos, microbuses o automóviles para realizar sus
-desplazamientos cotidianos \parencite{obras2025}. Esta situación se traduce en
-altos niveles de congestión vial, tiempos prolongados de traslado y una movilidad
-fragmentada, lo que profundiza las desigualdades territoriales.
+Diversos diagnósticos urbanos coinciden en que la red masiva (Metro y Metrobús) se ha consolidado bajo una lógica de centralización,
+obligando a los habitantes de zonas periféricas en el \textbf{Norte (Ecatepec, Naucalpan)}, \textbf{Oriente (Iztapalapa, Chalco)} y 
+\textbf{Sur (Tlalpan, Xochimilco)} a realizar desplazamientos radiales que saturan los nodos del núcleo central \parencite{obras2025}. 
+Esta configuración no solo incrementa los tiempos de traslado —superando en promedio los 122 minutos para los habitantes del 
+cuarto contorno— sino que eleva la \textit{vulnerabilidad funcional} del sistema ante fallas operativas en hubs críticos como Pantitlán,
+Indios Verdes o Taxqueña \parencite{loterovélez2014}.
 
-Si bien el Anillo Periférico fue concebido como una infraestructura estratégica para
-articular y conectar distintos puntos de la capital, su diseño centrado en la
-circulación vehicular privada ha limitado su potencial como eje integrador
-metropolitano. De esta forma, surge la necesidad de cuestionar la pertinencia de
-implementar un corredor circular de transporte público masivo en la sección sur del
-Anillo Periférico, sustentado en que la adopción de geometrías anillares se ha
-demostrado eficaz en megaciudades para articular la movilidad y reducir la
-congestión central \parencite{efe2023}.
+Aunque el Anillo Periférico fue proyectado como una infraestructura estratégica para conectar la capital, su diseño priorizó históricamente
+la automovilidad privada, dejando una brecha topográfica para el transporte masivo transversal. De este modo, surge la necesidad científica 
+de evaluar la pertinencia de un corredor circular en el Anillo Periférico como un motor de recalibración geométrica. La adopción de estas 
+geometrías anillares ha demostrado ser una solución robusta en megaciudades para descomprimir el centro y articular las periferias de manera
+directa \parencite{efe2023}, hipótesis que será validada en esta investigación mediante el motor analítico \texttt{VFTModel}.
 
-\subsection{La morfología en la Zona Sur de la CDMX}
+%-----------------------------------------------------------------------
+\subsection{La morfología y topología en la periferia de la ZMVM}
 \label{subsec:morfologia}
+%-----------------------------------------------------------------------
 
-La estructura urbana del sur de la CDMX no puede entenderse como una extensión
-continua de la trama central. Según el análisis de \textcite{ortiz2007}, la
-morfología de la Ciudad de México se puede definir como una jerarquía de centros
-que da lugar a un ``\textit{Patchwork of offset grids}'' (mosaico de retículas
-desfasadas), donde cada retícula actúa como un parche aislado con geometría
-interna que no se alinea con la estructura general de la ciudad.
+La estructura urbana de la periferia metropolitana no constituye una extensión continua y ordenada de la traza central. 
+Siguiendo el análisis de \textcite{ortiz2007}, la morfología de la Ciudad de México se define como una jerarquía de centros que da 
+lugar a un ``\textit{Patchwork of offset grids}'' (mosaico de retículas desfasadas). En este modelo, cada sector periférico 
+(Norte, Oriente, Poniente o Sur) actúa como un ``parche'' geométricamente aislado, cuya trama interna no se alinea con 
+la estructura vial primaria de la ciudad.
 
-Esta definición es crítica para las alcaldías del sur (Tlalpan, Xochimilco, Tláhuac),
-donde el crecimiento urbano no siguió un orden establecido y se originó más por
-asentamientos irregulares y alineaciones a antiguos caminos rurales, creando una
-dispersión entre sus habitantes. A diferencia del centro de la Ciudad de México,
-donde la retícula facilita la movilidad en múltiples direcciones, estos ``parches''
-funcionan más como islas conectadas por escasas arterias radiales que tienden a
-saturarse.
+Esta fragmentación morfológica es el factor determinante de la ineficiencia en las alcaldías y municipios del cinturón metropolitano. 
+A diferencia de la \textbf{Ciudad Central}, donde la conectividad en red facilita desplazamientos multidireccionales, estos parches 
+periféricos operan como islas conectadas únicamente por arterias radiales que tienden al colapso crónico. Desde la perspectiva del 
+motor \texttt{VFTModel}, esta desconexión implica que los caminos mínimos entre dos nodos periféricos aledaños tienen 
+un \textbf{Índice de Ruta Directa ($DI$)} significativamente elevado, ya que la red vial obliga a los usuarios a converger hacia 
+el centro para luego retornar a su zona de destino \parencite{fortin2016innovative}.
 
-Un nuevo enfoque, como el de la teoría de redes de \textcite{owais2020}, plantea
-que en ciudades donde la estructura no es una cuadrícula perfecta, la falta de
-conexión transversal entre estos ``parches'' obliga a los usuarios a realizar
-desplazamientos innecesarios hacia el centro (vía líneas radiales), solo para moverse
-a una zona vecina o aledaña. Esta teoría valida la problemática que vive la zona sur
-de la CDMX: no es solo un problema de capacidad, sino una desconexión geométrica
-estructural entre los tejidos urbanos locales.
+Complementariamente, la teoría de redes de \textcite{owais2020} sostiene que en ciudades con estructuras no ortogonales, 
+la carencia de conexiones transversales entre estos parches fragmentados genera una pérdida de robustez sistémica. 
+Esta teoría valida la tesis central de este trabajo: la problemática de la periferia de la ZMVM no es únicamente una cuestión de 
+capacidad vehicular, sino una \textbf{desconexión geométrica estructural}. Mediante el procesamiento de datos en \texttt{Apimetro}, 
+se demostrará que la implementación de una ruta anillar en el Tercer Contorno permite ``coser'' estos parches urbanos, 
+optimizando la topología del grafo metropolitano y reduciendo la fricción vial global.
 
 %-----------------------------------------------------------------------
 \section{Objetivos de la Investigación}
@@ -163,52 +160,69 @@ estructural entre los tejidos urbanos locales.
 \subsection{Objetivo General}
 \label{subsec:obj-general}
 
-Analizar la viabilidad y pertinencia de implementar un corredor circular de transporte
-público masivo en la sección sur del Anillo Periférico de la Ciudad de México, con el
-fin de mejorar la movilidad urbana y reducir la dependencia del transporte
-concesionado y del automóvil privado, favoreciendo la integración territorial de las
-alcaldías del sur de la Ciudad de México (Xochimilco, Tláhuac, Tlalpan y Milpa Alta).
+Analizar la viabilidad y robustez de la red de transporte multimodal de la Zona Metropolitana
+del Valle de México (ZMVM) mediante el modelado de grafos matemáticos y la aplicación del motor
+analítico \textit{VFTModel} \textcite{cabrera2026VFTModel} y 
+el motor de datos \textit{Apimetro} \textcite{cabrera2025apimetro}. Con el fín de determinar el impacto teórico de
+la implementación un corredor circular de transporte público masivo en el Anillo Periférico de 
+la Ciudad de México, con el fin de mejorar la movilidad urbana y reducir la dependencia del transporte
+concesionado (RTP, Corredor concesionado) y del automóvil privado.
 
 \subsection{Objetivos específicos}
 \label{subsec:obj-especificos}
 
 \begin{enumerate}
-    \item Digitalizar y sistematizar la información geográfica y de movilidad de la
-    sección sur del Anillo Periférico, integrando rutas existentes, puntos de acceso
-    y datos socioespaciales de las alcaldías involucradas.
+    \item Sistematizar y procesar los feeds de datos abiertos (GTFS) de la totalidad 
+    de la red de Movilidad Integrada de la Ciudad de México y de los sistemas 
+    de transporte del Estado de México (Mexibús, Mexicable) 
+    utilizando el motor de datos \textit{Apimetro} \textcite{cabrera2025apimetro} 
+    para la construcción de un grafo multimodal georreferenciado.
 
-    \item Calcular y comparar los tiempos estimados de viaje en el tramo de estudio,
-    considerando los diferentes modos de transporte actualmente disponibles
-    (concesionado, privado y mixto).
+    \item Implementar el motor \texttt{VFTModel} para calcular los indicadores base de eficiencia urbana, 
+    tales como el Índice de Ruta Directa ($DI$) y el Tiempo de Viaje Promedio ($T$), 
+    sobre la configuración topológica actual de la red metropolitana.
+
+    \item Identificar nodos críticos y vulnerabilidades estructurales en la ZMVM a través del cálculo 
+    algorítmico de la Centralidad de Intermediación ($B(v)$) y métricas de Robustez Geométrica ($\Delta E$), 
+    evaluando el impacto sistémico de posibles fallas en estaciones de alta transferencia.
 
     \item Identificar las principales limitaciones en términos de cobertura, capacidad y
     eficiencia del transporte público en la zona, a partir del análisis de datos
     espaciales y temporales.
 
-    \item Evaluar escenarios comparativos entre la situación actual y la posible
+    \item Evaluar y simular escenarios comparativos entre la situación actual y la posible
     implementación de un corredor circular masivo, estimando su impacto en la
-    reducción de tiempos de traslado y en la mejora de la conectividad interurbana.
+    reducción de tiempos de traslado, así como validar la pertinencia de corredores circulares 
+    frente al modelo radial predominante, cuantificando la reducción neta en los tiempos de 
+    traslado y la mejora en la interconectividad entre contornos periféricos.
 
-    \item Proponer lineamientos preliminares para la integración del corredor circular al
-    sistema de transporte metropolitano, considerando tanto la eficiencia operativa
-    como la equidad territorial.
+    \item Proponer lineamientos de integración operativa y tecnológica basados en los resultados del modelo, 
+    que favorezcan una movilidad más equitativa y reduzcan la fragmentación del servicio en las alcaldías y 
+    municipios del sur y oriente de la \cdmx y la \zmvm.
+
 \end{enumerate}
 
 \subsection{Pregunta de Investigación}
 \label{subsec:pregunta}
 
-¿En qué medida la implementación de un corredor circular de transporte público
-masivo en la sección sur del Anillo Periférico puede contribuir a mejorar la movilidad
-urbana, reducir la dependencia del transporte concesionado y favorecer una mayor
-integración territorial en la Ciudad de México?
+¿En qué medida la optimización topológica de la red de transporte de la \cdmx y la \zmvm, 
+evaluada mediante el motor analítico \texttt{VFTModel} \textcite{cabrera2026VFTModel}, demuestra que la implementación 
+de corredores anillares reduce la vulnerabilidad funcional y mejora la eficiencia global 
+del sistema en comparación con el modelo radial vigente?
+
 
 De manera complementaria, se plantean las siguientes preguntas secundarias:
 
 \begin{itemize}
-    \item ¿Qué condiciones sociales, económicas y territoriales sustentan la necesidad
-    de este corredor?
-    \item ¿Qué impactos en movilidad y accesibilidad podrían esperarse frente a la
-    actual dependencia del transporte concesionado y del automóvil?
+    \item ¿De qué manera la alta dependencia de nodos centrales (\textit{hubs}) 
+    en la Ciudad Central y el Primer Contorno \textcite{semovi2020diagnostico} 
+    compromete la robustez del sistema ante perturbaciones operativas?
+
+    \item ¿Cómo impacta la brecha de conectividad lateral en el 
+    Tercer Contorno en el incremento de 
+    los tiempos de traslado para los usuarios provenientes de 
+    la periferia profunda o Cuarto Contorno \textcite{semovi2020diagnostico}?
+
 \end{itemize}
 
 %-----------------------------------------------------------------------
@@ -216,10 +230,28 @@ De manera complementaria, se plantean las siguientes preguntas secundarias:
 \label{sec:justificacion}
 %-----------------------------------------------------------------------
 
-La red de transporte público en la Ciudad de México presenta diferentes matices y
-capas en su estructura. Empezando por la planeación de la misma; la cual, por su
-expansión geográfica, nunca contempló al Estado de México ni a las alcaldías más
-alejadas del centro, como Tlalpan, Xochimilco, Tláhuac y Milpa Alta.
+La pertinencia de esta investigación se sustenta en dar una alternativa y explicación a la fragmentación 
+estructural de la movilidad en la Zona Metropolitana del Valle de México, la cual se manifiesta de forma 
+diferenciada según el modelo de \textbf{Contornos Metropolitanos} definido en los diagnósticos técnicos de movilidad urbana.
+
+En la \textbf{Ciudad Central} y el \textbf{Primer Contorno}, el sistema presenta una alta densidad de infraestructura 
+de transporte masivo que, si bien garantiza una cobertura amplia, genera una centralización excesiva de los flujos. 
+Esta configuración radial-concéntrica obliga a que la mayoría de los viajes metropolitanos atraviesen nodos 
+críticos como Pantitlán, Indios Verdes o Taxqueña, saturando su capacidad operativa y elevando la vulnerabilidad 
+del sistema ante cualquier falla en estos puntos neurálgicos.
+
+Por el contrario, el \textbf{Tercer Contorno} (o \textit{Middle-Ring}), que alberga zonas de alta demanda y 
+servicios críticos como la Zona de Hospitales y Ciudad Universitaria, carece de una conectividad transversal robusta. 
+La ausencia de rutas perimetrales eficientes en esta franja obliga a los usuarios a realizar trayectos multimodales hacia el núcleo central
+para luego retornar a zonas periféricas aledañas, lo que se traduce matemáticamente en un incremento del Índice de Ruta Directa ($DI$) 
+y una pérdida de eficiencia geométrica.
+
+Finalmente, el análisis se extiende al \textbf{Cuarto Contorno} (periferia profunda), donde se registran los tiempos de traslado más elevados del sistema, 
+superando en promedio los 122 minutos por viaje. En este sector, la dependencia del transporte de baja capacidad y la fragmentación de los servicios alimentadores 
+hacia la red masiva profundizan la desigualdad socioespacial \textcite{semovi2020diagnostico}. El uso de grafos matemáticos y el motor \texttt{VFTModel} 
+permite demostrar que la inserción de una ruta anillar en el Tercer Contorno no representa únicamente una mejora local, sino una estrategia de ``recalibración urbana''
+que beneficia sistémicamente a los contornos más alejados al redistribuir los flujos y reducir la presión sobre el centro de la metrópoli.
+
 
 \begin{quote}
 ``Otro nivel de complejidad se debe a que los servicios que conforman el sistema de
@@ -230,12 +262,6 @@ a atender con el fin de garantizar un servicio de movilidad integrado, digno e
 incluyente.'' \parencite[p.~XX]{semovi2020diagnostico}
 \end{quote}
 
-El principal sector de esta investigación es el Sur de la Ciudad de México, pues este
-se vio planeado hasta la terminal Taxqueña. Nodo que hasta la fecha (2025) no ha
-recibido una expansión apropiada a las necesidades de los usuarios del transporte
-público. La mancha urbana se ha expandido hasta las alcaldías conocidas como
-``3er Contorno'', según el Diagnóstico Técnico de Movilidad para el Programa Integral
-de Movilidad 2019-2024.
 
 \begin{figure}[htbp]
     \centering
@@ -253,14 +279,21 @@ entre la red de transporte masivo y las zonas habitacionales, más viajes multim
 se tienen que realizar, lo que implica más tiempo y gastos de traslado
 \parencite{semovi2020diagnostico}.
 
-Esto significa que las alcaldías del sur enfrentan un déficit estructural de
-accesibilidad, lo que justifica la necesidad de explorar alternativas perimetrales que
-conecten entre sí a estas zonas sin depender del centro. El servicio de transporte
-público concesionado, principalmente compuesto por colectivos, autobuses y
-vagonetas, es utilizado por el 48\% de la población en al menos uno de sus tramos
-de viaje, bajo un esquema hombre-camión que da lugar a una competencia por el
-pasaje que deriva en costos asociados a la seguridad vial y un servicio poco
-confiable \parencite{semovi2020diagnostico}.
+El diagnóstico de SEMOVITC evidencia que las demarcaciones ubicadas en el \textbf{Tercer Contorno}, 
+con especial énfasis en las alcaldías del sur de la metrópoli, enfrentan un déficit estructural de 
+accesibilidad derivado de la configuración radial-concéntrica de la red masiva. 
+Dicha desconexión topográfica justifica la necesidad técnica de explorar alternativas perimetrales 
+que articulen transversalmente estas zonas sin la obligatoriedad de converger en el núcleo central, 
+reduciendo así la centralidad de intermediación de los nodos históricos. 
+
+Actualmente, la carencia de infraestructura de alta capacidad en estos sectores delega la movilidad 
+en el transporte público concesionado ---compuesto primordialmente por colectivos, autobuses y vagonetas---,
+el cual es utilizado por el 48\% de la población en al menos uno de sus tramos de viaje \parencite{semovi2020diagnostico}. 
+Este servicio opera mayoritariamente bajo el esquema ``hombre-camión'', lo que fomenta una competencia ineficiente por 
+el pasaje y eleva los costos asociados a la seguridad vial. 
+Desde la perspectiva del motor analítico \texttt{VFTModel}, esta dependencia de un servicio poco confiable y fragmentado 
+constituye la principal fuente de \textit{vulnerabilidad funcional} en la periferia, validando la urgencia 
+de una recalibración geométrica a través de corredores anillares.
 
 Un elemento significativo es el uso de un medio de transporte que presente una
 geometría diferente a la convencional. Las llamadas rutas radiales son el tipo más
@@ -297,70 +330,99 @@ mexicanas \parencite{molinero2002}.
     \small\textit{Fuente: Elaboración propia con base en \textcite{molinero2002}.}
 \end{figure}
 
-A la fecha de realización de este estudio (2025), no existe en la Ciudad de México
-alguna ruta circular que sirva de soporte para el transporte público masivo colectivo.
-A pesar de que la Ciudad cuenta con una vialidad de trazo circular (el Anillo
-Periférico), ésta se ha orientado históricamente al automóvil privado. En este
-contexto, la presente investigación se justifica en la necesidad de evaluar la
-pertinencia de un corredor circular de transporte público masivo en la sección Sur
-del Periférico.
+A la fecha de realización de este estudio (2025), no existe en la Ciudad de México alguna ruta circular 
+que sirva de soporte para el transporte público masivo colectivo. A pesar de que la Ciudad cuenta 
+con una vialidad de trazo circular —el Anillo Periférico—, ésta se ha orientado históricamente al automóvil 
+privado como resultado de políticas de automovilidad hegemónicas. En este contexto, la presente investigación 
+se justifica en la necesidad técnica de evaluar la pertinencia de un corredor circular de transporte público 
+masivo en el Anillo Periférico para revertir la fragmentación del sistema.
 
-\subsection{Tercer Contorno o \textit{Middle-Ring} en la CDMX}
-\label{subsec:middle-ring}
+\subsection{Tercer y Cuarto Contorno: Beneficiarios de la Recalibración Anillar} \label{subsec:beneficiarios-contornos}
+La implementación de un corredor de transporte masivo en el Anillo Periférico tiene como objetivo principal mitigar las 
+desigualdades estructurales de movilidad que afectan primordialmente al Tercer Contorno (Middle-Ring) y al Cuarto Contorno 
+(periferia profunda) de la ZMVM. Mientras que la Ciudad Central, el Primer Contorno y el Segundo Contorno 
+—que integran las alcaldías centrales— presentan la mayor densidad de infraestructura de transporte masivo (Metro y Metrobús), 
+las zonas periféricas han sido históricamente desatendidas por la red estructurada. Esta "suposición de cobertura" centralizada se 
+abordará con rigor matemático en el Capítulo 3: Conceptos e Indicadores, donde métricas como el Nivel de Cobertura (C) y la Fuerza Nodal (Ci) 
+permitirán cuantificar el desajuste entre la oferta de transporte y la localización de la población en la periferia.
 
-Intervenir en la sección sur del Anillo Periférico va más allá de la demanda del
-transporte público. Responde a la necesidad estructural de consolidar lo que la
-planificación contemporánea denomina \textit{Middle-Ring} o ``Anillo Medio''. Según
-el análisis estratégico del \textit{Suburban Rail Loop} de Melbourne
-\parencite{suburbanrailloop2021}, los anillos medios se definen como zonas de
-transición entre el centro consolidado y la periferia en expansión, las cuales albergan
-infraestructuras críticas como hospitales, universidades y centros de empleo, pero
-tienden a carecer de una conectividad de transporte lateral robusta.
+Intervenir en la sección sur del Anillo Periférico responde a la necesidad de consolidar el llamado \textit{Middle-Ring} o Anillo Medio''. 
+Según el análisis estratégico del \textit{Suburban Rail Loop} de Melbourne \parencite{suburbanrailloop2021}, estos anillos se definen 
+como zonas de transición que albergan infraestructuras críticas como hospitales y universidades, pero que tienden a carecer de una conectividad
+lateral robusta. Para la Ciudad de México, las alcaldías del sur (\textbf{Tlalpan, Xochimilco y Tláhuac}) conforman funcionalmente este tercer contorno,
+operando como parches'' aislados en la trama urbana que obligan a los usuarios a realizar viajes radiales ineficientes hacia el centro para conectar 
+con zonas vecinas.
 
-Para la Ciudad de México, las alcaldías del sur (Tlalpan, Xochimilco y Tláhuac)
-conforman funcionalmente este llamado ``Tercer Contorno'', denominado así por la
-Estrategia Nacional de Movilidad y Seguridad Vial (ENAMOV 2023-2042). A
-diferencia de una periferia dormitorio tradicional, esta zona concentra nodos de alta
-demanda (Zona de Hospitales, Ciudad Universitaria, etc.) que operan como
-``parches'' aislados en la trama urbana, tal como \textcite{ortiz2007} lo describen.
-
-La implementación de un corredor de transporte masivo en este \textit{Middle-Ring}
-permitiría replicar el efecto de ``recalibración urbana'' observado en Melbourne
-\parencite{suburbanrailloop2021}: transformar una serie de suburbios desconectados
-en una red policéntrica de ``Precintos de Innovación y Empleo''. De esta manera,
-el Periférico Sur dejaría de fungir como una barrera o borde para convertirse en una
-arteria integradora que detona el desarrollo económico y social transversal.
+Por otro lado, el Cuarto Contorno se posiciona como el beneficiario indirecto más crítico. En esta zona, los habitantes experimentan los tiempos de 
+traslado más elevados de la metrópoli, superando los 122 minutos por trayecto laboral. Al no existir rutas perimetrales, los flujos provenientes de 
+la periferia profunda saturan los nodos centrales del sistema, elevando la vulnerabilidad funcional de la red. La inserción de un corredor circular 
+permitiría replicar un efecto de ``recalibración urbana'' \parencite{suburbanrailloop2021}, transformando suburbios desconectados en una red policéntrica 
+y permitiendo que el Periférico Sur deje de ser una barrera para convertirse en una arteria integradora que detone el desarrollo económico y social transversal.
+Esta mejora en la eficiencia geométrica será demostrada algorítmicamente mediante el Índice de Ruta Directa (DI) y el cálculo del Tiempo de Viaje Promedio (T) 
+en los capítulos posteriores.
 
 %-----------------------------------------------------------------------
 \section{Hipótesis}
 \label{sec:hipotesis}
 %-----------------------------------------------------------------------
 
-La implementación de un corredor circular de transporte público masivo en la
-sección sur del Anillo Periférico de la Ciudad de México permitirá reducir los tiempos
-de traslado de los usuarios en comparación con las modalidades actuales (transporte
-concesionado y automóvil particular), además de mejorar la conectividad interurbana
-y favorecer una movilidad más equitativa en las alcaldías de Tlalpan, Xochimilco,
-Milpa Alta y Tláhuac.
+La red de transporte multimodal de la \zmvm{} presenta una configuración
+radial-concéntrica que genera vulnerabilidades funcionales cuantificables: una
+centralidad de intermediación ($B(v)$) elevada en los nodos del núcleo central,
+un Índice de Ruta Directa ($DI$) alto en los contornos periféricos y tiempos de
+viaje promedio ($T$) que superan los 122 minutos en el Cuarto Contorno
+\parencite{semovi2020diagnostico}. Se postula que la incorporación de un corredor
+anillar de transporte público masivo en el Tercer Contorno ---con la sección sur del
+Anillo Periférico como caso de validación--- producirá una reducción estadísticamente
+significativa de dichos indicadores, demostrable mediante el motor analítico
+\textit{VFTModel} \parencite{cabrera2026VFTModel}, y favorecerá una movilidad
+más equitativa en las alcaldías y municipios del sur y oriente de la \zmvm{}.
 
 %-----------------------------------------------------------------------
 \section{Método}
 \label{sec:metodo}
 %-----------------------------------------------------------------------
 
-Debido a que la investigación se centra en la digitalización de datos, análisis y
-estimación de tiempos de viaje y escenarios, el método que más se ajusta es el
-\textbf{método cuantitativo}. Este permite medir de forma objetiva la magnitud del
-problema (tiempos de traslado, frecuencias, capacidad de usuarios), así como
-evaluar escenarios alternativos mediante comparaciones estadísticas y simulaciones.
+La presente investigación adopta un enfoque \textbf{cuantitativo-computacional}
+fundamentado en la teoría de grafos y el modelado de redes complejas de transporte.
+Este enfoque permite representar formalmente la red multimodal de la \zmvm{} como
+un grafo dirigido y ponderado $\grafo = (\nodos, \aristas, \peso{i}{j})$, sobre el
+cual se calculan indicadores de eficiencia, vulnerabilidad y conectividad de manera
+objetiva y reproducible \parencite{allauca2023, owais2020}.
 
-Se utilizarán las siguientes herramientas:
+La elección de este método responde a tres condiciones estructurales de la
+investigación: (1)~la disponibilidad de datos abiertos estandarizados en formato
+\gtfs{} para la totalidad de los sistemas de transporte masivo de la \cdmx{};
+(2)~la existencia de motores computacionales de autoría propia ---\textit{Apimetro}
+\parencite{cabrera2025apimetro} y \textit{VFTModel} \parencite{cabrera2026VFTModel}---
+que permiten procesar dichos datos a escala metropolitana; y (3)~la naturaleza
+cuantificable de las preguntas de investigación, centradas en la reducción de tiempos
+de traslado, la distribución de centralidad y la robustez geométrica de la red.
+
+A diferencia de los enfoques tradicionales de modelación basados en matrices
+origen-destino, el análisis mediante grafos no requiere calibración de encuestas de
+movilidad, lo que lo hace especialmente adecuado para la evaluación estructural de
+redes existentes y la simulación de escenarios topológicos alternativos
+\parencite{fortin2016innovative}.
+
+Las herramientas y fuentes de datos que articulan el proceso metodológico son:
 
 \begin{itemize}
-    \item Sistemas de Información Geográfica como QGIS, GeoPandas, GeoJSON y
-    demás formatos, auxiliados con los lenguajes de programación Python y Go
-    (Golang), así como gestores de bases de datos relacionales.
-    \item \textit{APIs} de movilidad como Google Directions e INEGI.
+    \item \textbf{Feeds \gtfs{}} de la red de Movilidad Integrada de la \cdmx{} y
+    los sistemas del Estado de México (Mexibús, Mexicable), como fuente primaria
+    de datos estructurados de la red de transporte.
+    \item \textit{Apimetro} \parencite{cabrera2025apimetro}: motor de adquisición,
+    normalización y construcción del grafo multimodal georreferenciado a partir de
+    datos \gtfs{}.
+    \item \textit{VFTModel} \parencite{cabrera2026VFTModel}: motor analítico para el
+    cálculo de indicadores de eficiencia urbana ($DI$, $T$), centralidad de
+    intermediación ($B(v)$) y robustez geométrica ($\Delta E$) sobre el grafo
+    construido.
+    \item \textbf{Python y Go (Golang)}: lenguajes de programación empleados en el
+    procesamiento de datos, análisis espacial y desarrollo de los motores
+    computacionales.
+    \item \textbf{Sistemas de Información Geográfica (\gis{})}: QGIS y GeoPandas
+    para la visualización, validación espacial y análisis territorial de resultados.
 \end{itemize}
 
 %-----------------------------------------------------------------------
@@ -368,106 +430,123 @@ Se utilizarán las siguientes herramientas:
 \label{sec:metodologia}
 %-----------------------------------------------------------------------
 
-La investigación adoptará un enfoque cuantitativo basado en la Modelización de
-Transporte y la Evaluación de Escenarios. Este enfoque se sustenta en el Modelo de
-Planificación de Cuatro Etapas (Generación, Distribución, Partición Modal y
-Asignación), adaptado a la capacidad analítica de los Sistemas de Información
-Geográfica (GIS) y la programación en Python para cuantificar la viabilidad y
-pertinencia del corredor propuesto. El proceso metodológico se estructura en cuatro
-fases interdependientes:
+La investigación se estructura en cuatro fases secuenciales e interdependientes,
+cada una orientada a cubrir uno o más de los objetivos específicos planteados. El
+hilo conductor del proceso es la construcción progresiva del análisis: de la
+adquisición y modelado de los datos hacia el diagnóstico estructural de la red, la
+simulación de escenarios y, finalmente, la formulación de lineamientos de política
+pública en materia de movilidad \parencite{allauca2023}.
 
-\subsection{Fase 1: Preparación Geográfica y Digitalización}
+\subsection{Fase 1: Adquisición y construcción del grafo multimodal}
 \label{subsec:fase1}
 
-Esta fase tiene una ponderación del 25\% de importancia sobre el trabajo de
-investigación. Es crucial para sentar las bases de todos los análisis posteriores y
-cubre el Objetivo Específico Número~1.
+Esta fase tiene una ponderación del 25\% sobre el total de la investigación y cubre
+el \textbf{Objetivo Específico~1}.
 
 \begin{description}
-    \item[Objetivo Específico que cubre:] Digitalizar y sistematizar la información
-    geográfica y de movilidad de la sección sur del Anillo Periférico, integrando rutas
-    existentes, puntos de acceso y datos socioespaciales de las alcaldías involucradas.
-
-    \item[Objetivo de la Fase:] Establecer el Modelo Base Geoespacial,
-    sistematizando la información socioespacial, de la red vial y de las rutas de
-    transporte existentes en el tramo del Anillo Periférico Sur.
+    \item[Objetivo de la Fase:] Construir el grafo multimodal georreferenciado de
+    la \zmvm{} a partir del procesamiento sistemático de los feeds \gtfs{} de la
+    totalidad de los sistemas de transporte masivo de la región.
 
     \item[Actividades a Desarrollar:]~
     \begin{itemize}
-        \item \textit{Digitalización GIS}: Creación de \textit{layers} para rutas
-        existentes, puntos de acceso y áreas de captación (\textit{catchment areas}).
-        \item \textit{Integración Socioespacial}: Carga de datos socioeconómicos de
-        INEGI (población, empleo, motorización) para cada Área Geoestadística Básica
-        (AGEB) y su asociación a la red.
+        \item \textit{Adquisición y normalización de datos \gtfs{}}: Descarga y
+        limpieza de los feeds oficiales mediante el motor \textit{Apimetro}
+        \parencite{cabrera2025apimetro}. Este proceso incluye la validación de la
+        integridad estructural de los archivos (\texttt{stops.txt},
+        \texttt{routes.txt}, \texttt{trips.txt}, \texttt{stop\_times.txt}) conforme
+        al estándar \gtfs{} \parencite{fortin2016innovative}.
+        \item \textit{Construcción del grafo dirigido y ponderado}: Transformación
+        de los datos normalizados en un grafo $\grafo = (\nodos, \aristas)$, donde
+        cada nodo $v \in \nodos$ representa una estación o parada y cada arista
+        $e \in \aristas$ un segmento de ruta ponderado por tiempo de viaje
+        $\peso{i}{j}$.
+        \item \textit{Georreferenciación y validación espacial}: Asociación de
+        coordenadas geográficas a cada nodo y verificación de la topología resultante
+        mediante herramientas \gis{}.
     \end{itemize}
 \end{description}
 
-\subsection{Fase 2: Diagnóstico cuantitativo y estimación de la Demanda}
+\subsection{Fase 2: Análisis de la topología actual con \textit{VFTModel}}
 \label{subsec:fase2}
 
-Esta fase tiene una ponderación del 35\% de importancia sobre el trabajo de
-investigación. Es la fase central para identificar el problema de capacidad y calcular
-la demanda potencial. Cubre el Objetivo Específico Número~3.
+Esta fase tiene una ponderación del 30\% y cubre los \textbf{Objetivos
+Específicos~2 y~3}.
 
 \begin{description}
-    \item[Objetivo de la Fase:] Modelizar la situación actual (``Sin Proyecto'') y
-    estimar la Demanda Potencial Insatisfecha para el corredor circular.
+    \item[Objetivo de la Fase:] Caracterizar cuantitativamente la estructura y
+    eficiencia de la red de transporte actual mediante el cálculo de indicadores
+    de teoría de redes sobre el grafo construido en la Fase~1.
 
     \item[Actividades a Desarrollar:]~
     \begin{itemize}
-        \item \textit{Modelización de la Demanda} (Generación y Distribución):
-        Aplicar modelos gravimétricos o de factores de crecimiento para estimar los
-        viajes producidos y atraídos en el área de estudio.
-        \item \textit{Análisis de Cobertura y Capacidad}: Identificación de las
-        limitaciones de la oferta actual (frecuencias, saturación, velocidad comercial)
-        a través de la modelización de las rutas concesionadas.
+        \item \textit{Cálculo del Índice de Ruta Directa ($DI$) y Tiempo de Viaje
+        Promedio ($T$)}: Aplicación del motor \textit{VFTModel}
+        \parencite{cabrera2026VFTModel} para obtener los indicadores base de
+        eficiencia en la configuración topológica actual. El $DI$ mide la desviación
+        de los trayectos reales respecto a la distancia euclidiana óptima; valores
+        elevados indican ineficiencia geométrica en la red \parencite{owais2020}.
+        \item \textit{Cálculo de la Centralidad de Intermediación ($B(v)$)}:
+        Identificación de los nodos con mayor flujo de rutas mínimas, localizando
+        los puntos neurálgicos cuya falla comprometería la conectividad global del
+        sistema \parencite{batista2015, loterovélez2014}.
+        \item \textit{Evaluación de la Robustez Geométrica ($\Delta E$)}: Cálculo
+        del impacto sistémico ante la eliminación simulada de nodos o aristas de alta
+        centralidad, cuantificando la degradación de la eficiencia global de la red
+        \parencite{loterovélez2014}.
     \end{itemize}
 \end{description}
 
-\subsection{Fase 3: Modelización de escenarios y comparación de tiempos}
+\subsection{Fase 3: Diagnóstico de cobertura y simulación de escenarios}
 \label{subsec:fase3}
 
-Esta fase tiene una ponderación del 35\% de importancia. Aborda la simulación de
-la solución (el corredor circular) y la comparación directa de los beneficios. Cubre
-los Objetivos Específicos Número~2 y~4.
+Esta fase tiene una ponderación del 35\% y cubre los \textbf{Objetivos
+Específicos~4 y~5}.
 
 \begin{description}
-    \item[Objetivo de la Fase:] Desarrollar el Modelo de Escenario Propuesto
-    (``Con Proyecto'') y calcular la reducción de tiempos, la partición modal y el
-    impacto en el flujo vehicular.
+    \item[Objetivo de la Fase:] A partir del diagnóstico estructural obtenido en
+    la Fase~2, identificar las principales brechas de cobertura y eficiencia del
+    sistema actual, y evaluar el impacto topológico de la incorporación de un
+    corredor anillar en el Tercer Contorno metropolitano.
 
     \item[Actividades a Desarrollar:]~
     \begin{itemize}
-        \item \textit{Diseño conceptual del servicio}: Definición del trazado y la
-        capacidad operativa del corredor circular propuesto (p.~ej., BRT de alta
-        capacidad).
-        \item \textit{Modelización del Costo-Tiempo y Partición Modal}: Aplicación
-        de las Etapas~3 y~4 del modelo de transporte para estimar cómo los usuarios
-        cambiarían de modo y cuánto tiempo ahorrarían.
-        \item \textit{Evaluación Comparativa}: Simulación de la reducción de viajes
-        en automóvil/concesionado y el cálculo de la reducción de tiempos de traslado.
+        \item \textit{Diagnóstico de cobertura y eficiencia}: Análisis espacial de
+        los indicadores calculados para identificar zonas con déficit de conectividad
+        lateral, tiempos de traslado elevados y dependencia de nodos de alta
+        intermediación \parencite{mishra2012, ugur2025}.
+        \item \textit{Diseño del escenario propuesto}: Modelado del corredor circular
+        sobre la sección sur del Anillo Periférico como un conjunto de nuevos nodos
+        $\nodos'$ y aristas $\aristas'$ incorporados al grafo original, con pesos
+        $\peso{i}{j}$ estimados a partir de la velocidad comercial de sistemas
+        análogos de transporte masivo.
+        \item \textit{Simulación comparativa}: Ejecución de \textit{VFTModel} sobre
+        el grafo ampliado para calcular la variación neta en $DI$, $T$ y $B(v)$,
+        cuantificando la reducción de tiempos de traslado y la redistribución de la
+        centralidad de intermediación \parencite{cabrera2026VFTModel}.
     \end{itemize}
 \end{description}
 
-\subsection{Fase 4: Conclusiones y propuesta de integración}
+\subsection{Fase 4: Síntesis y lineamientos de integración}
 \label{subsec:fase4}
 
-Esta fase tiene una ponderación del 10\% de importancia. Es la culminación de la
-tesis, donde los datos cuantitativos se traducen en recomendaciones concretas para
-cumplir el objetivo general. Cubre el Objetivo Específico Número~5.
+Esta fase tiene una ponderación del 10\% y cubre el \textbf{Objetivo Específico~6}.
 
 \begin{description}
-    \item[Objetivo de la Fase:] Ofrecer una evaluación de la pertinencia del corredor
-    (Objetivo General) y proponer directrices para su integración al sistema
-    metropolitano.
+    \item[Objetivo de la Fase:] Traducir los resultados cuantitativos de las fases
+    anteriores en lineamientos concretos de integración operativa y tecnológica que
+    orienten la toma de decisiones en materia de movilidad metropolitana.
 
     \item[Actividades a Desarrollar:]~
     \begin{itemize}
-        \item \textit{Análisis Costo-Efectividad Social}: Evaluación de los resultados
-        de la Fase~3, priorizando indicadores de equidad territorial (acceso a empleos)
-        y eficiencia operativa (tiempos de traslado).
-        \item \textit{Propuesta de Lineamientos}: Desarrollo de recomendaciones para
-        la integración modal y tarifaria del corredor circular para lograr una mejora en
-        la movilidad urbana y reducir la dependencia del automóvil.
+        \item \textit{Interpretación de resultados}: Lectura crítica de los
+        indicadores comparativos para valorar la pertinencia del corredor anillar
+        frente al modelo radial vigente, con énfasis en la equidad territorial y la
+        reducción de la vulnerabilidad funcional del sistema.
+        \item \textit{Formulación de lineamientos}: Desarrollo de recomendaciones
+        para la integración modal, tarifaria y operativa del corredor circular,
+        orientadas a reducir la dependencia del transporte concesionado en las
+        alcaldías del sur y oriente de la \cdmx{} y la \zmvm{}
+        \parencite{semovi2020diagnostico}.
     \end{itemize}
 \end{description}
