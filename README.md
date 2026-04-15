@@ -13,27 +13,34 @@ Tutor: Dr. David López Flores — Posgrado en Urbanismo, UNAM
 ## Descripción
 
 Esta investigación analiza la viabilidad e impacto de implementar un **corredor
-circular de transporte público masivo** (*transport anular*) en la sección sur
-del Anillo Periférico de la Ciudad de México.
+circular de transporte público masivo** en la Zona Metropolitana del Valle de México
+(ZMVM), con la sección sur del Anillo Periférico de la Ciudad de México como caso
+de validación central.
 
-El estudio parte de la hipótesis de que la red de transporte de la ZMVM presenta
-una estructura radial-concéntrica que concentra los flujos de movilidad en el
-centro histórico, generando saturación y tiempos de traslado elevados para
-viajes de alcaldía a alcaldía en la periferia. Un eje anular permitiría conectar
-directamente las alcaldías de **Tlalpan, Xochimilco, Tláhuac y Milpa Alta** sin
-necesidad de transbordar en el centro.
+La red de transporte de la ZMVM presenta una estructura radial-concéntrica que
+concentra los flujos en nodos críticos del núcleo central (Pantitlán, Indios Verdes,
+Taxqueña), generando tiempos de traslado superiores a 122 minutos en la periferia
+profunda y una elevada vulnerabilidad funcional ante fallas operativas. La hipótesis
+central postula que la incorporación de una geometría anillar en el Tercer Contorno
+reducirá los indicadores de ineficiencia de la red —Índice de Ruta Directa (*DI*),
+Tiempo de Viaje Promedio (*T*) y Centralidad de Intermediación (*B(v)*)—,
+demostrable mediante modelado computacional de grafos.
 
 ### Metodología
 
-La investigación integra tres capas de análisis:
+La investigación se estructura en cuatro fases computacionales:
 
-1. **Análisis de grafos** — modelado de la red de transporte como un grafo
-   dirigido y ponderado; cálculo de indicadores de centralidad, conectividad
-   y eficiencia mediante teoría de redes.
-2. **Datos GTFS** — procesamiento de los feeds oficiales del Metro, Metrobús,
-   Tren Ligero y RTP para construir el grafo multimodal de la red actual.
-3. **Análisis socio-espacial** — evaluación del impacto territorial sobre
-   accesibilidad, equidad y tiempos de viaje en las alcaldías del sur.
+1. **Fase 1 — Construcción del grafo multimodal:** procesamiento de feeds GTFS
+   de toda la red de la ZMVM con [Apimetro](https://github.com/galigaribaldi/Apimetro)
+   para construir un grafo dirigido y ponderado georreferenciado.
+2. **Fase 2 — Análisis de la topología actual:** cálculo de indicadores de
+   eficiencia (*DI*, *T*), centralidad de intermediación (*B(v)*) y robustez
+   geométrica (*ΔE*) con [VFTModel](https://github.com/galigaribaldi/VFTModel).
+3. **Fase 3 — Diagnóstico y simulación de escenarios:** identificación de brechas
+   de cobertura y comparación entre la red actual y la red ampliada con el corredor
+   anillar propuesto.
+4. **Fase 4 — Lineamientos de integración:** recomendaciones operativas y
+   tecnológicas derivadas de los resultados del modelo.
 
 ---
 
@@ -130,7 +137,7 @@ Las versiones del documento siguen versionado semántico:
 | `v2.0.0`   | Versión final aprobada |
 
 El PDF de cada versión se publica automáticamente en
-[Releases](https://github.com/galigaribaldi/Tesis_Latex/releases).
+[Releases](https://github.com/galigaribaldi/TesisUrbanismo/releases).
 
 ---
 
