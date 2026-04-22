@@ -338,3 +338,5 @@ TSWLatexianTemp*
 # Directorio de salida si usas latexmk
 out/
 build/
+
+.claude/
