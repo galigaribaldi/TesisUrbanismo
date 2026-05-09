@@ -1,1 +1,125 @@
 % !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN: CAPAS DE CÓDIGO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Capas de Código}
+\label{ch:Capas-codigo}
+% =============================================================================
+%  SECCIÓN 4.1 — Filosofía de Arquitectura
+% =============================================================================
+
+\section{Filosofía de la Arquitectura: Hacia la democratización de la Tecnología de planeación}
+\label{sec:filosofia-arquitectura}
+La arquitectura computacional de esta investigación se fundamenta en la transición hacia herramientas de análisis de acceso abierto, 
+rompiendo con la dependencia histórica de ecosistemas de software cerrados y onerosos para la administración pública. 
+Históricamente, la planeación de redes de transporte ha estado supeditada al acceso a bases de datos comerciales, como NAVTEQ Map Data 
+\cite{navteq2012}, o al uso de plataformas SIG especializadas como TransCAD \cite{caliper2010}, cuyos costos de licenciamiento y opacidad 
+algorítmica imponen barreras de entrada significativas para los organismos locales.
+Frente a este modelo, la democratización tecnológica se apoya en proyectos como OpenStreetMap (OSM) \cite{osm2012}, que proporcionan capas 
+de infraestructura vial libre, permitiendo una construcción transparente de grafos ruteables. Este enfoque se alinea con los preceptos de la \textbf{Free Software Foundation (FSF)}, 
+la cual establece que la libertad del software radica en la capacidad de los usuarios para usar, estudiar, modificar y redistribuir las herramientas según las necesidades de la comunidad.
+En términos de planeación urbana, la adopción de esta filosofía permite alcanzar una soberanía tecnológica, facilitando que las instituciones públicas acumulen capacidades analíticas autónomas 
+y reduzcan la brecha de información en las periferias urbanas. Consecuentemente, el desarrollo de motores propios como \textbf{Apimetro} y \textbf{VFTModel}, basados en lenguajes de programación modernos como Go y Python, 
+garantiza que el modelado y la optimización de la red multimodal de la ZMVM sea un proceso reproducible, transparente y accesible para el interés público
+\section{Apimetro: El motor de Datos metropolitano (Ingesta y ETL)}
+\label{subsec:Apimetro-Intro}
+
+El proyecto \texttt{Apimetro} tiene su génesis entre los años 2023 y 2024, derivado de una necesidad cartográfica y de modelación espacial para el universo narrativo de \textbf{"La Saga de la Catacumba"}, obra del autor de la presente investigación. 
+El primer volumen de esta serie, titulado \textbf{La historia de Quince}, explora una distopía urbana denominada "Ciudad Capital", la cual funciona como un homónimo especulativo de la Ciudad de México donde la habitabilidad se rige por la interacción crítica 
+de tres variables: transporte, educación y tiempo. En dicha narrativa, el "tiempo" no es solo una dimensión física, sino un recurso de equidad social condicionado por la eficiencia de la infraestructura de movilidad. Para la construcción de este entorno literario, 
+se requirió el desarrollo de un plan urbanístico que resolviera la fricción espacial de los protagonistas, quienes residían en polos opuestos de la metrópoli: el oriente y el sur profundo. En la realidad geográfica de la Ciudad de México, estas zonas corresponden a 
+demarcaciones con un rezago histórico en transporte masivo, tales como Milpa Alta, Xochimilco, Tláhuac y Tlalpan. En estos sectores, la oferta de movilidad recae primordialmente en la \textbf{Red de Transporte de Pasajeros (RTP)}, 
+cuya baja frecuencia y velocidades comerciales limitadas generaban, a nivel narrativo, "tiempos muertos" que dificultaban la fluidez de la trama. Esta problemática orilló a una convergencia multidisciplinaria que dio origen a cuatro proyectos paralelos: 
+\textit{Apimetro}, \textit{La Catacumba}, \textit{VFTModel} y \textit{Diarios}. La primera aproximación técnica para sistematizar la geografía metropolitana fue el desarrollo de \textit{"TrainMap"}, una herramienta de visualización que, aunque funcional 
+para propósitos creativos, carecía del rigor matemático necesario para una auditoría urbana formal. A partir del año 2025, con el ingreso a la \textbf{Maestría en Urbanismo de la UNAM}, la investigación dio un giro hacia la formalización científica, 
+integrando estándares como el \textit{General Transit Feed Specification} (GTFS) y sistemas de información geográfica (SIG). \texttt{Apimetro} recibió una actualización estructural significativa a mediados de marzo de 2026, orientándose hacia un modelo de 
+\textbf{Software as a Service (SaaS)} especializado en el manejo de tipos de datos \texttt{GeoJSON} para la representación cartográfica y el análisis ruteable. El núcleo operativo del sistema se define mediante un proceso \textbf{ETL} 
+(\textit{Extraction, Treatment and Liberation}), diseñado para transformar la rigidez de los archivos \texttt{GTFS} en geometrías flexibles. Si bien el estándar \texttt{GTFS} posee una estructura relacional robusta, su formato original dificulta el análisis 
+directo en hojas de cálculo o capas \texttt{SHP} convencionales, por lo que la conversión a \texttt{GeoJSON} se determinó como la solución más óptima para la visualización y el cálculo de indicadores topológicos. La persistencia y estructuración de la información 
+se ejecutan dentro de una base de datos relacional \textbf{PostgreSQL 15}, potenciada por la extensión espacial \textbf{PostGIS 3.4}. Esta elección tecnológica permite almacenar datos geográficos de manera eficiente y proporciona operaciones de consulta avanzadas, 
+como \texttt{ST\_AsGeoJSON} y \texttt{ST\_DWithin}, fundamentales para la ingesta y el ruteo asíncrono. Para la implementación de esta fase, se utilizó el lenguaje de programación \textbf{Python}, aprovechando la robustez de librerías especializadas en el manejo de 
+grandes volúmenes de datos como \texttt{Pandas} y \texttt{PySpark}. Gracias a esta arquitectura, la ingesta de datos se consume de manera autosuficiente y óptima, resultando en una base de datos de apenas 38 MB en estado de desarrollo que es fácilmente replicable en 
+diversos entornos operativos, incluyendo Linux, Windows, MacOS y plataformas web. Esta portabilidad facilita la auditoría de la red mediante gestores de consultas como \texttt{Postman} o su despliegue local a través de tecnologías de contenedores como \textbf{Docker} y 
+\textbf{Docker Compose}. En última instancia, \texttt{Apimetro} garantiza la soberanía tecnológica de la investigación, permitiendo que la replicación del esquema de datos se realice de forma transparente mediante el archivo \texttt{seed.sql} disponible en su repositorio oficial.
+
+\subsubsection{Esquema Entidad-Relación E-R}
+\label{subsubsec:EsquemaER}
+El diseño del esquema relacional busca simplificar el estándar complejo del \texttt{GTFS} (que incluye tablas como \textit{trips}, \textit{stop\_times} y \textit{shapes}) en tres entidades primordiales optimizadas para el consumo de la \texttt{API} y el cálculo de indicadores topológicos:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap4/DiagramaER.png}
+    \caption[Esquema Relacional Simplificado de Apimetro]{Representación de las entidades principales (Estaciones, Líneas y Polígonos) y sus relaciones para el cálculo de indicadores topológicos.}
+    \label{fig:diagrama-er}
+    \fuentefigura{Elaboración propia.}
+\end{figure}
+
+
+Como se observa en la Figura \ref{fig:diagrama-er}, el modelo se articula bajo los siguientes componentes:
+
+\begin{itemize} 
+    \item \textbf{Estaciones:} Nodo puntual que contiene atributos de conectividad y ubicación. 
+    \item \textbf{Líneas:} Aristas de tipo \texttt{MultiLineString} que almacenan métricas operativas (velocidad, capacidad, frecuencia). 
+    \item \textbf{Polígonos:} Áreas administrativas para filtrado por alcaldía o municipio. 
+    \item \textbf{Relaciones:} Las líneas se vinculan con las estaciones a través de un identificador de sistema y ramal, permitiendo la reconstrucción del grafo metropolitano.
+\end{itemize}
+
+
+\subsubsection{Definición de Tablas Principales (SQL)}
+\label{subsubsec:DefinicionSQL}
+A continuación, se presenta el código de creación de las tablas más críticas, las cuales permiten la ingesta asíncrona de datos desde el motor ETL.
+
+\begin{lstlisting}[language=SQL, caption={Tablas base de Apimetro}, label=lst:sql-apimetro, breaklines=true, basicstyle=\small\ttfamily]
+-- Tabla de Estaciones (Nodos)
+CREATE TABLE estaciones (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    sistema VARCHAR(50), -- METRO, MB, RTP, etc.
+    alcaldia_municipio VARCHAR(100),
+    jerarquia_transporte VARCHAR(50),
+    es_cetram BOOLEAN DEFAULT FALSE,
+    geom GEOMETRY(Point, 4326) -- SRID WGS 84
+);
+
+-- Tabla de Lineas y Ramales (Aristas con metrica)
+CREATE TABLE lineas (
+    id SERIAL PRIMARY KEY,
+    nombre_linea VARCHAR(255),
+    sistema VARCHAR(50),
+    velocidad_promedio_kmh FLOAT,
+    frecuencia_minutos INTEGER,
+    capacidad_vehiculo INTEGER,
+    sentido INTEGER, -- 1 o 2
+    geom GEOMETRY(MultiLineString, 4326)
+);
+
+-- Indices espaciales para optimizar consultas de ruteo
+CREATE INDEX idx_estaciones_geom ON estaciones USING GIST (geom);
+CREATE INDEX idx_lineas_geom ON lineas USING GIST (geom);
+\end{lstlisting}
+
+La arquitectura de estas tablas responde a dos necesidades fundamentales identificadas en la investigación:
+\textbf{Optimización de Consultas Geográficas:} El uso de columnas de tipo \texttt{GEOMETRY} y la creación de índices 
+\texttt{GIST} permiten realizar operaciones espaciales masivas en milisegundos, tales como \texttt{ST\_AsGeoJSON} para la 
+exportación de geometrías, \texttt{ST\_DWithin} para el cálculo de áreas de influencia o cobertura, y \texttt{ST\_Length} para 
+determinar las distancias reales sobre la red vial. \textbf{Cálculo de Indicadores Operativos:} A diferencia de un \texttt{SIG} 
+convencional, la tabla \texttt{lineas} integra atributos operativos críticos como la \textit{capacidad} del vehículo y la 
+\textit{frecuencia} de paso. Esto permite que el motor \texttt{VFTModel} calcule automáticamente indicadores de desempeño como la 
+\textbf{Fuerza Nodal (C i)} y el \textbf{Tiempo de Viaje (T)}, ponderando el grafo metropolitano no solo por su fricción espacial, 
+sino por la oferta real de transporte y las penalizaciones por transferencia. Finalmente, es importante señalar que esta infraestructura 
+está alineada con los preceptos de soberanía tecnológica y reproducibilidad científica, siendo totalmente instalable en cualquier entorno 
+(Docker, Linux, Windows o MacOS) mediante el archivo de inicialización \texttt{init.sql} (o \texttt{seed.sql}) disponible en el repositorio 
+oficial de \texttt{Apimetro} en GitHub.
+
+
+\subsection{Tecnologías Backend}
+\label{subsec:backend}
+lorem
+\subsection{Procesamiento de Datos GTFS y OsMand}
+\label{subsec:gtfs-osmnd}
+lorem
+\subsection{Salidas Estructurales (GeoJson)}
+\label{subsec:estructura-geojson}
+lorem
+\subsection{El Futuro de Apimetro}
+\label{subsec:futuro-apimetro}
