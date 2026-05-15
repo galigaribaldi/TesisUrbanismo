@@ -1,0 +1,148 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.1 — LA RED METROPOLITANA COMO OBJETO DE ANÁLISIS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La Red Metropolitana como Objeto de Análisis}
+\label{sec:intro-resultados}
+
+La construcción del grafo topológico de la \zmvm constituye el punto de partida
+de todos los indicadores que se presentan en este capítulo. Para transformar la
+geografía estática de las rutas de transporte en un modelo operativo y ruteable,
+el \textbf{Modelo VFT} implementa una arquitectura de procesamiento en tres
+capas progresivas, cuyo flujo se sintetiza en la Figura~\ref{fig:arq-capas}.
+
+% --- Figura: arquitectura en 3 capas ---
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/arq_capa1.png}
+        \caption{Capa 1: Adquisición y procesamiento geométrico.}
+        \label{fig:arq-capa1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/arq_capa2.png}
+        \caption{Capa 2: Modelado topológico y dinámico.}
+        \label{fig:arq-capa2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/arq_capa3.png}
+        \caption{Capa 3: Evaluación y salida de indicadores.}
+        \label{fig:arq-capa3}
+    \end{subfigure}
+    \caption[Arquitectura en tres capas del Modelo VFT]{Representación esquemática
+    de las tres capas de procesamiento del Modelo VFT: adquisición geométrica,
+    modelado topológico con impedancia temporal, y evaluación de indicadores.}
+    \label{fig:arq-capas}
+    \fuentefigura{Elaboración propia.}
+\end{figure}
+
+% --- Estadísticas del grafo ---
+\subsection{Caracterización del Grafo Construido}
+\label{subsec:estadisticas-grafo}
+
+La ingesta de datos desde \texttt{Apimetro} proporcionó \textbf{22{,}766 entidades
+espaciales} que, tras el proceso de \termino{Snapping Lógico Geográfico} mediante
+un árbol \texttt{KDTree} con tolerancia de 50~m, se consolidaron en un grafo
+dirigido con las siguientes dimensiones:
+
+\begin{itemize}
+    \item \textbf{11{,}115 nodos topológicos} (estaciones operativas, eliminando
+    nodos fantasma y redundancias geométricas).
+    \item \textbf{45{,}679 aristas}, de las cuales 25{,}197 corresponden a
+    segmentos de servicio real y 20{,}482 a aristas de transbordo peatonal
+    generadas algorítmicamente.
+    \item \textbf{11 sistemas de transporte} representados: \textsc{Metro},
+    Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Cablebús, Mexicable,
+    Mexibús, \textsc{rtp}, Corredores Concesionados y Pumabús.
+    \item Distribución modal: \textbf{12\% infraestructura masiva estructurada}
+    (Metro, MB, TL, CBB, SUB) y \textbf{88\% transporte de superficie}
+    (RTP, CC, Trolebús, Mexibús, Mexicable).
+\end{itemize}
+
+La Figura~\ref{fig:paneles-grafo} ilustra las cuatro perspectivas de
+visualización del grafo resultante: la infraestructura agregada, la conectividad
+interestación, y la direccionalidad de ida y regreso.
+
+% --- Figura: 4 paneles del grafo ---
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/panel1_infraestructura.png}
+        \caption{Panel 1: Infraestructura agregada de la red.}
+        \label{fig:panel1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/panel2_conectividad.png}
+        \caption{Panel 2: Conectividad interestación (aristas).}
+        \label{fig:panel2}
+    \end{subfigure}
+
+    \vspace{0.5em}
+
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/panel3_ida.png}
+        \caption{Panel 3: Direccionalidad de servicio (sentido ida).}
+        \label{fig:panel3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap5/panel4_regreso.png}
+        \caption{Panel 4: Direccionalidad de servicio (sentido regreso).}
+        \label{fig:panel4}
+    \end{subfigure}
+    \caption[Visualización del grafo topológico de la \zmvm]{Cuatro perspectivas
+    de visualización del grafo dirigido construido sobre la red multimodal de la
+    \zmvm. El proceso de Snapping Lógico redujo los nodos en aproximadamente
+    un 90\% respecto a la representación geométrica cruda.}
+    \label{fig:paneles-grafo}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-18).}
+\end{figure}
+
+% --- Tabla resumen de indicadores ---
+\subsection{Estructura de Indicadores y Dependencias por Fase}
+\label{subsec:tabla-indicadores}
+
+Los ocho indicadores que componen el análisis topológico se organizan en tres
+fases cuya ejecución es secuencialmente dependiente, como se muestra en el
+Cuadro~\ref{tab:resumen-indicadores-cap5}.
+
+\begin{table}[H]
+    \centering
+    \caption[Resumen de indicadores del Modelo VFT por fase]{Resumen de los
+    indicadores del Modelo VFT, su fase de cálculo, dependencias y estado
+    de avance en la investigación.}
+    \label{tab:resumen-indicadores-cap5}
+    \begin{tabularx}{\textwidth}{|l|l|X|l|}
+        \hline
+        \textbf{Indicador} & \textbf{Fase} & \textbf{Dependencias} & \textbf{Estado} \\
+        \hline
+        Validación de Impedancia    & 1 & Grafo base + fallbacks            & Calculado \\
+        Cobertura Espacial ($C$)    & 1 & Geometría de estaciones           & Calculado \\
+        Fuerza Capilar ($FC$)       & 1 & Grafo base                        & Calculado \\
+        Factor de Desviación ($DF$) & 1 & Grafo base + impedancia           & Calculado \\
+        \hline
+        Coef. de Fricción Vial ($CF$)  & 2 & Fase 1 completa                & Calculado \\
+        Penalización por Transf. ($T_b$) & 2 & Fase 1 + $CF$              & Formulado \\
+        Node Score ($VFT\_score$)   & 2 & Fase 1 + datos MV1/MV2            & Planificado \\
+        \hline
+        Tiempo de Viaje Prom. ($T$) & 3 & Fases 1 y 2 completas             & Pendiente \\
+        Centralidad Interm. ($B$)   & 3 & Fases 1 y 2 + $T$                 & Pendiente \\
+        Vulnerabilidad ($\Delta E$) & 3 & Fases 1, 2 y $B$                  & Pendiente \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia.}
+\end{table}
+
+Las secciones correspondientes a resultados en revisión o pendientes de cálculo
+se identifican visualmente con fondo \colorbox{azulRevision}{azul tenue} en
+el título, acompañadas de una nota metodológica al inicio del apartado.

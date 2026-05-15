@@ -1,1 +1,29 @@
 % !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPÍTULO 5 — RESULTADOS DEL MODELO VFT
+% Archivo índice: declara el capítulo e inputea las secciones.
+% No agregar contenido directamente aquí.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Resultados del Modelo VFT}
+\label{ch:resultados-vft}
+
+El presente capítulo expone los resultados obtenidos mediante la aplicación del
+\textbf{Modelo VFT} (\textit{Vanishing Fig-Tree}) sobre la red de transporte
+multimodal de la \zmvm. Los indicadores se presentan en tres fases progresivas
+cuya estructura responde a sus dependencias computacionales: la Fase~1 puede
+calcularse de forma autónoma a partir de la geometría de la red; la Fase~2
+requiere los pesos dinámicos derivados de la Fase~1; y la Fase~3 exige que
+las dos anteriores estén completas para ejecutar los algoritmos de caminos
+mínimos y análisis de vulnerabilidad.
+
+Las secciones marcadas con fondo \colorbox{azulRevision}{azul tenue}
+corresponden a resultados que se encuentran sujetos a revisión con el
+comité tutor antes de su incorporación definitiva al documento.
+
+% =============================================================================
+%  SECCIONES DEL CAPÍTULO
+% =============================================================================
+\input{5-Resultados/5-1-Introduccion-Resultados}
+\input{5-Resultados/5-2-1-Resultados-VFT-Fase1}
+\input{5-Resultados/5-2-2-Resultados-VFT-Fase2}
+\input{5-Resultados/5-2-3-Resultados-VFT-Fase3}

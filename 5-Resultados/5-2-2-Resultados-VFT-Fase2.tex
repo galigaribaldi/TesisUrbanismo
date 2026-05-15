@@ -1,0 +1,354 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.2-2 — RESULTADOS VFT: FASE 2
+% Ponderación dinámica de la red
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\bajoRevision{Fase 2: Ponderación Dinámica de la Red}}
+\label{sec:resultados-fase2}
+
+\notaRevision{Los indicadores de esta fase se encuentran en revisión con el
+comité tutor. Los coeficientes de fricción vial y la penalización por
+transferencia han sido calculados e integrados al grafo; el \termino{Node Score}
+se encuentra en etapa de planificación, pendiente de la disponibilidad de las
+vistas materializadas MV1 y MV2 de \textbf{Apimetro}.}
+
+La Fase~2 del Modelo VFT enriquece el grafo construido en la Fase~1 con dos
+capas de pesos dinámicos que aproximan las condiciones reales de operación de la
+red: el \textbf{Coeficiente de Fricción Vial} ($CF$), que penaliza el tiempo de
+traslado en función del nivel de interferencia del tráfico urbano sobre cada
+tipo de vía, y la \textbf{Penalización por Transferencia} ($T_b$), que incorpora
+el costo de caminata y espera en cada transbordo intermodal. Estos dos pesos
+conforman el componente dinámico de la \textbf{Ecuación VFT}:
+
+\begin{equation}
+    w(u,v) = \frac{D_{uv}}{V_{\text{modo}}} \cdot CF_{\text{vía}} + T_b
+    \label{eq:vft-arista}
+\end{equation}
+
+\begin{itemize}
+    \item $D_{uv}$: distancia geodésica del segmento calculada mediante la
+    fórmula de \termino{Haversine} (metros).
+    \item $V_{\text{modo}}$: velocidad comercial ajustada del sistema de
+    transporte (km/h), extraída del \geojson{} de \textbf{Apimetro} o
+    sustituida por el valor de \termino{fallback} calibrado por sistema.
+    \item $CF_{\text{vía}}$: coeficiente de fricción vial según el tipo de
+    derecho de vía del segmento (adimensional, $\geq 1$).
+    \item $T_b$: penalización por transferencia peatonal en minutos; se aplica
+    exclusivamente en las aristas de transbordo generadas por el
+    \termino{Snapping Lógico Geográfico}.
+\end{itemize}
+
+Para las aristas de servicio normal, el peso de enrutamiento es
+$\mathit{weight} = (D_{uv}/V_{\text{modo}}) \cdot CF_{\text{vía}}$; el
+$T_b$ queda registrado como atributo informativo pero no penaliza el
+segmento. La penalización por transferencia actúa únicamente sobre aristas de
+tipo \texttt{transfer}, como se describe en la Sección~\ref{subsec:res-penalizacion-transferencia}.
+
+% ----------------------------------------------------------------
+\subsection{Coeficiente de Fricción Vial ($CF$)}
+\label{subsec:coeficiente-friccion}
+% ----------------------------------------------------------------
+
+El \textbf{Coeficiente de Fricción Vial} ($CF$) traduce el tipo de
+\termino{derecho de vía} de cada segmento en un penalizador multiplicativo
+sobre el tiempo de traslado. La premisa es que circular por un túnel del
+Metro —aislado del tráfico en superficie— implica un costo temporal muy
+distinto al de un camión de la \textsc{rtp} inmerso en el flujo vehicular de
+Insurgentes o Periférico.
+
+\subsubsection{Constante de Saturación Vial}
+\label{subsubsec:beta-saturacion}
+
+El parámetro base del coeficiente es la constante de saturación $\beta$,
+derivada del \termino{TomTom Traffic Index} para la \zmvm:
+
+\begin{equation}
+    \beta_{\text{ZMVM}} = 0.759
+    \label{eq:beta-zmvm}
+\end{equation}
+
+Este valor indica que la ciudad opera, en condiciones promedio, al 76~\% de
+su capacidad vial. Es decir, un vehículo en tráfico mixto experimenta, en
+promedio, un sobretiempo del 76~\% respecto al recorrido en flujo libre.
+
+\subsubsection{Fórmula y Valores por Derecho de Vía}
+\label{subsubsec:formula-cf}
+
+El coeficiente $CF$ se obtiene a partir de un parámetro de escala $\alpha$
+que modula la exposición de cada tipo de vía a la saturación urbana:
+
+\begin{equation}
+    CF = 1 + \alpha \cdot \beta_{\text{ZMVM}}
+    \label{eq:cf-formula}
+\end{equation}
+
+\begin{itemize}
+    \item $\alpha \in \{0.0,\ 0.2,\ 0.5,\ 1.0\}$: fracción de la saturación
+    urbana que afecta el segmento, determinada por su tipo de derecho de vía.
+    \item $\beta_{\text{ZMVM}} = 0.759$: constante de saturación de la \zmvm
+    (\termino{TomTom Traffic Index}).
+    \item $CF \geq 1$: un valor de 1.0 indica flujo ideal sin interferencia;
+    valores superiores representan el penalizador proporcional al congestionamiento.
+\end{itemize}
+
+El Cuadro~\ref{tab:cf-por-via} sintetiza los cuatro tipos de derecho de vía
+modelados, los sistemas de transporte correspondientes y el valor numérico del
+coeficiente resultante.
+
+\begin{table}[H]
+    \centering
+    \caption[Coeficiente de Fricción Vial por tipo de derecho de vía]{Coeficiente
+    de Fricción Vial ($CF$) por tipo de derecho de vía en el Modelo VFT.
+    $\alpha$ escala el impacto de la saturación urbana
+    $\beta_{\text{ZMVM}} = 0.759$.}
+    \label{tab:cf-por-via}
+    \begin{tabularx}{\textwidth}{|l|c|c|X|}
+        \hline
+        \textbf{Derecho de vía} & \textbf{$\alpha$} & \textbf{$CF$} &
+        \textbf{Sistemas representativos} \\
+        \hline
+        Exclusivo   & 0.0 & 1.000 & Metro, Tren Suburbano \\
+        Confinado   & 0.2 & 1.152 & Metrobús, Cablebús, Mexicable \\
+        Compartido  & 0.5 & 1.380 & Trolebús, Tren Ligero \\
+        Mixto       & 1.0 & 1.759 & \textsc{rtp}, Corredores Concesionados,
+                                    Mexibús, Pumabús \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{impedance.py}
+    (VFTModel, corrida 2026-04-18). Los valores $\alpha$ tienen como referencia
+    normativa el \textit{Manual de Calles: Diseño Vial para Ciudades Mexicanas}
+    \parencite{sedatu2019manual}.}
+\end{table}
+
+El rango del coeficiente $CF \in [1.000,\ 1.759]$ implica que el tiempo de
+traslado en un segmento de vía mixta (RTP, Corredores Concesionados) puede ser
+hasta un 75.9~\% mayor que el mismo recorrido bajo condiciones de flujo ideal.
+Esta diferencia no refleja únicamente la velocidad operacional del vehículo —que
+ya está calibrada en $V_{\text{modo}}$— sino el efecto sistemático de las
+detenciones por semáforos, cruces peatonales y congestión que son inherentes a
+los segmentos de superficie compartida.
+
+En el caso del sistema de derecho de vía desconocido, el Modelo VFT asigna
+por defecto el valor de vía \texttt{mixto} ($CF = 1.759$), aplicando el
+principio de escenario más conservador para no subestimar los tiempos de traslado.
+
+% ----------------------------------------------------------------
+\subsection{Penalización por Transferencia ($T_b$)}
+\label{subsec:res-penalizacion-transferencia}
+% ----------------------------------------------------------------
+
+La \textbf{Penalización por Transferencia} ($T_b$) modela el costo temporal que
+un pasajero incurre al cambiar de sistema o línea dentro de la red. A diferencia
+del tiempo de traslado —que depende de la distancia y la velocidad del vehículo—,
+el costo de transbordo consta de dos componentes independientes: el tiempo de
+caminata entre plataformas y el tiempo de espera en el andén de destino.
+
+\subsubsection{Fórmula de la Penalización}
+\label{subsubsec:formula-tb}
+
+Para cada arista de transbordo generada por el \termino{Snapping Lógico Geográfico}
+entre los nodos $u$ (origen del transbordo) y $v$ (destino del transbordo), el
+peso de la arista es:
+
+\begin{equation}
+    T_b(u, v) = t_{\text{caminata}}(u, v) + \frac{F_v}{2}
+    \label{eq:tb-formula}
+\end{equation}
+
+\begin{itemize}
+    \item $t_{\text{caminata}}(u, v)$: tiempo de caminata entre los dos nodos
+    a una velocidad peatonal normativa de 5~km/h (1.38~m/s), equivalente al
+    límite superior establecido en el \textit{Manual de Calles SEDATU}
+    \parencite{sedatu2019manual} para infraestructura de transbordo sin detenciones
+    en semáforo.
+    \item $F_v$: frecuencia de servicio del sistema destino $v$ (minutos entre
+    unidades); si no está reportada en el \geojson{}, se utiliza el valor
+    de \termino{fallback} calibrado por sistema.
+    \item $F_v / 2$: tiempo de espera esperado, calculado como la mitad de la
+    frecuencia bajo la hipótesis de llegada aleatoria del pasajero al andén
+    (\termino{random arrival assumption}).
+\end{itemize}
+
+El tiempo de caminata se calcula como:
+
+\begin{equation}
+    t_{\text{caminata}}(u, v) = \frac{D_{uv}}{V_{\text{peatonal}}}
+    = \frac{D_{uv}}{83.33\ \text{m/min}}
+    \label{eq:t-caminata}
+\end{equation}
+
+donde $D_{uv}$ es la distancia geodésica entre los dos nodos (Haversine) en
+metros, y $V_{\text{peatonal}} = 5000\ \text{m} / 60\ \text{min} = 83.33\ \text{m/min}$.
+
+\subsubsection{Valores de Frecuencia de Fallback}
+\label{subsubsec:fallback-frecuencia}
+
+El Cuadro~\ref{tab:fallback-frecuencia} presenta los valores de frecuencia de
+\termino{fallback} calibrados para cada sistema de transporte, junto con el
+costo de abordaje resultante ($F_v / 2$). Estos valores representan intervalos
+promedio en condiciones de operación normal en hora no pico.
+
+\begin{table}[H]
+    \centering
+    \caption[Frecuencias de \textit{fallback} y costo de abordaje por sistema]{Frecuencias
+    de servicio de \termino{fallback} y penalización de abordaje resultante
+    ($T_b^{\text{espera}} = F_v / 2$) por sistema de transporte en el Modelo VFT.}
+    \label{tab:fallback-frecuencia}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Sistema} & \textbf{$F_v$ (min)} & \textbf{$F_v / 2$ (min)} \\
+        \hline
+        \textsc{Metro} (STC)          & 3.0  & 1.50 \\
+        Metrobús (MB)                 & 5.0  & 2.50 \\
+        Tren Ligero (TL)              & 10.0 & 5.00 \\
+        Trolebús (TROLE)              & 8.0  & 4.00 \\
+        \textsc{rtp}                  & 15.0 & 7.50 \\
+        Tren Suburbano (SUB)          & 12.0 & 6.00 \\
+        Cablebús (CBB)                & 10.0 & 5.00 \\
+        Corredores Concesionados (CC) & 15.0 & 7.50 \\
+        Mexibús                       & 6.0  & 3.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con base en \texttt{graph\_builder.py}
+    (VFTModel, corrida 2026-04-18). Los valores corresponden a frecuencias
+    promedio en horario valle; las frecuencias en hora pico son reportadas por
+    los operadores como atributo del \geojson{} y tienen precedencia sobre los
+    \termino{fallbacks}.}
+\end{table}
+
+\subsubsection{Decisión de Diseño: Boarding Cost Informativo}
+\label{subsubsec:boarding-cost-diseno}
+
+Una precisión metodológica relevante: el costo de abordaje $F_v / 2$ \textbf{no
+se suma al peso de las aristas de servicio normal}. Solo actúa como componente
+del peso de las aristas de transbordo peatonal. Esta decisión responde a que el
+pasajero ya está dentro del vehículo en los segmentos normales; el tiempo de
+espera por frecuencia solo es pertinente en el momento de abordar un nuevo
+sistema. Sumarlo en cada arista normal equivaldría a penalizar al pasajero en
+cada estación intermedia, sobreestimando sistemáticamente los tiempos de ruta.
+
+En consecuencia, el Modelo VFT registra $F_v / 2$ como atributo informativo
+en las aristas de servicio (\texttt{boarding\_cost\_min}) para análisis
+descriptivos, pero el atributo \texttt{weight} de estas aristas solo contiene
+el tiempo de traslado con fricción.
+
+% ----------------------------------------------------------------
+\subsection{\bajoRevision{Node Score — Estado de Implementación}}
+\label{subsec:node-score}
+% ----------------------------------------------------------------
+
+\notaRevision{El \termino{Node Score} ($\text{VFT\_score}$) se encuentra en etapa
+de planificación. Su cálculo requiere los datos de afluencia por línea (MV1) y
+los polígonos AGEB con atributos censales (MV2) de \textbf{Apimetro}, aún no
+disponibles en la fecha de cierre de este documento. La arquitectura del indicador,
+sus fórmulas y las dependencias de datos se presentan a continuación como
+fundamento para la etapa de implementación.}
+
+El \termino{Node Score} ($\text{VFT\_score}_i$) constituye la segunda capa de
+pesos del Modelo VFT: mientras que los pesos de arista modelan el costo temporal
+de recorrer la red, el \termino{Node Score} asigna a cada nodo una medida de
+\textbf{importancia compuesta} que combina propiedades topológicas de la red con
+información de demanda observada y potencial. Este indicador es el que alimenta
+el análisis de vulnerabilidad de la Fase~3.
+
+\subsubsection{Fórmula del Node Score}
+\label{subsubsec:formula-vft-score}
+
+\begin{equation}
+    \text{VFT\_score}_i = \alpha_1 \hat{k}_i + \alpha_2 \hat{a}_i + \alpha_3 \hat{p}_i
+    \label{eq:vft-score}
+\end{equation}
+
+donde los tres componentes normalizados al rango $[0, 1]$ son:
+
+\begin{itemize}
+    \item $\hat{k}_i$: \textbf{Fuerza Capilar normalizada} (min-max sobre todos
+    los nodos del grafo). Calculada en la Fase~1 para los 11{,}115 nodos.
+    \item $\hat{a}_i$: \textbf{Afluencia estimada por estación normalizada}.
+    Derivada de la afluencia diaria por línea ($A_\ell$, fuente MV1) desagregada
+    internamente por VFT mediante ponderación por grado topológico:
+    \begin{equation}
+        a_i = \sum_{\ell \ni i} A_\ell \cdot
+        \frac{g_i}{\displaystyle\sum_{j \in \ell} g_j}
+        \label{eq:desagregacion-afluencia}
+    \end{equation}
+    donde $g_i = \deg(i)$ es el grado del nodo $i$ en el grafo NetworkX.
+    \item $\hat{p}_i$: \textbf{Población captada en buffer de 800~m normalizada}.
+    Calculada intersectando un radio de 800~m alrededor de cada estación con los
+    polígonos AGEB (fuente MV2), ponderando cada AGEB por la fracción de su área
+    dentro del buffer:
+    \begin{equation}
+        p_i = \sum_{j \in \mathcal{A}_i} \text{pob}_j \cdot
+        \frac{\text{área}(B_i \cap \text{AGEB}_j)}{\text{área}(\text{AGEB}_j)}
+        \label{eq:poblacion-captada}
+    \end{equation}
+    donde $B_i$ es el buffer circular de 800~m en proyección métrica EPSG:6372
+    (México Centro) y $\mathcal{A}_i$ el conjunto de AGEBs que lo intersectan.
+\end{itemize}
+
+La normalización de cada componente usa el método \termino{min-max}:
+\begin{equation}
+    \hat{x}_i = \frac{x_i - \min(\mathbf{x})}{\max(\mathbf{x}) - \min(\mathbf{x})}
+    \label{eq:normalizacion-minmax}
+\end{equation}
+
+\subsubsection{Determinación de los Pesos $\alpha$}
+\label{subsubsec:pesos-alpha}
+
+Los pesos $\alpha_1, \alpha_2, \alpha_3$ se determinarán en dos etapas
+progresivas una vez que los datos de MV1 y MV2 estén disponibles:
+
+\begin{enumerate}
+    \item \textbf{Validación inicial (pesos iguales):} $\alpha_1 = \alpha_2 =
+    \alpha_3 = 1/3$. Objetivo: verificar que nodos de alta importancia reconocida
+    (Pantitlán, Insurgentes, Pino Suárez, Balderas) aparecen en el top-10 del
+    \termino{ranking}. Si no lo hacen, el problema se ubica en los datos de entrada.
+    \item \textbf{Pesos por entropía (CRITIC):} los pesos finales se derivan de
+    la variabilidad observada de cada componente sobre todos los nodos:
+    \begin{equation}
+        \alpha_n = \frac{\sigma_n}{\displaystyle\sum_{m=1}^{3} \sigma_m}
+        \label{eq:alpha-entropia}
+    \end{equation}
+    donde $\sigma_n = \text{std}(\hat{x}_n)$. Un componente más discriminante
+    (mayor dispersión entre nodos) recibe mayor peso, penalizando automáticamente
+    los componentes redundantes.
+\end{enumerate}
+
+\subsubsection{Dependencias de Datos y Estado}
+\label{subsubsec:node-score-estado}
+
+El Cuadro~\ref{tab:node-score-dependencias} resume los componentes del
+\termino{Node Score}, su fuente de datos y su estado de disponibilidad a la
+fecha de cierre del documento.
+
+\begin{table}[H]
+    \centering
+    \caption[Dependencias del Node Score por componente]{Componentes del
+    $\text{VFT\_score}$, fuentes de datos requeridas y estado de implementación.}
+    \label{tab:node-score-dependencias}
+    \begin{tabularx}{\textwidth}{|l|X|l|l|}
+        \hline
+        \textbf{Componente} & \textbf{Fuente} & \textbf{Responsable} & \textbf{Estado} \\
+        \hline
+        $\hat{k}_i$ Fuerza Capilar    & VFT interno (\texttt{capillary\_strength.py})
+                                        & VFTModel & Calculado \\
+        $\hat{a}_i$ Afluencia         & MV1 Apimetro — afluencia por línea
+                                        & Apimetro & Pendiente \\
+        $\hat{p}_i$ Población captada & MV2 Apimetro — AGEBs Censo INEGI 2020
+                                        & Apimetro & Pendiente \\
+        Pesos $\alpha$ (entropía)     & Derivados de $\sigma(\hat{k}, \hat{a}, \hat{p})$
+                                        & VFTModel & Pendiente MV1+MV2 \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en
+    \texttt{weighted\_graph\_enrichment.md} y
+    \texttt{apimetro\_requerimientos\_mvs.md} (VFTModel, 2026-04-28).}
+\end{table}
+
+El diseño del \termino{Node Score} garantiza la \textbf{independencia entre
+componentes}: la desagregación de afluencia usa el grado topológico crudo
+$g_i = \deg(i)$ —no la Fuerza Capilar $k_i$— para evitar que $\hat{k}_i$
+domine doblemente el cómputo. Antes de asignar los pesos finales por entropía,
+se verificará la correlación $\rho(\hat{k}, \hat{a})$: si $\rho \geq 0.75$,
+los dos componentes se fusionarán en un índice combinado $\delta_i = \beta
+\hat{k}_i + (1-\beta)\hat{a}_i$ antes de calcular el \termino{score} final.

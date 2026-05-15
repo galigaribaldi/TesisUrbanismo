@@ -75,6 +75,9 @@
 \definecolor{colorPeriferico}{RGB}{255, 143,   0} % Naranja Periférico Sur
 \definecolor{colorPropuesto} {RGB}{142,  36, 170} % Morado corredor propuesto
 
+% Revisión académica (secciones bajo revisión del comité tutor)
+\definecolor{azulRevision}{RGB}{207, 226, 255}  % Azul tenue — título bajo revisión
+
 % Paleta para código fuente
 \definecolor{codeGray}   {RGB}{245, 245, 245}
 \definecolor{codeComment}{RGB}{117, 117, 117}
@@ -250,6 +253,22 @@
 % Uso: \pendiente{Completar con datos de campo}
 \newcommand{\pendiente}[1]{%
   \marginpar{\footnotesize\color{red}\textbf{[Pendiente:} #1\textbf{]}}%
+}
+
+% Título de sección con fondo azul tenue — indica revisión pendiente con asesor
+% Uso: \section{\bajoRevision{Nombre de la sección}}
+\newcommand{\bajoRevision}[1]{\colorbox{azulRevision}{#1}}
+
+% Caja de nota al inicio de sección bajo revisión
+% Uso: \notaRevision{Texto de la nota.}
+\newcommand{\notaRevision}[1]{%
+  \vspace{0.4em}%
+  \noindent\colorbox{azulRevision!60}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \small\textcolor{unamAzul}{\textbf{Nota de revisión:}}\enspace #1%
+    }%
+  }%
+  \vspace{0.5em}%
 }
 
 % Resaltado de término definido por primera vez
