@@ -17,6 +17,15 @@ que consume esos datos, los transforma en una estructura matemática de grafos y
 ejecuta los algoritmos que producen los indicadores topológicos presentados en
 el Capítulo~\ref{ch:resultados-vft}.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\textwidth]{Figures/Cap4/VFTLogo1.png}
+  \caption[Ícono Personal de VFTModel]{Ícono Creado para el proyecto VFTModel}
+  \label{fig:VFTModel-icon}
+  \fuentefigura{Elaboración propia.}
+\end{figure}
+
+
 \subsection{Contexto y Motivación}
 \label{subsec:vft-contexto}
 
@@ -43,8 +52,70 @@ e identificar nodos vulnerables.
 \subsection{El Nombre: Vanishing Fig-Tree}
 \label{subsec:vft-nombre}
 
-La denominación \termino{Vanishing Fig-Tree} —árbol de higuera en desaparición—
-es una metáfora del comportamiento topológico de una red de transporte fragmentada.
+La denominación \termino{Vanishing Fig-Tree} —árbol de higuera en desaparición— o 
+—Modelo de la Higuera Evanescente— es una metáfora del comportamiento topológico 
+de una red de transporte fragmentada.
+\\
+\termino{Vanishing Fig-Tree Model} se basa en dos referencias clave en diferentes ámbitos, 
+mientras uno es literario y describe la desesperanza de una situación crítica ante una decisión 
+tan trascendente. El otro describe de manera lírica el llamado \termino{Punto de No Retorno}: 
+
+\citaclave{
+  \begin{center}
+    ``From the tip of every branch, like a fat purple fig, a wonderful future beckoned and 
+    winked. One fig was a husband and a happy home and children, and another fig was a famous 
+    poet and another fig was a brilliant professor, and another fig was Europe and Africa and 
+    South America, and another fig was Constantine and Socrates and Attila and a pack of other 
+    lovers with queer names and offbeat professions, and another fig was an Olympic lady crew 
+    champion, and beyond and above these figs were many more figs I couldn't quite make out.
+    \\ \vspace{1ex}
+    I saw myself sitting in the crotch of this fig tree, starving to death, just because 
+    I couldn't make up my mind which of the figs I would choose. I wanted each and every 
+    one of them, but choosing one meant losing all the rest, and, as I sat there, unable 
+    to decide, the figs began to wrinkle and go black, and, one by one, they plopped 
+    to the ground at my feet.'' 
+    
+    \vspace{1.5ex}
+    \hrule
+    \vspace{1.5ex}
+    
+    ``De la punta de cada rama, como si de un grueso higo morado se tratara, pendía un 
+    maravilloso futuro, señalado y rutilante. Un higo era un marido y un hogar feliz e 
+    hijos y otro higo era un famoso poeta, y otro higo era un brillante profesor, y otro 
+    higo era Europa y África y Sudamérica y otro higo era Constantino y Sócrates y Atila 
+    y un montón de otros amantes con nombres raros y profesionales poco usuales, y otro 
+    higo era una campeona de equipo olímpico de atletismo, y más allá y por encima de 
+    aquellos higos había muchos más higos que no podía identificar claramente.
+    \\ \vspace{1ex}
+    Me vi a mí misma sentada en la bifurcación de ese árbol de higos, muriéndome de 
+    hambre sólo porque no podía decidir cuál de los higos escoger. Quería todos y cada 
+    uno de ellos, pero elegir uno significaba perder el resto, y, mientras yo estaba allí 
+    sentada, incapaz de decidirme, los higos empezaron a arrugarse y a tornarse negros y, 
+    uno por uno, cayeron al suelo, a mis pies.'' \\
+    \vspace{1ex}
+    \parencite{plath2019campana}
+  \end{center}
+}
+
+\citaclave{
+  \begin{center}
+    ``My life ain't no holiday \\
+    I've been through the point of no return \\
+    I've seen what a man can do \\
+    I've seen all the hate of a woman too.'' 
+    
+    \vspace{1.5ex}
+    \hrule
+    \vspace{1.5ex}
+    
+    ``Mi vida no es ninguna vacación \\
+    He cruzado el punto de no retorno \\
+    He visto lo que un hombre puede hacer \\
+    También he visto todo el odio de una mujer.'' \\
+    \vspace{1ex}
+    \parencite{neworder_vanishingpoint_1989}
+  \end{center}
+}
 
 Una higuera no muere cuando pierde sus ramas más delgadas. El tronco y las ramas
 principales permanecen, pero su capacidad de expansión y de alimentación colapsa
@@ -72,6 +143,14 @@ que tendría la pérdida de un nodo crítico sobre el sistema en su conjunto.
 
 \subsection{Tres Capas con Responsabilidades Delimitadas}
 \label{subsec:vft-capas}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\textwidth]{Figures/Cap4/EsquemaVFTArquitecture.png}
+  \caption[Aquitectura esquemática VFTModel]{Esquema creado para el VFTModel}
+  \label{fig:VFTModel-icon}
+  \fuentefigura{Elaboración propia con Gemini.}
+\end{figure}
 
 VFTModel está organizado bajo el patrón de \termino{arquitectura hexagonal}
 (\termino{Ports and Adapters}). La idea central es que el núcleo matemático del
@@ -336,7 +415,6 @@ construcción opera en dos fases internas:
     como \textsc{rtp} y Corredores Concesionados, cuyos trazos urbanos pueden
     ser hasta un 40~\% más largos que la cuerda directa.
 \end{description}
-
 \subsection{Snapping Lógico Geográfico}
 \label{subsec:vft-snapping}
 
@@ -346,6 +424,38 @@ estaciones de distintos sistemas que se encuentran dentro de una distancia
 configurable. Este proceso —denominado \termino{Snapping Lógico Geográfico}—
 representa el comportamiento real del pasajero, que puede caminar de una
 estación a otra aunque no estén formalmente conectadas en los datos oficiales.
+
+% --- BLOQUE DE IMÁGENES DEL PROCESO DE SNAPPING ---
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap4/SnappingProcess1.png}
+        \caption{Nodos aislados}
+        \label{fig:snap1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap4/SnappingProcess2.png}
+        \caption{Evaluación de umbral}
+        \label{fig:snap2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Figures/Cap4/SnappingProcess3.png}
+        \caption{Arista de transbordo}
+        \label{fig:snap3}
+    \end{subfigure}
+    \caption[Secuencia del Snapping Lógico Geográfico]
+    {Representación visual del proceso de \termino{Snapping Lógico Geográfico}. Las estaciones 
+    cercanas de distintos sistemas se conectan mediante aristas de transbordo si cumplen con 
+    la tolerancia de distancia establecida.}
+    \label{fig:proceso-snapping}
+    \fuentefigura{Elaboración propia (VFTModel, 2026).}
+\end{figure}
+% --------------------------------------------------
 
 La tolerancia de transbordo se selecciona a partir de seis umbrales estadísticos
 derivados del análisis de las distancias reales entre estaciones de la red
@@ -380,6 +490,27 @@ resultante contiene \textbf{11{,}115 nodos topológicos} y
 \textbf{45{,}679 aristas} —25{,}197 de tránsito y 20{,}482 de transbordo
 peatonal generadas algorítmicamente—, tras eliminar 1{,}562 aristas que
 superaron el umbral de falsa conexión de 5~km.
+
+\begin{figure}[H]
+    \centering
+    \fontsize{7.5pt}{9pt}\selectfont
+    \begin{minipage}{0.95\textwidth}
+        \hrule\vspace{1ex}
+        \textbf{Logs de Construcción del Grafo (VFT\_Model):}
+        \vspace{1ex}
+        \begin{verbatim}
+            2026-04-18 20:46:41 | INFO | Fase 1 y 2: Extrayendo nodos y trazos base...
+            2026-04-18 20:46:43 | INFO | Fase 2 completada: 65220 aristas creadas.
+            2026-04-18 20:46:43 | INFO | Grafo Base: 11115 Nodos y 32344 Segmentos.
+            2026-04-18 20:46:43 | WARN | Eliminadas 1562 aristas phantom (> 5 km).
+            2026-04-18 20:46:43 | INFO | Fase 3: Integrando sistemas (Tolerancia: 85.0m)...
+            2026-04-18 20:47:09 | INFO | Se crearon 20482 aristas de Transbordo Peatonal.
+            2026-04-18 20:47:09 | INFO | Impedancia aplicada exitosamente a 25197 segmentos.
+            2026-04-18 20:47:09 | INFO | Grafo final: 11115 nodos, 45679 aristas.
+        \end{verbatim}
+        \hrule
+    \end{minipage}
+\end{figure}
 
 \subsection{Modos de Operación}
 \label{subsec:vft-modos}

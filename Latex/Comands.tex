@@ -85,7 +85,10 @@
 \definecolor{codeString} {RGB}{183,  28,  28}
 \definecolor{codeNumber} {RGB}{ 46, 125,  50}
 
-
+\input{Latex/color-config}            % define \ColorTema (default: Institucional)
+\input{Latex/Colores/\ColorTema}      % carga ColorPrincipal y ColorAcento
+\definecolor{ColorAlerta}   {RGB}{183,  28,  28}   % Rojo para notas de revisión
+% Nota: fondo de tabla → usar unamGrisClaro (ya definido arriba, RGB 240 240 240)
 % =============================================================================
 %  7. CONFIGURACIÓN DE BLOQUES DE CÓDIGO (listings)
 % =============================================================================
@@ -315,3 +318,10 @@
 \newcommand{\DeltaE}{\Delta E}
 \newcommand{\Ezero}{E_0}
 \newcommand{\Efallido}{E_f}
+% Bloque de cita destacada
+% Uso: \citaclave{Texto de la definición clave.}
+\newcommand{\citaclave}[1]{%
+  \begin{quote}
+    \color{ColorPrincipal}\itshape #1
+  \end{quote}%
+}

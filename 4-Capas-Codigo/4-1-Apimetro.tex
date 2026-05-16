@@ -37,7 +37,8 @@ para propósitos creativos, carecía del rigor matemático necesario para una au
 integrando estándares como el \textit{General Transit Feed Specification} (GTFS) y sistemas de información geográfica (SIG).
 
 \texttt{Apimetro} recibió una actualización estructural significativa a mediados de marzo de 2026, orientándose hacia un modelo de 
-\textbf{Software as a Service (SaaS)} especializado en el manejo de tipos de datos \texttt{GeoJSON} para la representación cartográfica y el análisis ruteable. El núcleo operativo del sistema se define mediante un proceso \textbf{ETL}\footnote{En esta investigación se adopta la denominación \textit{Extraction, Treatment and Liberation} para enfatizar el carácter transformativo y de acceso abierto del proceso; el acrónimo estándar de la industria es \textit{Extract, Transform, Load}.},
+\textbf{Software as a Service (SaaS)} especializado en el manejo de tipos de datos \texttt{GeoJSON} para la representación cartográfica y el análisis ruteable. El núcleo operativo del sistema se define mediante un proceso \textbf{ETL}\footnote{En esta investigación se adopta la 
+denominación \textit{Extraction, Treatment and Liberation} para enfatizar el carácter transformativo y de acceso abierto del proceso; el acrónimo estándar de la industria es \textit{Extract, Transform, Load}.},
 diseñado para transformar la rigidez de los archivos \gtfs{} en geometrías flexibles. Si bien el estándar \gtfs{} posee una estructura relacional robusta, su formato original dificulta el análisis 
 directo en hojas de cálculo o capas \texttt{SHP} convencionales, por lo que la conversión a \texttt{GeoJSON} se determinó como la solución más óptima para la visualización y el cálculo de indicadores topológicos. La persistencia y estructuración de la información 
 se ejecutan dentro de una base de datos relacional \textbf{PostgreSQL 15}, potenciada por la extensión espacial \textbf{PostGIS 3.4}. Esta elección tecnológica permite almacenar datos geográficos de manera eficiente y proporciona operaciones de consulta avanzadas, 
@@ -45,6 +46,14 @@ como \texttt{ST\_AsGeoJSON} y \texttt{ST\_DWithin}, fundamentales para la ingest
 grandes volúmenes de datos como \texttt{Pandas} y \texttt{PySpark}. Gracias a esta arquitectura, la ingesta de datos se consume de manera autosuficiente y óptima, resultando en una base de datos de apenas 38 MB en estado de desarrollo que es fácilmente replicable en 
 diversos entornos operativos, incluyendo Linux, Windows, MacOS y plataformas web. Esta portabilidad facilita la auditoría de la red mediante gestores de consultas como \texttt{Postman} o su despliegue local a través de tecnologías de contenedores como \textbf{Docker} y 
 \textbf{Docker Compose}. En última instancia, \texttt{Apimetro} garantiza la soberanía tecnológica de la investigación, permitiendo que la replicación del esquema de datos se realice de forma transparente mediante el archivo \texttt{seed.sql} disponible en su repositorio oficial.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\textwidth]{Figures/Cap3/APImetroIcon.png}
+  \caption[Ícono Personal de Apimetro]{Ícono Creado para el proyecto Apimetro}
+  \label{fig:apimetro-icon}
+  \fuentefigura{Elaboración propia.}
+\end{figure}
 
 \subsection{Modelo de Datos y Esquema Relacional}
 \label{subsec:modelo-datos}
