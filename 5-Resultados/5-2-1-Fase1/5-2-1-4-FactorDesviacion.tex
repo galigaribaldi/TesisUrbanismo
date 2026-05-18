@@ -1,0 +1,249 @@
+% !TeX root = ../../tesis.tex
+% =============================================================================
+%  5.2.1.5 FACTOR DE DESVIACIÓN
+% =============================================================================
+\subsection{\bajoRevision{Factor de Desviación ($DF$)}}
+\label{subsec:detour-factor}
+\notaRevision{Los resultados de esta subsección están sujetos a revisión con el
+comité tutor. Los valores presentados corresponden a una muestra de 100~rutas
+aleatorias ejecutadas el 27 de abril de 2026.}
+
+El \textbf{Factor de Desviación} ($DF$) mide la eficiencia topológica de la
+red comparando la distancia real recorrida a través de la infraestructura
+contra la distancia teórica en línea recta (Haversine) entre el mismo par
+origen-destino:
+
+\begin{equation}
+    DF = \frac{D_{\text{red}} + D_{\text{caminata}}}{D_{\text{haversine}}(O, D)}
+    \label{eq:detour-factor-res}
+\end{equation}
+
+\begin{itemize}
+    \item $D_{\text{red}}$: distancia acumulada sobre el trazo real de la ruta
+    óptima en tiempo.
+    \item $D_{\text{caminata}}$: suma de la primera y última milla peatonal.
+    \item $D_{\text{haversine}}(O,D)$: distancia en línea recta entre origen y
+    destino calculada con la fórmula de Haversine.
+\end{itemize}
+
+Un valor de $DF = 1.0$ indica una ruta perfectamente directa; valores superiores
+a $1.5$ revelan ineficiencias topológicas significativas.
+
+% -----------------------------------------------------------------------------
+\subsubsection{Estadísticas Globales de la Red}
+\label{subsubsec:df-estadisticas}
+
+Sobre una muestra aleatoria de \textbf{100 pares origen-destino} (semilla
+reproducible $= 42$), el análisis arrojó los siguientes estadísticos globales:
+
+\begin{table}[H]
+    \centering
+    \caption[Estadísticos globales del Factor de Desviación — muestra de 100 rutas]{
+    Estadísticos descriptivos del $DF$ sobre 100 pares O-D de la red de la \zmvm.
+    Corrida: 2026-04-27.}
+    \label{tab:df-estadisticas}
+    \begin{tabular}{|l|r|}
+        \hline
+        \textbf{Estadístico} & \textbf{Valor} \\
+        \hline
+        $n$ (rutas calculadas)     & 100   \\
+        Media ($\bar{DF}$)         & 1.545 \\
+        Desviación estándar        & 0.517 \\
+        Mínimo                     & 0.97  \\
+        Percentil 25               & 1.27  \\
+        Mediana                    & 1.40  \\
+        Percentil 75               & 1.67  \\
+        Máximo                     & 4.34  \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{table}
+
+La Figura~\ref{fig:df-caso-inicial} muestra la distribución geoespacial de los
+100 pares O-D y las rutas calculadas sobre el territorio de la \zmvm{}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa01_caso_inicial.png}
+    \caption[Distribución de la muestra O-D para el Factor de Desviación]{
+    Distribución de los 100 pares origen-destino de la muestra aleatoria y sus
+    rutas óptimas en la \zmvm. Corrida: 2026-04-27.}
+    \label{fig:df-caso-inicial}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\subsubsection{Casos de Estudio Seleccionados}
+\label{subsubsec:df-casos}
+
+Se analizaron doce rutas que evalúan la conectividad desde las periferias sur y
+oriente hacia distintos destinos de la metrópoli. Las
+Figuras~\ref{fig:df-casos-1-4}--\ref{fig:df-casos-9-12} presentan los trazados
+cartográficos de cada caso; el Cuadro~\ref{tab:df-casos} consolida los valores
+numéricos al final de esta sección.
+
+% --- Casos 1–4 ---------------------------------------------------------------
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa04_caso01.png}
+        \caption{Caso~1: Milpa Alta → Autódromo. $DF = 1.29$.}
+        \label{fig:df-c01}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa05_caso02.png}
+        \caption{Caso~2: Milpa Alta → Reforma (CBD). $DF = 1.37$.}
+        \label{fig:df-c02}
+    \end{subfigure}
+
+    \vspace{0.5em}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa06_caso03.png}
+        \caption{Caso~3: Milpa Alta → Santa Fe (CBD). $DF = 1.27$.}
+        \label{fig:df-c03}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa07_caso04.png}
+        \caption{Caso~4: Milpa Alta → FES Acatlán. $DF = 1.35$.}
+        \label{fig:df-c04}
+    \end{subfigure}
+    \caption[Casos de estudio del Factor de Desviación: 1–4]{Rutas de los casos 1 al 4.
+    Origen común: Milpa Alta hacia distintos destinos del norte y poniente.}
+    \label{fig:df-casos-1-4}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{figure}
+
+% --- Casos 5–8 ---------------------------------------------------------------
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa08_caso05.png}
+        \caption{Caso~5: Milpa Alta → C.U. $DF = 1.32$.}
+        \label{fig:df-c05}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa09_caso06.png}
+        \caption{Caso~6: Milpa Alta → Coyoacán. $DF = 1.34$.}
+        \label{fig:df-c06}
+    \end{subfigure}
+
+    \vspace{0.5em}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa10_caso07.png}
+        \caption{Caso~7: Santa Catarina → C.U. $DF = 1.82$.}
+        \label{fig:df-c07}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa11_caso08.png}
+        \caption{Caso~8: Santa Catarina → FES Acatlán. $DF = 1.42$.}
+        \label{fig:df-c08}
+    \end{subfigure}
+    \caption[Casos de estudio del Factor de Desviación: 5–8]{Rutas de los casos 5 al 8.
+    Destinos en el sur de la ciudad y primeros casos desde Santa Catarina.}
+    \label{fig:df-casos-5-8}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{figure}
+
+% --- Casos 9–12 --------------------------------------------------------------
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa12_caso09.png}
+        \caption{Caso~9: Milpa Alta → Santa Catarina. $DF = 2.52$.}
+        \label{fig:df-c09}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa13_caso10.png}
+        \caption{Caso~10: Milpa Alta → Ajusco. $DF = 1.42$.}
+        \label{fig:df-c10}
+    \end{subfigure}
+
+    \vspace{0.5em}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa14_caso11.png}
+        \caption{Caso~11: Ajusco → Preparatoria 1. $DF = 1.43$.}
+        \label{fig:df-c11}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa15_caso12.png}
+        \caption{Caso~12: P. Los Olivos → Centro Tláhuac. $DF = 1.06$.}
+        \label{fig:df-c12}
+    \end{subfigure}
+    \caption[Casos de estudio del Factor de Desviación: 9–12]{Rutas de los casos 9 al 12.
+    El caso~9 (sur-oriente transversal) registra el mayor $DF$ del conjunto.}
+    \label{fig:df-casos-9-12}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{figure}
+
+% --- Extremos globales de la muestra aleatoria -------------------------------
+Para situar los casos de estudio en el contexto de la muestra completa, las
+Figuras~\ref{fig:df-mejor-caso} y~\ref{fig:df-peor-caso} ilustran los extremos
+globales obtenidos en los 100 pares O-D aleatorios.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa02_ruta_mas_eficiente.png}
+        \caption{Mejor caso: Plutarco Elías Calles → Fuente de Loreto. $DF = 0.97$.}
+        \label{fig:df-mejor-caso}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa03_ruta_mas_ineficiente.png}
+        \caption{Peor caso: Carlos A. Vidal → 20 de Noviembre. $DF = 4.34$.}
+        \label{fig:df-peor-caso}
+    \end{subfigure}
+    \caption[Extremos del Factor de Desviación en la muestra aleatoria]{
+    Rutas con menor y mayor Factor de Desviación en la muestra aleatoria de 100 pares O-D.}
+    \label{fig:df-extremos}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{figure}
+
+% --- Tabla resumen de los 12 casos -------------------------------------------
+\begin{table}[H]
+    \centering
+    \caption[Factor de Desviación — resumen de los doce casos de estudio]{
+    Resultados del Factor de Desviación para los doce casos estratégicos de la
+    \zmvm{} ilustrados en las figuras anteriores. Corrida: 2026-04-27.}
+    \label{tab:df-casos}
+    \small
+    \begin{tabularx}{\textwidth}{|l|X|X|r|r|r|}
+        \hline
+        \textbf{\#} & \textbf{Origen} & \textbf{Destino} &
+        \textbf{$D_{\text{red}}$ (km)} & \textbf{$D_{\text{Hav.}}$ (km)} & \textbf{$DF$} \\
+        \hline
+         1 & Milpa Alta        & Autódromo / Centro-Oriente   & 29.18 & 22.59 & 1.29 \\
+         2 & Milpa Alta        & Paseo de la Reforma (CBD)    & 37.73 & 27.50 & 1.37 \\
+         3 & Milpa Alta        & Santa Fe (CBD)               & 36.42 & 28.62 & 1.27 \\
+         4 & Milpa Alta        & FES Acatlán                  & 48.34 & 35.73 & 1.35 \\
+         5 & Milpa Alta        & Ciudad Universitaria         & 26.25 & 19.96 & 1.32 \\
+         6 & Milpa Alta        & Coyoacán                     & 25.24 & 18.86 & 1.34 \\
+         7 & Santa Catarina    & Ciudad Universitaria         & 42.06 & 23.10 & 1.82 \\
+         8 & Santa Catarina    & FES Acatlán                  & 45.64 & 32.16 & 1.42 \\
+         9 & Milpa Alta        & Santa Catarina (Sur-Oriente) & 37.22 & 14.79 & 2.52 \\
+        10 & Milpa Alta        & Ajusco                       & 29.19 & 20.56 & 1.42 \\
+        11 & Ajusco            & Preparatoria 1               & 15.91 & 11.16 & 1.43 \\
+        12 & Parque Los Olivos & Centro de Tláhuac            &  2.20 &  2.08 & 1.06 \\
+        \hline
+        \multicolumn{5}{|l|}{\textbf{Mejor caso global (muestra aleatoria):}
+        Plutarco Elias Calles → Fuente de Loreto} & \textbf{0.97} \\
+        \multicolumn{5}{|l|}{\textbf{Peor caso global (muestra aleatoria):}
+        Carlos A. Vidal → 20 de Noviembre} & \textbf{4.34} \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-27).}
+\end{table}
+
+El análisis revela que los viajes periféricos sur-oriente (Caso~9: $DF = 2.52$,
+Figura~\ref{fig:df-c09}) registran la mayor ineficiencia entre los casos de
+estudio, obligando al usuario a recorrer 37.2~km de red para cubrir una distancia
+lineal de 14.8~km. Esta situación responde a la ausencia de conectividad
+transversal en el arco sur-oriente de la ciudad, que impone al tránsito
+perimetral el ingreso al centro metropolitano como nodo obligado, confirmando la
+hipótesis sobre la necesidad de un corredor anillar en el Periférico.

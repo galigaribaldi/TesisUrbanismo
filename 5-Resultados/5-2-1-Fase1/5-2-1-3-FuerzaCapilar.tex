@@ -1,0 +1,295 @@
+% !TeX root = ../../tesis.tex
+% =============================================================================
+%  5.2.1.3 FUERZA CAPILAR Y NODOS DE TRANSFERENCIA
+% =============================================================================
+\subsection{\bajoRevision{Fuerza Capilar y Nodos de Transferencia ($FC$)}}
+\label{subsec:fuerza-capilar}
+\notaRevision{Los resultados de esta subsección están sujetos a revisión con el
+comité tutor. Los valores presentados corresponden a la corrida del modelo del
+18 de abril de 2026.}
+
+La \textbf{Fuerza Capilar} ($FC$) cuantifica el nivel de convergencia de flujos
+de transporte en cada nodo o agrupación de nodos del grafo. El indicador se
+evalúa desde dos perspectivas complementarias:
+
+\textbf{A. Fuerza Capilar Geográfica ($FC_H$) — Macro-Hubs:} agrupa
+topológicamente estaciones físicamente colindantes (radio de 100~m) en un
+subgrafo $H$ que consolida los flujos de sus estaciones constituyentes,
+representando el fenómeno urbano del transbordo físico (CETRAMs):
+
+\begin{equation}
+    FC_{H} = \sum_{j \in H} \bigl(k_{\text{in}}(j) + k_{\text{out}}(j)\bigr)
+    - \text{Aristas Internas}
+    \label{eq:fc-geografica}
+\end{equation}
+
+El Cuadro~\ref{tab:fuerza-capilar-hubs} detalla el comportamiento numérico de los
+cinco principales Macro-Hubs de transferencia identificados en la red con base en
+esta formulación, mientras que la Figura~\ref{fig:barplot-macro-hubs} permite
+contrastar las magnitudes relativas de la concentración de flujos en los diez
+nodos más significativos de la metrópoli.
+
+\begin{table}[H]
+    \centering
+    \caption[Top 5 Macro-Hubs con mayor Fuerza Capilar Geográfica ($FC_H$)]{
+    Los cinco Macro-Hubs de transferencia (nodos agrupados topológicamente a
+    menos de 100~m) con mayor Fuerza Capilar Geográfica en la red metropolitana.
+    Corrida: 2026-04-18.}
+    \label{tab:fuerza-capilar-hubs}
+    \fontsize{8.5pt}{10.5pt}\selectfont
+    \begin{tabularx}{\textwidth}{|c|X|c|c|c|c|}
+        \hline
+        \textbf{ID Hub} & \textbf{Principales Estaciones Agrupadas} & \textbf{Sistemas} & \textbf{Nodos} & \textbf{Conexiones} \textit{(In / Out)} & \textbf{$FC_H$} \\
+        \hline
+        2174 & Zona Hospitales Sur (San Fernando, Chimalcoyotl, Coapa, Hosp. Manuel Gea Gtz., INER, Urgencias Respiratorias) & CC, RTP & 21 & 66 / 64 & \textbf{130} \\
+        \hline
+        136 & Eje Huipulco -- Estadio Azteca (Acoxpa, Huipulco, Estadio Azteca, Renato Leduc, San Alejandro) & CC, RTP, TL & 61 & 61 / 50 & \textbf{111} \\
+        \hline
+        1597 & Corredor Tlalpan Sur (Calle La Rosa, Tezoquipa, Galeana, Jojutla) & CC, RTP & 10 & 49 / 51 & \textbf{100} \\
+        \hline
+        259 & Nodo Barranca del Muerto (Barranca del Muerto, Alpes, Periférico Sur, José María Velasco, Miguel Ocaranza) & CC, RTP & 21 & 50 / 42 & \textbf{92} \\
+        \hline
+        129 & CETRAM Chapultepec (Metro Chapultepec, Acapulco, Agustín Melgar, Sonora, Veracruz, Tampico) & CC, METRO, RTP, TROLE & 29 & 37 / 40 & \textbf{77} \\
+        \hline
+    \end{tabularx}
+    \vspace{1ex}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Tabla/NB03_fig01_top10_macrohubs_barplot.png}
+    \caption[Distribución de los principales Macro-Hubs por Fuerza Capilar]{
+    Gráfico de barras comparativo de los diez principales Macro-Hubs de la red
+    metropolitana, ordenados con base en su nivel acumulado de Fuerza Capilar
+    Geográfica ($FC_H$).}
+    \label{fig:barplot-macro-hubs}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} a partir de los resultados analíticos del modelo.}
+\end{figure}
+
+Por último, la distribución espacial y la cobertura geográfica de estos nodos de
+transferencia masiva dentro del entorno urbano de la \zmvm{} se presenta mapeada
+de forma detallada en la Figura~\ref{fig:mapa-fuerza-capilar}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Mapa/NB03_mapa01_macrohubs.png}
+    \caption[Mapa de Macro-Hubs y Fuerza Capilar Geográfica]{
+    Representación geoespacial de la \termino{Fuerza Capilar Geográfica}
+    ($FC_H$). El mapa destaca la concentración de flujos de transporte en los
+    principales nodos y zonas de transferencia física (Macro-Hubs) de la \zmvm.}
+    \label{fig:mapa-fuerza-capilar}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+% =============================================================================
+%  5.2.1.4 FUERZA CAPILAR SISTÉMICA (MATEMÁTICA)
+% =============================================================================
+\subsection{\bajoRevision{Fuerza Capilar Sistémica (Matemática)}}
+\label{subsec:fuerza-capilar-matematica}
+
+\textbf{B. Fuerza Capilar Sistémica o Matemática ($FC$):} A diferencia de la
+aproximación geográfica orientada a macro-hubs, esta perspectiva evalúa de manera
+estricta la convergencia de flujos directamente sobre cada nodo topológico
+individual. El análisis permite identificar los puntos exactos de la
+infraestructura matemática de la red donde se concentra la mayor densidad de
+aristas de entrada y salida, aislando singularidades críticas en la traza sin
+aplicar tolerancias de proximidad espacial ni fusión de estaciones colindantes.
+
+El Cuadro~\ref{tab:fuerza-capilar-matematica} detalla el comportamiento de los
+cinco nodos individuales que registraron la mayor Fuerza Capilar pura dentro del
+grafo de transporte metropolitano.
+
+\begin{table}[H]
+    \centering
+    \caption[Top 5 Nodos con mayor Fuerza Capilar Sistémica (Matemática)]{
+    Los cinco nodos individuales con mayor Fuerza Capilar Sistémica (Matemática)
+    en la red metropolitana, evaluados de manera estricta sin agrupación
+    geográfica. Corrida: 2026-04-18.}
+    \label{tab:fuerza-capilar-matematica}
+    \fontsize{9.5pt}{11.5pt}\selectfont
+    \begin{tabular}{|c|l|c|c|c|}
+        \hline
+        \textbf{ID Nodo} & \textbf{Estación (Nodo Topológico)} & \textbf{Sistemas} & \textbf{Conexiones} \textit{(In / Out)} & \textbf{$FC$} \\
+        \hline
+        7270  & Luis Murillo                          & RTP & 21 / 20 & \textbf{41} \\
+        \hline
+        2817  & Calz. de Tlalpan -- Glorieta Huipulco & RTP & 19 / 15 & \textbf{34} \\
+        \hline
+        10211 & Sobre Calz. de Tlalpan y Luis Murillo & CC  & 16 / 17 & \textbf{33} \\
+        \hline
+        10717 & Tlalpan y Luis Murillo                & CC  & 18 / 15 & \textbf{33} \\
+        \hline
+        5540  & Estadio Azteca 2                      & RTP & 14 / 18 & \textbf{32} \\
+        \hline
+    \end{tabular}
+    \vspace{1ex}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+Las magnitudes y diferencias relativas entre los diez elementos individuales con
+mayor concentración de conexiones se visualizan en el gráfico de barras de la
+Figura~\ref{fig:barplot-nodos-matematicos}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Tabla/NB03_fig02_top10_nodos_matematicos_barplot.png}
+    \caption[Distribución de los principales nodos individuales por Fuerza Capilar]{
+    Gráfico de barras comparativo de los diez nodos individuales con mayor
+    Fuerza Capilar Sistémica (Matemática) en la red metropolitana.}
+    \label{fig:barplot-nodos-matematicos}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} a partir de los resultados analíticos del modelo.}
+\end{figure}
+
+La distribución geográfica e implicación espacial de estos puntos específicos de
+alta carga conectiva dentro de la red urbana consolidada se presenta en la
+Figura~\ref{fig:mapa-nodos-matematicos}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Mapa/NB03_mapa02_nodos_matematicos.png}
+    \caption[Mapa de Nodos Individuales y Fuerza Capilar Sistémica]{
+    Representación geoespacial de la Fuerza Capilar Sistémica (Matemática) a
+    nivel de nodo individual en la \zmvm{}.}
+    \label{fig:mapa-nodos-matematicos}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Análisis del Eje Periférico — Infraestructura Preexistente}
+\label{subsubsec:periferico-fc}
+
+Como diagnóstico previo a la propuesta del corredor anillar, se aislaron los nodos
+y Macro-Hubs cuyos nombres contienen la denominación ``Periférico'', con el objetivo
+de identificar los puntos de mayor tensión vehicular e intermodal sobre esta
+vialidad fundamental. Este análisis se divide en dos enfoques: la concentración
+geográfica (transbordos físicos en Macro-Hubs) y la concentración matemática
+estricta (nodos topológicos individuales).
+
+\paragraph{A. Fuerza Capilar Geográfica (Macro-Hubs) en el Periférico}
+
+Al aplicar un radio de tolerancia de 100~m para agrupar las estaciones colindantes
+sobre el eje, emergen los principales complejos de transbordo y alimentación. El
+Cuadro~\ref{tab:periferico-hubs-geo} detalla los cinco Macro-Hubs de mayor Fuerza
+Capilar Geográfica ($FC_H$), destacando la importancia de Barranca del Muerto y la
+intersección con la zona de hospitales/Tlalpan como los anclajes más fuertes del
+corredor.
+
+\begin{table}[H]
+    \centering
+    \caption[Top 5 Macro-Hubs con mayor Fuerza Capilar sobre el Eje Periférico]{
+    Cinco Macro-Hubs de transferencia con mayor Fuerza Capilar Geográfica
+    ($FC_H$) ubicados sobre el Anillo Periférico. Corrida: 2026-04-18.}
+    \label{tab:periferico-hubs-geo}
+    \fontsize{8.5pt}{10.5pt}\selectfont
+    \begin{tabularx}{\textwidth}{|c|X|c|c|c|c|}
+        \hline
+        \textbf{ID Hub} & \textbf{Principales Estaciones Agrupadas} & \textbf{Sistemas} & \textbf{Nodos} & \textbf{Conexiones} \textit{(In / Out)} & \textbf{$FC_H$} \\
+        \hline
+        259 & Nodo Barranca del Muerto (Barranca del Muerto, Alpes, Periférico Sur, Miguel Ocaranza) & CC, RTP & 21 & 50 / 42 & \textbf{92} \\
+        \hline
+        374 & Intersección Tlalpan--Periférico (Renato Leduc, Huipulco, Periférico, Av. Pedregal) & CC, RTP & 18 & 34 / 33 & \textbf{67} \\
+        \hline
+        453 & Nodo San Antonio (San Antonio, Periférico Sur, Puente Periférico Norte) & CC, RTP & 7 & 23 / 23 & \textbf{46} \\
+        \hline
+        402 & Eje Oriente Tepalcates (Constitución de Apatzingán, Canal de San Juan, Tepalcates) & CC, MB, RTP & 8 & 20 / 26 & \textbf{46} \\
+        \hline
+        291 & Intersección Xochimilco--Tepepan (16 de Septiembre, Kioto, Tec de Monterrey, Periférico Participación) & CC, RTP, TL & 14 & 23 / 22 & \textbf{45} \\
+        \hline
+    \end{tabularx}
+    \vspace{1ex}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:barplot-hubs-periferico} compara las magnitudes relativas de
+estos agrupamientos geográficos, mientras que la Figura~\ref{fig:mapa-hubs-periferico}
+espacializa su huella sobre la vialidad, revelando los polos naturales de atracción
+de demanda que la futura infraestructura anillar deberá integrar.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Tabla/NB03_fig04_top10_macrohubs_periferico_barplot.png}
+    \caption[Fuerza Capilar de Macro-Hubs en Anillo Periférico]{Gráfico de barras
+    de los diez principales Macro-Hubs geográficos ubicados en el Anillo Periférico,
+    ordenados por su nivel de Fuerza Capilar.}
+    \label{fig:barplot-hubs-periferico}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Mapa/NB03_mapa03_macrohubs_periferico.png}
+    \caption[Distribución espacial de Macro-Hubs en el Periférico]{Mapa de la
+    Fuerza Capilar Geográfica ($FC_H$) en los Macro-Hubs del Anillo Periférico.}
+    \label{fig:mapa-hubs-periferico}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\paragraph{B. Fuerza Capilar Sistémica (Nodos Matemáticos) en el Periférico}
+
+Al desagregar los Hubs y analizar la Fuerza Capilar Sistémica ($FC$) estricta a
+nivel de nodo individual, es posible identificar los paraderos específicos que
+soportan la mayor carga de conexiones en la infraestructura actual. El
+Cuadro~\ref{tab:periferico-nodos-math} presenta los cinco paraderos matemáticos
+de mayor convergencia de flujo.
+
+\begin{table}[H]
+    \centering
+    \caption[Nodos con mayor Fuerza Capilar Sistémica sobre el Eje Periférico]{
+    Cinco nodos topológicos individuales con mayor Fuerza Capilar Matemática
+    ($FC$) ubicados sobre el Anillo Periférico. Corrida: 2026-04-18.}
+    \label{tab:periferico-nodos-math}
+    \fontsize{9.5pt}{11.5pt}\selectfont
+    \begin{tabular}{|c|l|c|r|r|c|}
+        \hline
+        \textbf{ID Nodo} & \textbf{Estación (Nodo Topológico)} & \textbf{Sistema} & \textbf{Entr.} & \textbf{Sal.} & \textbf{$FC$} \\
+        \hline
+        707  & Anillo Periférico y Blvd. Adolfo Ruiz Cortines & RTP & 14 & 16 & \textbf{30} \\
+        \hline
+        706  & Anillo Periférico y Blvd. Adolfo Ruiz Cortines & RTP & 13 & 13 & \textbf{26} \\
+        \hline
+        8538 & Periférico -- Barranca del Muerto              &  CC & 12 &  9 & \textbf{21} \\
+        \hline
+        602  & Anillo Periférico Canal de Garay -- Bilbao     & RTP & 10 & 10 & \textbf{20} \\
+        \hline
+        8510 & Periférico                                     & RTP &  9 & 11 & \textbf{20} \\
+        \hline
+    \end{tabular}
+    \vspace{1ex}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La jerarquía analítica de estos puntos singulares se constata en la
+Figura~\ref{fig:barplot-nodos-periferico}, seguida de la
+Figura~\ref{fig:mapa-nodos-periferico}, que detalla la distribución geográfica a
+escala de paradero individual, útil para el micro-posicionamiento de futuras
+estaciones anillares.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Tabla/NB03_fig05_top10_nodos_matematicos_periferico_barplot.png}
+    \caption[Fuerza Capilar de nodos individuales en Anillo Periférico]{
+    Gráfico de barras comparativo de los diez principales nodos matemáticos
+    individuales ubicados en el Anillo Periférico.}
+    \label{fig:barplot-nodos-periferico}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/FuerzaCapilar/Mapa/NB03_mapa04_nodos_matematicos_periferico.png}
+    \caption[Distribución espacial de nodos matemáticos en el Periférico]{Mapa
+    de la Fuerza Capilar Sistémica (Matemática) a nivel de nodo individual sobre
+    el corredor del Anillo Periférico.}
+    \label{fig:mapa-nodos-periferico}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\vspace{2ex}
+\begin{quote}
+    \small\textit{Nota aclaratoria:} los datos presentados en esta sección
+    reflejan exclusivamente la infraestructura de transporte \textbf{preexistente}
+    sobre el Anillo Periférico. No se ha trazado ni modelado aún la geometría
+    del corredor anillar propuesto; la sección permanece en plano especulativo
+    para identificar los puntos naturales de anclaje de la futura línea a nivel
+    capilar.
+\end{quote}

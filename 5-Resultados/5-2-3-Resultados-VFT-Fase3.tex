@@ -1,0 +1,200 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.2-3 — RESULTADOS VFT: FASE 3
+% Análisis de red: tiempo de viaje, centralidad y vulnerabilidad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\bajoRevision{Fase 3: Análisis de Red y Vulnerabilidad}}
+\label{sec:resultados-fase3}
+
+\notaRevision{Los tres indicadores de esta fase —Tiempo de Viaje Promedio,
+Centralidad de Intermediación y Vulnerabilidad Estructural— requieren que las
+Fases~1 y~2 estén completas. A la fecha de cierre del documento, los algoritmos
+de caminos mínimos no han sido ejecutados sobre la versión final ponderada del
+grafo. Las fórmulas, interpretaciones esperadas y estructura de resultados
+anticipados se presentan como fundamento para la etapa de cálculo.}
+
+La Fase~3 representa la capa de análisis de mayor complejidad computacional del
+Modelo VFT. A diferencia de los indicadores de las fases anteriores, que operan
+sobre la geometría estática de la red o sobre los pesos individuales de aristas y
+nodos, los tres indicadores de esta fase requieren la ejecución de \textbf{algoritmos
+de caminos mínimos} sobre la totalidad del grafo ponderado, lo que implica tiempos
+de cómputo del orden de horas para un grafo de 11{,}115 nodos y 45{,}679 aristas.
+
+La secuencia de dependencias es estricta: el \textbf{Tiempo de Viaje Promedio}
+($T$) exige el grafo con todos sus pesos dinámicos de Fase~2; la
+\textbf{Centralidad de Intermediación} ($B$) requiere los caminos mínimos
+calculados en $T$; y el análisis de \textbf{Vulnerabilidad Estructural}
+($\Delta E$) necesita $B$ para identificar los nodos críticos sobre los cuales
+simular fallas.
+
+% ----------------------------------------------------------------
+\subsection{\bajoRevision{Tiempo de Viaje Promedio ($T$)}}
+\label{subsec:tiempo-viaje-promedio}
+% ----------------------------------------------------------------
+
+\notaRevision{Pendiente de cálculo. Requiere Fases 1 y 2 completas más
+ejecución del algoritmo \dijkstra{} sobre el grafo final ponderado.}
+
+El \textbf{Tiempo de Viaje Promedio} ($T$) mide la eficiencia global de la red
+como sistema: cuánto tarda en promedio un pasajero en desplazarse entre cualquier
+par de estaciones alcanzables. Es la métrica de referencia que sintetiza, en un
+solo valor, el efecto combinado de la geometría de la red, los tiempos de traslado
+con fricción y los costos de transbordo.
+
+\subsubsection{Fórmula}
+\label{subsubsec:formula-t}
+
+\begin{equation}
+    T = \frac{1}{N(N-1)} \sum_{\substack{i,j \in \mathcal{V} \\ i \neq j}} t(i,j)
+    \label{eq:tiempo-viaje-promedio}
+\end{equation}
+
+\begin{itemize}
+    \item $\mathcal{V}$: conjunto de los $N = 11{,}115$ nodos topológicos del
+    grafo.
+    \item $t(i,j)$: tiempo de viaje mínimo del nodo $i$ al nodo $j$ en minutos,
+    calculado mediante el algoritmo \dijkstra{} sobre el grafo ponderado con los
+    atributos de Fase~2.
+    \item El denominador $N(N-1)$ normaliza sobre todos los pares ordenados de
+    nodos alcanzables. Los pares sin ruta (componentes desconectadas) se excluyen
+    del promedio.
+\end{itemize}
+
+\subsubsection{Resultado Esperado e Interpretación}
+\label{subsubsec:t-resultado-esperado}
+
+El indicador $T$ caracteriza la red en su conjunto como sistema físico: un valor
+bajo indica una red eficiente donde cualquier par de estaciones está bien
+conectado en el plano temporal; un valor alto sugiere desconexiones estructurales
+o cuellos de botella en los transbordos. La comparación de $T$ antes y después de
+la remoción simulada de nodos críticos (Sección~\ref{subsec:vulnerabilidad}) es
+el mecanismo central del análisis de vulnerabilidad.
+
+Adicionalmente, el modelo contempla una variante ponderada por demanda
+$T_{\text{dem}}$, calculable una vez que el \termino{Node Score} de Fase~2 esté
+disponible, donde los pares O-D con mayor afluencia en ambos extremos contribuyen
+más al promedio. La diferencia $T_{\text{dem}} - T$ cuantificaría el sesgo de la
+red: si las rutas más demandadas son sistemáticamente más lentas que el promedio
+estructural, ese diferencial tiene implicaciones directas para la política de
+mejora de infraestructura.
+
+% ----------------------------------------------------------------
+\subsection{\bajoRevision{Centralidad de Intermediación ($B$)}}
+\label{subsec:res-centralidad-intermediacion}
+% ----------------------------------------------------------------
+
+\notaRevision{Pendiente de cálculo. Requiere la matriz de caminos mínimos
+producida por el indicador $T$ (Sección~\ref{subsec:tiempo-viaje-promedio}).}
+
+La \textbf{Centralidad de Intermediación} ($B$) mide cuántas veces cada nodo
+aparece en los caminos más cortos entre todos los pares de estaciones de la red.
+Un nodo con $B$ alto es un \termino{hub} de paso: su eliminación o degradación
+afecta desproporcionadamente al número de rutas disponibles para los pasajeros.
+En la hipótesis central de esta investigación, los corredores anulares
+—\textit{Periférico}, Circuito Interior— concentran nodos de alta intermediación
+que articulan los flujos radiales de la red sin ser ellos mismos estaciones
+terminales de alto volumen.
+
+\subsubsection{Fórmula}
+\label{subsubsec:formula-b}
+
+\begin{equation}
+    B(v) = \frac{1}{(N-1)(N-2)} \sum_{\substack{s,t \in \mathcal{V} \\ s \neq v \neq t}}
+    \frac{\sigma_{st}(v)}{\sigma_{st}}
+    \label{eq:centralidad-intermediacion}
+\end{equation}
+
+\begin{itemize}
+    \item $\sigma_{st}$: número total de caminos más cortos (en tiempo) entre
+    los nodos $s$ y $t$ en el grafo ponderado.
+    \item $\sigma_{st}(v)$: número de esos caminos que pasan por el nodo $v$.
+    \item El factor de normalización $1/[(N-1)(N-2)]$ escala el valor al rango
+    $[0, 1]$ para un grafo de $N$ nodos.
+\end{itemize}
+
+El cálculo se implementa mediante la función \texttt{betweenness\_centrality()}
+de \textsc{NetworkX} con el atributo \texttt{weight} como peso de las aristas,
+de modo que los caminos mínimos se definen en tiempo, no en número de saltos.
+
+\subsubsection{Resultado Esperado e Interpretación}
+\label{subsubsec:b-resultado-esperado}
+
+Se espera que la distribución de $B$ sobre los 11{,}115 nodos sea
+\termino{heavy-tailed}: un pequeño número de nodos concentrará valores altos de
+intermediación (nodos de paso obligado), mientras que la mayoría de estaciones
+tendrá valores cercanos a cero. Este patrón es consistente con la distribución
+de red libre de escala (\termino{scale-free}) detectada en la Fuerza Capilar
+(Fase~1).
+
+La hipótesis de investigación predice que al menos algunos de los nodos de
+mayor $B$ se ubicarán sobre ejes circulares o de transferencia que no son
+estaciones de origen-destino frecuente, sino \termino{hubs} de paso que articulan
+rutas radiales. Identificar estos nodos es el prerrequisito para el análisis de
+vulnerabilidad de la Sección~\ref{subsec:vulnerabilidad}.
+
+% ----------------------------------------------------------------
+\subsection{\bajoRevision{Vulnerabilidad Estructural ($\Delta E$)}}
+\label{subsec:vulnerabilidad}
+% ----------------------------------------------------------------
+
+\notaRevision{Pendiente de cálculo. Requiere la Centralidad de Intermediación
+$B$ (Sección~\ref{subsec:res-centralidad-intermediacion}) para seleccionar los nodos
+críticos sobre los cuales ejecutar las simulaciones de falla.}
+
+El análisis de \textbf{Vulnerabilidad Estructural} ($\Delta E$) cuantifica en
+qué medida la red pierde eficiencia global cuando uno o varios nodos críticos
+son removidos. El indicador mide el impacto de fallas selectivas, no aleatorias:
+los nodos candidatos a la remoción son aquellos con mayor centralidad de
+intermediación $B$, precisamente porque son los que mayor impacto tienen sobre
+la conectividad del sistema.
+
+\subsubsection{Fórmula}
+\label{subsubsec:formula-deltae}
+
+\begin{equation}
+    \Delta E = \frac{E_0 - E_f}{E_0}
+    \label{eq:vulnerabilidad}
+\end{equation}
+
+\begin{itemize}
+    \item $E_0$: eficiencia global de la red original, definida como el inverso
+    del tiempo de viaje promedio: $E_0 = 1/T$.
+    \item $E_f$: eficiencia global del grafo residual tras la remoción del nodo
+    (o conjunto de nodos) crítico.
+    \item $\Delta E \in [0, 1]$: un valor cercano a 1 indica que la remoción
+    del nodo colapsa la eficiencia de la red; un valor cercano a 0 indica que la
+    red es robusta ante esa falla específica.
+\end{itemize}
+
+\subsubsection{Protocolo de Simulación}
+\label{subsubsec:protocolo-simulacion}
+
+El análisis se ejecutará en tres escalas de falla:
+
+\begin{enumerate}
+    \item \textbf{Falla puntual:} remoción de un único nodo (el de mayor $B$)
+    y recálculo de $T_f$. Establece el impacto del nodo más crítico individual.
+    \item \textbf{Falla por corredor:} remoción simultánea de todos los nodos
+    de un eje identificado (e.g., todos los nodos del corredor del Periférico
+    Oriente). Mide la vulnerabilidad sistémica del eje completo.
+    \item \textbf{Falla en cascada:} remoción secuencial de los $k$ nodos de
+    mayor $B$ residual (recalculado tras cada remoción). Simula el escenario de
+    falla progresiva en eventos de alta disrupción.
+\end{enumerate}
+
+\subsubsection{Resultado Esperado e Interpretación}
+\label{subsubsec:deltae-resultado-esperado}
+
+La hipótesis central de esta investigación plantea que la red de transporte de
+la \zmvm presenta \textbf{vulnerabilidad asimétrica}: nodos periféricos de alta
+intermediación —ubicados en corredores anulares donde convergen rutas radiales—
+producen un $\Delta E$ desproporcionadamente mayor al esperado por su posición
+geográfica, en comparación con estaciones terminales de alta afluencia como
+Pantitlán o Indios Verdes.
+
+Si la simulación confirma esta hipótesis, el análisis proporciona una base
+cuantitativa para priorizar inversión en infraestructura de respaldo (rutas
+alternativas, capacidad de transbordo) en nodos de alta intermediación pero baja
+visibilidad operativa. Si la refuta, el resultado es igualmente valioso: indicaría
+que la red posee redundancia suficiente en sus ejes circulares, y que la
+vulnerabilidad real se concentra en las terminales radiales de mayor afluencia.

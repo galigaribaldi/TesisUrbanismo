@@ -1,0 +1,76 @@
+% !TeX root = ../../tesis.tex
+% =============================================================================
+%  5.2.1.1 VALIDACIÓN DEL MOTOR DE IMPEDANCIA
+% =============================================================================
+\subsection{Validación del Motor de Impedancia Temporal}
+\label{subsec:validacion-impedancia}
+
+Para verificar la consistencia del \textbf{Motor de Impedancia VFT}, se calculó
+la velocidad efectiva implícita de cada sistema tras aplicar el Coeficiente de
+Fricción Vial ($C_f$) y se contrastó con los rangos operativos nominales
+documentados por los organismos operadores de la \zmvm. La velocidad efectiva
+se obtiene a partir de la Ecuación~\eqref{eq:velocidad-efectiva}:
+
+\begin{equation}
+    V_{\text{efectiva}} = \frac{V_{\text{fallback}}}{C_f}
+    \label{eq:velocidad-efectiva}
+\end{equation}
+
+donde $V_{\text{fallback}}$ representa la velocidad comercial de flujo libre del
+sistema y $C_f$ es el coeficiente de fricción según el tipo de derecho de vía.
+
+\colorbox{azulRevision}{El Cuadro~\ref{tab:validacion-impedancia} sintetiza los resultados} de la
+corrida del modelo del 16 de abril de 2026, ejecutada sobre
+\textbf{25{,}197 segmentos de servicio real}.
+
+\begin{table}[H]
+    \centering
+    \caption[Validación de velocidades efectivas por sistema de transporte]{
+    Contraste entre la velocidad implícita post-fricción calculada por el motor
+    VFT y los rangos operativos nominales de cada sistema. Corrida: 2026-04-16.}
+    \label{tab:validacion-impedancia}
+    \begin{tabular}{|l|r|r|c|c|}
+        \hline
+        \textbf{Sistema} & \textbf{$V$ modelo (km/h)} & \textbf{$V$ implícita (km/h)} &
+        \textbf{Rango esperado} & \textbf{Estado} \\
+        \hline
+        \colorbox{azulRevision}{Tren Suburbano}   & 65.0 & 65.0 & [55--75]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{Metro (STC)}      & 36.0 & 36.0 & [30--42]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{Tren Ligero}      & 22.0 & 22.0 & [18--26]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{Trolebús}         & 18.0 & 13.0 & [14--22]  & $\approx$ Límite \\
+        \colorbox{azulRevision}{Cablebús}         & 20.0 & 17.4 & [16--24]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{Mexicable}        & 20.0 & 17.4 & [16--24]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{Metrobús}         & 16.3 & 14.1 & [13--20]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{Mexibús}          & 16.3 & 14.1 & [13--20]  & \checkmark\ OK \\
+        \colorbox{azulRevision}{\textsc{rtp}}     & 14.0 &  8.0 & [10--18]  & $\approx$ Revisar \\
+        \colorbox{azulRevision}{Corredores Conc.} & 11.0 &  8.0 & [8--14]   & \checkmark\ OK \\
+        \colorbox{azulRevision}{Pumabús}          & 11.0 &  8.0 & [8--14]   & \checkmark\ OK \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} (corrida 2026-04-16).
+    Fuentes de referencia: STC Metro \textsc{cdmx}, Metrobús \textsc{cdmx},
+    \textsc{rtp} \textsc{cdmx}, \textsc{ste} Trolebús.}
+\end{table}
+
+La Figura~\ref{fig:impedancia-sistemas} presenta la distribución completa de
+velocidades efectivas y tiempos por segmento para cada sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Cap5/fig01_impedancia.png}
+    \caption[Caracterización de la impedancia temporal por sistema]{(a)~Velocidad
+    efectiva post-fricción por sistema, coloreada según el tipo de derecho de vía.
+    (b)~Distribución de tiempos de viaje por segmento interestación (segmentos
+    menores a 5~min, sin valores atípicos). Corrida: 2026-04-16.}
+    \label{fig:impedancia-sistemas}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}.}
+\end{figure}
+
+Los resultados son coherentes con la metodología adoptada. El caso más
+sensible es el del \textbf{Trolebús}, cuya velocidad efectiva (~13.0~km/h con
+$C_f = 1.38$) se sitúa ligeramente por debajo del límite inferior del rango
+operativo documentado (14--22~km/h). Esta diferencia de aproximadamente
+1~km/h (7\%) es atribuible a que el tipo de derecho de vía \textit{compartido}
+no captura la preferencia operativa parcial que el trolebús mantiene en ciertas
+vialidades de la \textsc{cdmx}. Para fines de análisis estructural de red,
+esta desviación se encuentra dentro de los márgenes de calibración aceptables.

@@ -75,6 +75,9 @@
 \definecolor{colorPeriferico}{RGB}{255, 143,   0} % Naranja Periférico Sur
 \definecolor{colorPropuesto} {RGB}{142,  36, 170} % Morado corredor propuesto
 
+% Revisión académica (secciones bajo revisión del comité tutor)
+\definecolor{azulRevision}{RGB}{207, 226, 255}  % Azul tenue — título bajo revisión
+
 % Paleta para código fuente
 \definecolor{codeGray}   {RGB}{245, 245, 245}
 \definecolor{codeComment}{RGB}{117, 117, 117}
@@ -82,7 +85,10 @@
 \definecolor{codeString} {RGB}{183,  28,  28}
 \definecolor{codeNumber} {RGB}{ 46, 125,  50}
 
-
+\input{Latex/color-config}            % define \ColorTema (default: Institucional)
+\input{Latex/Colores/\ColorTema}      % carga ColorPrincipal y ColorAcento
+\definecolor{ColorAlerta}   {RGB}{183,  28,  28}   % Rojo para notas de revisión
+% Nota: fondo de tabla → usar unamGrisClaro (ya definido arriba, RGB 240 240 240)
 % =============================================================================
 %  7. CONFIGURACIÓN DE BLOQUES DE CÓDIGO (listings)
 % =============================================================================
@@ -252,6 +258,22 @@
   \marginpar{\footnotesize\color{red}\textbf{[Pendiente:} #1\textbf{]}}%
 }
 
+% Título de sección con fondo azul tenue — indica revisión pendiente con asesor
+% Uso: \section{\bajoRevision{Nombre de la sección}}
+\newcommand{\bajoRevision}[1]{\colorbox{azulRevision}{#1}}
+
+% Caja de nota al inicio de sección bajo revisión
+% Uso: \notaRevision{Texto de la nota.}
+\newcommand{\notaRevision}[1]{%
+  \vspace{0.4em}%
+  \noindent\colorbox{azulRevision!60}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \small\textcolor{unamAzul}{\textbf{Nota de revisión:}}\enspace #1%
+    }%
+  }%
+  \vspace{0.5em}%
+}
+
 % Resaltado de término definido por primera vez
 % Uso: \termino{fragmentación urbana}
 \newcommand{\termino}[1]{\textit{#1}}
@@ -296,3 +318,10 @@
 \newcommand{\DeltaE}{\Delta E}
 \newcommand{\Ezero}{E_0}
 \newcommand{\Efallido}{E_f}
+% Bloque de cita destacada
+% Uso: \citaclave{Texto de la definición clave.}
+\newcommand{\citaclave}[1]{%
+  \begin{quote}
+    \color{ColorPrincipal}\itshape #1
+  \end{quote}%
+}
