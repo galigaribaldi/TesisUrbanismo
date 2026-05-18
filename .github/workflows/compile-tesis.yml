@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Compilar tesis con XeLaTeX + Biber
         uses: xu-cheng/latex-action@v3
