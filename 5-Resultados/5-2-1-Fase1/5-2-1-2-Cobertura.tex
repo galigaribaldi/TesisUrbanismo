@@ -1,0 +1,726 @@
+% !TeX root = ../../tesis.tex
+% =============================================================================
+%  5.2.1.2 NIVEL DE COBERTURA ESPACIAL
+% =============================================================================
+\subsection{\bajoRevision{Nivel de Cobertura Espacial ($C$)}}
+\label{subsec:cobertura-espacial}
+\notaRevision{Los resultados de esta subsección están sujetos a revisión con el
+tutor. Los valores presentados corresponden a la corrida del modelo del
+18 de abril de 2026 con un isócrono de 800~m y pueden ajustarse tras
+validación metodológica.}
+
+El \textbf{Nivel de Cobertura Espacial} ($C$) evalúa la equidad territorial de
+la red de transporte masivo al cuantificar qué proporción del área de la
+demarcación se encuentra dentro de un radio de caminata aceptable respecto
+a alguna estación. Se define mediante la siguiente expresión:
+
+\begin{equation}
+    C = \frac{A_{\text{cubierta}}}{A_{\text{total}}} \times 100
+    \label{eq:cobertura-res}
+\end{equation}
+
+donde $A_{\text{cubierta}}$ es el área resultante de la unión de los
+isócronos peatonales (\termino{buffers} de 800~m) de todas las estaciones del sistema,
+y $A_{\text{total}}$ es la superficie geodésica total de la demarcación
+político-administrativa analizada.
+
+El Cuadro~\ref{tab:peores-cdmx} identifica las cinco alcaldías de la
+\textsc{cdmx} con menor cobertura del sistema de transporte masivo,
+evidenciando las zonas de mayor exclusión territorial.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con menor cobertura de transporte masivo (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con menor porcentaje de cobertura
+    territorial del sistema de transporte masivo. Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:peores-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} &
+        \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Milpa Alta              & 298.01 &  35.0    &  11.75 \\
+        La Magdalena Contreras  &  63.37 &  16.33   &  25.76 \\
+        Tlalpan                 & 314.25 &  94.31   &  30.01 \\
+        Tláhuac                 &  85.78 &  43.85   &  51.12 \\
+        Cuajimalpa de Morelos   &  71.10 &  37.12   &  52.20 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de
+    \texttt{Apimetro}.}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption[Municipios del EDOMEX con menor cobertura de transporte masivo]{
+    Cinco municipios del Estado de México con menor porcentaje de cobertura
+    territorial del sistema de transporte masivo. Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:peores-edomex}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} &
+        \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Tonanitla       &   8.52 & 0.00 & 0.00 \\
+        Capulhuac       &  21.50 & 0.00 & 0.00 \\
+        Calimaya        & 104.26 & 0.00 & 0.00 \\
+        Donato Guerra   & 181.36 & 0.00 & 0.00 \\
+        Ayapango        &  50.83 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de
+    \texttt{Apimetro}.}
+\end{table}
+
+% =============================================================================
+%  Desglose de Cobertura por Sistema de Transporte
+% =============================================================================
+
+\subsubsection{Sistema de Transporte Colectivo Metro (METRO)}
+\label{subsubsec:cobertura-metro}
+
+El Sistema de Transporte Colectivo Metro constituye la columna vertebral de la
+movilidad masiva en la Ciudad de México. Debido a su naturaleza de red ferroviaria
+subterránea y elevada con derecho de vía exclusivo, sus estaciones actúan como
+nodos estructurales de alta capacidad que articulan los flujos intermodales de la
+metrópoli. El análisis de su cobertura espacial mediante isócronos peatonales de
+800~m permite identificar las demarcaciones que se benefician directamente de este
+sistema, así como aquellas periferias y zonas centrales que presentan una
+desconexión crítica respecto a la red de transporte más masiva de la entidad.
+
+El Cuadro~\ref{tab:cobertura-metro-cdmx} detalla las cinco alcaldías de la Ciudad de
+México con los niveles más altos de cobertura territorial respecto a la red del
+Metro, evidenciando la concentración de la infraestructura ferroviaria en el núcleo
+urbano denso de la cuenca.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura del STC Metro (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el Sistema de Transporte Colectivo Metro. Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-metro-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Cuauhtémoc          & 32.50 &  28.35 &  87.23 \\
+        Benito Juárez       & 26.68 &  21.34 &  79.99 \\
+        Venustiano Carranza & 33.84 &  24.39 &  72.77 \\
+        Iztacalco           & 23.08 &  11.66 &  50.52 \\
+        Azcapotzalco        & 33.50 &  13.80 &  41.18 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+Por su parte, la distribución geográfica de esta cobertura se visualiza en la
+Figura~\ref{fig:mapa-cobertura-metro}, donde se aprecia la concentración de la
+infraestructura en la zona central de la cuenca y el drástico desvanecimiento del
+servicio hacia las demarcaciones del sur y del poniente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_METRO_cobertura.png}
+    \caption[Mapa de cobertura territorial del STC Metro en la CDMX]{Mapa del
+    nivel de cobertura territorial del Sistema de Transporte Colectivo Metro
+    por demarcación en la Ciudad de México, calculado a partir de \termino{buffers}
+    de caminata peatonal de 800~m.}
+    \label{fig:mapa-cobertura-metro}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Metrobús (MB)}
+\label{subsubsec:cobertura-mb}
+
+El sistema Metrobús, que opera bajo el modelo de Autobuses de Tránsito Rápido
+(\termino{Bus Rapid Transit}, BRT), se ha consolidado como la segunda red de
+transporte masivo más importante de la Ciudad de México. Dada su mayor flexibilidad
+constructiva frente a los sistemas ferroviarios pesados, su trazado ha logrado
+expandirse por corredores viales estratégicos, complementando y alimentando a la
+red del Metro. No obstante, al evaluar su cobertura mediante isócronos peatonales
+de 800~m, persisten notables brechas territoriales, dejando a varias demarcaciones
+periféricas con acceso limitado o nulo a esta red troncal.
+
+El Cuadro~\ref{tab:cobertura-mb-cdmx} presenta las cinco alcaldías con mayor
+proporción de su territorio cubierto por el Metrobús, destacando la concentración
+del servicio en las zonas centro, norte y oriente de la ciudad, siguiendo los ejes
+viales primarios.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Metrobús (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Metrobús (MB). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-mb-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Cuauhtémoc          & 32.50 &  26.74 &  82.27 \\
+        Benito Juárez       & 26.68 &  16.21 &  60.74 \\
+        Iztacalco           & 23.08 &  13.95 &  60.44 \\
+        Venustiano Carranza & 33.84 &  16.10 &  47.58 \\
+        Gustavo A. Madero   & 87.84 &  38.75 &  44.12 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+Visualmente, el alcance espacial del sistema se ilustra en la
+Figura~\ref{fig:mapa-cobertura-mb}. El mapa confirma cómo las líneas de BRT se
+concentran fuertemente en las zonas centro, norte y oriente —siguiendo los ejes
+viales primarios—, mientras que las barreras topográficas y de traza urbana
+mantienen a las demarcaciones del surponiente con una cobertura residual o
+inexistente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_MB_cobertura.png}
+    \caption[Mapa de cobertura territorial del Metrobús en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Metrobús por demarcación en la
+    Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-mb}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Cablebús (CBB)}
+\label{subsubsec:cobertura-cbb}
+
+El Cablebús representa un paradigma distinto dentro de la red de transporte masivo.
+Al ser un sistema de teleférico urbano, su diseño no busca abarcar grandes
+extensiones del territorio mediante una red interconectada, sino resolver problemas
+de accesibilidad muy puntuales en zonas de alta marginación y topografía compleja
+(principalmente en la periferia). Por lo tanto, su nivel de cobertura espacial a
+escala metropolitana es inherentemente focalizado, actuando como alimentador de
+alta capacidad hacia las líneas del Metro.
+
+El Cuadro~\ref{tab:cobertura-cbb-cdmx} presenta las cinco alcaldías con mayor
+cobertura del Cablebús. Como es de esperarse por la naturaleza del sistema, la gran
+mayoría de las demarcaciones de la Ciudad de México carecen por completo de esta
+infraestructura, por lo que incluso los valores más altos son reducidos en términos
+porcentuales absolutos.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Cablebús (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Cablebús (CBB). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-cbb-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Gustavo A. Madero   &  87.84 & 11.31 &  12.88 \\
+        Miguel Hidalgo      &  46.39 &  5.50 &  11.85 \\
+        Iztapalapa          & 113.07 & 12.74 &  11.27 \\
+        Álvaro Obregón      &  95.82 &  4.38 &   4.57 \\
+        Venustiano Carranza &  33.84 &  0.00 &   0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-cbb} ilustra esta focalización espacial. El mapa
+revela cómo las áreas de influencia del Cablebús se restringen a corredores muy
+específicos (como en Gustavo A. Madero, Iztapalapa y Álvaro Obregón), contrastando
+drásticamente con el vacío de infraestructura aérea en el resto de la cuenca.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_CBB_cobertura.png}
+    \caption[Mapa de cobertura territorial del Cablebús en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Cablebús por demarcación en la
+    Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-cbb}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Red de Transporte de Pasajeros (RTP)}
+\label{subsubsec:cobertura-rtp}
+
+La Red de Transporte de Pasajeros (\textsc{rtp}) desempeña un rol fundamental en
+la equidad espacial del sistema de movilidad de la Ciudad de México. A diferencia
+de los sistemas confinados, la \textsc{rtp} opera como un servicio de superficie
+con vocación social y de alimentación, diseñado específicamente para penetrar en
+zonas periféricas, de topografía compleja y de menor densidad, donde la
+implementación de infraestructura pesada es inviable. Su extensión territorial es
+notablemente mayor que la de cualquier otro sistema de la metrópoli.
+
+El Cuadro~\ref{tab:cobertura-rtp-cdmx} presenta las cinco alcaldías con mayor
+proporción de cobertura por parte de la \textsc{rtp}, confirmando la concentración
+del servicio en el centro y norte de la ciudad, donde la densidad de rutas y paradas
+alcanza sus niveles más altos.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de RTP (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para la Red de Transporte de Pasajeros (RTP). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-rtp-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Miguel Hidalgo      &  46.39 &  41.90 &  90.32 \\
+        Cuauhtémoc          &  32.50 &  29.32 &  90.22 \\
+        Azcapotzalco        &  33.50 &  30.08 &  89.81 \\
+        Gustavo A. Madero   &  87.84 &  75.86 &  86.37 \\
+        Iztapalapa          & 113.07 &  93.66 &  82.83 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-rtp} muestra la dispersión territorial de este
+sistema. A diferencia del Metro o del Metrobús, el mapa de la \textsc{rtp} revela
+una capilaridad mucho mayor hacia el sur y poniente de la ciudad, confirmando su
+rol estratégico como conector de las zonas más alejadas de la cuenca con la red
+troncal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_RTP_cobertura.png}
+    \caption[Mapa de cobertura territorial de la RTP en la CDMX]{Mapa del
+    nivel de cobertura territorial de la Red de Transporte de Pasajeros
+    (\textsc{rtp}) por demarcación en la Ciudad de México, calculado a partir
+    de \termino{buffers} de caminata peatonal de 800~m.}
+    \label{fig:mapa-cobertura-rtp}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Trolebús (TROLE)}
+\label{subsubsec:cobertura-trole}
+
+El Servicio de Transportes Eléctricos (\textsc{ste}), a través de su red de
+Trolebús, constituye uno de los ejes históricos y fundamentales de la
+electromovilidad de cero emisiones en la capital. Su red se distribuye
+estratégicamente sobre los principales ejes viales, concentrando su mayor área
+de influencia en las zonas centro, norte y oriente de la ciudad.
+
+\textbf{Nota metodológica:} Es importante precisar que, al momento de la
+ejecución de este análisis espacial (18 de abril de 2026), el Portal de Datos
+Abiertos de la Ciudad de México aún no había liberado los trazados geoespaciales
+ni el padrón de paradas oficiales correspondientes a la \textbf{Línea 13} del
+Trolebús. Por consiguiente, dicha línea no se encuentra contabilizada en los
+isócronos de cobertura presentados en esta sección.
+
+El Cuadro~\ref{tab:cobertura-trole-cdmx} enumera las cinco alcaldías con mayor
+cobertura territorial de este sistema, todas ellas ubicadas en la zona central y
+oriente de la ciudad, donde se concentra la red eléctrica de superficie.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Trolebús (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Trolebús (TROLE). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-trole-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Cuauhtémoc    &  32.50 & 22.72 &  69.90 \\
+        Benito Juárez &  26.68 & 16.50 &  61.85 \\
+        Azcapotzalco  &  33.50 & 17.48 &  52.18 \\
+        Iztacalco     &  23.08 & 11.93 &  51.69 \\
+        Coyoacán      & 125.17 & 25.17 &  46.71 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+Por su parte, la Figura~\ref{fig:mapa-cobertura-trole} ilustra la huella espacial
+del Trolebús. El mapa visibiliza la fuerte concentración del servicio en alcaldías
+como Benito Juárez, Cuauhtémoc, Iztacalco e Iztapalapa (impulsada por el Trolebús
+Elevado), contrastando drásticamente con la carencia de infraestructura eléctrica
+hacia las periferias montañosas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_TROLE_cobertura.png}
+    \caption[Mapa de cobertura territorial del Trolebús en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Trolebús por demarcación en la
+    Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-trole}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Corredores Concesionados (CC)}
+\label{subsubsec:cobertura-cc}
+
+Los Corredores Concesionados constituyen la red de rutas de transporte de
+superficie operadas por empresas privadas con concesión del Gobierno de la Ciudad
+de México. Con base en su lógica de trazado sobre los ejes viales primarios y
+secundarios de la ciudad consolidada, este sistema presenta uno de los niveles de
+cobertura territorial más altos de la metrópoli, especialmente en las alcaldías de
+mayor densidad urbana del centro y el oriente. Más que un sistema residual, los
+Corredores Concesionados actúan como la red capilar que penetra en los intersticios
+que los sistemas troncales no pueden servir directamente.
+
+El Cuadro~\ref{tab:cobertura-cc-cdmx} presenta las cinco alcaldías con mayor
+cobertura territorial de este sistema, donde se aprecia la saturación práctica del
+servicio en el núcleo urbano denso de la capital.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Corredores Concesionados (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema de Corredores Concesionados (CC). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-cc-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Cuauhtémoc          & 32.50 & 32.47 &  99.90 \\
+        Benito Juárez       & 26.68 & 26.32 &  98.65 \\
+        Iztacalco           & 23.08 & 22.25 &  96.42 \\
+        Miguel Hidalgo      & 46.39 & 44.33 &  95.57 \\
+        Venustiano Carranza & 33.84 & 27.77 &  82.06 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-cc} confirma la distribución omnipresente de
+este sistema en la ciudad consolidada. El mapa ilustra cómo los Corredores
+Concesionados recubren de manera prácticamente total las alcaldías centrales,
+mientras que el servicio se va diluyendo hacia las periferias con suelo de
+conservación o menor densidad.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_CC_cobertura.png}
+    \caption[Mapa de cobertura territorial de Corredores Concesionados en la CDMX]{
+    Mapa del nivel de cobertura territorial del sistema de Corredores
+    Concesionados por demarcación en la Ciudad de México, calculado a partir de
+    \termino{buffers} de caminata peatonal de 800~m.}
+    \label{fig:mapa-cobertura-cc}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Tren Ligero (TL)}
+\label{subsubsec:cobertura-tl}
+
+El Tren Ligero es un sistema de transporte férreo de capacidad media operado por
+el Servicio de Transportes Eléctricos (\textsc{ste}). Su trazado consta de una
+única línea que conecta la estación terminal Tasqueña de la Línea 2 del Metro con
+el centro de la alcaldía Xochimilco. Debido a esta configuración lineal y su
+confinamiento exclusivo en el sur de la cuenca, su área de influencia geográfica
+es altamente focalizada.
+
+El Cuadro~\ref{tab:cobertura-tl-cdmx} presenta las alcaldías con mayor nivel de
+cobertura por parte del Tren Ligero. Únicamente Coyoacán, Xochimilco y Tlalpan
+registran acceso al sistema dentro del isócrono peatonal de 800~m, mientras que
+el resto de las demarcaciones carece por completo de este servicio.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Tren Ligero (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Tren Ligero (TL). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-tl-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Coyoacán            &  53.88 & 9.31 &  17.28 \\
+        Xochimilco          & 114.03 & 6.82 &   5.98 \\
+        Tlalpan             & 314.25 & 4.07 &   1.30 \\
+        Venustiano Carranza &  33.84 & 0.00 &   0.00 \\
+        Tláhuac             &  85.78 & 0.00 &   0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-tl} ilustra espacialmente esta restricción
+territorial. El mapa confirma cómo el servicio es exclusivo del corredor sur,
+actuando principalmente como alimentador de la red masiva central para los
+habitantes de las alcaldías sureñas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_TL_cobertura.png}
+    \caption[Mapa de cobertura territorial del Tren Ligero en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Tren Ligero por demarcación en
+    la Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-tl}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Mexibús (MXB)}
+\label{subsubsec:cobertura-mxb}
+
+El sistema Mexibús es el equivalente al Metrobús en el Estado de México: una red
+de autobuses de tránsito rápido (\termino{Bus Rapid Transit}, BRT) que opera sobre
+corredores viales del ámbito metropolitano conurbado. Su presencia dentro de los
+límites político-administrativos de la Ciudad de México es marginal, circunscrita
+únicamente a los puntos de cruce o de conexión interestatal, por lo que su
+cobertura territorial en las alcaldías de la capital es forzosamente residual.
+
+El Cuadro~\ref{tab:cobertura-mxb-cdmx} identifica las alcaldías de la Ciudad de
+México con mayor cobertura territorial del sistema Mexibús. Los valores reducidos
+—ninguno superior al 7\%— confirman que este sistema opera fundamentalmente fuera
+de los límites de la entidad y que su incidencia en la cobertura intraurbana
+capitalina es mínima.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Mexibús (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Mexibús (MXB). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-mxb-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Iztacalco           &  23.08 & 1.52 & 6.58 \\
+        Venustiano Carranza &  33.84 & 1.90 & 5.62 \\
+        Gustavo A. Madero   &  87.84 & 3.23 & 3.67 \\
+        Xochimilco          & 114.03 & 0.00 & 0.00 \\
+        Tláhuac             &  85.78 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-mxb} confirma esta presencia puntual del
+sistema dentro de la capital. El mapa ilustra cómo la única área de influencia
+del Mexibús en la Ciudad de México corresponde a los cruces fronterizos del
+nororiente, sin penetrar en el tejido urbano interior.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_MEXIBÚS_cobertura.png}
+    \caption[Mapa de cobertura territorial de Mexibús en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Mexibús por demarcación en la
+    Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-mxb}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Mexicable (MEXICABLE)}
+\label{subsubsec:cobertura-mexicable}
+
+El Mexicable es un sistema de teleférico urbano que opera principalmente en el
+Estado de México, diseñado para sortear las barreras topográficas de las zonas
+altas y densamente pobladas de la periferia metropolitana. Su incursión en la
+Ciudad de México es mínima y de carácter estrictamente interconectivo, fungiendo
+como enlace alimentador hacia las redes troncales en la zona norte de la capital.
+
+El Cuadro~\ref{tab:cobertura-mexicable-cdmx} presenta las alcaldías de la capital
+con mayor nivel de cobertura para el Mexicable. Como es natural dada su jurisdicción
+y trazado, únicamente la alcaldía Gustavo A. Madero registra un área de influencia
+efectiva dentro del isócrono peatonal de 800~m, mientras que el resto de las
+demarcaciones presentan cobertura nula.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Mexicable (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Mexicable. Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-mexicable-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Gustavo A. Madero   &  87.84 & 2.80 & 3.19 \\
+        Venustiano Carranza &  33.84 & 0.00 & 0.00 \\
+        Xochimilco          & 114.03 & 0.00 & 0.00 \\
+        Tláhuac             &  85.78 & 0.00 & 0.00 \\
+        Tlalpan             & 314.25 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-mexicable} visualiza la focalización extrema de
+este servicio. El mapa ilustra claramente cómo la infraestructura aérea del
+Mexicable se restringe a un pequeño polígono en el extremo norte de la ciudad,
+reiterando su naturaleza como transporte de penetración desde la zona conurbada.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_MEXICABLE_cobertura.png}
+    \caption[Mapa de cobertura territorial del Mexicable en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Mexicable por demarcación en la
+    Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-mexicable}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Tren Suburbano (SUB)}
+\label{subsubsec:cobertura-sub}
+
+El Tren Suburbano de la \zmvm{} es un sistema ferroviario regional de alta
+capacidad que conecta la terminal Buenavista, en la alcaldía Cuauhtémoc, con el
+municipio de Cuautitlán, en el Estado de México. Su trazado, mayoritariamente
+confinado al corredor norte de la cuenca metropolitana, limita su área de
+influencia directa dentro de la Ciudad de México a un corredor muy acotado. Para
+las alcaldías del sur y oriente, este sistema resulta prácticamente inaccesible
+sin una transferencia modal significativa.
+
+El Cuadro~\ref{tab:cobertura-sub-cdmx} detalla las cinco alcaldías de la Ciudad de
+México con mayor nivel de cobertura por parte del Tren Suburbano, evidenciando la
+concentración casi exclusiva del servicio en las demarcaciones del norte y centro
+de la capital.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Tren Suburbano (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Tren Suburbano (SUB). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-sub-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Cuauhtémoc          &  32.50 & 2.01 & 6.18 \\
+        Azcapotzalco        &  33.50 & 2.01 & 5.99 \\
+        Xochimilco          & 114.03 & 0.00 & 0.00 \\
+        Venustiano Carranza &  33.84 & 0.00 & 0.00 \\
+        Tláhuac             &  85.78 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-sub} confirma la huella territorial de este
+sistema. El mapa evidencia cómo la cobertura del Tren Suburbano apenas alcanza la
+alcaldía Cuauhtémoc y el extremo norte de Azcapotzalco, mientras que el resto del
+territorio capitalino permanece fuera de su radio de influencia peatonal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_SUB_cobertura.png}
+    \caption[Mapa de cobertura territorial del Tren Suburbano en la CDMX]{Mapa
+    del nivel de cobertura territorial del sistema Tren Suburbano por demarcación
+    en la Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-sub}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Tren Interurbano (INTERURBANO)}
+\label{subsubsec:cobertura-interurbano}
+
+El Tren Interurbano ``El Insurgente'' es un sistema ferroviario de carácter
+regional diseñado para conectar el Valle de Toluca con la Ciudad de México. Su
+trazo dentro de la capital es incipiente y se concentra exclusivamente en el sector
+poniente, sirviendo como puerta de entrada a la metrópoli. Debido a su vocación
+interurbana, su impacto en la cobertura espacial a nivel de alcaldías es altamente
+localizado.
+
+El Cuadro~\ref{tab:cobertura-interurbano-cdmx} presenta las alcaldías con mayor
+nivel de cobertura para este sistema. Como reflejo de su ruta de ingreso, únicamente
+Cuajimalpa de Morelos y Álvaro Obregón presentan áreas de influencia dentro del
+isócrono peatonal de 800~m, dejando al resto de la ciudad sin cobertura directa
+por este medio.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Tren Interurbano (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Tren Interurbano (INTERURBANO). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-interurbano-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Cuajimalpa de Morelos &  71.10 & 1.59 & 2.23 \\
+        Álvaro Obregón        &  95.82 & 0.42 & 0.44 \\
+        Venustiano Carranza   &  33.84 & 0.00 & 0.00 \\
+        Xochimilco            & 114.03 & 0.00 & 0.00 \\
+        Tláhuac               &  85.78 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La Figura~\ref{fig:mapa-cobertura-interurbano} visualiza este alcance espacial
+limitado. El mapa hace evidente la focalización de la infraestructura en el límite
+occidental de la cuenca, evidenciando su papel como colector foráneo más que como
+distribuidor urbano capilar.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_INTERURBANO_cobertura.png}
+    \caption[Mapa de cobertura territorial del Tren Interurbano en la CDMX]{Mapa
+    del nivel de cobertura territorial del sistema Tren Interurbano por
+    demarcación en la Ciudad de México, calculado a partir de \termino{buffers}
+    de caminata peatonal de 800~m.}
+    \label{fig:mapa-cobertura-interurbano}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
+
+\subsubsection{Pumabús (PB)}
+\label{subsubsec:cobertura-pb}
+
+El sistema Pumabús es un servicio de transporte interno operado por la Universidad
+Nacional Autónoma de México (UNAM), de carácter público y gratuito, cuya operación
+es exclusiva del campus de Ciudad Universitaria. No obstante, debido a su relevancia
+modal y estructural en el sur de la ciudad, se encuentra registrado formalmente
+dentro del Portal de Datos Abiertos de la Ciudad de México, lo que permite integrar
+su infraestructura de paradas y circuitos en el análisis macro de la conectividad
+metropolitana.
+
+El Cuadro~\ref{tab:cobertura-pb-cdmx} identifica las cinco alcaldías de la Ciudad
+de México con mayor cobertura territorial respecto a la red del Pumabús,
+evidenciando su completa focalización en el núcleo universitario y su vecindad
+inmediata.
+
+\begin{table}[H]
+    \centering
+    \caption[Alcaldías con mayor cobertura de Pumabús (CDMX)]{
+    Cinco alcaldías de la Ciudad de México con mayor porcentaje de cobertura
+    territorial para el sistema Pumabús (PB). Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-pb-cdmx}
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{Área total (km²)} & \textbf{Área cubierta (km²)} & \textbf{Cobertura (\%)} \\
+        \hline
+        Coyoacán            &  53.88 & 10.85 &  20.13 \\
+        Álvaro Obregón      &  95.82 &  2.25 &   2.34 \\
+        Tlalpan             & 314.25 &  0.25 &   0.08 \\
+        Venustiano Carranza &  33.84 &  0.00 &   0.00 \\
+        Xochimilco          & 114.03 &  0.00 &   0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
+\end{table}
+
+La configuración geoespacial de esta influencia se presenta en la
+Figura~\ref{fig:mapa-cobertura-pb}. El mapa hace patente la delimitación del
+servicio al polígono escolar de Ciudad Universitaria, extendiendo su área de
+influencia peatonal de 800~m únicamente hacia las franjas fronterizas de las tres
+alcaldías circundantes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap5/Cobertura/Mapas/NB02_fig02_PUMABUS_cobertura.png}
+    \caption[Mapa de cobertura territorial del Pumabús en la CDMX]{Mapa del
+    nivel de cobertura territorial del sistema Pumabús por demarcación en la
+    Ciudad de México, calculado a partir de \termino{buffers} de caminata
+    peatonal de 800~m.}
+    \label{fig:mapa-cobertura-pb}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel} utilizando visualización geoespacial.}
+\end{figure}
