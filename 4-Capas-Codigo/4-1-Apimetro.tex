@@ -82,38 +82,10 @@ Como se observa en la Figura \ref{fig:diagrama-er}, el modelo se articula bajo l
 \end{itemize}
 
 
-\subsubsection{Definición de Tablas Principales (SQL)}
+\subsubsection{Definición de Tablas Principales}
 \label{subsubsec:DefinicionSQL}
-A continuación, se presenta el código de creación de las tablas más críticas, las cuales permiten la ingesta asíncrona de datos desde el motor ETL.
 
-\begin{lstlisting}[language=SQL, caption={Tablas base de Apimetro}, label=lst:sql-apimetro, breaklines=true, basicstyle=\small\ttfamily]
--- Tabla de Estaciones (Nodos)
-CREATE TABLE estaciones (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    sistema VARCHAR(50), -- METRO, MB, RTP, etc.
-    alcaldia_municipio VARCHAR(100),
-    jerarquia_transporte VARCHAR(50),
-    es_cetram BOOLEAN DEFAULT FALSE,
-    geom GEOMETRY(Point, 4326) -- SRID WGS 84
-);
-
--- Tabla de Lineas y Ramales (Aristas con metrica)
-CREATE TABLE lineas (
-    id SERIAL PRIMARY KEY,
-    nombre_linea VARCHAR(255),
-    sistema VARCHAR(50),
-    velocidad_promedio_kmh FLOAT,
-    frecuencia_minutos INTEGER,
-    capacidad_vehiculo INTEGER,
-    sentido INTEGER, -- 1 o 2
-    geom GEOMETRY(MultiLineString, 4326)
-);
-
--- Indices espaciales para optimizar consultas de ruteo
-CREATE INDEX idx_estaciones_geom ON estaciones USING GIST (geom);
-CREATE INDEX idx_lineas_geom ON lineas USING GIST (geom);
-\end{lstlisting}
+El esquema relacional se implementa en tres tablas: \texttt{estaciones} (nodos puntuales con atributos de conectividad), \texttt{lineas} (aristas \texttt{MultiLineString} con métricas operativas de velocidad, frecuencia y capacidad) y \texttt{poligonos} (áreas administrativas para filtrado por alcaldía o municipio). Todas las columnas de geometría utilizan el tipo \texttt{GEOMETRY} con proyección WGS~84 (SRID~4326) e índices espaciales \texttt{GIST} para optimizar las consultas de ruteo. La definición completa del esquema \textsc{sql} se presenta en el Anexo~\ref{anx:apimetro-sql}.
 
 La arquitectura de estas tablas responde a dos necesidades fundamentales identificadas en la investigación:
 \begin{itemize}
@@ -146,22 +118,7 @@ un árbol de prefijos, lo que permite que los endpoints de \texttt{Apimetro} res
 \subsubsection{Configuración y Entorno de Ejecución}
 \label{subsubsec:configuracionejecucion}
 
-Para garantizar la portabilidad y soberanía tecnológica, el backend se configura mediante variables de entorno que permiten su despliegue en contenedores \textbf{Docker}. 
-A continuación, se detallan las variables críticas definidas en la arquitectura para la conexión asíncrona con el motor espacial:
-
-\begin{table}[ht] 
-    \centering 
-    \begin{tabular}{|l|l|l|} 
-        \hline 
-        \textbf{Variable} & \textbf{Descripción} & \textbf{Ejemplo} \\ \hline 
-        \texttt{DB\_HOST} & Host de la base de datos PostGIS & \texttt{localhost / db\_dev} \\ \hline 
-        \texttt{DB\_PORT} & Puerto de PostgreSQL & \texttt{5432} \\ \hline 
-        \texttt{DATABASE\_URL} & DSN completo de conexión & \texttt{postgresql://user:pass@host/db} \\ \hline 
-        \texttt{GIN\_MODE} & Modo de ejecución del framework & \texttt{debug / release} \\ \hline 
-    \end{tabular} 
-    \caption{Variables de entorno para el backend de Apimetro \parencite{cabrera2025apimetro}.} 
-    \label{tab:env-vars} 
-\end{table}
+Para garantizar la portabilidad y soberanía tecnológica, el backend se configura mediante variables de entorno que permiten su despliegue en contenedores \textbf{Docker}. Las variables críticas cubren la conexión al motor espacial (\texttt{DB\_HOST}, \texttt{DATABASE\_URL}) y el modo de ejecución del framework (\texttt{GIN\_MODE}); su especificación completa se presenta en el Cuadro~\ref{tab:env-vars} del Anexo~\ref{anx:apimetro-backend}.
 
 \subsubsection{Estructura de Endpoints y Lógica de Respuesta}
 \label{subsubsec:estructuraEndpoints}
@@ -173,42 +130,10 @@ optimizando significativamente el rendimiento computacional al calcular indicado
 
 Para ejemplificar la versatilidad del backend desarrollado en \textbf{Go}, se analizan las dos estructuras principales del sistema: la gestión de nodos puntuales (estaciones) y la recuperación de geometrías 
 complejas (líneas y ramales).
-\paragraph{Control de Estaciones (Nodos):} El controlador \texttt{estaciones.go} gestiona la lógica de filtrado de las paradas del sistema metropolitano. A diferencia de una consulta \texttt{SQL} estática, 
-este componente captura parámetros dinámicos de la \texttt{URL} para segmentar la red por sistema, alcaldía o jerarquía de transporte, permitiendo auditorías locales precisas.
+\paragraph{Control de Estaciones (Nodos):} El controlador \texttt{estaciones.go} gestiona la lógica de filtrado de las paradas del sistema metropolitano capturando parámetros dinámicos de la \textsc{url} (sistema, alcaldía, jerarquía de transporte) para segmentar la red y permitir auditorías locales precisas. El código fuente completo se presenta en el Anexo~\ref{anx:apimetro-backend}.
 
-\begin{lstlisting}[language=Go, caption=Lógica de filtrado en estaciones.go, label=lst:go-estaciones] 
-    // Fragmento simplificado de 
-    // cmd/pkg/controller/transporte/estaciones.go 
-    func (ctrl *TransporteController) 
-        GetEstaciones(c *gin.Context) { 
-        // Captura de parameters para filtrado dinámico 
-        sistema := c.Query("sistema") 
-        numComercial := c.Query("num_comercial") 
-        alcaldia := c.Query("alcaldia_municipio")
-        // Llamada al modelo para 
-        // ejecucion de query espacial en PostGIS
-        estaciones, err := ctrl.model.FetchEstaciones
-            (sistema, numComercial, alcaldia)
-        if err != nil {
-            c.JSON(
-                http.StatusInternalServerError, 
-                gin.H{
-                    "error": err.Error()
-                    })
-            return
-        }
-        c.JSON(http.StatusOK, estaciones)
-    } 
-\end{lstlisting}
-
-\paragraph{Optimización de Indicadores:} 
-La separación de estas lógicas en controladores especializados permite que una petición de ruteo para el \textbf{Tercer Contorno} sea resuelta mediante índices espaciales \texttt{GIST} en milisegundos 
-\parencite{cabrera2025apimetro}. Un ejemplo de consulta integrada que consume estos controladores para obtener el trazo de la Línea 1 del Metro con sus métricas de velocidad y capacidad se describe a continuación:
-\begin{lstlisting}[language=bash, caption={Ejemplo de petición mediante \texttt{curl} para obtener métricas operativas}, label=lst:api-query-v2]
-# Peticion para obtener el trazo ruteable con metrica operativa
-curl -X GET "https://apimetro.mx" \
-     -H "Accept: application/json"
-\end{lstlisting}
+\paragraph{Optimización de Indicadores:}
+La separación de estas lógicas en controladores especializados permite que una petición de ruteo para el \textbf{Tercer Contorno} sea resuelta mediante índices espaciales \texttt{GIST} en milisegundos \parencite{cabrera2025apimetro}.
 
 Esta estructura garantiza que la planeación urbana no dependa de la manipulación manual de datos pesados, permitiendo que la simulación de escenarios de transporte sea un proceso dinámico, 
 reproducible y basado en la soberanía tecnológica de herramientas de código abierto \parencite{cabrera2025apimetro}.
@@ -241,32 +166,9 @@ alfanuméricos, metadatos históricos y parámetros de estilo que no requieren d
 La utilidad de esta salida radica en su eficiencia para alimentar componentes de interfaz de usuario, tales como fichas técnicas de estaciones, tablas de atributos operativos o la configuración de la simbología visual 
 en visores cartográficos sin incurrir en el costo computacional de transferir coordenadas geográficas masivas.
 
-A diferencia del est{\'a}ndar GeoJSON, orientado al renderizado de mapas, el JSON descriptivo permite realizar consultas r{\'a}pidas sobre la jerarqu{\'i}a administrativa y la cronolog{\'i}a del sistema de transporte~\parencite{cabrera2025apimetro}. 
-Seg{\'u}n la documentaci{\'o}n t{\'e}cnica del sistema, estos registros permiten vincular la informaci{\'o}n operativa almacenada en la tabla \texttt{historico\_operacion} con las identidades comerciales de cada l{\'i}nea. 
-Un ejemplo de esta salida, extra{\'i}do de la API de descripci{\'o}n de l{\'i}neas, se presenta a continuaci{\'o}n:
+A diferencia del estándar GeoJSON, orientado al renderizado de mapas, el JSON descriptivo permite realizar consultas rápidas sobre la jerarquía administrativa y la cronología del sistema de transporte~\parencite{cabrera2025apimetro}. Estos registros vinculan la información operativa almacenada en la tabla \texttt{historico\_operacion} con las identidades comerciales de cada línea. Un ejemplo representativo de esta salida se presenta en el Anexo~\ref{anx:apimetro-salidas}.
 
-\begin{lstlisting}[language=json, caption={Fragmento de salida JSON descriptiva para l{\'i}neas de transporte}, label=lst:json-descriptivo]
-[
-  {
-    "linea_id": 191,
-    "nombre": "Metro Linea 1",
-    "num_comercial": "1",
-    "sistema": "METRO",
-    "anio_inauguracion": 1969,
-    "color_en": "Pink",
-    "color_esp": "F94F8E",
-    "tam_km": 16.66467,
-    "existe": true,
-    "clasificacion": "existente"
-  }
-]
-\end{lstlisting}
-
-Como se observa en el c{\'o}digo~\ref{lst:json-descriptivo}, el objeto contiene campos cr{\'i}ticos para la gesti{\'o}n del sistema, como \texttt{color\_esp}, el cual permite la estandarizaci{\'o}n visual de las rutas bajo los lineamientos oficiales de identidad 
-institucional de la ZMVM. Asimismo, campos como \texttt{tam\_km} y \texttt{clasificacion} (que distingue entre infraestructura existente, futura o eliminada) son fundamentales para que el motor \textit{VFTModel} realice comparaciones estad{\'i}sticas entre la 
-red actual y los escenarios de expansi{\'o}n propuestos~\parencite{cabrera2026VFTModel, adip_gtfs_2024}. 
-Esta separaci{\'o}n de intereses entre los datos descriptivos y los geogr{\'a}ficos asegura que el flujo de informaci{\'o}n sea escalable y se adapte a las necesidades espec{\'i}ficas de la planeaci{\'o}n urbana estrat{\'e}gica y la auditor{\'i}a de 
-redes complejas~\parencite{fortin2016innovative}.
+Entre los campos de mayor relevancia para la planeación se encuentran \texttt{color\_esp} —que permite la estandarización visual de las rutas bajo los lineamientos oficiales de identidad institucional de la \zmvm{}— y \texttt{clasificacion} —que distingue entre infraestructura existente, futura o eliminada—, ambos fundamentales para que el motor \textit{VFTModel} realice comparaciones estadísticas entre la red actual y los escenarios de expansión propuestos~\parencite{cabrera2026VFTModel, adip_gtfs_2024}. Esta separación de intereses entre los datos descriptivos y los geográficos asegura que el flujo de información sea escalable y se adapte a las necesidades específicas de la planeación urbana estratégica y la auditoría de redes complejas~\parencite{fortin2016innovative}.
 
 \subsection{Estructura de GeoJSON (Geográfico)}
 \label{subsec:estructura-geojson-geografico}
@@ -286,35 +188,9 @@ que integran cada respuesta del motor:
 \paragraph{4. Properties:} Es el objeto donde se almacena la metadata enriquecida y las métricas operativas. En esta sección, el motor integra datos como la \texttt{alcaldia\_municipio}, el \texttt{sistema}, y variables críticas para el motor \textit{VFTModel} 
 como la \texttt{velocidad\_promedio\_kmh} y la \texttt{frecuencia\_minutos}.
 
-A continuación, se presenta un fragmento de código que ejemplifica la estructura de una estación de transporte masivo generada por la API:
+Un ejemplo representativo de la estructura de una estación de transporte masivo generada por la \api{} se presenta en el Anexo~\ref{anx:apimetro-salidas}.
 
-\begin{lstlisting}[language=json, caption={Estructura GeoJSON ruteable de una estación en Apimetro}, label=lst:geojson-estacion]
-{
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-99.13402, 19.42932]
-      },
-      "properties": {
-        "nombre": "20 de Noviembre",
-        "sistema": "MB",
-        "alcaldia_municipio": "Cuauhtemoc",
-        "es_cetram": false,
-        "jerarquia_transporte": "masivo_mediano",
-        "tipo_entidad": "estacion"
-      }
-    }
-  ]
-}
-\end{lstlisting}
-
-Como se observa en el listado \ref{lst:geojson-estacion}, la propiedad \texttt{coordinates} proporciona la base para el cálculo de la \textbf{Distancia Euclidiana} necesaria para obtener el \textbf{Índice de Ruta Directa (DI)}. 
-Al mismo tiempo, las \texttt{properties} permiten realizar filtrados dinámicos en el lado del cliente, facilitando que aplicaciones móviles o visores web presenten únicamente la información relevante para la planeación del corredor 
-anillar propuesto \parencite{cabrera2025apimetro, adip_gtfs_2024}. 
-Esta arquitectura asegura que la información geográfica no sea solo una representación visual, sino un insumo matemático auditable y reproducible \parencite{fortin2016innovative}.
+La propiedad \texttt{coordinates} proporciona la base para el cálculo de la \textbf{Distancia Euclidiana} necesaria para obtener el \textbf{Índice de Ruta Directa ($DI$)}. Al mismo tiempo, las \texttt{properties} permiten realizar filtrados dinámicos en el lado del cliente, facilitando que aplicaciones móviles o visores web presenten únicamente la información relevante para la planeación del corredor anillar propuesto \parencite{cabrera2025apimetro, adip_gtfs_2024}. Esta arquitectura asegura que la información geográfica no sea solo una representación visual, sino un insumo matemático auditable y reproducible \parencite{fortin2016innovative}.
 \subsection{El Futuro de Apimetro}
 \label{subsec:futuro-apimetro}
 

@@ -1,0 +1,217 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ANEXO B — Documentación Técnica: VFTModel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% =============================================================================
+%  B.1 — VALIDACIÓN PYDANTIC
+% =============================================================================
+\section{Contrato de Validación de Datos (Pydantic)}
+\label{anx:vft-validacion}
+
+El Cuadro~\ref{tab:vft-campos-validados} presenta la especificación completa
+de los campos verificados en el contrato de datos de VFTModel, implementado
+en \texttt{src/api/schemas/schemas.py}.
+
+\begin{table}[H]
+    \centering
+    \caption[Campos validados en el contrato de datos de VFTModel]{Campos
+    validados en el contrato de datos de VFTModel.
+    Fuente: \texttt{src/api/schemas/schemas.py}.}
+    \label{tab:vft-campos-validados}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Campo} & \textbf{Tipo} & \textbf{Descripción} \\
+        \hline
+        \texttt{sistema}                  & Enum (12 valores) &
+            Identifica el sistema de transporte \\
+        \texttt{tipo\_entidad}            & Enum (2 valores) &
+            \texttt{estacion} o \texttt{ruta} \\
+        \texttt{jerarquia\_transporte}    & Enum (4 niveles) &
+            Jerarquía operativa del sistema \\
+        \texttt{derecho\_de\_via}         & Enum (4 valores) &
+            Exclusividad del carril de circulación \\
+        \texttt{velocidad\_promedio\_kmh} & Flotante &
+            Velocidad comercial en km/h \\
+        \texttt{frecuencia\_minutos}      & Flotante &
+            Intervalo promedio entre servicios \\
+        \texttt{sentido}                  & Entero &
+            Dirección de la ruta: ida (1), regreso (0) \\
+        \texttt{es\_cetram}               & Booleano &
+            Si la estación es un nodo de transferencia \textsc{cetram} \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en
+    \texttt{src/api/schemas/schemas.py} (VFTModel, 2026).}
+\end{table}
+
+% =============================================================================
+%  B.2 — CATÁLOGO COMPLETO DE SISTEMAS
+% =============================================================================
+\section{Catálogo Completo de Sistemas de Transporte}
+\label{anx:vft-catalogo}
+
+El Cuadro~\ref{tab:vft-sistemas} presenta el catálogo completo de los doce
+sistemas reconocidos por VFTModel, incluyendo las claves internas del código
+y los parámetros de \termino{fallback} definidos en
+\path{src/core/models/impedance.py}.
+
+\begin{table}[H]
+    \centering
+    \caption[Catálogo de sistemas de transporte en VFTModel]{Catálogo de los
+    doce sistemas de transporte reconocidos por VFTModel, con claves de código,
+    velocidades comerciales de \termino{fallback} y tipo de derecho de vía.
+    Fuente: \texttt{src/core/models/impedance.py}.}
+    \label{tab:vft-sistemas}
+    \begin{tabular}{|l|l|r|l|}
+        \hline
+        \textbf{Clave} & \textbf{Sistema} & \textbf{Vel. (km/h)} &
+        \textbf{Derecho de vía} \\
+        \hline
+        \texttt{METRO}       & STC Metro                       & 36.0 & Exclusivo  \\
+        \texttt{MB}          & Metrobús                        & 16.3 & Confinado  \\
+        \texttt{TL}          & Tren Ligero                     & 22.0 & Exclusivo  \\
+        \texttt{TROLE}       & Trolebús                        & 18.0 & Compartido \\
+        \texttt{RTP}         & Red de Transporte de Pasajeros  & 14.0 & Mixto      \\
+        \texttt{CC}          & Corredor Concesionado           & 11.0 & Mixto      \\
+        \texttt{CBB}         & Cablebús                        & 20.0 & Exclusivo  \\
+        \texttt{MEXICABLE}   & Mexicable (Estado de México)    & 20.0 & Exclusivo  \\
+        \texttt{MEXIBÚS}     & Mexibús (Estado de México)      & 16.3 & Confinado  \\
+        \texttt{SUB}         & Tren Suburbano                  & 65.0 & Exclusivo  \\
+        \texttt{INTERURBANO} & Tren Interurbano México--Toluca & 70.0 & Exclusivo  \\
+        \texttt{PUMABUS}     & Pumabús (\textsc{unam})         & 11.0 & Mixto      \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con base en \texttt{impedance.py}
+    (VFTModel, corrida 2026-04-18).}
+\end{table}
+
+% =============================================================================
+%  B.3 — LOGS DE CONSTRUCCIÓN Y CÓDIGO FUENTE PYTHON
+% =============================================================================
+\section{Logs de Construcción del Grafo y Código Fuente Python}
+\label{anx:vft-codigo}
+
+\subsection*{Logs de construcción (corrida 2026-04-18)}
+
+\begin{figure}[H]
+    \centering
+    \fontsize{7.5pt}{9pt}\selectfont
+    \begin{minipage}{0.95\textwidth}
+        \hrule\vspace{1ex}
+        \textbf{Logs de Construcción del Grafo (VFT\_Model):}
+        \vspace{1ex}
+        \begin{verbatim}
+            2026-04-18 20:46:41 | INFO | Fase 1 y 2: Extrayendo nodos y trazos base...
+            2026-04-18 20:46:43 | INFO | Fase 2 completada: 65220 aristas creadas.
+            2026-04-18 20:46:43 | INFO | Grafo Base: 11115 Nodos y 32344 Segmentos.
+            2026-04-18 20:46:43 | WARN | Eliminadas 1562 aristas phantom (> 5 km).
+            2026-04-18 20:46:43 | INFO | Fase 3: Integrando sistemas (Tolerancia: 85.0m)...
+            2026-04-18 20:47:09 | INFO | Se crearon 20482 aristas de Transbordo Peatonal.
+            2026-04-18 20:47:09 | INFO | Impedancia aplicada exitosamente a 25197 segmentos.
+            2026-04-18 20:47:09 | INFO | Grafo final: 11115 nodos, 45679 aristas.
+        \end{verbatim}
+        \hrule
+    \end{minipage}
+\end{figure}
+
+\subsection*{Implementación de la fórmula de Haversine}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Implementación de la fórmula de Haversine.
+             \texttt{src/core/models/impedance.py}.},
+    label=lst:haversine]
+@staticmethod
+def haversine(lon1, lat1, lon2, lat2) -> float:
+    R = 6_371_000  # Radio de la Tierra en metros
+    phi_1        = math.radians(lat1)
+    phi_2        = math.radians(lat2)
+    delta_phi    = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+    a = math.sin(delta_phi / 2.0) ** 2 + \
+        math.cos(phi_1) * math.cos(phi_2) * \
+        math.sin(delta_lambda / 2.0) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    return R * c
+\end{lstlisting}
+
+\subsection*{Cálculo del Coeficiente de Fricción Vial}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Cálculo del Coeficiente de Fricción Vial.
+             \texttt{src/core/models/impedance.py}.},
+    label=lst:cf]
+class FrictionCalculator:
+    BETA_SATURACION_CDMX = 0.759  # TomTom Traffic Index ZMVM
+
+    @classmethod
+    def get_friction(cls, derecho_de_via: str) -> float:
+        alpha_map = {
+            "exclusivo":  0.0,  # Metro, Suburbano, Cablebus
+            "confinado":  0.2,  # Metrobus, Mexicable, Mexibus
+            "compartido": 0.5,  # Trolebus
+            "mixto":      1.0,  # RTP, CC, Pumabus
+        }
+        alpha = alpha_map.get(derecho_de_via, 1.0)  # default: peor caso
+        return 1.0 + (alpha * cls.BETA_SATURACION_CDMX)
+\end{lstlisting}
+
+\subsection*{Inyección de impedancia en el grafo}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Inyección del peso de impedancia en cada arista del grafo dirigido.
+             \texttt{src/core/models/impedance.py}.},
+    label=lst:impedancia]
+for u, v, data in self.G.edges(data=True):
+    # Transbordos peatonales ya tienen peso asignado por graph_builder
+    if data.get("tipo") == "transfer":
+        continue
+
+    # d_ij: distancia real acumulada del trazo (o Haversine como fallback)
+    d = data.get("distancia_segmento_m") or \
+        self.haversine(u[0], u[1], v[0], v[1])
+
+    # v_ij: velocidad comercial -> metros por minuto
+    v_kmh  = data.get("velocidad_promedio_kmh") or \
+              self.FALLBACK_VELOCIDAD.get(sistema, 15.0)
+    v_mmin = v_kmh * (1000.0 / 60.0)
+
+    # CF: coeficiente de friccion segun derecho de via
+    cf = FrictionCalculator.get_friction(
+             data.get("derecho_de_via", "mixto"))
+
+    # Ecuacion VFT: peso en minutos
+    self.G[u][v]["weight"] = round((d / v_mmin) * cf, 4)
+\end{lstlisting}
+
+% =============================================================================
+%  B.4 — API REST: ENDPOINTS FASTAPI
+% =============================================================================
+\section{API REST de VFTModel: Endpoints Disponibles}
+\label{anx:vft-api}
+
+\begin{table}[H]
+    \centering
+    \caption[\api{} REST de VFTModel: endpoints disponibles]{Endpoints de la
+    \api{} \textsc{rest} de VFTModel y el indicador o acción que producen.
+    Fuente: \texttt{src/api/main.py}.}
+    \label{tab:vft-endpoints}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Endpoint} & \textbf{Método} & \textbf{Resultado} \\
+        \hline
+        \texttt{/api/v1/network/build-auto}
+            & POST & Construye y almacena el grafo en caché \\
+        \texttt{/api/v1/network/spatial-coverage}
+            & GET  & Cobertura (\%) por alcaldía o municipio \\
+        \texttt{/api/v1/network/topological/capillary-strength}
+            & GET  & Ranking de fuerza capilar por nodo \\
+        \texttt{/api/v1/network/topological/geo-capillary}
+            & GET  & Detección de macro-hubs por proximidad espacial \\
+        \texttt{/api/v1/network/topological/detour-factor}
+            & GET  & Factor de desviación general o por par O-D \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{src/api/main.py}
+    (VFTModel, 2026).}
+\end{table}

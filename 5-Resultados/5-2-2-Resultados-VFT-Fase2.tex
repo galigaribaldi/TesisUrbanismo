@@ -45,7 +45,7 @@ segmento. La penalización por transferencia actúa únicamente sobre aristas de
 tipo \texttt{transfer}, como se describe en la Sección~\ref{subsec:res-penalizacion-transferencia}.
 
 % ----------------------------------------------------------------
-\subsection{Coeficiente de Fricción Vial ($CF$)}
+\subsection{Coeficiente de Fricción Vial (\texorpdfstring{$CF$}{CF})}
 \label{subsec:coeficiente-friccion}
 % ----------------------------------------------------------------
 
@@ -133,7 +133,7 @@ por defecto el valor de vía \texttt{mixto} ($CF = 1.759$), aplicando el
 principio de escenario más conservador para no subestimar los tiempos de traslado.
 
 % ----------------------------------------------------------------
-\subsection{Penalización por Transferencia ($T_b$)}
+\subsection{Penalización por Transferencia (\texorpdfstring{$T_b$}{Tb})}
 \label{subsec:res-penalizacion-transferencia}
 % ----------------------------------------------------------------
 
@@ -292,7 +292,7 @@ La normalización de cada componente usa el método \termino{min-max}:
     \label{eq:normalizacion-minmax}
 \end{equation}
 
-\subsubsection{Determinación de los Pesos $\alpha$}
+\subsubsection{Determinación de los Pesos \texorpdfstring{$\alpha$}{\textalpha}}
 \label{subsubsec:pesos-alpha}
 
 Los pesos $\alpha_1, \alpha_2, \alpha_3$ se determinarán en dos etapas
@@ -330,14 +330,10 @@ fecha de cierre del documento.
         \hline
         \textbf{Componente} & \textbf{Fuente} & \textbf{Responsable} & \textbf{Estado} \\
         \hline
-        $\hat{k}_i$ Fuerza Capilar    & VFT interno (\texttt{capillary\_strength.py})
-                                        & VFTModel & Calculado \\
-        $\hat{a}_i$ Afluencia         & MV1 Apimetro — afluencia por línea
-                                        & Apimetro & Pendiente \\
-        $\hat{p}_i$ Población captada & MV2 Apimetro — AGEBs Censo INEGI 2020
-                                        & Apimetro & Pendiente \\
-        Pesos $\alpha$ (entropía)     & Derivados de $\sigma(\hat{k}, \hat{a}, \hat{p})$
-                                        & VFTModel & Pendiente MV1+MV2 \\
+        $\hat{k}_i$ Fuerza Capilar    & VFT interno (\path{capillary_strength.py}) & VFTModel & Calculado \\
+        $\hat{a}_i$ Afluencia         & MV1 Apimetro — afluencia por línea & Apimetro & Pendiente \\
+        $\hat{p}_i$ Población captada & MV2 Apimetro — AGEBs Censo INEGI 2020 & Apimetro & Pendiente \\
+        Pesos $\alpha$ (entropía)     & Derivados de $\sigma(\hat{k}, \hat{a}, \hat{p})$ & VFTModel & Pendiente MV1+MV2 \\
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en

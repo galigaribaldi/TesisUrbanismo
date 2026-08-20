@@ -2,10 +2,11 @@
 # Motor: XeLaTeX + Biber
 # Uso: make <objetivo>  (por defecto: make pdf)
 
-DOCUMENTO   = tesis
-MOTOR       = xelatex
-BIBER       = biber
-LATEXMK     = latexmk
+DOCUMENTO    = tesis
+TEXBIN       = $(shell ls -d /Library/TeX/texbin 2>/dev/null || echo /usr/local/bin)
+MOTOR        = $(TEXBIN)/xelatex
+BIBER        = $(TEXBIN)/biber
+LATEXMK      = $(TEXBIN)/latexmk
 LATEXMKFLAGS = -xelatex -interaction=nonstopmode
 
 # ──────────────────────────────────────────────
@@ -16,10 +17,10 @@ LATEXMKFLAGS = -xelatex -interaction=nonstopmode
 
 ## pdf: Compilación completa (XeLaTeX → Biber → XeLaTeX × 2)
 pdf:
-	$(MOTOR) $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 	$(BIBER) $(DOCUMENTO)
-	$(MOTOR) $(DOCUMENTO).tex
-	$(MOTOR) $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 
 ## rapido: Una sola pasada de XeLaTeX (para revisar cambios menores)
 rapido:

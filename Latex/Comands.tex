@@ -47,8 +47,10 @@
   shapes.geometric,            % Formas: círculo, rectángulo, diamante, etc.
   fit,                         % Nodo que envuelve a otros
   backgrounds,                 % Capas de fondo en diagramas
-  calc                         % Cálculos de coordenadas
+  calc,                        % Cálculos de coordenadas
+  babel                        % Compatibilidad con caracteres activos de Babel
 }
+\usepackage{forest}            % Diagramas de árbol y estructuras de directorio
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
@@ -260,7 +262,7 @@
 
 % Título de sección con fondo azul tenue — indica revisión pendiente con asesor
 % Uso: \section{\bajoRevision{Nombre de la sección}}
-\newcommand{\bajoRevision}[1]{\colorbox{azulRevision}{#1}}
+\newcommand{\bajoRevision}[1]{\texorpdfstring{\colorbox{azulRevision}{#1}}{#1}}
 
 % Caja de nota al inicio de sección bajo revisión
 % Uso: \notaRevision{Texto de la nota.}

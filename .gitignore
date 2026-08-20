@@ -342,3 +342,7 @@ build/
 .claude/
 DOCSL/
 ReportesVFT/
+
+### macOS
+.DS_Store
+**/.DS_Store
