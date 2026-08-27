@@ -247,3 +247,26 @@ lineal de 14.8~km. Esta situación responde a la ausencia de conectividad
 transversal en el arco sur-oriente de la ciudad, que impone al tránsito
 perimetral el ingreso al centro metropolitano como nodo obligado, confirmando la
 hipótesis sobre la necesidad de un corredor anillar en el Periférico.
+
+La Figura~\ref{fig:mapa-df-presentacion} sintetiza estos hallazgos mediante
+cartografía de presentación del Factor de Desviación sobre el conjunto de nodos
+de la red. El gradiente de color verde-a-rojo permite identificar directamente las
+zonas donde la infraestructura existente impone los mayores rodeos, reforzando de
+forma visual el argumento sobre la necesidad del corredor anillar en el arco
+sur-oriente. La versión a página completa se encuentra en la
+Figura~\ref{fig:anx-mapa-factor-desviacion} del
+Anexo~\ref{anx:cartografia-presentacion}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{Figures/Mapas/Mapa_DF}
+    \caption[Cartografía de presentación — Factor de Desviación por nodo]{
+    Factor de Desviación ($DF$) por nodo en la red de transporte de la \zmvm{}.
+    El gradiente verde-a-rojo indica la relación entre la distancia real de viaje
+    y la distancia euclidiana: los nodos en rojo señalan las zonas donde las
+    rutas disponibles imponen desviaciones significativas, penalizando con mayor
+    intensidad a la periferia sur y oriente de la cuenca metropolitana.}
+    \label{fig:mapa-df-presentacion}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: GTFS SEMOVI 2024 e INEGI 2023.}
+\end{figure}
