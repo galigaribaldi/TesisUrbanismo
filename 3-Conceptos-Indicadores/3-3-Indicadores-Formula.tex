@@ -15,7 +15,7 @@ cuatro fases de construcción progresiva. Esta jerarquía no es arbitraria: cada
 indicador depende de los insumos producidos por los anteriores, de modo que la
 arquitectura metodológica constituye en sí misma un modelo de grafo que crece en
 complejidad desde el análisis espacial puro hasta las pruebas de estrés topológico.
-A continuación se presentan cada uno de los indicadores con su fundamento
+A continuación se presenta cada uno de los indicadores con su fundamento
 matemático, la fuente académica que lo sustenta, y un ejemplo práctico calibrado
 con datos del área de estudio.
 
@@ -65,7 +65,7 @@ Donde:
     de estudio, en km².
 \end{itemize}
 
-Insertar figura del indicador C cuando esté disponible
+% [Insertar figura del indicador C cuando esté disponible]
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.80\textwidth]{Figures/Cap3/CoberturaTransporte.png}
@@ -415,7 +415,7 @@ T = nx.average_shortest_path_length(G, weight='tiempo_minutos')
  
 \subsubsection{Definición y Fundamentación}
  
-La penalización por transferencia es el costo temporal adicional que un usuario
+La penalización por transferencia es el costo temporal adicional en el que un usuario
 incurre al cambiar de una línea o modo de transporte a otro durante su viaje. Su
 correcta modelación es fundamental para que el grafo multimodal refleje la
 experiencia real del usuario: un algoritmo de \dijkstra{} que no penalice los
@@ -693,7 +693,7 @@ modelo: para calcularlo, se requiere conocer previamente qué nodo destruir ---d
 por el Indicador de Centralidad de Intermediación
 (\autoref{subsec:centralidad-intermediacion})--- y medir el impacto de esa destrucción
 sobre el desempeño global ---dado por el Indicador de Tiempo de Viaje Promedio
-(\autoref{subsec:tiempo-viaje}).
+(\autoref{subsec:tiempo-viaje})---.
  
 \textcite{loterovélez2014} definen la vulnerabilidad operativamente como la
 disminución de la eficiencia de la red después de un ataque o falla. La metodología

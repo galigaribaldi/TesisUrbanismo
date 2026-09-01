@@ -52,13 +52,13 @@ e identificar nodos vulnerables.
 \subsection{El Nombre: Vanishing Fig-Tree}
 \label{subsec:vft-nombre}
 
-La denominación \termino{Vanishing Fig-Tree} —árbol de higuera en desaparición— o 
-—Modelo de la Higuera Evanescente— es una metáfora del comportamiento topológico 
+La denominación \termino{Vanishing Fig-Tree} —árbol de higuera en desaparición o
+Modelo de la Higuera Evanescente— es una metáfora del comportamiento topológico
 de una red de transporte fragmentada.
 \\
-\termino{Vanishing Fig-Tree Model} se basa en dos referencias clave en diferentes ámbitos, 
-mientras uno es literario y describe la desesperanza de una situación crítica ante una decisión 
-tan trascendente. El otro describe de manera lírica el llamado \termino{Punto de No Retorno}: 
+\termino{Vanishing Fig-Tree Model} se basa en dos referencias clave en diferentes ámbitos:
+una es literaria y describe la desesperanza de una situación crítica ante una decisión
+tan trascendente, mientras que la otra describe de manera lírica el llamado \termino{Punto de No Retorno}:
 
 \citaclave{
   \begin{center}
@@ -145,11 +145,16 @@ que tendría la pérdida de un nodo crítico sobre el sistema en su conjunto.
 \label{subsec:vft-capas}
 
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.45\textwidth]{Figures/Cap4/EsquemaVFTArquitecture.png}
-  \caption[Aquitectura esquemática VFTModel]{Esquema creado para el VFTModel}
-  \label{fig:VFTModel-arquitectura}
-  \fuentefigura{Elaboración propia con Gemini.}
+    \centering
+    \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-ports-adapters}
+    \caption[Arquitectura \textit{Ports and Adapters} de VFTModel]{Diagrama de la
+    arquitectura \termino{Ports and Adapters} de VFTModel. El Dominio central
+    (\texttt{src/core/}) contiene los algoritmos topológicos y permanece aislado
+    de las tecnologías externas. Los tres adaptadores gestionan la comunicación
+    con actores externos: API REST, herramientas de visualización y capa de
+    persistencia. Todo el sistema corre dentro de un contenedor Docker.}
+    \label{fig:VFTModel-arquitectura}
+    \fuentefigura{Elaboración propia.}
 \end{figure}
 
 VFTModel está organizado bajo el patrón de \termino{arquitectura hexagonal}
@@ -180,29 +185,7 @@ el sentido de las dependencias entre ellas.
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[
-        capa/.style = {
-            rectangle, draw=unamAzul, rounded corners=5pt,
-            text width=11cm, align=left,
-            minimum height=1.6cm, inner sep=10pt
-        },
-        flecha/.style = {Stealth-Stealth, thick, color=unamAzul!55}
-    ]
-        \node[capa, fill=unamAzul!5] (api) {
-            \textbf{Capa de \api{}} \hfill \texttt{src/api/}\\
-            {\small Peticiones \textsc{http} · Validación Pydantic · Respuestas \textsc{json}}
-        };
-        \node[capa, fill=unamAzul!12, below=0.45cm of api] (core) {
-            \textbf{Capa de Dominio} \hfill \texttt{src/core/}\\
-            {\small Algoritmos topológicos · Modelos matemáticos · Constructor del grafo}
-        };
-        \node[capa, fill=unamAzul!22, below=0.45cm of core] (infra) {
-            \textbf{Capa de Infraestructura} \hfill \texttt{src/infrastructure/}\\
-            {\small Clientes \textsc{http} · Archivos \geojson{} locales · Colas asíncronas}
-        };
-        \draw[flecha] (api)  -- (core);
-        \draw[flecha] (core) -- (infra);
-    \end{tikzpicture}
+    \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-hexagonal}
     \caption[Arquitectura hexagonal de VFTModel]{Las tres capas de la arquitectura
     hexagonal de VFTModel. Las flechas bidireccionales indican dependencias
     controladas: cada capa solicita servicios a la inferior; la inferior nunca
@@ -227,40 +210,7 @@ Figura~\ref{fig:vft-flujo}.
 \begin{figure}[H]
     \centering
     \resizebox{\linewidth}{!}{%
-    \begin{tikzpicture}[
-        node distance = 0.5cm and 0.35cm,
-        caja/.style = {
-            rectangle, draw=unamAzul, fill=unamAzul!7,
-            text width=1.95cm, align=center,
-            minimum height=1.3cm, rounded corners=4pt,
-            font=\small
-        },
-        flecha/.style = {-Stealth, thick, color=unamAzul!70},
-        etiq/.style = {
-            font=\scriptsize\itshape, color=gray,
-            align=center, text width=1.95cm
-        }
-    ]
-        \node[caja] (apy) {\textbf{Apimetro}\\{\tiny Go Backend}};
-        \node[caja, right=of apy]  (val) {\textbf{Validación}\\{\tiny Pydantic}};
-        \node[caja, right=of val]  (grf) {\textbf{Constructor}\\{\tiny del Grafo}};
-        \node[caja, right=of grf]  (imp) {\textbf{Impedancia}\\{\tiny Motor VFT}};
-        \node[caja, right=of imp]  (ana) {\textbf{Analizadores}\\{\tiny Topológicos}};
-        \node[caja, right=of ana]  (res) {\textbf{Resultados}\\{\tiny JSON / CSV}};
-
-        \node[etiq, below=0.18cm of apy]  {Estaciones\\y Líneas\\\geojson{}};
-        \node[etiq, below=0.18cm of val]  {Contratos\\de datos};
-        \node[etiq, below=0.18cm of grf]  {Grafo\\NetworkX};
-        \node[etiq, below=0.18cm of imp]  {Pesos en\\minutos};
-        \node[etiq, below=0.18cm of ana]  {8 Indicadores};
-        \node[etiq, below=0.18cm of res]  {{\upshape\api{}} REST};
-
-        \draw[flecha] (apy) -- (val);
-        \draw[flecha] (val) -- (grf);
-        \draw[flecha] (grf) -- (imp);
-        \draw[flecha] (imp) -- (ana);
-        \draw[flecha] (ana) -- (res);
-    \end{tikzpicture}}%
+    \input{Figures/TiKz_Libraries/Diagramas/vft-flujo-procesamiento}}%
     \caption[Flujo de procesamiento de VFTModel]{Cadena de transformación de
     VFTModel: desde los datos geográficos crudos de Apimetro hasta los
     indicadores topológicos publicados vía \api{} \textsc{rest}.}
@@ -327,7 +277,7 @@ Sección~\ref{subsec:vft-cf}.
 
 El módulo central del sistema es la clase \texttt{\textbf{VFTGraphBuilder}}\allowbreak{}
 (\path{src/core/services/graph_builder.py}), responsable de transformar las
-geometrías \geojson{} en un \textbf{dígrafo dirigido} representado mediante la
+geometrías \geojson{} en un \textbf{dígrafo} representado mediante la
 biblioteca \textbf{NetworkX} de Python \parencite{hagberg2008networkx}. La
 construcción opera en dos fases internas:
 

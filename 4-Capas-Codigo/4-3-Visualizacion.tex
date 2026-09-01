@@ -52,80 +52,7 @@ directorio \texttt{data/processed/}. Los fragmentos de código de estos componen
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-  srcbox/.style = {rectangle, rounded corners=3pt, draw=gray!55, fill=gray!8,
-                   minimum width=3.0cm, minimum height=0.90cm,
-                   align=center, font=\small},
-  extbox/.style = {rectangle, rounded corners=3pt, draw=unamAzul, fill=unamAzul!10,
-                   minimum width=3.2cm, minimum height=0.90cm,
-                   align=center, font=\small},
-  intbox/.style = {rectangle, rounded corners=3pt, draw=unamAzul!60, fill=unamGrisClaro,
-                   minimum width=6.4cm, minimum height=1.05cm,
-                   align=center, font=\small},
-  outbox/.style = {rectangle, rounded corners=3pt, draw=unamOro, fill=unamOro!15,
-                   minimum width=3.2cm, minimum height=0.90cm,
-                   align=center, font=\small},
-  ->, >=Stealth, thick
-]
-%% — Fuentes externas —
-\node[srcbox] (gtfs)  at (0.0, 9.2) {\gtfs{} SEMOVI~2024};
-\node[srcbox] (inegi) at (5.4, 9.2) {INEGI~2023 (cartografía)};
-
-%% — Componentes externos —
-\node[extbox] (api) at (0.0, 7.5) {\textbf{Apimetro}\\{\footnotesize API REST (Go)}};
-\node[extbox] (vft) at (5.4, 7.5) {\textbf{VFTModel}\\{\footnotesize (Python / NetworkX)}};
-
-%% — Transport-gis: análisis —
-\node[intbox] (scripts) at (2.7, 5.5)
-  {{\footnotesize\texttt{apimetro\_client.py} $\cdot$ \texttt{vft\_runner.py}}\\
-   {\footnotesize\texttt{pipeline/run\_pipeline.py}}};
-
-%% — Transport-gis: datos —
-\node[intbox] (gpkg) at (2.7, 4.0)
-  {{\small\texttt{data/processed/}}\\
-   {\footnotesize 10 capas \texttt{.gpkg} (Git~LFS)}};
-
-%% — Transport-gis: QGIS —
-\node[intbox] (qgis) at (2.7, 2.5)
-  {{\small QGIS~3.x — \texttt{maps/projects/*.qgz}}\\
-   {\footnotesize\texttt{maps/templates/*.qpt} (paletas UNAM)}};
-
-%% — Transport-gis: exports —
-\node[intbox] (exports) at (2.7, 1.0)
-  {{\small\texttt{maps/exports/}}\\
-   {\footnotesize\texttt{*.pdf} $\cdot$ \texttt{*.png}}};
-
-%% — Destino final —
-\node[outbox] (tesis) at (2.7, -0.5)
-  {\textbf{Tesis LaTeX}\\{\footnotesize\texttt{Figures/}}};
-
-%% — Flechas: fuentes → externos —
-\draw[color=gray!60] (gtfs)  -- (api);
-\draw[color=gray!60] (inegi) -- (vft);
-
-%% — Flechas: externos → scripts (convergentes, con codo exterior) —
-\draw[color=unamAzul!70] (api.south) -- ++(0,-0.55) -| (scripts.north west);
-\draw[color=unamAzul!70] (vft.south) -- ++(0,-0.55) -| (scripts.north east);
-
-%% — Flujo interno —
-\draw[color=unamAzul!70] (scripts) -- (gpkg);
-\draw[color=unamAzul!70] (gpkg)    -- (qgis);
-\draw[color=unamAzul!70] (qgis)    -- (exports);
-
-%% — Exports → LaTeX —
-\draw[color=unamOro] (exports) -- (tesis);
-
-%% — Recuadro del repositorio Transport-gis (en fondo) —
-\begin{scope}[on background layer]
-  \node[draw=unamAzul!40, dashed, rounded corners=6pt, fill=unamAzul!3,
-        fit={(scripts)(gpkg)(qgis)(exports)},
-        inner sep=14pt] (tgbox) {};
-\end{scope}
-%% — Label DENTRO del recuadro, esquina sup-izq —
-\node[font=\small\bfseries\color{unamAzul}, anchor=north west]
-  at ($(tgbox.north west) + (4pt,-3pt)$) {Transport-gis-zmvm-mjg};
-
-\end{tikzpicture}
+\input{Figures/TiKz_Libraries/Diagramas/tg-pipeline-cartografico}
 \caption[Pipeline de producción cartográfica de Transport-gis]%
   {Flujo de datos del sistema \textbf{Transport-gis-zmvm-mjg}. 
   Los componentes externos \textbf{Apimetro} y \textbf{VFTModel} proveen la información primaria; 
@@ -150,52 +77,7 @@ fuerza capilar y factor de desviación descritos en el Capítulo~\ref{ch:resulta
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-  hdr1/.style = {rectangle, rounded corners=3pt,
-                 draw=gray!60, fill=gray!55,
-                 minimum width=4.2cm, minimum height=0.75cm,
-                 align=center, font=\small\bfseries\color{white}},
-  lyr1/.style = {rectangle, rounded corners=2pt,
-                 draw=gray!45, fill=gray!8,
-                 minimum width=4.2cm, minimum height=0.65cm,
-                 align=center, font=\footnotesize},
-  hdr2/.style = {rectangle, rounded corners=3pt,
-                 draw=unamAzul, fill=unamAzul!70,
-                 minimum width=4.2cm, minimum height=0.75cm,
-                 align=center, font=\small\bfseries\color{white}},
-  lyr2/.style = {rectangle, rounded corners=2pt,
-                 draw=unamAzul!50, fill=unamAzul!8,
-                 minimum width=4.2cm, minimum height=0.65cm,
-                 align=center, font=\footnotesize},
-  hdr3/.style = {rectangle, rounded corners=3pt,
-                 draw=unamOro!80, fill=unamOro!75,
-                 minimum width=4.2cm, minimum height=0.75cm,
-                 align=center, font=\small\bfseries\color{white}},
-  lyr3/.style = {rectangle, rounded corners=2pt,
-                 draw=unamOro!60, fill=unamOro!10,
-                 minimum width=4.2cm, minimum height=0.65cm,
-                 align=center, font=\footnotesize},
-  node distance = 0.12cm
-]
-%% — Columna 1: Contexto territorial —
-\node[hdr1] (h1) at (0,0) {Contexto territorial};
-\node[lyr1, below=of h1] (c1a) {\texttt{LimitesPoliticos.gpkg}};
-\node[lyr1, below=of c1a] (c1b) {\texttt{PoligonosEdoMex.gpkg}};
-\node[lyr1, below=of c1b] (c1c) {\texttt{PoligonoEstudio1.gpkg}};
-\node[lyr1, below=of c1c] (c1d) {\texttt{MedioFisicoNatural.gpkg}};
-
-%% — Columna 2: Red e infraestructura —
-\node[hdr2] (h2) at (4.6,0) {Red e infraestructura};
-\node[lyr2, below=of h2] (c2a) {\texttt{Transporte.gpkg}};
-\node[lyr2, below=of c2a] (c2b) {\texttt{InfraEstructura.gpkg}};
-\node[lyr2, below=of c2b] (c2c) {\texttt{Vialidades.gpkg}};
-
-%% — Columna 3: Indicadores del modelo —
-\node[hdr3] (h3) at (9.2,0) {Indicadores del modelo};
-\node[lyr3, below=of h3] (c3a) {\texttt{Cobertura800m.gpkg}};
-\node[lyr3, below=of c3a] (c3b) {\texttt{FuerzaCapilar.gpkg}};
-\node[lyr3, below=of c3b] (c3c) {\texttt{FactorDesviacion.gpkg}};
-\end{tikzpicture}
+\input{Figures/TiKz_Libraries/Diagramas/tg-capas-geopackage}
 \caption[Organización de las capas GeoPackage de Transport-gis]%
   {Las diez capas \termino{GeoPackage} del directorio \texttt{data/processed/}, organizadas por 
   categoría temática. Todas están proyectadas en \textsc{epsg}:32614 (UTM zona~14N) y versionadas con Git~\textsc{lfs}.}
@@ -218,68 +100,7 @@ cerrando el ciclo descrito en la Figura~\ref{fig:tg-pipeline}.
 
 \begin{figure}[htbp]
 \centering
-\begin{forest}
-  for tree = {
-    font   = \footnotesize\ttfamily,
-    grow'  = 0,
-    child anchor  = west,
-    parent anchor = east,
-    anchor = west,
-    draw   = gray!45,
-    fill   = gray!7,
-    rounded corners = 2pt,
-    inner xsep = 6pt,
-    inner ysep = 3pt,
-    l sep  = 20pt,
-    s sep  = 5pt,
-    edge path = {
-      \noexpand\path [draw=gray!50, thin, rounded corners=2pt]
-        (!u.parent anchor) -- +(8pt,0) |- (.child anchor)
-        \forestoption{edge label};
-    },
-  }
-  [Transport-gis-zmvm-mjg/, fill=unamAzul!12, draw=unamAzul!70,
-                             font=\small\bfseries\ttfamily
-    [analysis/
-      [notebooks/]
-      [scripts/
-        [apimetro\_client.py,
-          draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
-        [vft\_runner.py,
-          draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
-      ]
-    ]
-    [data/processed/
-      [{\textit{10 capas .gpkg} \textnormal{(Git~LFS)}},
-        draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
-    ]
-    [maps/, fill=unamOro!8, draw=unamOro!60
-      [exports/
-        [{\textit{*.pdf · *.png}},
-          draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
-      ]
-      [fonts/]
-      [projects/
-        [\textit{*.qgz},
-          draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
-      ]
-      [templates/
-        [{\textit{*.qpt} \textnormal{(paletas UNAM)}},
-          draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
-      ]
-    ]
-    [pipeline/
-      [run\_pipeline.py,
-        draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
-    ]
-    [setup/
-      [install\_fonts.sh,
-        draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
-      [install\_fonts.bat,
-        draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
-    ]
-  ]
-\end{forest}
+\input{Figures/TiKz_Libraries/Diagramas/Arboles/tg-arbol-directorios}
 \caption[Estructura de directorios de Transport-gis-zmvm-mjg]%
   {Árbol de directorios del repositorio \textbf{Transport-gis-zmvm-mjg}. Las carpetas \texttt{maps/} (oro) y la raíz (azul UNAM)
   son los nodos centrales de la producción cartográfica. Los archivos en azul son \textit{scripts} ejecutables;

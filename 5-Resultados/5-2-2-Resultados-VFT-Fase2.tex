@@ -40,7 +40,7 @@ conforman el componente dinámico de la \textbf{Ecuación VFT}:
 
 Para las aristas de servicio normal, el peso de enrutamiento es
 $\mathit{weight} = (D_{uv}/V_{\text{modo}}) \cdot CF_{\text{vía}}$; el
-$T_b$ queda registrado como atributo informativo pero no penaliza el
+$T_b$ queda registrado como atributo informativo, pero no penaliza el
 segmento. La penalización por transferencia actúa únicamente sobre aristas de
 tipo \texttt{transfer}, como se describe en la Sección~\ref{subsec:res-penalizacion-transferencia}.
 
@@ -124,7 +124,7 @@ El rango del coeficiente $CF \in [1.000,\ 1.759]$ implica que el tiempo de
 traslado en un segmento de vía mixta (RTP, Corredores Concesionados) puede ser
 hasta un 75.9~\% mayor que el mismo recorrido bajo condiciones de flujo ideal.
 Esta diferencia no refleja únicamente la velocidad operacional del vehículo —que
-ya está calibrada en $V_{\text{modo}}$— sino el efecto sistemático de las
+ya está calibrada en $V_{\text{modo}}$—, sino el efecto sistemático de las
 detenciones por semáforos, cruces peatonales y congestión que son inherentes a
 los segmentos de superficie compartida.
 
@@ -137,8 +137,8 @@ principio de escenario más conservador para no subestimar los tiempos de trasla
 \label{subsec:res-penalizacion-transferencia}
 % ----------------------------------------------------------------
 
-La \textbf{Penalización por Transferencia} ($T_b$) modela el costo temporal que
-un pasajero incurre al cambiar de sistema o línea dentro de la red. A diferencia
+La \textbf{Penalización por Transferencia} ($T_b$) modela el costo temporal en el
+que un pasajero incurre al cambiar de sistema o línea dentro de la red. A diferencia
 del tiempo de traslado —que depende de la distancia y la velocidad del vehículo—,
 el costo de transbordo consta de dos componentes independientes: el tiempo de
 caminata entre plataformas y el tiempo de espera en el andén de destino.

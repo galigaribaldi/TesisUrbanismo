@@ -11,32 +11,17 @@ geografía estática de las rutas de transporte en un modelo operativo y ruteabl
 el \textbf{Modelo VFT} implementa una arquitectura de procesamiento en tres
 capas progresivas, cuyo flujo se sintetiza en la Figura~\ref{fig:arq-capas}.
 
-% --- Figura: arquitectura en 3 capas ---
+% --- Figura: pipeline de procesamiento VFT ---
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Figures/Cap5/arq_capa1.png}
-        \caption{Capa 1: Adquisición y procesamiento geométrico.}
-        \label{fig:arq-capa1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Figures/Cap5/arq_capa2.png}
-        \caption{Capa 2: Modelado topológico y dinámico.}
-        \label{fig:arq-capa2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Figures/Cap5/arq_capa3.png}
-        \caption{Capa 3: Evaluación y salida de indicadores.}
-        \label{fig:arq-capa3}
-    \end{subfigure}
-    \caption[Arquitectura en tres capas del Modelo VFT]{Representación esquemática
-    de las tres capas de procesamiento del Modelo VFT: adquisición geométrica,
-    modelado topológico con impedancia temporal, y evaluación de indicadores.}
+    \input{Figures/TiKz_Libraries/Diagramas/vft-pipeline-procesamiento}
+    \caption[Pipeline de procesamiento del Modelo VFT]{Las cuatro etapas de
+    transformación que convierten los datos brutos de \texttt{Apimetro} en el
+    grafo topológico operativo. El \termino{Snapping Lógico Geográfico} mediante
+    árbol \texttt{KDTree} reduce las 22{,}766 entidades originales a
+    11{,}115 nodos canónicos; la ponderación final asigna impedancias temporales
+    a cada una de las 45{,}679 aristas del grafo dirigido
+    $\mathcal{G}(\mathcal{V},\mathcal{E},w)$.}
     \label{fig:arq-capas}
     \fuentefigura{Elaboración propia.}
 \end{figure}
