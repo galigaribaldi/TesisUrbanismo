@@ -1,0 +1,65 @@
+% Árbol: Estructura de directorios de Transport-gis-zmvm-mjg
+% Usado en: 4-Capas-Codigo/4-3-Visualizacion.tex  (fig:tg-arbol)
+% Requiere: \usepackage{forest} — declarado en Latex/Comands.tex
+\begin{forest}
+  for tree = {
+    font   = \footnotesize\ttfamily,
+    grow'  = 0,
+    child anchor  = west,
+    parent anchor = east,
+    anchor = west,
+    draw   = gray!45,
+    fill   = gray!7,
+    rounded corners = 2pt,
+    inner xsep = 6pt,
+    inner ysep = 3pt,
+    l sep  = 20pt,
+    s sep  = 5pt,
+    edge path = {
+      \noexpand\path [draw=gray!50, thin, rounded corners=2pt]
+        (!u.parent anchor) -- +(8pt,0) |- (.child anchor)
+        \forestoption{edge label};
+    },
+  }
+  [Transport-gis-zmvm-mjg/, fill=unamAzul!12, draw=unamAzul!70,
+                             font=\small\bfseries\ttfamily
+    [analysis/
+      [notebooks/]
+      [scripts/
+        [apimetro\_client.py,
+          draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
+        [vft\_runner.py,
+          draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
+      ]
+    ]
+    [data/processed/
+      [{\textit{10 capas .gpkg} \textnormal{(Git~LFS)}},
+        draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
+    ]
+    [maps/, fill=unamOro!8, draw=unamOro!60
+      [exports/
+        [{\textit{*.pdf · *.png}},
+          draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
+      ]
+      [fonts/]
+      [projects/
+        [\textit{*.qgz},
+          draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
+      ]
+      [templates/
+        [{\textit{*.qpt} \textnormal{(paletas UNAM)}},
+          draw=none, fill=none, font=\footnotesize\itshape\ttfamily]
+      ]
+    ]
+    [pipeline/
+      [run\_pipeline.py,
+        draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
+    ]
+    [setup/
+      [install\_fonts.sh,
+        draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
+      [install\_fonts.bat,
+        draw=none, fill=none, font=\footnotesize\ttfamily\color{unamAzul}]
+    ]
+  ]
+\end{forest}

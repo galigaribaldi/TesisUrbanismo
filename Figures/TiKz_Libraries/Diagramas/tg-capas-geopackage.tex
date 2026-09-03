@@ -1,0 +1,49 @@
+% Diagrama: Capas GeoPackage de Transport-gis organizadas por categoría
+% Usado en: 4-Capas-Codigo/4-3-Visualizacion.tex  (fig:tg-capas)
+% Fix 2026-08-28: node distance aumentado de 0.12cm a 0.28cm para dar respiración al texto
+\begin{tikzpicture}[
+  hdr1/.style = {rectangle, rounded corners=3pt,
+                 draw=gray!60, fill=gray!55,
+                 minimum width=4.2cm, minimum height=0.80cm,
+                 align=center, font=\small\bfseries\color{white}},
+  lyr1/.style = {rectangle, rounded corners=2pt,
+                 draw=gray!45, fill=gray!8,
+                 minimum width=4.2cm, minimum height=0.72cm,
+                 align=center, font=\footnotesize},
+  hdr2/.style = {rectangle, rounded corners=3pt,
+                 draw=unamAzul, fill=unamAzul!70,
+                 minimum width=4.2cm, minimum height=0.80cm,
+                 align=center, font=\small\bfseries\color{white}},
+  lyr2/.style = {rectangle, rounded corners=2pt,
+                 draw=unamAzul!50, fill=unamAzul!8,
+                 minimum width=4.2cm, minimum height=0.72cm,
+                 align=center, font=\footnotesize},
+  hdr3/.style = {rectangle, rounded corners=3pt,
+                 draw=unamOro!80, fill=unamOro!75,
+                 minimum width=4.2cm, minimum height=0.80cm,
+                 align=center, font=\small\bfseries\color{white}},
+  lyr3/.style = {rectangle, rounded corners=2pt,
+                 draw=unamOro!60, fill=unamOro!10,
+                 minimum width=4.2cm, minimum height=0.72cm,
+                 align=center, font=\footnotesize},
+  node distance = 0.28cm
+]
+%% — Columna 1: Contexto territorial —
+\node[hdr1] (h1) at (0,0) {Contexto territorial};
+\node[lyr1, below=of h1] (c1a) {\texttt{LimitesPoliticos.gpkg}};
+\node[lyr1, below=of c1a] (c1b) {\texttt{PoligonosEdoMex.gpkg}};
+\node[lyr1, below=of c1b] (c1c) {\texttt{PoligonoEstudio1.gpkg}};
+\node[lyr1, below=of c1c] (c1d) {\texttt{MedioFisicoNatural.gpkg}};
+
+%% — Columna 2: Red e infraestructura —
+\node[hdr2] (h2) at (4.8,0) {Red e infraestructura};
+\node[lyr2, below=of h2] (c2a) {\texttt{Transporte.gpkg}};
+\node[lyr2, below=of c2a] (c2b) {\texttt{InfraEstructura.gpkg}};
+\node[lyr2, below=of c2b] (c2c) {\texttt{Vialidades.gpkg}};
+
+%% — Columna 3: Indicadores del modelo —
+\node[hdr3] (h3) at (9.6,0) {Indicadores del modelo};
+\node[lyr3, below=of h3] (c3a) {\texttt{Cobertura800m.gpkg}};
+\node[lyr3, below=of c3a] (c3b) {\texttt{FuerzaCapilar.gpkg}};
+\node[lyr3, below=of c3b] (c3c) {\texttt{FactorDesviacion.gpkg}};
+\end{tikzpicture}

@@ -1,0 +1,60 @@
+% Diagrama: Arquitectura Ports-and-Adapters de VFTModel
+% Usado en: 4-Capas-Codigo/4-2-VFTModel.tex  (fig:VFTModel-arquitectura)
+% Fix 2026-08-28: eliminados actores externos como cajas separadas (diagrama era >18cm);
+%   información de sistemas externos integrada dentro de los adaptadores.
+\begin{tikzpicture}[
+    dominio/.style = {
+        rectangle, draw=unamAzul, fill=unamAzul!18,
+        text width=3.8cm, align=center,
+        minimum height=2.4cm, rounded corners=5pt,
+        font=\small\bfseries
+    },
+    adaptador/.style = {
+        rectangle, draw=unamAzul!70, fill=unamAzul!6,
+        text width=3.2cm, align=center,
+        minimum height=1.8cm, rounded corners=3pt,
+        font=\small
+    },
+    flecha/.style = {Stealth-Stealth, thick, color=unamAzul!55}
+]
+
+%% — Dominio central —
+\node[dominio] (dom) {
+    \textbf{Dominio}\\
+    \texttt{src/core/}\\[3pt]
+    {\footnotesize Algoritmos \textsc{vft}\\Constructor del grafo}
+};
+
+%% — Adaptadores alrededor del dominio —
+\node[adaptador, left=0.8cm of dom] (adp-api) {
+    \textbf{Adaptador \api{}}\\
+    \texttt{src/api/}\\[3pt]
+    {\footnotesize FastAPI \textsc{rest} $\cdot$ Go}
+};
+\node[adaptador, right=0.8cm of dom] (adp-viz) {
+    \textbf{Adaptador Viz}\\[3pt]
+    {\footnotesize Jupyter $\cdot$ \textsc{qgis}\\Transport-gis}
+};
+\node[adaptador, below=0.9cm of dom] (adp-per) {
+    \textbf{Adaptador Persistencia}\\
+    \texttt{src/infrastructure/}\\[3pt]
+    {\footnotesize Redis $\cdot$ Celery\\PostgreSQL/PostGIS}
+};
+
+%% — Flechas entre adaptadores y dominio —
+\draw[flecha] (adp-api) -- (dom);
+\draw[flecha] (dom)     -- (adp-viz);
+\draw[flecha] (dom)     -- (adp-per);
+
+%% — Borde Docker (en fondo) —
+\begin{scope}[on background layer]
+    \node[draw=unamAzul!35, dashed, rounded corners=8pt, fill=unamAzul!3,
+          fit={(adp-api)(adp-viz)(adp-per)(dom)},
+          inner sep=16pt] (docker) {};
+\end{scope}
+
+%% — Etiqueta Docker centrada en la parte superior —
+\node[font=\scriptsize\bfseries\color{unamAzul!65}, anchor=north]
+    at (docker.north) {Docker};
+
+\end{tikzpicture}

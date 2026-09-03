@@ -1,0 +1,37 @@
+% Diagrama: Flujo de procesamiento de VFTModel (6 etapas encadenadas)
+% Usado en: 4-Capas-Codigo/4-2-VFTModel.tex  (fig:vft-flujo)
+% Nota: el \resizebox{\linewidth}{!}{...} permanece en el capítulo, envolviendo este \input
+\begin{tikzpicture}[
+    node distance = 0.5cm and 0.35cm,
+    caja/.style = {
+        rectangle, draw=unamAzul, fill=unamAzul!7,
+        text width=1.95cm, align=center,
+        minimum height=1.3cm, rounded corners=4pt,
+        font=\small
+    },
+    flecha/.style = {-Stealth, thick, color=unamAzul!70},
+    etiq/.style = {
+        font=\scriptsize\itshape, color=gray,
+        align=center, text width=1.95cm
+    }
+]
+    \node[caja] (apy) {\textbf{Apimetro}\\{\tiny Go Backend}};
+    \node[caja, right=of apy]  (val) {\textbf{Validación}\\{\tiny Pydantic}};
+    \node[caja, right=of val]  (grf) {\textbf{Constructor}\\{\tiny del Grafo}};
+    \node[caja, right=of grf]  (imp) {\textbf{Impedancia}\\{\tiny Motor VFT}};
+    \node[caja, right=of imp]  (ana) {\textbf{Analizadores}\\{\tiny Topológicos}};
+    \node[caja, right=of ana]  (res) {\textbf{Resultados}\\{\tiny JSON / CSV}};
+
+    \node[etiq, below=0.18cm of apy]  {Estaciones\\y Líneas\\\geojson{}};
+    \node[etiq, below=0.18cm of val]  {Contratos\\de datos};
+    \node[etiq, below=0.18cm of grf]  {Grafo\\NetworkX};
+    \node[etiq, below=0.18cm of imp]  {Pesos en\\minutos};
+    \node[etiq, below=0.18cm of ana]  {8 Indicadores};
+    \node[etiq, below=0.18cm of res]  {{\upshape\api{}} REST};
+
+    \draw[flecha] (apy) -- (val);
+    \draw[flecha] (val) -- (grf);
+    \draw[flecha] (grf) -- (imp);
+    \draw[flecha] (imp) -- (ana);
+    \draw[flecha] (ana) -- (res);
+\end{tikzpicture}

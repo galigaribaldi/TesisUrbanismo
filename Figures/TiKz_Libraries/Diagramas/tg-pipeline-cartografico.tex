@@ -1,0 +1,76 @@
+% Diagrama: Pipeline de producción cartográfica de Transport-gis
+% Usado en: 4-Capas-Codigo/4-3-Visualizacion.tex  (fig:tg-pipeline)
+\begin{tikzpicture}[
+  srcbox/.style = {rectangle, rounded corners=3pt, draw=gray!55, fill=gray!8,
+                   minimum width=3.0cm, minimum height=0.90cm,
+                   align=center, font=\small},
+  extbox/.style = {rectangle, rounded corners=3pt, draw=unamAzul, fill=unamAzul!10,
+                   minimum width=3.2cm, minimum height=0.90cm,
+                   align=center, font=\small},
+  intbox/.style = {rectangle, rounded corners=3pt, draw=unamAzul!60, fill=unamGrisClaro,
+                   minimum width=6.4cm, minimum height=1.05cm,
+                   align=center, font=\small},
+  outbox/.style = {rectangle, rounded corners=3pt, draw=unamOro, fill=unamOro!15,
+                   minimum width=3.2cm, minimum height=0.90cm,
+                   align=center, font=\small},
+  ->, >=Stealth, thick
+]
+%% — Fuentes externas —
+\node[srcbox] (gtfs)  at (0.0, 9.2) {\gtfs{} SEMOVI~2024};
+\node[srcbox] (inegi) at (5.4, 9.2) {INEGI~2023 (cartografía)};
+
+%% — Componentes externos —
+\node[extbox] (api) at (0.0, 7.5) {\textbf{Apimetro}\\{\footnotesize API REST (Go)}};
+\node[extbox] (vft) at (5.4, 7.5) {\textbf{VFTModel}\\{\footnotesize (Python / NetworkX)}};
+
+%% — Transport-gis: análisis —
+\node[intbox] (scripts) at (2.7, 5.5)
+  {{\footnotesize\texttt{apimetro\_client.py} $\cdot$ \texttt{vft\_runner.py}}\\
+   {\footnotesize\texttt{pipeline/run\_pipeline.py}}};
+
+%% — Transport-gis: datos —
+\node[intbox] (gpkg) at (2.7, 4.0)
+  {{\small\texttt{data/processed/}}\\
+   {\footnotesize 10 capas \texttt{.gpkg} (Git~LFS)}};
+
+%% — Transport-gis: QGIS —
+\node[intbox] (qgis) at (2.7, 2.5)
+  {{\small QGIS~3.x — \texttt{maps/projects/*.qgz}}\\
+   {\footnotesize\texttt{maps/templates/*.qpt} (paletas UNAM)}};
+
+%% — Transport-gis: exports —
+\node[intbox] (exports) at (2.7, 1.0)
+  {{\small\texttt{maps/exports/}}\\
+   {\footnotesize\texttt{*.pdf} $\cdot$ \texttt{*.png}}};
+
+%% — Destino final —
+\node[outbox] (tesis) at (2.7, -0.5)
+  {\textbf{Tesis LaTeX}\\{\footnotesize\texttt{Figures/}}};
+
+%% — Flechas: fuentes → externos —
+\draw[color=gray!60] (gtfs)  -- (api);
+\draw[color=gray!60] (inegi) -- (vft);
+
+%% — Flechas: externos → scripts (convergentes, con codo exterior) —
+\draw[color=unamAzul!70] (api.south) -- ++(0,-0.55) -| (scripts.north west);
+\draw[color=unamAzul!70] (vft.south) -- ++(0,-0.55) -| (scripts.north east);
+
+%% — Flujo interno —
+\draw[color=unamAzul!70] (scripts) -- (gpkg);
+\draw[color=unamAzul!70] (gpkg)    -- (qgis);
+\draw[color=unamAzul!70] (qgis)    -- (exports);
+
+%% — Exports → LaTeX —
+\draw[color=unamOro] (exports) -- (tesis);
+
+%% — Recuadro del repositorio Transport-gis (en fondo) —
+\begin{scope}[on background layer]
+  \node[draw=unamAzul!40, dashed, rounded corners=6pt, fill=unamAzul!3,
+        fit={(scripts)(gpkg)(qgis)(exports)},
+        inner sep=14pt] (tgbox) {};
+\end{scope}
+%% — Label DENTRO del recuadro, esquina sup-izq —
+\node[font=\small\bfseries\color{unamAzul}, anchor=north west]
+  at ($(tgbox.north west) + (4pt,-3pt)$) {Transport-gis-zmvm-mjg};
+
+\end{tikzpicture}

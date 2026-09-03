@@ -1,0 +1,25 @@
+% Diagrama: Arquitectura hexagonal de tres capas de VFTModel
+% Usado en: 4-Capas-Codigo/4-2-VFTModel.tex  (fig:vft-arquitectura)
+\begin{tikzpicture}[
+    capa/.style = {
+        rectangle, draw=unamAzul, rounded corners=5pt,
+        text width=11cm, align=left,
+        minimum height=1.6cm, inner sep=10pt
+    },
+    flecha/.style = {Stealth-Stealth, thick, color=unamAzul!55}
+]
+    \node[capa, fill=unamAzul!5] (api) {
+        \textbf{Capa de \api{}} \hfill \texttt{src/api/}\\
+        {\small Peticiones \textsc{http} · Validación Pydantic · Respuestas \textsc{json}}
+    };
+    \node[capa, fill=unamAzul!12, below=0.45cm of api] (core) {
+        \textbf{Capa de Dominio} \hfill \texttt{src/core/}\\
+        {\small Algoritmos topológicos · Modelos matemáticos · Constructor del grafo}
+    };
+    \node[capa, fill=unamAzul!22, below=0.45cm of core] (infra) {
+        \textbf{Capa de Infraestructura} \hfill \texttt{src/infrastructure/}\\
+        {\small Clientes \textsc{http} · Archivos \geojson{} locales · Colas asíncronas}
+    };
+    \draw[flecha] (api)  -- (core);
+    \draw[flecha] (core) -- (infra);
+\end{tikzpicture}

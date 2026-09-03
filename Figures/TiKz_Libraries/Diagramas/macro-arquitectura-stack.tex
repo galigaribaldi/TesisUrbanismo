@@ -1,0 +1,46 @@
+% Diagrama: Macro-Arquitectura del Stack de Investigación (3 capas apiladas)
+% Usado en: 4-Capas-Codigo/4-1-Apimetro.tex  (fig:macro-arquitectura-stack)
+% Fix 2026-08-28: font=\small en estilo capa para que \hfill funcione; más espaciado vertical
+\begin{tikzpicture}[
+    capa/.style = {
+        rectangle, draw=unamAzul!60,
+        text width=11cm, minimum height=2.0cm,
+        align=left, inner sep=14pt,
+        rounded corners=4pt, font=\small
+    },
+    flecha/.style = {Stealth-Stealth, thick, color=unamAzul!55},
+    etiq/.style   = {font=\scriptsize\itshape, color=gray!70,
+                     align=center, text width=2.2cm}
+]
+
+%% — Capas (base más oscura, tope más clara) —
+\node[capa, fill=unamAzul!28] (c1) {
+    \textbf{Capa 1 — Apimetro} \hfill \texttt{Go · PostgreSQL/PostGIS}\\[5pt]
+    Ingesta \gtfs{} · ETL GeoJSON · \api{} REST · Esquema relacional
+};
+\node[capa, fill=unamAzul!16, above=1.1cm of c1] (c2) {
+    \textbf{Capa 2 — VFTModel} \hfill \texttt{Python · NetworkX}\\[5pt]
+    Motor analítico · Constructor del grafo · 8 indicadores topológicos
+};
+\node[capa, fill=unamAzul!7,  above=1.1cm of c2] (c3) {
+    \textbf{Capa 3 — Transport-gis-zmvm-mjg} \hfill \texttt{QGIS · Python}\\[5pt]
+    Capas GeoPackage · Plantillas \textsc{unam} · Cartografía de presentación
+};
+
+%% — Flechas entre capas con etiquetas de intercambio —
+\draw[flecha]
+    ($(c1.north) + (0.9, 0)$) -- node[etiq, left=4pt] {\gtfs{} / GeoJSON}
+    ($(c2.south) + (0.9, 0)$);
+
+\draw[flecha]
+    ($(c2.north) + (0.9, 0)$) -- node[etiq, left=4pt] {grafo / resultados}
+    ($(c3.south) + (0.9, 0)$);
+
+%% — Flecha lateral "FLUJO DE DATOS" —
+\draw[-Stealth, thick, color=unamAzul!50]
+    ($(c1.south east) + (0.55, 0)$) -- ($(c3.north east) + (0.55, 0)$)
+    node[midway, right=4pt,
+         font=\footnotesize\bfseries\color{unamAzul!65},
+         rotate=90, anchor=south] {FLUJO DE DATOS};
+
+\end{tikzpicture}

@@ -1,0 +1,51 @@
+% Diagrama: Pipeline de procesamiento interno del Modelo VFT (4 etapas)
+% Usado en: 5-Resultados/5-1-Introduccion-Resultados.tex  (fig:arq-capas)
+% Reemplaza: 3 subfiguras arq_capa1/2/3.png con captions incorrectos
+\begin{tikzpicture}[
+    node distance = 0.6cm and 0.5cm,
+    etapa/.style = {
+        rectangle, draw=unamAzul, fill=unamAzul!8,
+        text width=2.8cm, align=center,
+        minimum height=1.5cm, rounded corners=4pt,
+        font=\small\bfseries
+    },
+    dato/.style = {
+        font=\scriptsize\itshape, color=unamAzul!75,
+        align=center, text width=2.8cm
+    },
+    cifra/.style = {
+        font=\footnotesize\bfseries, color=unamAzul,
+        align=center, text width=2.8cm
+    },
+    flecha/.style = {-Stealth, thick, color=unamAzul!65}
+]
+
+%% — Etapas —
+\node[etapa] (ing) {Ingesta\\GTFS};
+\node[etapa, right=of ing]  (snap) {Snapping\\Lógico};
+\node[etapa, right=of snap] (grf)  {Construcción\\del Grafo};
+\node[etapa, right=of grf]  (imp)  {Ponderación\\Impedancia};
+
+%% — Cifras sobre cada etapa —
+\node[cifra, above=0.18cm of ing]  {22{,}766 entidades};
+\node[cifra, above=0.18cm of snap] {11{,}115 nodos};
+\node[cifra, above=0.18cm of grf]  {45{,}679 aristas};
+\node[cifra, above=0.18cm of imp]  {grafo $G$ dirigido};
+
+%% — Detalles bajo cada etapa —
+\node[dato, below=0.18cm of ing]  {Apimetro REST\\GeoJSON};
+\node[dato, below=0.18cm of snap] {KDTree · $d \leq 50$~m\\eliminación duplicados};
+\node[dato, below=0.18cm of grf]  {NetworkX\\25{,}197 servicio\\20{,}482 transbordo};
+\node[dato, below=0.18cm of imp]  {Motor VFT\\pesos en minutos};
+
+%% — Flechas —
+\draw[flecha] (ing)  -- (snap);
+\draw[flecha] (snap) -- (grf);
+\draw[flecha] (grf)  -- (imp);
+
+%% — Nota conceptual: abstracción Red Física → Grafo Matemático —
+\node[font=\scriptsize\color{gray!70}, anchor=north]
+    at ($(ing.south)!0.5!(imp.south) + (0,-1.15cm)$)
+    {Red Física $\longrightarrow$ Grafo Matemático $\mathcal{G}(\mathcal{V},\,\mathcal{E},\,w)$};
+
+\end{tikzpicture}
