@@ -15,10 +15,14 @@ anticipados se presentan como fundamento para la etapa de cálculo.}
 
 La Fase~3 representa la capa de análisis de mayor complejidad computacional del
 Modelo VFT. A diferencia de los indicadores de las fases anteriores, que operan
-sobre la geometría estática de la red o sobre los pesos individuales de aristas y
-nodos, los tres indicadores de esta fase requieren la ejecución de \textbf{algoritmos
-de caminos mínimos} sobre la totalidad del grafo ponderado, lo que implica tiempos
-de cómputo del orden de horas para un grafo de 11{,}115 nodos y 45{,}679 aristas.
+sobre la geometría estática de la red o sobre los pesos individuales de aristas
+y
+nodos, los tres indicadores de esta fase requieren la ejecución de
+\textbf{algoritmos
+de caminos mínimos} sobre la totalidad del grafo ponderado, lo que implica
+tiempos
+de cómputo del orden de horas para un grafo de 11{,}115 nodos y 45{,}679
+aristas.
 
 La secuencia de dependencias es estricta: el \textbf{Tiempo de Viaje Promedio}
 ($T$) exige el grafo con todos sus pesos dinámicos de Fase~2; la
@@ -36,9 +40,11 @@ simular fallas.
 ejecución del algoritmo \dijkstra{} sobre el grafo final ponderado.}
 
 El \textbf{Tiempo de Viaje Promedio} ($T$) mide la eficiencia global de la red
-como sistema: cuánto tarda en promedio un pasajero en desplazarse entre cualquier
+como sistema: cuánto tarda en promedio un pasajero en desplazarse entre
+cualquier
 par de estaciones alcanzables. Es la métrica de referencia que sintetiza, en un
-solo valor, el efecto combinado de la geometría de la red, los tiempos de traslado
+solo valor, el efecto combinado de la geometría de la red, los tiempos de
+traslado
 con fricción y los costos de transbordo.
 
 \subsubsection{Fórmula}
@@ -56,7 +62,7 @@ con fricción y los costos de transbordo.
     calculado mediante el algoritmo \dijkstra{} sobre el grafo ponderado con los
     atributos de Fase~2.
     \item El denominador $N(N-1)$ normaliza sobre todos los pares ordenados de
-    nodos alcanzables. Los pares sin ruta (componentes desconectadas) se excluyen
+nodos alcanzables. Los pares sin ruta (componentes desconectadas) se excluyen
     del promedio.
 \end{itemize}
 
@@ -65,14 +71,17 @@ con fricción y los costos de transbordo.
 
 El indicador $T$ caracteriza la red en su conjunto como sistema físico: un valor
 bajo indica una red eficiente donde cualquier par de estaciones está bien
-conectado en el plano temporal; un valor alto sugiere desconexiones estructurales
-o cuellos de botella en los transbordos. La comparación de $T$ antes y después de
+conectado en el plano temporal; un valor alto sugiere desconexiones
+estructurales
+o cuellos de botella en los transbordos. La comparación de $T$ antes y después
+de
 la remoción simulada de nodos críticos (Sección~\ref{subsec:vulnerabilidad}) es
 el mecanismo central del análisis de vulnerabilidad.
 
 Adicionalmente, el modelo contempla una variante ponderada por demanda
 $T_{\text{dem}}$, calculable una vez que el \termino{Node Score} de Fase~2 esté
-disponible, donde los pares O-D con mayor afluencia en ambos extremos contribuyen
+disponible, donde los pares O-D con mayor afluencia en ambos extremos
+contribuyen
 más al promedio. La diferencia $T_{\text{dem}} - T$ cuantificaría el sesgo de la
 red: si las rutas más demandadas son sistemáticamente más lentas que el promedio
 estructural, ese diferencial tiene implicaciones directas para la política de
@@ -128,7 +137,8 @@ de red libre de escala (\termino{scale-free}) detectada en la Fuerza Capilar
 
 La hipótesis de investigación predice que al menos algunos de los nodos de
 mayor $B$ se ubicarán sobre ejes circulares o de transferencia que no son
-estaciones de origen-destino frecuente, sino \termino{hubs} de paso que articulan
+estaciones de origen-destino frecuente, sino \termino{hubs} de paso que
+articulan
 rutas radiales. Identificar estos nodos es el prerrequisito para el análisis de
 vulnerabilidad de la Sección~\ref{subsec:vulnerabilidad}.
 
@@ -138,7 +148,8 @@ vulnerabilidad de la Sección~\ref{subsec:vulnerabilidad}.
 % ----------------------------------------------------------------
 
 \notaRevision{Pendiente de cálculo. Requiere la Centralidad de Intermediación
-$B$ (Sección~\ref{subsec:res-centralidad-intermediacion}) para seleccionar los nodos
+$B$ (Sección~\ref{subsec:res-centralidad-intermediacion}) para seleccionar los
+nodos
 críticos sobre los cuales ejecutar las simulaciones de falla.}
 
 El análisis de \textbf{Vulnerabilidad Estructural} ($\Delta E$) cuantifica en
@@ -195,6 +206,7 @@ Pantitlán o Indios Verdes.
 Si la simulación confirma esta hipótesis, el análisis proporciona una base
 cuantitativa para priorizar inversión en infraestructura de respaldo (rutas
 alternativas, capacidad de transbordo) en nodos de alta intermediación pero baja
-visibilidad operativa. Si la refuta, el resultado es igualmente valioso: indicaría
+visibilidad operativa. Si la refuta, el resultado es igualmente valioso:
+indicaría
 que la red posee redundancia suficiente en sus ejes circulares, y que la
 vulnerabilidad real se concentra en las terminales radiales de mayor afluencia.

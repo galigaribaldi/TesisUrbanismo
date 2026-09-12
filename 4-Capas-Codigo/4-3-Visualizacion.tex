@@ -9,54 +9,93 @@
 \section{Transport-gis: El motor de Visualización}
 \label{sec:transport-gis-intro}
 
-\textbf{Transport-gis-zmvm-mjg} (\termino{Transport GIS — Zona Metropolitana del Valle de México, M.J. Garibelt}) 
-es el tercer y último componente de la arquitectura de código de esta investigación. Mientras \textbf{Apimetro} 
-opera como el motor de datos unificado —responsable de la ingesta, estandarización y exposición de la red de transporte 
-como servicio— y \textbf{VFTModel} constituye el núcleo analítico que calcula los indicadores de desempeño de la red, 
-\textbf{Transport-gis} representa la capa de visualización: el sistema que traduce los resultados del modelo en 
+\textbf{Transport-gis-zmvm-mjg} (
+\termino{Transport GIS — Zona Metropolitana del Valle de México, M.J. Garibelt})
+es el tercer y último componente de la arquitectura de código de esta
+investigación. Mientras \textbf{Apimetro}
+opera como el motor de datos unificado —responsable de la ingesta,
+estandarización y exposición de la red de transporte
+como servicio— y \textbf{VFTModel} constituye el núcleo analítico que calcula
+los indicadores de desempeño de la red,
+\textbf{Transport-gis} representa la capa de visualización: el sistema que
+traduce los resultados del modelo en
 representaciones cartográficas interpretables para el análisis urbanístico.
 
-Al igual que los componentes precedentes, la denominación del sistema proviene de la obra literaria ficcional 
-\textit{Saga Diarios, tomo~2}, de autoría del investigador. En dicha novela, la urbanista ficcional 
-\textit{Mildred Julietta Cordero Garibelt} —referida por su acrónimo \textit{M.J.G}— es la responsable de la cartografía 
-y la planeación espacial del sistema de movilidad de \textit{Ciudad Capital}, ucronía de la Ciudad de México en la década de 1960. 
-La trama sitúa a este personaje en el centro de eventos políticos relevantes de la historia mexicana del siglo~\textsc{xx} 
-\parencite{lopezmateos2023comoelcantodelcisne}, cuya intervención en las decisiones sobre infraestructura y movilidad urbana articula 
-el argumento central de la novela. El paralelismo con la presente investigación es deliberado: así como \textit{M.J.G} produce 
-los mapas que hacen legible el sistema de movilidad de \textit{Ciudad Capital}, \textbf{Transport-gis} genera las representaciones 
-cartográficas que permiten interpretar los resultados del \textbf{VFTModel} sobre la red metropolitana real de la \zmvm.
+Al igual que los componentes precedentes, la denominación del sistema proviene
+de la obra literaria ficcional
+\textit{Saga Diarios, tomo~2}, de autoría del investigador. En dicha novela, la
+urbanista ficcional
+\textit{Mildred Julietta Cordero Garibelt} —referida por su acrónimo
+\textit{M.J.G}— es la responsable de la cartografía
+y la planeación espacial del sistema de movilidad de \textit{Ciudad Capital},
+ucronía de la Ciudad de México en la década de 1960.
+La trama sitúa a este personaje en el centro de eventos políticos relevantes de
+la historia mexicana del siglo~\textsc{xx}
+\citep{lopezmateos2023comoelcantodelcisne}, cuya intervención en las
+decisiones sobre infraestructura y movilidad urbana articula
+el argumento central de la novela. El paralelismo con la presente investigación
+es deliberado: así como \textit{M.J.G} produce
+los mapas que hacen legible el sistema de movilidad de \textit{Ciudad Capital},
+\textbf{Transport-gis} genera las representaciones
+cartográficas que permiten interpretar los resultados del \textbf{VFTModel}
+sobre la red metropolitana real de la \zmvm.
 
 \subsection{Transport-gis: Su arquitectura y funcionamiento}
 \label{subsec:transport-gis-arquitectura-funcionamiento}
 
-\textbf{Transport-gis} se organiza en cuatro módulos funcionales interdependientes: un módulo de \textbf{análisis} (\texttt{analysis/}), que gestiona la consulta a los servicios 
-externos y el procesamiento de indicadores; un módulo de \textbf{datos} (\texttt{data/processed/}), que almacena las capas geoespaciales en formato \termino{GeoPackage} (\texttt{.gpkg}) 
-bajo control de Git~\textsc{lfs}; un módulo \textbf{cartográfico} (\texttt{maps/}), que agrupa los proyectos QGIS, las plantillas tipográficas y los archivos de exportación; y un 
-módulo de \textbf{orquestación} (\texttt{pipeline/}), que coordina la ejecución secuencial del proceso completo. La Figura~\ref{fig:tg-pipeline} ilustra el flujo de datos 
-entre estos módulos y los componentes externos de la arquitectura de la investigación.
+\textbf{Transport-gis} se organiza en cuatro módulos funcionales
+interdependientes: un módulo de \textbf{análisis} (\texttt{analysis/}), que
+gestiona la consulta a los servicios
+externos y el procesamiento de indicadores; un módulo de \textbf{datos} (
+\texttt{data/processed/}), que almacena las capas geoespaciales en formato
+\termino{GeoPackage} (\texttt{.gpkg})
+bajo control de Git~\textsc{lfs}; un módulo \textbf{cartográfico} (
+\texttt{maps/}), que agrupa los proyectos QGIS, las plantillas tipográficas y
+los archivos de exportación; y un
+módulo de \textbf{orquestación} (\texttt{pipeline/}), que coordina la ejecución
+secuencial del proceso completo. La Figura~\ref{fig:tg-pipeline} ilustra el
+flujo de datos
+entre estos módulos y los componentes externos de la arquitectura de la
+investigación.
 
 % =============================================================================
 \subsubsection{Flujo de producción de datos}
 \label{subsubsec:tg-flujo-datos}
 % =============================================================================
 
-El proceso de producción cartográfica parte de dos fuentes primarias externas: los \textit{feeds} \gtfs{} de la \textsc{semovi} (2024), que contienen los horarios, 
-rutas y paradas de los sistemas de transporte de la \cdmx{}; y la cartografía base del \textsc{inegi} (2023), que provee los límites político-administrativos y la 
-infraestructura vial de la \zmvm{}. Estas fuentes alimentan a \textbf{Apimetro} —que las transforma en una \api{} \textsc{rest} consumible con la topología del 
-grafo de la red— y a \textbf{VFTModel}, que las procesa para calcular los indicadores de eficiencia nodal.
+El proceso de producción cartográfica parte de dos fuentes primarias externas:
+los \textit{feeds} \gtfs{} de la \textsc{semovi} (2024), que contienen los
+horarios,
+rutas y paradas de los sistemas de transporte de la \cdmx{}; y la cartografía
+base del \textsc{inegi} (2023), que provee los límites político-administrativos
+y la
+infraestructura vial de la \zmvm{}. Estas fuentes alimentan a \textbf{Apimetro}
+—que las transforma en una \api{} \textsc{rest} consumible con la topología del
+grafo de la red— y a \textbf{VFTModel}, que las procesa para calcular los
+indicadores de eficiencia nodal.
 
-Dentro del repositorio de \textbf{Transport-gis}, el script \texttt{apimetro\_client.py} consulta la \api{} de \textbf{Apimetro} para recuperar la topología del 
-grafo y los atributos de cada modo de transporte, mientras que \texttt{vft\_runner.py} ejecuta las rutinas del \textbf{VFTModel} para producir los indicadores por nodo en 
-formato \texttt{.csv}. El orquestador \texttt{pipeline/run\_pipeline.py} gestiona la secuencia completa de transformaciones hasta exportar las capas procesadas al 
-directorio \texttt{data/processed/}. Los fragmentos de código de estos componentes se detallarán en un anexo técnico.\pendiente{Crear Anexo — Documentación Técnica Transport-gis}
+Dentro del repositorio de \textbf{Transport-gis}, el script
+\texttt{apimetro\_client.py} consulta la \api{} de \textbf{Apimetro} para
+recuperar la topología del
+grafo y los atributos de cada modo de transporte, mientras que
+\texttt{vft\_runner.py} ejecuta las rutinas del \textbf{VFTModel} para producir
+los indicadores por nodo en
+formato \texttt{.csv}. El orquestador \texttt{pipeline/run\_pipeline.py}
+gestiona la secuencia completa de transformaciones hasta exportar las capas
+procesadas al
+directorio \texttt{data/processed/}. Los fragmentos de código de estos
+componentes se detallarán en un anexo técnico.
+\pendiente{Crear Anexo — Documentación Técnica Transport-gis}
 
 \begin{figure}[htbp]
 \centering
 \input{Figures/TiKz_Libraries/Diagramas/tg-pipeline-cartografico}
 \caption[Pipeline de producción cartográfica de Transport-gis]%
   {Flujo de datos del sistema \textbf{Transport-gis-zmvm-mjg}. 
-  Los componentes externos \textbf{Apimetro} y \textbf{VFTModel} proveen la información primaria; 
-  dentro del repositorio, los \textit{scripts} de análisis consolidan los datos en capas \texttt{.gpkg} 
+Los componentes externos \textbf{Apimetro} y \textbf{VFTModel} proveen la
+información primaria;
+dentro del repositorio, los \textit{scripts} de análisis consolidan los datos en
+capas \texttt{.gpkg}
   que QGIS transforma en los mapas de presentación exportados a la tesis.}
 \label{fig:tg-pipeline}
 \end{figure}
@@ -66,21 +105,31 @@ directorio \texttt{data/processed/}. Los fragmentos de código de estos componen
 \label{subsubsec:tg-capas}
 % =============================================================================
 
-El módulo de datos mantiene diez capas \termino{GeoPackage} en \texttt{data/processed/}, 
-todas proyectadas en \textsc{epsg}:32614 (UTM zona~14N), referencia cartográfica adecuada 
-para la extensión de la \zmvm{}. Las capas se organizan en tres categorías temáticas, ilustradas en la 
-Figura~\ref{fig:tg-capas}: (i)~\textbf{contexto territorial}, con los límites político-administrativos de la \cdmx{}, del 
-Estado de México, el polígono de estudio y las variables de medio físico natural; (ii)~\textbf{red e infraestructura}, 
-con las geometrías de los sistemas de transporte, la infraestructura vial y el trazado del Periférico; y 
-(iii)~\textbf{indicadores del modelo VFT}, con las capas derivadas del cálculo de cobertura espacial, 
-fuerza capilar y factor de desviación descritos en el Capítulo~\ref{ch:resultados-vft}.
+El módulo de datos mantiene diez capas \termino{GeoPackage} en
+\texttt{data/processed/},
+todas proyectadas en \textsc{epsg}:32614 (UTM zona~14N), referencia cartográfica
+adecuada
+para la extensión de la \zmvm{}. Las capas se organizan en tres categorías
+temáticas, ilustradas en la
+Figura~\ref{fig:tg-capas}: (i)~\textbf{contexto territorial}, con los límites
+político-administrativos de la \cdmx{}, del
+Estado de México, el polígono de estudio y las variables de medio físico
+natural; (ii)~\textbf{red e infraestructura},
+con las geometrías de los sistemas de transporte, la infraestructura vial y el
+trazado del Periférico; y
+(iii)~\textbf{indicadores del modelo VFT}, con las capas derivadas del cálculo
+de cobertura espacial,
+fuerza capilar y factor de desviación descritos en el Capítulo~
+\ref{ch:resultados-vft}.
 
 \begin{figure}[htbp]
 \centering
 \input{Figures/TiKz_Libraries/Diagramas/tg-capas-geopackage}
 \caption[Organización de las capas GeoPackage de Transport-gis]%
-  {Las diez capas \termino{GeoPackage} del directorio \texttt{data/processed/}, organizadas por 
-  categoría temática. Todas están proyectadas en \textsc{epsg}:32614 (UTM zona~14N) y versionadas con Git~\textsc{lfs}.}
+{Las diez capas \termino{GeoPackage} del directorio \texttt{data/processed/},
+organizadas por
+categoría temática. Todas están proyectadas en \textsc{epsg}:32614 (UTM
+zona~14N) y versionadas con Git~\textsc{lfs}.}
 \label{fig:tg-capas}
 \end{figure}
 
@@ -89,37 +138,53 @@ fuerza capilar y factor de desviación descritos en el Capítulo~\ref{ch:resulta
 \label{subsubsec:tg-proyectos}
 % =============================================================================
 
-La Figura~\ref{fig:tg-arbol} muestra la estructura de directorios completa de \textbf{Transport-gis}. El repositorio se articula
-en cinco carpetas de primer nivel con responsabilidades bien delimitadas: \texttt{analysis/} centraliza los \textit{scripts} de
-procesamiento y los cuadernos de exploración; \texttt{data/processed/} almacena las diez capas \textit{GeoPackage} versionadas en
-Git~\textsc{lfs}; \texttt{maps/} agrupa los proyectos QGIS~(\texttt{.qgz}), las plantillas visuales~(\texttt{.qpt}) con las paletas
-institucionales de la \textsc{unam} y el directorio de exportaciones; \texttt{pipeline/} contiene el orquestador del proceso; y
-\texttt{setup/} distribuye los activos tipográficos para garantizar la reproducibilidad visual en distintos sistemas operativos.
-Los mapas terminados se exportan en \texttt{.pdf} (alta resolución para la tesis) y \texttt{.png} (presentaciones del coloquio),
+La Figura~\ref{fig:tg-arbol} muestra la estructura de directorios completa de
+\textbf{Transport-gis}. El repositorio se articula
+en cinco carpetas de primer nivel con responsabilidades bien delimitadas:
+\texttt{analysis/} centraliza los \textit{scripts} de
+procesamiento y los cuadernos de exploración; \texttt{data/processed/} almacena
+las diez capas \textit{GeoPackage} versionadas en
+Git~\textsc{lfs}; \texttt{maps/} agrupa los proyectos QGIS~(\texttt{.qgz}), las
+plantillas visuales~(\texttt{.qpt}) con las paletas
+institucionales de la \textsc{unam} y el directorio de exportaciones;
+\texttt{pipeline/} contiene el orquestador del proceso; y
+\texttt{setup/} distribuye los activos tipográficos para garantizar la
+reproducibilidad visual en distintos sistemas operativos.
+Los mapas terminados se exportan en \texttt{.pdf} (alta resolución para la
+tesis) y \texttt{.png} (presentaciones del coloquio),
 cerrando el ciclo descrito en la Figura~\ref{fig:tg-pipeline}.
 
 \begin{figure}[htbp]
 \centering
 \input{Figures/TiKz_Libraries/Diagramas/Arboles/tg-arbol-directorios}
 \caption[Estructura de directorios de Transport-gis-zmvm-mjg]%
-  {Árbol de directorios del repositorio \textbf{Transport-gis-zmvm-mjg}. Las carpetas \texttt{maps/} (oro) y la raíz (azul UNAM)
-  son los nodos centrales de la producción cartográfica. Los archivos en azul son \textit{scripts} ejecutables;
+{Árbol de directorios del repositorio \textbf{Transport-gis-zmvm-mjg}. Las
+carpetas \texttt{maps/} (oro) y la raíz (azul UNAM)
+son los nodos centrales de la producción cartográfica. Los archivos en azul son
+\textit{scripts} ejecutables;
   los de fondo plano son activos generados o de datos.}
 \label{fig:tg-arbol}
 \end{figure}
 
-La Figura~\ref{fig:mapa-red-esquematica} presenta el resultado de este proceso aplicado a la red de transporte completa de la \zmvm{}:
-un mapa de síntesis que integra los doce sistemas reconocidos por el modelo, proyectados en el espacio metropolitano real. Este mapa
-constituye la representación cartográfica de referencia del estudio y es el punto de partida para la interpretación de los indicadores
-presentados en el Capítulo~\ref{ch:resultados-vft}. Las versiones de alta resolución a página completa de todos los mapas producidos
-por \textbf{Transport-gis} se encuentran en el Anexo~\ref{anx:cartografia-presentacion}.
+La Figura~\ref{fig:mapa-red-esquematica} presenta el resultado de este proceso
+aplicado a la red de transporte completa de la \zmvm{}:
+un mapa de síntesis que integra los doce sistemas reconocidos por el modelo,
+proyectados en el espacio metropolitano real. Este mapa
+constituye la representación cartográfica de referencia del estudio y es el
+punto de partida para la interpretación de los indicadores
+presentados en el Capítulo~\ref{ch:resultados-vft}. Las versiones de alta
+resolución a página completa de todos los mapas producidos
+por \textbf{Transport-gis} se encuentran en el Anexo~
+\ref{anx:cartografia-presentacion}.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Mapa_Red_Esquematica}
   \caption[Red multimodal de transporte de la ZMVM]{Red esquemática multimodal de la \zmvm{} generada por \textbf{Transport-gis-zmvm-mjg}.
-    Incluye los doce sistemas de transporte reconocidos por el modelo, proyectados en EPSG:32614 (UTM zona~14N) sobre los límites político-administrativos
-    de la \cdmx{} y el Estado de México. \fuentefigura{Elaboración propia con QGIS~3.x, plantillas institucionales \textsc{unam};
+Incluye los doce sistemas de transporte reconocidos por el modelo, proyectados
+en EPSG:32614 (UTM zona~14N) sobre los límites político-administrativos
+de la \cdmx{} y el Estado de México.
+\fuentefigura{Elaboración propia con QGIS~3.x, plantillas institucionales \textsc{unam};
     datos: \textsc{gtfs} \textsc{semovi} 2024 e \textsc{inegi} 2023.}}
   \label{fig:mapa-red-esquematica}
 \end{figure}

@@ -42,7 +42,8 @@ Para las aristas de servicio normal, el peso de enrutamiento es
 $\mathit{weight} = (D_{uv}/V_{\text{modo}}) \cdot CF_{\text{vía}}$; el
 $T_b$ queda registrado como atributo informativo, pero no penaliza el
 segmento. La penalización por transferencia actúa únicamente sobre aristas de
-tipo \texttt{transfer}, como se describe en la Sección~\ref{subsec:res-penalizacion-transferencia}.
+tipo \texttt{transfer}, como se describe en la Sección~
+\ref{subsec:res-penalizacion-transferencia}.
 
 % ----------------------------------------------------------------
 \subsection{Coeficiente de Fricción Vial (\texorpdfstring{$CF$}{CF})}
@@ -88,7 +89,7 @@ que modula la exposición de cada tipo de vía a la saturación urbana:
     \item $\beta_{\text{ZMVM}} = 0.759$: constante de saturación de la \zmvm
     (\termino{TomTom Traffic Index}).
     \item $CF \geq 1$: un valor de 1.0 indica flujo ideal sin interferencia;
-    valores superiores representan el penalizador proporcional al congestionamiento.
+valores superiores representan el penalizador proporcional al congestionamiento.
 \end{itemize}
 
 El Cuadro~\ref{tab:cf-por-via} sintetiza los cuatro tipos de derecho de vía
@@ -117,7 +118,7 @@ coeficiente resultante.
     \fuentefigura{Elaboración propia con base en \texttt{impedance.py}
     (VFTModel, corrida 2026-04-18). Los valores $\alpha$ tienen como referencia
     normativa el \textit{Manual de Calles: Diseño Vial para Ciudades Mexicanas}
-    \parencite{sedatu2019manual}.}
+    \citep{sedatu2019manual}.}
 \end{table}
 
 El rango del coeficiente $CF \in [1.000,\ 1.759]$ implica que el tiempo de
@@ -130,23 +131,28 @@ los segmentos de superficie compartida.
 
 En el caso del sistema de derecho de vía desconocido, el Modelo VFT asigna
 por defecto el valor de vía \texttt{mixto} ($CF = 1.759$), aplicando el
-principio de escenario más conservador para no subestimar los tiempos de traslado.
+principio de escenario más conservador para no subestimar los tiempos de
+traslado.
 
 % ----------------------------------------------------------------
 \subsection{Penalización por Transferencia (\texorpdfstring{$T_b$}{Tb})}
 \label{subsec:res-penalizacion-transferencia}
 % ----------------------------------------------------------------
 
-La \textbf{Penalización por Transferencia} ($T_b$) modela el costo temporal en el
-que un pasajero incurre al cambiar de sistema o línea dentro de la red. A diferencia
-del tiempo de traslado —que depende de la distancia y la velocidad del vehículo—,
+La \textbf{Penalización por Transferencia} ($T_b$) modela el costo temporal en
+el
+que un pasajero incurre al cambiar de sistema o línea dentro de la red. A
+diferencia
+del tiempo de traslado —que depende de la distancia y la velocidad del
+vehículo—,
 el costo de transbordo consta de dos componentes independientes: el tiempo de
 caminata entre plataformas y el tiempo de espera en el andén de destino.
 
 \subsubsection{Fórmula de la Penalización}
 \label{subsubsec:formula-tb}
 
-Para cada arista de transbordo generada por el \termino{Snapping Lógico Geográfico}
+Para cada arista de transbordo generada por el
+\termino{Snapping Lógico Geográfico}
 entre los nodos $u$ (origen del transbordo) y $v$ (destino del transbordo), el
 peso de la arista es:
 
@@ -159,7 +165,7 @@ peso de la arista es:
     \item $t_{\text{caminata}}(u, v)$: tiempo de caminata entre los dos nodos
     a una velocidad peatonal normativa de 5~km/h (1.38~m/s), equivalente al
     límite superior establecido en el \textit{Manual de Calles SEDATU}
-    \parencite{sedatu2019manual} para infraestructura de transbordo sin detenciones
+\citep{sedatu2019manual} para infraestructura de transbordo sin detenciones
     en semáforo.
     \item $F_v$: frecuencia de servicio del sistema destino $v$ (minutos entre
     unidades); si no está reportada en el \geojson{}, se utiliza el valor
@@ -178,7 +184,8 @@ El tiempo de caminata se calcula como:
 \end{equation}
 
 donde $D_{uv}$ es la distancia geodésica entre los dos nodos (Haversine) en
-metros, y $V_{\text{peatonal}} = 5000\ \text{m} / 60\ \text{min} = 83.33\ \text{m/min}$.
+metros, y $V_{\text{peatonal}} = 5000\ \text{m} / 60\ \text{min} = 83.33\
+\text{m/min}$.
 
 \subsubsection{Valores de Frecuencia de Fallback}
 \label{subsubsec:fallback-frecuencia}
@@ -192,7 +199,7 @@ promedio en condiciones de operación normal en hora no pico.
     \centering
     \caption[Frecuencias de \textit{fallback} y costo de abordaje por sistema]{Frecuencias
     de servicio de \termino{fallback} y penalización de abordaje resultante
-    ($T_b^{\text{espera}} = F_v / 2$) por sistema de transporte en el Modelo VFT.}
+($T_b^{\text{espera}} = F_v / 2$) por sistema de transporte en el Modelo VFT.}
     \label{tab:fallback-frecuencia}
     \begin{tabular}{|l|c|c|}
         \hline
@@ -240,7 +247,8 @@ el tiempo de traslado con fricción.
 \notaRevision{El \termino{Node Score} ($\text{VFT\_score}$) se encuentra en etapa
 de planificación. Su cálculo requiere los datos de afluencia por línea (MV1) y
 los polígonos AGEB con atributos censales (MV2) de \textbf{Apimetro}, aún no
-disponibles en la fecha de cierre de este documento. La arquitectura del indicador,
+disponibles en la fecha de cierre de este documento. La arquitectura del
+indicador,
 sus fórmulas y las dependencias de datos se presentan a continuación como
 fundamento para la etapa de implementación.}
 
@@ -273,7 +281,7 @@ donde los tres componentes normalizados al rango $[0, 1]$ son:
         \label{eq:desagregacion-afluencia}
     \end{equation}
     donde $g_i = \deg(i)$ es el grado del nodo $i$ en el grafo NetworkX.
-    \item $\hat{p}_i$: \textbf{Población captada en buffer de 800~m normalizada}.
+\item $\hat{p}_i$: \textbf{Población captada en buffer de 800~m normalizada}.
     Calculada intersectando un radio de 800~m alrededor de cada estación con los
     polígonos AGEB (fuente MV2), ponderando cada AGEB por la fracción de su área
     dentro del buffer:
@@ -300,9 +308,9 @@ progresivas una vez que los datos de MV1 y MV2 estén disponibles:
 
 \begin{enumerate}
     \item \textbf{Validación inicial (pesos iguales):} $\alpha_1 = \alpha_2 =
-    \alpha_3 = 1/3$. Objetivo: verificar que nodos de alta importancia reconocida
+\alpha_3 = 1/3$. Objetivo: verificar que nodos de alta importancia reconocida
     (Pantitlán, Insurgentes, Pino Suárez, Balderas) aparecen en el top-10 del
-    \termino{ranking}. Si no lo hacen, el problema se ubica en los datos de entrada.
+\termino{ranking}. Si no lo hacen, el problema se ubica en los datos de entrada.
     \item \textbf{Pesos por entropía (CRITIC):} los pesos finales se derivan de
     la variabilidad observada de cada componente sobre todos los nodos:
     \begin{equation}
@@ -310,7 +318,7 @@ progresivas una vez que los datos de MV1 y MV2 estén disponibles:
         \label{eq:alpha-entropia}
     \end{equation}
     donde $\sigma_n = \text{std}(\hat{x}_n)$. Un componente más discriminante
-    (mayor dispersión entre nodos) recibe mayor peso, penalizando automáticamente
+(mayor dispersión entre nodos) recibe mayor peso, penalizando automáticamente
     los componentes redundantes.
 \end{enumerate}
 
@@ -324,7 +332,7 @@ fecha de cierre del documento.
 \begin{table}[H]
     \centering
     \caption[Dependencias del Node Score por componente]{Componentes del
-    $\text{VFT\_score}$, fuentes de datos requeridas y estado de implementación.}
+$\text{VFT\_score}$, fuentes de datos requeridas y estado de implementación.}
     \label{tab:node-score-dependencias}
     \begin{tabularx}{\textwidth}{|l|X|l|l|}
         \hline

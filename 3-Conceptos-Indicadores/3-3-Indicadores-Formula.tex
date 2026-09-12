@@ -9,12 +9,15 @@
          Caso de Estudio}
 \label{sec:indicadores-formulas}
 
-El análisis computacional de la red de transporte público de la \cdmx{} y su zona
-metropolitana se articula a través de ocho indicadores cuantitativos organizados en
+El análisis computacional de la red de transporte público de la \cdmx{} y su
+zona
+metropolitana se articula a través de ocho indicadores cuantitativos organizados
+en
 cuatro fases de construcción progresiva. Esta jerarquía no es arbitraria: cada
 indicador depende de los insumos producidos por los anteriores, de modo que la
 arquitectura metodológica constituye en sí misma un modelo de grafo que crece en
-complejidad desde el análisis espacial puro hasta las pruebas de estrés topológico.
+complejidad desde el análisis espacial puro hasta las pruebas de estrés
+topológico.
 A continuación se presenta cada uno de los indicadores con su fundamento
 matemático, la fuente académica que lo sustenta, y un ejemplo práctico calibrado
 con datos del área de estudio.
@@ -29,23 +32,31 @@ con datos del área de estudio.
 \label{subsec:indicador-cobertura}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{fortin2016innovative}
+\textbf{Fuente principal:} \citet{fortin2016innovative}
  
 \subsubsection{Definición y Fundamentación}
  
-El nivel de cobertura es el indicador de entrada del modelo: el más independiente
-de todos, pues su cálculo se realiza exclusivamente mediante análisis espacial y no
+El nivel de cobertura es el indicador de entrada del modelo: el más
+independiente
+de todos, pues su cálculo se realiza exclusivamente mediante análisis espacial y
+no
 requiere que el grafo de la red esté completamente interconectado. Mide la
 proporción del territorio urbano que queda dentro de una distancia caminable de
 algún nodo de la red de transporte.
  
-\textcite{fortin2016innovative} explican en su sección de evaluación de accesibilidad que los
+\citet{fortin2016innovative} explican en su sección de evaluación de
+accesibilidad que los
 indicadores de cobertura más comunes se calculan trazando áreas de influencia
----típicamente un \textit{buffer} de 500 metros o 400 metros como radio de caminata
-promedio aceptable--- alrededor de cada parada de la red. A partir de estas áreas,
-es posible identificar la proporción de individuos o de empleos que quedan dentro
-de cierta distancia de la infraestructura de transporte, lo que permite evaluar el nivel
-de accesibilidad en el territorio y señalar con precisión los lugares donde deben
+---típicamente un \textit{buffer} de 500 metros o 400 metros como radio de
+caminata
+promedio aceptable--- alrededor de cada parada de la red. A partir de estas
+áreas,
+es posible identificar la proporción de individuos o de empleos que quedan
+dentro
+de cierta distancia de la infraestructura de transporte, lo que permite evaluar
+el nivel
+de accesibilidad en el territorio y señalar con precisión los lugares donde
+deben
 ocurrir las mejoras.
 
 \subsubsection{Fórmula}
@@ -58,10 +69,10 @@ ocurrir las mejoras.
 Donde:
 \begin{itemize}
     \item $C$ = Nivel de Cobertura de la Red (adimensional, rango $[0, 1]$).
-    \item \textbf{Área Cubierta} = Unión de los polígonos de cobertura (isócronas o
+\item \textbf{Área Cubierta} = Unión de los polígonos de cobertura (isócronas o
     \textit{buffers} circulares) generados alrededor de cada parada de la red,
     medida en km².
-    \item \textbf{Área Total} = Superficie del polígono urbano delimitado de la zona
+\item \textbf{Área Total} = Superficie del polígono urbano delimitado de la zona
     de estudio, en km².
 \end{itemize}
 
@@ -70,17 +81,19 @@ Donde:
     \centering
     \includegraphics[width=0.80\textwidth]{Figures/Cap3/CoberturaTransporte.png}
     \caption[Diagrama del indicador de Cobertura $C$]{Esquema del cálculo del
-    indicador $C$: polígono de la zona de estudio (Área Total), nodos de transporte
+indicador $C$: polígono de la zona de estudio (Área Total), nodos de transporte
     y círculos de radio 400\,m (Área Cubierta).}
     \label{fig:indicador-C}
-    \fuentefigura{Elaboración propia con base en \textcite{fortin2016innovative}.}
+    \fuentefigura{Elaboración propia con base en \citet{fortin2016innovative}.}
 \end{figure}
 
 
 \subsubsection{Consideraciones de Implementación}
  
-Para una representación más precisa que la del \textit{buffer} circular estático, se
-implementará el concepto de \termino{isócronas}: áreas de influencia construidas a
+Para una representación más precisa que la del \textit{buffer} circular
+estático, se
+implementará el concepto de \termino{isócronas}: áreas de influencia construidas
+a
 partir de la red vial real de OpenStreetMap, que delimitan todos los puntos
 alcanzables caminando desde una parada en exactamente 15 minutos a la velocidad
 promedio peatonal (1.5 km/h en zonas densas). Las isócronas producen polígonos
@@ -89,14 +102,16 @@ pendientes pronunciadas, ofreciendo una medida de cobertura sustancialmente más
 realista que un círculo uniforme.
  
 El resultado de las isócronas se superpone al censo poblacional del INEGI para
-calcular no solo el área cubierta, sino la \termino{población cubierta}: la fracción de
+calcular no solo el área cubierta, sino la \termino{población cubierta}: la
+fracción de
 habitantes de la zona metropolitana que reside dentro del área de influencia de
 alguna parada de la red.
  
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
  
 \textbf{Datos de entrada:} Coordenadas georreferenciadas de todas las paradas de
-la red (Metro, Metrobús, RTP, Trolebús, Cablebús, Mexibús) en formato \geojson{};
+la red (Metro, Metrobús, RTP, Trolebús, Cablebús, Mexibús) en formato \geojson{}
+;
 polígono del área urbana de la \zmvm{} $\approx 7{,}866$\,km²; capa de manzanas
 del INEGI con datos de población del Censo 2020.
 
@@ -135,27 +150,33 @@ C = covered_area.intersection(city_polygon).area / city_polygon.area
 \label{subsec:alimentacion-capilar}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \textcite{lee2008}
+\textbf{Fuente principal:} \citet{lee2008}
  
 \subsubsection{Definición y Fundamentación}
  
 Una vez que las estaciones están georreferenciadas y las aristas de la red están
 conectadas, el siguiente paso es identificar el rol funcional de cada nodo en la
-jerarquía del sistema. \textcite{lee2008}, en su análisis estadístico de la red de
+jerarquía del sistema. \citet{lee2008}, en su análisis estadístico de la red
+de
 metro de Seúl, establecen que cada estación puede caracterizarse por dos
-propiedades complementarias: su \termino{grado} ($k$), definido como el número de
+propiedades complementarias: su \termino{grado} ($k$), definido como el número
+de
 conexiones (aristas) que entran o salen del nodo, y su \termino{fuerza} ($s$),
 definida como la suma de los pesos (flujos de pasajeros) de todos los enlaces
 conectados a esa estación.
  
-Los autores demuestran que la distribución de la fuerza de los nodos en la red de
-metro de Seúl sigue un comportamiento log-normal con un pico característico, lo que
-indica que la mayoría de las estaciones atienden un volumen similar de pasajeros,
+Los autores demuestran que la distribución de la fuerza de los nodos en la red
+de
+metro de Seúl sigue un comportamiento log-normal con un pico característico, lo
+que
+indica que la mayoría de las estaciones atienden un volumen similar de
+pasajeros,
 pero un pequeño número de nodos ---los grandes concentradores o
 \textit{hubs}--- acumula flujos desproporcionadamente elevados. Este patrón es
 directamente relevante para la red de la \cdmx{}, donde los macro-CETRAMs
 (Pantitlán, Indios Verdes, Cuatro Caminos, Taxqueña) operan como \textit{hubs}
-nodales que concentran la articulación entre las redes capilares de superficie y las
+nodales que concentran la articulación entre las redes capilares de superficie y
+las
 arterias masivas.
  
 \subsubsection{Fórmula}
@@ -171,17 +192,20 @@ Donde:
     masiva $i$.
     \item $S$ = Subconjunto de rutas pertenecientes exclusivamente a la red de
     superficie (RTP, microbús, trolebús, concesionados).
-    \item $A_{ij}$ = Elemento de la matriz de adyacencia: 1 si la ruta de superficie
+\item $A_{ij}$ = Elemento de la matriz de adyacencia: 1 si la ruta de superficie
     $j$ conecta con la estación masiva $i$, 0 en caso contrario.
-    \item $\peso{i}{j}$ = Peso de la conexión: capacidad de pasajeros por hora o flujo
+\item $\peso{i}{j}$ = Peso de la conexión: capacidad de pasajeros por hora o
+flujo
     real medido de la ruta $j$ en la estación $i$.
 \end{itemize}
 
  
-\textcite{lee2008} establecen que el peso $\peso{i}{j}$ de un enlace representa el
+\citet{lee2008} establecen que el peso $\peso{i}{j}$ de un enlace representa
+el
 flujo de pasajeros que transita por él, y que la fuerza $s_i$ de una estación
 corresponde al número de pasajeros que llegan y parten de ella. En el modelo
-propuesto, $\peso{i}{j}$ se inicializa con la capacidad operativa declarada de cada
+propuesto, $\peso{i}{j}$ se inicializa con la capacidad operativa declarada de
+cada
 ruta y se refinará en fases posteriores con el Coeficiente de Fricción Vial.
  
 % Figura de Fuerza Nodal 
@@ -192,7 +216,7 @@ ruta y se refinará en fases posteriores con el Coeficiente de Fricción Vial.
     fuerza nodal: rutas de superficie $F_1 \ldots F_n$ convergiendo en una
     estación masiva de alta conectividad de entrada.}
     \label{fig:indicador-Ci}
-    \fuentefigura{Elaboración propia con base en \textcite{lee2008}.}
+    \fuentefigura{Elaboración propia con base en \citet{lee2008}.}
  \end{figure}
 
 
@@ -236,24 +260,33 @@ feeder_degree = {
 \label{subsec:ruta-directa}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{fortin2016innovative}
+\textbf{Fuente principal:} \citet{fortin2016innovative}
  
 \subsubsection{Definición y Fundamentación}
  
-El Índice de Ruta Directa cuantifica qué tan eficiente es la topología de la red en
+El Índice de Ruta Directa cuantifica qué tan eficiente es la topología de la red
+en
 términos geométricos puros: mide cuánto se alarga un viaje al estar obligado a
-seguir la infraestructura real de la red en lugar de desplazarse en línea recta entre
-origen y destino. \textcite{fortin2016innovative} proponen este indicador como parte de su
-método orientado a grafos para caracterizar sistemáticamente redes de transporte a
-partir de datos \gtfs{}, donde el análisis de la topología implica calcular los caminos
+seguir la infraestructura real de la red en lugar de desplazarse en línea recta
+entre
+origen y destino. \citet{fortin2016innovative} proponen este indicador como
+parte de su
+método orientado a grafos para caracterizar sistemáticamente redes de transporte
+a
+partir de datos \gtfs{}, donde el análisis de la topología implica calcular los
+caminos
 mínimos entre pares de nodos y derivar indicadores de desempeño.
  
 Es importante precisar una limitación inherente: el $DI$ no incorpora los pesos
 ponderados de las aristas (tiempos reales, frecuencias, factores de congestión),
-sino únicamente la ubicación geométrica de los nodos. Es, por tanto, un indicador
-de la \termino{eficiencia estructural} de la red ---independiente de sus condiciones
-operativas--- y resulta especialmente útil para evaluar el trazado de nuevas rutas o
-comparar configuraciones alternativas antes de incorporar la dinámica de tráfico.
+sino únicamente la ubicación geométrica de los nodos. Es, por tanto, un
+indicador
+de la \termino{eficiencia estructural} de la red ---independiente de sus
+condiciones
+operativas--- y resulta especialmente útil para evaluar el trazado de nuevas
+rutas o
+comparar configuraciones alternativas antes de incorporar la dinámica de
+tráfico.
  
 \subsubsection{Fórmula}
  
@@ -265,15 +298,17 @@ comparar configuraciones alternativas antes de incorporar la dinámica de tráfi
 Donde:
 \begin{itemize}
     \item $DI$ = Índice de Ruta Directa (adimensional, siempre $DI \geq 1.0$).
-    \item $d_{\text{red}}(i, j)$ = Distancia del camino mínimo entre los nodos $i$
+\item $d_{\text{red}}(i, j)$ = Distancia del camino mínimo entre los nodos $i$
     y $j$ medida a lo largo de las aristas del grafo, en km.
     \item $d_{\text{euclidiana}}(i, j)$ = Distancia en línea recta (distancia
     \textit{haversine} para coordenadas geográficas) entre los nodos $i$ y $j$,
     en km.
 \end{itemize}
  
-Un valor $DI = 1.0$ representa eficiencia geométrica perfecta (el trayecto en red
-coincide con la línea recta). Valores $DI \gg 1.0$ indican que la topología fuerza
+Un valor $DI = 1.0$ representa eficiencia geométrica perfecta (el trayecto en
+red
+coincide con la línea recta). Valores $DI \gg 1.0$ indican que la topología
+fuerza
 a los usuarios a rodeos significativos respecto al desplazamiento ideal.
 
 % Figura deligura del Detour Factor (Distancia Euclidiana)
@@ -284,7 +319,7 @@ a los usuarios a rodeos significativos respecto al desplazamiento ideal.
     distancia en red (arco curvado) y la distancia euclidiana (línea punteada)
     entre origen O y destino D.}
     \label{fig:indicador-DI}
-    \fuentefigura{Elaboración propia con base en \textcite{fortin2016innovative}.}
+    \fuentefigura{Elaboración propia con base en \citet{fortin2016innovative}.}
 \end{figure}
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
@@ -326,24 +361,29 @@ DI = d_red / d_euclidiana
 \label{subsec:tiempo-viaje}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{aldous2019optimal}
+\textbf{Fuente principal:} \citet{aldous2019optimal}
  
 \subsubsection{Definición y Fundamentación}
  
 El Tiempo de Viaje Promedio es la métrica de desempeño global del sistema y el
-criterio de optimización central del modelo. \textcite{aldous2019optimal} plantean
+criterio de optimización central del modelo. \citet{aldous2019optimal}
+plantean
 que el criterio de optimalidad en el diseño de redes de transporte consiste en
 minimizar el tiempo promedio de viaje entre pares de puntos elegidos
 independientemente según su distribución en el territorio.
  
 De manera particularmente relevante para la hipótesis central de este trabajo,
-\textcite{aldous2019optimal} demuestran analíticamente que, a medida que la
-longitud total de la red aumenta, ocurre una transición brusca en un valor crítico
+\citet{aldous2019optimal} demuestran analíticamente que, a medida que la
+longitud total de la red aumenta, ocurre una transición brusca en un valor
+crítico
 $L_c$ en el que aparece un bucle o anillo en la topología óptima de la red. Esto
-implica que, para redes de transporte a escala metropolitana, la incorporación de un
-corredor perimetral ---como el Anillo Periférico propuesto--- no solo es viable, sino
+implica que, para redes de transporte a escala metropolitana, la incorporación
+de un
+corredor perimetral ---como el Anillo Periférico propuesto--- no solo es viable,
+sino
 que constituye la forma \textit{óptima esperada} de expansión de la red una vez
-superado cierto umbral de longitud total. Este resultado teórico provee el sustento
+superado cierto umbral de longitud total. Este resultado teórico provee el
+sustento
 matemático directo para la hipótesis de investigación.
  
 \subsubsection{Fórmula}
@@ -363,7 +403,8 @@ Donde:
     espera en andén + penalización por transbordo.
 \end{itemize}
  
-El indicador $T$ se calculará en dos escenarios: la red metropolitana actual y la red
+El indicador $T$ se calculará en dos escenarios: la red metropolitana actual y
+la red
 con la incorporación del Anillo Periférico. La diferencia
 $\Delta T = T_{\text{actual}} - T_{\text{propuesto}}$ constituye la medida
 cuantitativa principal de la viabilidad de la propuesta.
@@ -376,7 +417,7 @@ cuantitativa principal de la viabilidad de la propuesta.
     nodos $N$, aristas grises (enlaces conectores) y caminos mínimos
     $t_{ij}$ (caminos más cortos) resaltados.}
     \label{fig:indicador-T}
-    \fuentefigura{Elaboración propia con base en \textcite{aldous2019optimal}.}
+    \fuentefigura{Elaboración propia con base en \citet{aldous2019optimal}.}
 \end{figure}
 
 
@@ -411,11 +452,13 @@ T = nx.average_shortest_path_length(G, weight='tiempo_minutos')
 \label{subsec:penalizacion-transferencia}
 % -----------------------------------------------------------------------
  
-\textbf{Fuentes principales:} \textcite{allauca2023}; \textcite{aldous2019optimal}
+\textbf{Fuentes principales:} \citet{allauca2023};
+\citet{aldous2019optimal}
  
 \subsubsection{Definición y Fundamentación}
  
-La penalización por transferencia es el costo temporal adicional en el que un usuario
+La penalización por transferencia es el costo temporal adicional en el que un
+usuario
 incurre al cambiar de una línea o modo de transporte a otro durante su viaje. Su
 correcta modelación es fundamental para que el grafo multimodal refleje la
 experiencia real del usuario: un algoritmo de \dijkstra{} que no penalice los
@@ -423,11 +466,13 @@ transbordos subestimará sistemáticamente los tiempos de viaje en rutas que
 requieren múltiples cambios de línea, induciendo al modelo a preferir rutas con
 transbordos frecuentes que en la práctica resultan más lentas o incómodas.
  
-\textcite{allauca2023} justifica la incorporación de pesos compuestos en las aristas
+\citet{allauca2023} justifica la incorporación de pesos compuestos en las
+aristas
 del grafo dirigido valorado como mecanismo para modelar correctamente el costo
 total de cada ruta. La teoría de grafos provee algoritmos exactos de caminos
 mínimos ---específicamente el algoritmo de \dijkstra{} y el algoritmo de
-\floyd{}--- para determinar la ruta óptima entre cada par de nodos una vez que los
+\floyd{}--- para determinar la ruta óptima entre cada par de nodos una vez que
+los
 pesos de las aristas reflejan todos los componentes del costo de viaje.
  
 \subsubsection{Fórmulas}
@@ -456,9 +501,9 @@ Donde $P_{\text{constante}}$ es un castigo fijo de tiempo por cada transbordo
  
 Donde:
 \begin{itemize}
-    \item $W_{s,h}$ = Peso total de la arista artificial de transferencia entre la
+\item $W_{s,h}$ = Peso total de la arista artificial de transferencia entre la
     parada $s$ y el andén de la línea $h$, en minutos.
-    \item $T_{\text{walk}}(s, h)$ = Tiempo de caminata entre la parada de descenso
+\item $T_{\text{walk}}(s, h)$ = Tiempo de caminata entre la parada de descenso
     y el andén de abordaje, en minutos.
     \item $T_{\text{wait}}(s, h)$ = Tiempo de espera promedio en el andén de la
     línea $h$, calculado como la mitad del intervalo de paso (\textit{headway})
@@ -471,10 +516,10 @@ Donde:
     \centering
     \includegraphics[width=0.68\textwidth]{Figures/Cap3/PenalizacionTransferencia.png}
     \caption[Diagrama del indicador de Penalización por Transferencia $W_{s,h}$]{
-    Nodo de transferencia con la descomposición del peso total en sus componentes
+Nodo de transferencia con la descomposición del peso total en sus componentes
     de tiempo de caminata y espera.}
     \label{fig:indicador-W}
-    \fuentefigura{Elaboración propia con base en \textcite{allauca2023}.}
+    \fuentefigura{Elaboración propia con base en \citet{allauca2023}.}
 \end{figure}
 
  
@@ -482,8 +527,10 @@ Donde:
  
 El uso de horarios \gtfs{} estáticos para estimar $T_{\text{wait}}$ introduce un
 sesgo conocido: los datos estandarizados representan únicamente horarios
-planificados, no tiempos reales de operación. \textcite{fortin2016innovative} reconocen esta
-limitación y señalan que los horarios inscritos pueden ser incorrectos debido a la
+planificados, no tiempos reales de operación. \citet{fortin2016innovative}
+reconocen esta
+limitación y señalan que los horarios inscritos pueden ser incorrectos debido a
+la
 congestión o a errores de codificación. Para mitigar este sesgo, la variante
 dinámica de la penalización se calibrará mediante peticiones automatizadas a la
 \textit{Google Maps Directions API} (modo \texttt{transit}, con variación del
@@ -493,7 +540,8 @@ a condiciones históricas reales en distintos cortes horarios.
  
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
  
-\textbf{Par de transferencia:} Pantitlán Línea 1 Metro $\to$ Pantitlán Línea 9 Metro.
+\textbf{Par de transferencia:} Pantitlán Línea 1 Metro $\to$ Pantitlán Línea 9
+Metro.
  
 \begin{table}[H]
     \centering
@@ -516,24 +564,33 @@ a condiciones históricas reales en distintos cortes horarios.
 \label{subsec:friccion-vial}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{fortin2016innovative}
+\textbf{Fuente principal:} \citet{fortin2016innovative}
  
 \subsubsection{Definición y Fundamentación}
  
 El Coeficiente de Fricción Vial es un multiplicador dinámico que corrige la
-sobreestimación de eficiencia que ocurre cuando se asigna a las rutas de transporte
-de superficie un tiempo de viaje ideal, sin considerar el efecto de la congestión
-vehicular. \textcite{fortin2016innovative} reconocen que los datos estandarizados del \gtfs{}
-representan únicamente horarios planificados, y que utilizar tiempos ajustados a las
-condiciones reales de tráfico devuelve estimaciones sustancialmente más precisas al
+sobreestimación de eficiencia que ocurre cuando se asigna a las rutas de
+transporte
+de superficie un tiempo de viaje ideal, sin considerar el efecto de la
+congestión
+vehicular. \citet{fortin2016innovative} reconocen que los datos
+estandarizados del \gtfs{}
+representan únicamente horarios planificados, y que utilizar tiempos ajustados a
+las
+condiciones reales de tráfico devuelve estimaciones sustancialmente más precisas
+al
 ejecutar el algoritmo de \dijkstra{}.
  
-Este indicador distingue dos categorías de modos con comportamientos radicalmente
-distintos respecto a la congestión: los \termino{modos confinados} (Metro, Cablebús,
-Suburbano, Tren Ligero), que circulan en infraestructura segregada y mantienen un
+Este indicador distingue dos categorías de modos con comportamientos
+radicalmente
+distintos respecto a la congestión: los \termino{modos confinados} (Metro,
+Cablebús,
+Suburbano, Tren Ligero), que circulan en infraestructura segregada y mantienen
+un
 $CF = 1.0$ constante, y los \termino{modos de tráfico mixto} (RTP, Trolebús,
 Metrobús en tramos compartidos, microbuses concesionados), cuyo tiempo de viaje
-real se incrementa en función de la hora del día y las condiciones de la vialidad.
+real se incrementa en función de la hora del día y las condiciones de la
+vialidad.
  
 \subsubsection{Fórmula}
  
@@ -551,7 +608,7 @@ Donde:
 \begin{itemize}
     \item $CF_h$ = Coeficiente de Fricción Vial en la franja horaria $h$
     (adimensional, $CF_h \geq 1.0$).
-    \item $T_{\text{real},h}$ = Tiempo de viaje observado en el tramo a la hora $h$,
+\item $T_{\text{real},h}$ = Tiempo de viaje observado en el tramo a la hora $h$,
     en minutos.
     \item $T_{\text{ideal}}$ = Tiempo de viaje en condiciones de flujo libre
     (referencia: 05:00\,h, sin congestión), en minutos.
@@ -559,7 +616,8 @@ Donde:
  
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
  
-\textbf{Tramo de referencia:} Ruta RTP, Insurgentes Norte (5\,km, tiempo en flujo
+\textbf{Tramo de referencia:} Ruta RTP, Insurgentes Norte (5\,km, tiempo en
+flujo
 libre: 10 minutos).
  
 \begin{table}[H]
@@ -589,23 +647,29 @@ libre: 10 minutos).
 \label{subsec:centralidad-intermediacion}
 % -----------------------------------------------------------------------
  
-\textbf{Fuentes principales:} \textcite{lee2008}; \textcite{allauca2023}
+\textbf{Fuentes principales:} \citet{lee2008}; \citet{allauca2023}
  
 \subsubsection{Definición y Fundamentación}
  
-La Centralidad de Intermediación cuantifica la importancia de cada nodo de la red
+La Centralidad de Intermediación cuantifica la importancia de cada nodo de la
+red
 en función de cuántas rutas óptimas de la ciudad lo utilizan como nodo de paso.
 Un nodo con alta centralidad de intermediación es aquel que aparece con mayor
 frecuencia en los caminos mínimos entre los distintos pares origen-destino del
 sistema: su remoción o saturación produce el mayor impacto sobre los tiempos de
 viaje globales.
  
-\textcite{allauca2023} señala que la representación de la red de transporte como un
-grafo permite realizar un análisis de centralidad para evaluar la importancia de los
-nodos (estaciones), lo que sirve fundamentalmente para identificar los nodos críticos
-y las rutas más importantes del sistema. \textcite{lee2008}, en su caso de estudio
+\citet{allauca2023} señala que la representación de la red de transporte como
+un
+grafo permite realizar un análisis de centralidad para evaluar la importancia de
+los
+nodos (estaciones), lo que sirve fundamentalmente para identificar los nodos
+críticos
+y las rutas más importantes del sistema. \citet{lee2008}, en su caso de
+estudio
 del metro de Seúl, aplican este principio empíricamente, demostrando que en un
-sistema metropolitano la distribución del grado nodal sigue una ley de potencias,
+sistema metropolitano la distribución del grado nodal sigue una ley de
+potencias,
 confirmando la naturaleza de red libre de escala del sistema y su consecuente
 vulnerabilidad a ataques dirigidos.
  
@@ -618,7 +682,7 @@ vulnerabilidad a ataques dirigidos.
  
 Donde:
 \begin{itemize}
-    \item $B(v)$ = Centralidad de Intermediación de la estación $v$ (adimensional,
+\item $B(v)$ = Centralidad de Intermediación de la estación $v$ (adimensional,
     normalizada en $[0, 1]$).
     \item $\sigma_{st}$ = Número total de caminos mínimos desde la estación de
     origen $s$ hasta el destino $t$.
@@ -626,7 +690,8 @@ Donde:
     forzosamente por la estación $v$.
 \end{itemize}
  
-La versión ponderada del indicador, $B(v, w)$, utiliza el tiempo de viaje real como
+La versión ponderada del indicador, $B(v, w)$, utiliza el tiempo de viaje real
+como
 métrica de costo en la búsqueda de caminos mínimos, de modo que los nodos
 contabilizados son aquellos que aparecen en las rutas más rápidas, no
 necesariamente las más cortas en distancia.
@@ -640,8 +705,8 @@ necesariamente las más cortas en distancia.
     transferencia con alta centralidad: concentra el mayor número de caminos
     mínimos del sistema.}
     \label{fig:indicador-Bv}
-    \fuentefigura{Elaboración propia con base en \textcite{lee2008} y
-    \textcite{allauca2023}.}
+    \fuentefigura{Elaboración propia con base en \citet{lee2008} y
+    \citet{allauca2023}.}
 \end{figure}
 
 
@@ -664,9 +729,11 @@ necesariamente las más cortas en distancia.
     \end{tabularx}
 \end{table}
  
-La caída en la centralidad de intermediación de los nodos del centro de la ciudad,
+La caída en la centralidad de intermediación de los nodos del centro de la
+ciudad,
 combinada con el surgimiento de nuevos nodos de alta centralidad en el Anillo
-Periférico, constituye la demostración algorítmica de que la propuesta descongestiona
+Periférico, constituye la demostración algorítmica de que la propuesta
+descongestiona
 el núcleo urbano y redistribuye los flujos hacia la periferia.
  
 \textbf{Implementación en Python:}
@@ -684,25 +751,32 @@ top_nodes = sorted(centrality.items(), key=lambda x: x[1], reverse=True)[:10]
 \label{subsec:robustez-geometrica}
 % -----------------------------------------------------------------------
  
-\textbf{Fuente principal:} \textcite{loterovélez2014}
+\textbf{Fuente principal:} \citet{loterovélez2014}
  
 \subsubsection{Definición y Fundamentación}
  
 La Robustez Geométrica es el indicador de mayor dependencia jerárquica del
-modelo: para calcularlo, se requiere conocer previamente qué nodo destruir ---dado
+modelo: para calcularlo, se requiere conocer previamente qué nodo destruir
+---dado
 por el Indicador de Centralidad de Intermediación
-(\autoref{subsec:centralidad-intermediacion})--- y medir el impacto de esa destrucción
+(\autoref{subsec:centralidad-intermediacion})--- y medir el impacto de esa
+destrucción
 sobre el desempeño global ---dado por el Indicador de Tiempo de Viaje Promedio
 (\autoref{subsec:tiempo-viaje})---.
  
-\textcite{loterovélez2014} definen la vulnerabilidad operativamente como la
-disminución de la eficiencia de la red después de un ataque o falla. La metodología
-estándar para medir la robustez consiste en cuantificar el impacto de la remoción de
-un componente de la red, ya sea de forma aleatoria ---simulando una falla fortuita
-como el cierre de una estación por inundación o mantenimiento--- o de forma dirigida
+\citet{loterovélez2014} definen la vulnerabilidad operativamente como la
+disminución de la eficiencia de la red después de un ataque o falla. La
+metodología
+estándar para medir la robustez consiste en cuantificar el impacto de la
+remoción de
+un componente de la red, ya sea de forma aleatoria ---simulando una falla
+fortuita
+como el cierre de una estación por inundación o mantenimiento--- o de forma
+dirigida
 hacia los elementos más importantes, simulando un ataque a un nodo crítico. Los
 autores señalan que las redes con distribución libre de escala son robustas ante
-fallas aleatorias, pero altamente vulnerables ante ataques dirigidos a sus nodos más
+fallas aleatorias, pero altamente vulnerables ante ataques dirigidos a sus nodos
+más
 conectados, resultado que es la base teórica del experimento de fase final del
 presente trabajo.
  
@@ -715,19 +789,22 @@ presente trabajo.
  
 Donde:
 \begin{itemize}
-    \item $\Delta E$ = Caída relativa de eficiencia de la red tras la remoción de un
+\item $\Delta E$ = Caída relativa de eficiencia de la red tras la remoción de un
     nodo o conjunto de nodos (adimensional, rango $[0, 1]$).
-    \item $E_0$ = Eficiencia global de la red en el estado completo, expresada como
+\item $E_0$ = Eficiencia global de la red en el estado completo, expresada como
     el inverso del Tiempo de Viaje Promedio:
     $E_0 = 1 / T_{\text{completa}}$.
-    \item $E_f$ = Eficiencia global de la red en el estado fallido (tras la remoción
+\item $E_f$ = Eficiencia global de la red en el estado fallido (tras la remoción
     del nodo o nodos críticos):
     $E_f = 1 / T_{\text{fallida}}$.
 \end{itemize}
  
-Un valor $\Delta E \approx 0$ indica que la red es robusta: la pérdida del nodo no
-afecta significativamente el desempeño global (existen rutas alternativas eficientes).
-Un valor $\Delta E \to 1$ indica que la red es frágil: la pérdida de ese nodo produce
+Un valor $\Delta E \approx 0$ indica que la red es robusta: la pérdida del nodo
+no
+afecta significativamente el desempeño global (existen rutas alternativas
+eficientes).
+Un valor $\Delta E \to 1$ indica que la red es frágil: la pérdida de ese nodo
+produce
 una degradación severa del servicio.
 
 
@@ -739,7 +816,7 @@ una degradación severa del servicio.
     completo con ruta directa ($E_0$) versus estado con fallo y rutas
     alternativas de desvío ($E_f$).}
     \label{fig:indicador-deltaE}
-    \fuentefigura{Elaboración propia con base en \textcite{loterovélez2014}.}
+    \fuentefigura{Elaboración propia con base en \citet{loterovélez2014}.}
 \end{figure}
 
 
@@ -765,8 +842,10 @@ la red actual).
     \end{tabularx}
 \end{table}
  
-La diferencia entre $\Delta E = 36\%$ (red radial sin anillo) y $\Delta E = 17\%$
-(red con anillo periférico) demuestra algorítmicamente que la propuesta reduce la
+La diferencia entre $\Delta E = 36\%$ (red radial sin anillo) y $\Delta E = 17\%
+$
+(red con anillo periférico) demuestra algorítmicamente que la propuesta reduce
+la
 vulnerabilidad del sistema ante la pérdida del nodo más crítico en casi un 53\%,
 dotando a la red metropolitana de redundancia estructural.
  
@@ -796,7 +875,8 @@ print(f"Caida de eficiencia: {delta_E:.2%}")
 \label{subsec:resumen-indicadores}
 % =============================================================================
  
-La Tabla~\ref{tab:resumen-indicadores} sintetiza los ocho indicadores, su símbolo,
+La Tabla~\ref{tab:resumen-indicadores} sintetiza los ocho indicadores, su
+símbolo,
 la fase metodológica a la que pertenecen y sus dependencias jerárquicas.
  
 \begin{table}[H]

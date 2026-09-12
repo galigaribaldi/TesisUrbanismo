@@ -3,10 +3,14 @@
 % ANEXO E — Cartografía de Presentación: Transport-gis-zmvm-mjg
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Este anexo reúne las versiones cartográficas de alta resolución producidas por el sistema \textbf{Transport-gis-zmvm-mjg},
-generadas con QGIS~3.x a partir de las plantillas institucionales de la \textsc{unam}. Los mapas utilizan la proyección
-\textsc{epsg}:32614 (UTM zona~14N) y tienen como fuente base los \textit{feeds} \gtfs{} de la \textsc{semovi} (2024) y la cartografía
-del \textsc{inegi} (2023). Versiones reducidas de estos mapas se encuentran en los capítulos~\ref{ch:Capas-codigo}
+Este anexo reúne las versiones cartográficas de alta resolución producidas por
+el sistema \textbf{Transport-gis-zmvm-mjg},
+generadas con QGIS~3.x a partir de las plantillas institucionales de la
+\textsc{unam}. Los mapas utilizan la proyección
+\textsc{epsg}:32614 (UTM zona~14N) y tienen como fuente base los \textit{feeds}
+\gtfs{} de la \textsc{semovi} (2024) y la cartografía
+del \textsc{inegi} (2023). Versiones reducidas de estos mapas se encuentran en
+los capítulos~\ref{ch:Capas-codigo}
 y~\ref{ch:resultados-vft} para su discusión contextual.
 
 % =============================================================================
@@ -18,7 +22,8 @@ y~\ref{ch:resultados-vft} para su discusión contextual.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Mapa_Red_Esquematica}
   \caption[Red esquemática multimodal de la ZMVM (alta resolución)]{Red esquemática multimodal de la \zmvm{}.
-    Muestra los doce sistemas de transporte reconocidos por el modelo VFT sobre los límites político-administrativos
+Muestra los doce sistemas de transporte reconocidos por el modelo VFT sobre los
+límites político-administrativos
     de la \cdmx{} y el Estado de México.}
   \label{fig:anx-mapa-red}
   \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
@@ -34,8 +39,10 @@ y~\ref{ch:resultados-vft} para su discusión contextual.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Mapa_Cobertura_Red_Total}
   \caption[Cobertura de la red por isócronas de 800~m (alta resolución)]{Cobertura espacial de la red multimodal de transporte
-    de la \zmvm{}, calculada como el área alcanzable a 800~m de caminata desde cualquier parada o estación
-    (indicador $C$ del modelo VFT). Las alcaldías del sur presentan las coberturas más bajas.}
+de la \zmvm{}, calculada como el área alcanzable a 800~m de caminata desde
+cualquier parada o estación
+(indicador $C$ del modelo VFT). Las alcaldías del sur presentan las coberturas
+más bajas.}
   \label{fig:anx-mapa-cobertura-total}
   \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
@@ -50,8 +57,9 @@ y~\ref{ch:resultados-vft} para su discusión contextual.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Mapa_Cobertura_Mapa_Calor}
   \caption[Densidad de cobertura — mapa de calor (alta resolución)]{Densidad de la cobertura espacial de la red
-    representada como mapa de calor. La intensidad del color refleja la concentración de isócronas superpuestas,
-    revelando los núcleos de mayor accesibilidad modal en la región metropolitana.}
+representada como mapa de calor. La intensidad del color refleja la
+concentración de isócronas superpuestas,
+revelando los núcleos de mayor accesibilidad modal en la región metropolitana.}
   \label{fig:anx-mapa-cobertura-calor}
   \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
@@ -66,8 +74,10 @@ y~\ref{ch:resultados-vft} para su discusión contextual.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Mapa_Fuerza_Capilar}
   \caption[Fuerza capilar: los 20 nodos \textit{hub} de mayor centralidad (alta resolución)]{Fuerza capilar de los nodos de la red
-    de transporte de la \zmvm{}. Se destacan los 20 nodos con mayor valor de centralidad de intermediación ponderada,
-    que corresponden a los puntos de mayor influencia redistributiva de flujos en la red multimodal.}
+de transporte de la \zmvm{}. Se destacan los 20 nodos con mayor valor de
+centralidad de intermediación ponderada,
+que corresponden a los puntos de mayor influencia redistributiva de flujos en la
+red multimodal.}
   \label{fig:anx-mapa-fuerza-capilar}
   \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
@@ -82,9 +92,11 @@ y~\ref{ch:resultados-vft} para su discusión contextual.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Mapa_DF}
   \caption[Factor de desviación por nodo (alta resolución)]{Factor de desviación ($\text{FD}$) de los nodos de la red
-    de transporte de la \zmvm{}. El gradiente de color (verde→rojo) indica la relación entre la distancia real de viaje
-    y la distancia euclidiana óptima: valores altos (rojo) señalan nodos donde las rutas disponibles desvían significativamente
-    del trayecto directo, lo que penaliza la eficiencia de la red en esas zonas.}
+de transporte de la \zmvm{}. El gradiente de color (verde→rojo) indica la
+relación entre la distancia real de viaje
+y la distancia euclidiana óptima: valores altos (rojo) señalan nodos donde las
+rutas disponibles desvían significativamente
+del trayecto directo, lo que penaliza la eficiencia de la red en esas zonas.}
   \label{fig:anx-mapa-factor-desviacion}
   \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}

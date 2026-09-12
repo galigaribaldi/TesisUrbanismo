@@ -2,7 +2,7 @@
 ## Proyecto: Transportes Anillares y su Importancia en la CDMX
 **Autor:** Hernán Galileo Cabrera Garibaldi  
 **Programa:** Maestría en Urbanismo, UNAM  
-**Motor de compilación:** XeLaTeX + Biber
+**Motor de compilación:** XeLaTeX + BibTeX
 
 ---
 
@@ -13,7 +13,7 @@ Tiene una estructura modular: el archivo raíz es `tesis.tex`, los paquetes y co
 personalizados están en `Latex/Comands.tex`, y el contenido está dividido en capítulos
 dentro de carpetas numeradas (`1-Introduccion/`, `2-MarcoTeorico/`, etc.).
 
-La bibliografía usa **biblatex con estilo APA** y backend **biber**, declarada en `referencias.bib`.
+La bibliografía usa **natbib** con estilo **apalike** y backend **bibtex**, declarada en `referencias.bib`.
 
 ---
 
@@ -31,12 +31,12 @@ La bibliografía usa **biblatex con estilo APA** y backend **biber**, declarada 
   3. `graphicx`
   4. `amsmath`, `amsfonts`, `amssymb`, `bm`
   5. `fancyhdr`, `titlesec`, `bookmark`
-  6. `biblatex`
+  6. `natbib`
   7. `\input{Latex/Comands}` ← aquí se cargan xcolor, listings, tikz, caption, etc.
   8. `\usepackage{hyperref}` ← SIEMPRE al final
 
 - Paquetes que DEBEN estar antes de `hyperref`: `titlesec`, `bookmark`, `caption`,
-  `subcaption`, `listings`, `biblatex`.
+  `subcaption`, `listings`, `natbib`.
 - `animate` requiere la opción `[xetex]` porque el motor es XeLaTeX.
 - Los colores `unamAzul` y `unamOro` se definen en `Comands.tex` y son usados
   después en `\hypersetup`. No redefinir en ningún otro lugar.
@@ -59,8 +59,9 @@ La bibliografía usa **biblatex con estilo APA** y backend **biber**, declarada 
   transición al siguiente punto.
 - Las figuras y tablas **siempre** van referenciadas en el texto antes de aparecer:
   «como se observa en la Figura~\ref{fig:...}».
-- Los pies de figura usan `\fuentefigura{...}` y las citas usan `\textcite{}` o
-  `\parencite{}` según contexto (nunca \cite{} directamente).
+- Los pies de figura usan `\fuentefigura{...}` y las citas usan `\citet{}` (textual,
+  «Autor (Año)») o `\citep{}` (parentética, «(Autor, Año)») según contexto
+  (nunca `\cite{}` directamente).
 - Las ecuaciones numeradas siempre tienen una descripción de variables inmediatamente
   después con `\begin{itemize}`.
 
@@ -69,7 +70,7 @@ Al revisar cualquier archivo `.tex`, reportar si se detecta:
 - `\label` duplicados en el documento.
 - Referencias con `\ref{}` o `\eqref{}` sin `\label` correspondiente.
 - Figuras incluidas con `\includegraphics` cuyo archivo no existe en `Figures/`.
-- Citas `\textcite{}` o `\parencite{}` cuya clave no existe en `referencias.bib`.
+- Citas `\citet{}` o `\citep{}` cuya clave no existe en `referencias.bib`.
 - Entornos no cerrados (`\begin` sin `\end`).
 - Comandos personalizados usados antes de ser definidos.
 - Paquetes cargados con opciones incompatibles con XeLaTeX
@@ -82,7 +83,7 @@ Al revisar cualquier archivo `.tex`, reportar si se detecta:
 ```
 tesis.tex                    ← Raíz del documento (no agregar paquetes aquí)
 Latex/Comands.tex            ← ÚNICO lugar para paquetes y \newcommand
-referencias.bib              ← Base de datos bibliográfica (estilo APA/biber)
+referencias.bib              ← Base de datos bibliográfica (natbib/apalike + bibtex)
 1-Introduccion/
 2-MarcoTeorico/
 3-Conceptos-Indicadores/

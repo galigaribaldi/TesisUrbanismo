@@ -7,7 +7,7 @@
 %  babel debe ir primero: establece el idioma que todos los demás consultan
 % =============================================================================
 \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
-\usepackage{csquotes}          % Requerido por biblatex+babel; habilita \blockquote
+\usepackage{csquotes}          % Habilita \blockquote y manejo de citas con babel
 
 % =============================================================================
 %  2. TIPOGRAFÍA Y LAYOUT BASE
@@ -47,16 +47,9 @@
 
 % =============================================================================
 %  7. BIBLIOGRAFÍA
-%  biblatex DEBE ir antes de hyperref
+%  natbib DEBE ir antes de hyperref
 % =============================================================================
-\usepackage[
-  backend    = biber,
-  style      = apa,
-  sortlocale = es_MX,
-  uniquename = false,
-  uniquelist = false
-]{biblatex}
-\addbibresource{referencias.bib}
+\usepackage{natbib}
 
 % =============================================================================
 %  8. COMANDOS Y PAQUETES ADICIONALES
@@ -73,7 +66,7 @@
     pdftitle   = {Transportes Anillares y su Importancia en la Ciudad de Mexico},
     pdfauthor  = {Hernan Galileo Cabrera Garibaldi},
     pdfsubject = {Tesis de Maestria en Urbanismo, UNAM},
-    pdfcreator = {XeLaTeX + biblatex/biber},
+    pdfcreator = {XeLaTeX + natbib/bibtex},
     colorlinks = true,
     linkcolor  = unamAzul,
     citecolor  = unamAzul,
@@ -210,6 +203,7 @@
 %  BIBLIOGRAFÍA
 % ---------------------------------------------------------------------------
 \backmatter
-\printbibliography[title={Bibliografía}]
+\bibliographystyle{apalike}
+\bibliography{referencias}
 
 \end{document}
