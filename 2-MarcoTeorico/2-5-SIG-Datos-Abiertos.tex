@@ -1,0 +1,102 @@
+% !TeX root = ../tesis.tex
+
+% -----------------------------------------------------------------------
+\section{Datos Abiertos y \gis{} Participativo como Infraestructura Metodológica}
+\label{sec:sig-datos-abiertos}
+% -----------------------------------------------------------------------
+
+La viabilidad de una metodología replicable para el diagnóstico topológico de
+redes de transporte metropolitano descansa, en gran medida, en la disponibilidad
+de datos geoespaciales abiertos y estandarizados. La presente investigación
+utiliza dos tipos de fuentes complementarias: los feeds \gtfs{} oficiales de los
+sistemas de transporte masivo de la \zmvm{} y \textbf{la cartografía de base derivada de
+iniciativas de información geográfica voluntaria (\textsc{vgi}}, por sus siglas
+en
+inglés). Esta sección establece el sustento teórico que justifica la pertinencia
+y suficiencia de ambas fuentes para el análisis a escala metropolitana, así como
+el argumento de equidad que fundamenta el desarrollo de herramientas de código
+abierto accesibles para planificadores urbanos.
+
+% -----------------------------------------------------------------------
+\subsection{VGI y cobertura de datos a escala metropolitana}
+\label{subsec:vgi-cobertura}
+% -----------------------------------------------------------------------
+
+La validez del análisis topológico propuesto descansa, en parte, en la calidad y
+completitud de los datos geoespaciales de base. \citet{haklay2010good} demostró,
+mediante una comparación sistemática entre datos de OpenStreetMap y los del
+\textit{Ordnance Survey} del Reino Unido, que la información \textsc{vgi}
+alcanza
+niveles de precisión posicional superiores al 80\% en áreas urbanas densas,
+resultado atribuible a la alta concentración de contribuidores activos en dichos
+entornos. Este umbral de calidad es comparable al de fuentes cartográficas
+institucionales, lo que posiciona a los datos colaborativos como una alternativa
+técnicamente válida para el modelado de redes en ciudades con cobertura de
+contribuidores suficiente.
+
+Complementariamente, \citet{barrington2017world} evidenciaron que la red vial
+de OpenStreetMap supera el 80\% de completitud a escala global, con niveles aún
+más elevados en las zonas metropolitanas de países de ingresos medios y altos.
+Su análisis también demostró que las ciudades latinoamericanas de escala
+comparable a la \zmvm{} presentan coberturas superiores al promedio global,
+resultado del crecimiento sostenido de comunidades locales de cartografía
+colaborativa. Estos hallazgos sustentan la pertinencia de emplear datos
+\gis{} de fuentes abiertas ---en combinación con feeds \gtfs{} oficiales---
+como insumo primario para el modelado de la red multimodal de la \zmvm{}.
+
+% -----------------------------------------------------------------------
+\subsection{Datos abiertos, comunidad y equidad de acceso}
+\label{subsec:datos-comunidad-equidad}
+% -----------------------------------------------------------------------
+
+La disponibilidad de datos no garantiza, por sí sola, su aprovechamiento
+equitativo. \citet{gurstein2011open} argumenta que la diferencia entre datos
+abiertos y datos verdaderamente útiles reside en la existencia de herramientas
+que traduzcan la información bruta en conocimiento accionable para actores con
+capacidades técnicas heterogéneas; sin dicha mediación, los datos abiertos
+empoderan únicamente a quienes ya cuentan con los recursos computacionales y
+el capital humano para procesarlos, reproduciendo en el plano digital las mismas
+desigualdades de acceso que caracterizan la movilidad metropolitana.
+
+Por su parte, \citet{neis2012street} documentaron cómo la colaboración
+distribuida en OpenStreetMap generó, entre 2007 y 2011, una red vial completa
+y detallada para todo el territorio alemán, demostrando que los datos \gis{}
+de base colaborativa pueden alcanzar la escala y densidad requeridas para el
+análisis urbano de precisión en plazos relativamente cortos. La evolución
+acelerada de la cobertura cartográfica comunitaria valida que las ciudades que
+actualmente disponen de datos incompletos pueden incorporarse progresivamente
+a este tipo de análisis conforme la comunidad local de contribuidores se
+consolida. En conjunto, estas perspectivas justifican la necesidad de
+desarrollar herramientas de código abierto que medien entre los datos
+disponibles y los planificadores urbanos que carecen de formación especializada
+en programación o análisis de redes complejas.
+
+% -----------------------------------------------------------------------
+\subsection{De los datos abiertos a la herramienta replicable}
+\label{subsec:datos-herramienta-replicable}
+% -----------------------------------------------------------------------
+
+La cadena metodológica propuesta en esta investigación ---\textit{Apimetro}
+para la adquisición y normalización de feeds \gtfs{}, \textit{VFTModel} para el
+cálculo de indicadores topológicos y \textit{Transport-gis} para la
+visualización cartográfica de resultados--- representa una respuesta concreta a
+la brecha identificada por \citet{gurstein2011open}: tres motores de código
+abierto que transforman datos estandarizados en diagnósticos cuantitativos
+comprensibles para urbanistas sin especialización en ciencias de datos. Esta
+arquitectura metodológica es, por diseño, independiente de licencias comerciales
+y reproducible en cualquier área metropolitana que disponga de feeds \gtfs{}
+y cartografía \gis{} de base, condición que, conforme a los hallazgos de
+\citet{barrington2017world}, se cumple en la gran mayoría de las ciudades
+latinoamericanas de escala comparable a la \zmvm{}.
+
+El argumento de replicabilidad no es secundario, sino central al objetivo general
+de la investigación: demostrar que un planificador urbano con acceso a datos
+abiertos puede, mediante esta metodología, obtener un diagnóstico topológico
+riguroso de su red de transporte y evaluar escenarios alternativos de
+intervención sin depender de software propietario ni de equipos técnicos
+especializados. Los referentes de calidad de datos \citep{haklay2010good,
+barrington2017world} y los principios de equidad en el acceso al conocimiento
+\citep{gurstein2011open, neis2012street} constituyen, en este sentido, el
+fundamento teórico que articula la dimensión metodológica de la tesis con su
+dimensión urbanística.
+
