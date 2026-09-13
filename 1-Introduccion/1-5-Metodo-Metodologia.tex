@@ -1,0 +1,191 @@
+% !TeX root = ../tesis.tex
+
+\section{Método}
+\label{sec:metodo}
+%-----------------------------------------------------------------------
+
+La presente investigación adopta un enfoque \textbf{cuantitativo}
+fundamentado en la teoría de grafos y el modelado de redes complejas de
+transporte.
+Este enfoque permite representar formalmente la red multimodal de la \zmvm{}
+como
+un grafo dirigido y ponderado $\grafo = (\nodos, \aristas, \peso{i}{j})$, sobre
+el
+cual se calculan indicadores de eficiencia, vulnerabilidad y conectividad de
+manera
+objetiva y reproducible \citep{allauca2023, owais2020}.
+
+La elección de este método responde a tres condiciones estructurales de la
+investigación: (1)~la disponibilidad de datos abiertos estandarizados en formato
+\gtfs{} para la totalidad de los sistemas de transporte masivo de la \cdmx{};
+(2)~la existencia de motores computacionales de autoría propia ---
+\textit{Apimetro}
+\citep{cabrera2025apimetro} y \textit{VFTModel}
+\citep{cabrera2026VFTModel}---
+que permiten procesar dichos datos a escala metropolitana; y (3)~la naturaleza
+cuantificable de las preguntas de investigación, centradas en la reducción de
+tiempos
+de traslado, la distribución de centralidad y la robustez geométrica de la red.
+
+A diferencia de los enfoques tradicionales de modelación basados en matrices
+origen-destino, el análisis mediante grafos no requiere calibración de encuestas
+de
+movilidad, lo que lo hace especialmente adecuado para la evaluación estructural
+de
+redes existentes y la simulación de escenarios topológicos alternativos
+\citep{fortin2016innovative}.
+
+Las herramientas y fuentes de datos que articulan el proceso metodológico son:
+
+\begin{itemize}
+\item \textbf{Feeds \gtfs{}} de la red de Movilidad Integrada de la \cdmx{} y
+    los sistemas del Estado de México (Mexibús, Mexicable), como fuente primaria
+    de datos estructurados de la red de transporte.
+\item \textit{Apimetro} \citep{cabrera2025apimetro}: motor de adquisición,
+normalización y construcción del grafo multimodal georreferenciado a partir de
+    datos \gtfs{}.
+\item \textit{VFTModel} \citep{cabrera2026VFTModel}: motor analítico para el
+    cálculo de indicadores de eficiencia urbana ($DI$, $T$), centralidad de
+    intermediación ($B(v)$) y robustez geométrica ($\Delta E$) sobre el grafo
+    construido.
+\item \textit{Transport-gis} \citep{cabrera2026transportgis}: motor de
+    visualización cartográfica para la generación de mapas temáticos
+    georreferenciados a partir de los indicadores calculados por
+    \textit{VFTModel}, empleando capas \gis{} en formato GeoPackage,
+    QGIS y Tableau como plataformas de representación territorial.
+\item \textbf{Python y Go (Golang)}: lenguajes de programación empleados en el
+    procesamiento de datos, análisis espacial y desarrollo de los motores
+    computacionales.
+    \item \textbf{Sistemas de Información Geográfica (\gis{})}: QGIS y GeoPandas
+para la visualización, validación espacial y análisis territorial de resultados.
+\end{itemize}
+
+%-----------------------------------------------------------------------
+\section{Metodología}
+\label{sec:metodologia}
+%-----------------------------------------------------------------------
+
+La investigación se estructura en cuatro fases secuenciales e interdependientes,
+cada una orientada a cubrir uno o más de los objetivos específicos planteados.
+El
+hilo conductor del proceso es la construcción progresiva del análisis: de la
+adquisición y modelado de los datos hacia el diagnóstico estructural de la red,
+la
+simulación de escenarios y, finalmente, la formulación de lineamientos de
+política
+pública en materia de movilidad \citep{allauca2023}.
+
+\subsection{Fase 1: Adquisición y construcción del grafo multimodal}
+\label{subsec:fase1}
+
+Esta fase tiene una ponderación del 25\% sobre el total de la investigación y
+cubre
+el \textbf{Objetivo Específico~1}.
+
+\begin{description}
+\item[Objetivo de la Fase:] Construir el grafo multimodal georreferenciado de
+    la \zmvm{} a partir del procesamiento sistemático de los feeds \gtfs{} de la
+    totalidad de los sistemas de transporte masivo de la región.
+
+    \item[Actividades a Desarrollar:]~
+    \begin{itemize}
+        \item \textit{Adquisición y normalización de datos \gtfs{}}: Descarga y
+        limpieza de los feeds oficiales mediante el motor \textit{Apimetro}
+\citep{cabrera2025apimetro}. Este proceso incluye la validación de la
+        integridad estructural de los archivos (\texttt{stops.txt},
+\texttt{routes.txt}, \texttt{trips.txt}, \texttt{stop\_times.txt}) conforme
+        al estándar \gtfs{} \citep{fortin2016innovative}.
+\item \textit{Construcción del grafo dirigido y ponderado}: Transformación
+de los datos normalizados en un grafo $\grafo = (\nodos, \aristas)$, donde
+        cada nodo $v \in \nodos$ representa una estación o parada y cada arista
+        $e \in \aristas$ un segmento de ruta ponderado por tiempo de viaje
+        $\peso{i}{j}$.
+        \item \textit{Georreferenciación y validación espacial}: Asociación de
+coordenadas geográficas a cada nodo y verificación de la topología resultante
+        mediante herramientas \gis{}.
+    \end{itemize}
+\end{description}
+
+\subsection{Fase 2: Análisis de la topología actual con \textit{VFTModel}}
+\label{subsec:fase2}
+
+Esta fase tiene una ponderación del 30\% y cubre los \textbf{Objetivos
+Específicos~2 y~3}.
+
+\begin{description}
+    \item[Objetivo de la Fase:] Caracterizar cuantitativamente la estructura y
+    eficiencia de la red de transporte actual mediante el cálculo de indicadores
+    de teoría de redes sobre el grafo construido en la Fase~1.
+
+    \item[Actividades a Desarrollar:]~
+    \begin{itemize}
+\item \textit{Cálculo del Índice de Ruta Directa ($DI$) y Tiempo de Viaje
+        Promedio ($T$)}: Aplicación del motor \textit{VFTModel}
+        \citep{cabrera2026VFTModel} para obtener los indicadores base de
+eficiencia en la configuración topológica actual. El $DI$ mide la desviación
+de los trayectos reales respecto a la distancia euclidiana óptima; valores
+elevados indican ineficiencia geométrica en la red \citep{owais2020}.
+        \item \textit{Cálculo de la Centralidad de Intermediación ($B(v)$)}:
+Identificación de los nodos con mayor flujo de rutas mínimas, localizando
+los puntos neurálgicos cuya falla comprometería la conectividad global del
+        sistema \citep{batista2015, loterovélez2014}.
+\item \textit{Evaluación de la Robustez Geométrica ($\Delta E$)}: Cálculo
+del impacto sistémico ante la eliminación simulada de nodos o aristas de alta
+centralidad, cuantificando la degradación de la eficiencia global de la red
+        \citep{loterovélez2014}.
+    \end{itemize}
+\end{description}
+
+\subsection{Fase 3: Diagnóstico de cobertura y simulación de escenarios}
+\label{subsec:fase3}
+
+Esta fase tiene una ponderación del 35\% y cubre los \textbf{Objetivos
+Específicos~4 y~5}.
+
+\begin{description}
+    \item[Objetivo de la Fase:] A partir del diagnóstico estructural obtenido en
+    la Fase~2, identificar las principales brechas de cobertura y eficiencia del
+    sistema actual, y evaluar el impacto topológico de la incorporación de un
+    corredor anillar en el Tercer Contorno metropolitano.
+
+    \item[Actividades a Desarrollar:]~
+    \begin{itemize}
+\item \textit{Diagnóstico de cobertura y eficiencia}: Análisis espacial de
+los indicadores calculados para identificar zonas con déficit de conectividad
+        lateral, tiempos de traslado elevados y dependencia de nodos de alta
+        intermediación \citep{mishra2012, ugur2025}.
+\item \textit{Diseño del escenario propuesto}: Modelado de corredores anillares
+en los cuatro cuadrantes del Anillo Periférico como un conjunto de nuevos
+nodos $\nodos'$ y aristas $\aristas'$ incorporados al grafo original, con
+pesos $\peso{i}{j}$ estimados a partir de la velocidad comercial de sistemas
+análogos de transporte masivo.
+\item \textit{Simulación comparativa}: Ejecución de \textit{VFTModel} sobre
+        el grafo ampliado para calcular la variación neta en $DI$, $T$ y $B(v)$,
+cuantificando la reducción de tiempos de traslado y la redistribución de la
+        centralidad de intermediación \citep{cabrera2026VFTModel}.
+    \end{itemize}
+\end{description}
+
+\subsection{Fase 4: Síntesis e interpretación de resultados}
+\label{subsec:fase4}
+
+Esta fase tiene una ponderación del 10\% y complementa el
+\textbf{Objetivo Específico~5}.
+
+\begin{description}
+\item[Objetivo de la Fase:] Interpretar los resultados comparativos de la
+simulación hipotética para evaluar la capacidad analítica de la metodología
+desarrollada y establecer las condiciones de replicabilidad del proceso en
+otros contextos metropolitanos con datos \gtfs{} disponibles.
+
+    \item[Actividades a Desarrollar:]~
+    \begin{itemize}
+        \item \textit{Lectura comparativa de indicadores}: Análisis de la
+        variación neta en $DI$, $T$ y $B(v)$ entre la red actual y la red
+        ampliada, valorando la magnitud del impacto topológico del escenario
+        anillar hipotético.
+        \item \textit{Documentación de la metodología}: Registro de los
+        parámetros, supuestos y limitaciones del proceso analítico, con el
+        fin de garantizar su reproducibilidad en contextos similares.
+    \end{itemize}
+\end{description}

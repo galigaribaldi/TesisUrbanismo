@@ -1,0 +1,82 @@
+% !TeX root = ../tesis.tex
+
+%-----------------------------------------------------------------------
+\section{Objetivos de la Investigación}
+\label{sec:objetivos}
+%-----------------------------------------------------------------------
+
+\subsection{Objetivo General}
+\label{subsec:obj-general}
+
+Diseñar y documentar una metodología replicable basada en herramientas de
+código abierto para el diagnóstico cuantitativo de redes de transporte
+multimodal urbano ---sustentada en el procesamiento de datos \gtfs{} y el
+modelado de grafos matemáticos--- con el fin de caracterizar las
+vulnerabilidades funcionales, la distribución de cobertura y las desigualdades
+territoriales de acceso en la red de la \zmvm{}; y demostrar su capacidad
+analítica mediante la simulación del impacto hipotético de la implementación
+de corredores anillares de alta capacidad en los cuatro cuadrantes del Anillo
+Periférico de la \cdmx{}.
+
+\subsection{Objetivos específicos}
+\label{subsec:obj-especificos}
+
+\begin{enumerate}
+\item Sistematizar y procesar los feeds de datos abiertos (\gtfs{}) de la
+    totalidad de la red de Movilidad Integrada de la \cdmx{} y de los sistemas
+    de transporte del Estado de México (Mexibús, Mexicable) mediante una
+    herramienta de adquisición y normalización de código abierto, con el fin
+    de construir un grafo multimodal georreferenciado como insumo base del
+    análisis.
+
+\item Calcular el conjunto de indicadores de eficiencia y cobertura de la red
+    de transporte multimodal de la \zmvm{} ---incluyendo el Índice de Ruta
+    Directa ($DI$), el Tiempo de Viaje Promedio ($T$), el Nivel de Cobertura
+    ($C$) y la Fuerza Capilar ($FC$)--- mediante la cadena de herramientas
+    de código abierto desarrollada, con el fin de obtener un diagnóstico
+    cuantitativo de la configuración topológica actual de la red.
+
+\item Identificar los nodos críticos y vulnerabilidades estructurales de la
+    red de la \zmvm{} mediante el cálculo de la Centralidad de Intermediación
+    ($B(v)$) y la Robustez Geométrica ($\Delta E$), con el fin de localizar
+    los puntos neurálgicos cuya falla comprometería la conectividad global
+    del sistema y fundamentar la pertinencia de alternativas perimetrales.
+
+\item Identificar las zonas periféricas con mayor déficit de cobertura
+    estructurada y conectividad lateral en la \zmvm{} a partir de los
+    resultados de Nivel de Cobertura ($C$) y Fuerza Capilar ($FC$),
+    con el fin de delimitar las áreas de intervención prioritaria para
+    la evaluación del escenario hipotético anillar.
+
+\item Simular el impacto hipotético de la incorporación de corredores anillares
+    de alta capacidad en los cuatro cuadrantes del Anillo Periférico mediante
+    la comparación de los indicadores $DI$, $T$ y $B(v)$ entre la red actual
+    y la red ampliada, con el fin de demostrar la capacidad analítica de la
+    metodología para evaluar escenarios alternativos de planeación.
+
+\end{enumerate}
+
+\subsection{Pregunta de Investigación}
+\label{subsec:pregunta}
+
+¿En qué medida una metodología replicable basada en herramientas de código
+abierto y modelado de grafos matemáticos permite caracterizar las
+vulnerabilidades funcionales y brechas de cobertura de la red de transporte
+multimodal de la \zmvm{}, y demostrar analíticamente el impacto hipotético
+de corredores anillares en los cuatro cuadrantes del Anillo Periférico sobre
+la eficiencia global del sistema?
+
+
+De manera complementaria, se plantean las siguientes preguntas secundarias:
+
+\begin{itemize}
+    \item ¿De qué manera la alta dependencia de nodos centrales (\textit{hubs})
+    en la Ciudad Central y el Primer Contorno compromete la robustez del
+    sistema ante perturbaciones operativas \citep{semovi2020diagnostico}?
+
+    \item ¿Cómo contribuye la brecha de conectividad lateral en el Tercer
+    Contorno al incremento de los tiempos de traslado para los usuarios
+    provenientes del Cuarto Contorno \citep{semovi2020diagnostico}?
+
+\end{itemize}
+
