@@ -1,5 +1,32 @@
 {
   "language": "spanish",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3.10 /Users/hcabrera/Documents/Personal_Documents/TesisUrbanismo/.claude/hooks/session_start_watermarks.py",
+            "timeout": 5,
+            "statusMessage": "Verificando servidor de watermarks..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3.10 /Users/hcabrera/Documents/Personal_Documents/TesisUrbanismo/.claude/hooks/check_watermarks.py",
+            "timeout": 15,
+            "statusMessage": "Verificando marcas IA antes de escribir..."
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(xelatex *)",
