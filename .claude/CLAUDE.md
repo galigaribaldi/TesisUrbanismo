@@ -1,8 +1,68 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+---
+
 # CLAUDE.md — Instrucciones para la Tesis de Maestría
 ## Proyecto: Transportes Anillares y su Importancia en la CDMX
 **Autor:** Hernán Galileo Cabrera Garibaldi  
 **Programa:** Maestría en Urbanismo, UNAM  
 **Motor de compilación:** XeLaTeX + BibTeX
+
+---
+
+## Compilación y herramientas
+
+### Compilar el documento
+
+```bash
+make pdf          # Compilación completa: XeLaTeX → BibTeX → XeLaTeX × 2
+make rapido       # Una sola pasada (para cambios menores, sin bibliografía)
+make latexmk      # Compilación automática con latexmk (maneja las pasadas)
+make bib          # Sólo bibliografía: XeLaTeX → BibTeX → XeLaTeX
+make watch        # Compilación continua al detectar cambios en .tex
+make limpiar      # Elimina artefactos de compilación (conserva el PDF)
+make limpiar-todo # Elimina artefactos y el PDF
+```
+
+### Herramienta de formateo de prosa (`tools/formatter.py`)
+
+Reformatea líneas de prosa largas a ~80 columnas respetando todos los comandos LaTeX. **No modifica** entornos estructurados (tabular, equation, tikzpicture, lstlisting, etc.) ni líneas de comandos (`\section`, `\label`, `\caption`, etc.).
+
+```bash
+make formatear                                      # todos los capítulos
+make formatear CAP=2-MarcoTeorico/2-1-Apertura.tex  # un archivo específico
+make formatear-preview                              # ver qué cambiaría (sin modificar)
+```
+
+### Verificación de integridad LaTeX
+
+```bash
+make checar-bib         # Entradas huérfanas o sin usar en referencias.bib
+make checar-etiquetas   # Labels duplicados en todos los .tex
+make checar-refs        # \ref/\eqref sin \label correspondiente
+```
+
+### Paletas de color disponibles
+
+En `Latex/Colores/` hay cinco paletas intercambiables que se aplican vía `\input{}` en `Comands.tex`:
+
+| Archivo | Paleta activa |
+|---|---|
+| `Institucional.tex` | Azul UNAM (`unamAzul`) + Oro UNAM (`unamOro`) |
+| `Purpura.tex` | Purpura + Dorado |
+| `Rojo.tex` | Rojo + Ocre |
+| `Teal.tex` | Teal + Naranja |
+| `VerdeOlivo.tex` | Verde olivo + Terracota |
+
+Solo se carga una a la vez en `Comands.tex`. Los nombres `unamAzul` / `unamOro` son los tokens que usa `\hypersetup` — cualquier paleta que se active debe exportar esos dos nombres.
+
+### Figuras y mapas
+
+- `Figures/Cap1/`, `Figures/Cap3/`, `Figures/Cap4/`, `Figures/Cap5/` → imágenes por capítulo.
+- `Figures/Mapas/` → 5 PDFs de mapas generados por la herramienta GIS (no modificar manualmente).
+- `Figures/TiKz_Libraries/` → diagramas vectoriales TikZ organizados en subcarpetas `Diagramas/`, `Arboles/`, `Mapas/`, `Conectores/`, `Decoradores/`.
 
 ---
 
@@ -119,6 +179,19 @@ Logos/                       ← Logos institucionales (PDF y PNG)
 | `\grafo` | $\mathcal{G}$ | Grafo |
 | `\nodos` | $\mathcal{V}$ | Conjunto de nodos |
 | `\aristas` | $\mathcal{E}$ | Conjunto de aristas |
+
+---
+
+## Skills activas para este proyecto
+
+Estas skills deben invocarse en los contextos indicados:
+
+| Skill | Cuándo usarla |
+|---|---|
+| `watermarks-remover:clean-user-facing-text` | Antes de finalizar o entregar cualquier sección de prosa en `.tex`; cuando el usuario pida pulir, limpiar o humanizar el texto |
+| `watermarks-remover:remove-ai-marks` | Cuando el usuario pida eliminar marcas de IA, limpiar metadata o hacer invisible el origen del texto |
+| `update-config` | Cuando el usuario quiera configurar comportamientos automáticos, permisos o variables en `.claude/settings.json` |
+| `init` | Cuando la estructura del proyecto cambie significativamente y se deba actualizar este CLAUDE.md |
 
 ---
 

@@ -1,27 +1,33 @@
 {
+  "language": "spanish",
   "permissions": {
     "allow": [
-      "Bash(xelatex:*)",
-      "Bash(biber:*)",
-      "Bash(grep:*)",
-      "Bash(find:*)",
-      "Bash(ls:*)",
+      "Bash(xelatex *)",
+      "Bash(bibtex *)",
+      "Bash(biber *)",
+      "Bash(latexmk *)",
+      "Bash(make *)",
+      "Bash(python3 tools/formatter.py *)",
+      "Bash(python3 tools/formatter.py)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(ls *)",
       "Bash(git status)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)"
+      "Bash(git diff *)",
+      "Bash(git log *)"
     ],
     "deny": [
-      "Bash(rm:*)",
-      "Bash(git push:*)",
-      "Bash(git reset --hard:*)",
-      "Bash(git rebase:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(rm *)",
+      "Bash(git push *)",
+      "Bash(git reset --hard *)",
+      "Bash(git rebase *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   },
   "env": {
     "LATEX_ENGINE": "xelatex",
-    "BIB_ENGINE": "biber",
+    "BIB_ENGINE": "bibtex",
     "MAIN_FILE": "tesis.tex",
     "COMMANDS_FILE": "Latex/Comands.tex",
     "BIB_FILE": "referencias.bib"
