@@ -1,0 +1,33 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  4.3 — VISIÓN GENERAL
+% =============================================================================
+\section{Transport-gis: El motor de Visualización}
+\label{sec:transport-gis-intro}
+
+\textbf{Transport-gis-zmvm-mjg} (
+\termino{Transport GIS — Zona Metropolitana del Valle de México, M.J. Garibelt})
+es el tercer y último componente de la arquitectura de código de esta
+investigación. Mientras \textbf{Apimetro} opera como el motor de datos unificado
+—responsable de la ingesta, estandarización y exposición de la red de transporte
+como servicio— y \textbf{VFTModel} constituye el núcleo analítico que calcula
+los indicadores de desempeño de la red, \textbf{Transport-gis} representa la
+capa de visualización: el sistema que traduce los resultados del modelo en
+representaciones cartográficas interpretables para el análisis urbanístico.
+
+Al igual que los componentes precedentes, la denominación del sistema proviene
+de la obra literaria ficcional \textit{Saga Diarios, tomo~2}, de autoría del
+investigador. En dicha novela, la urbanista ficcional
+\textit{Mildred Julietta Cordero Garibelt} —referida por su acrónimo
+\textit{M.J.G}— es la responsable de la cartografía y la planeación espacial del
+sistema de movilidad de \textit{Ciudad Capital}, ucronía de la Ciudad de México
+en la década de 1960. La trama sitúa a este personaje en el centro de eventos
+políticos relevantes de la historia mexicana del siglo~\textsc{xx}
+\citep{lopezmateos2023comoelcantodelcisne}, cuya intervención en las decisiones
+sobre infraestructura y movilidad urbana articula el argumento central de la
+novela. El paralelismo con la presente investigación es deliberado: así como
+\textit{M.J.G} produce los mapas que hacen legible el sistema de movilidad de
+\textit{Ciudad Capital}, \textbf{Transport-gis} genera las representaciones
+cartográficas que permiten interpretar los resultados del \textbf{VFTModel}
+sobre la red metropolitana real de la \zmvm.

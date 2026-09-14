@@ -1,0 +1,54 @@
+% !TeX root = ../../tesis.tex
+
+\subsection{Transport-gis: Su arquitectura y funcionamiento}
+\label{subsec:transport-gis-arquitectura-funcionamiento}
+
+\textbf{Transport-gis} se organiza en cuatro módulos funcionales
+interdependientes: un módulo de \textbf{análisis} (\texttt{analysis/}), que
+gestiona la consulta a los servicios externos y el procesamiento de indicadores;
+un módulo de \textbf{datos} ( \texttt{data/processed/}), que almacena las capas
+geoespaciales en formato \termino{GeoPackage} (\texttt{.gpkg}) bajo control de
+Git~\textsc{lfs}; un módulo \textbf{cartográfico} ( \texttt{maps/}), que agrupa
+los proyectos QGIS, las plantillas tipográficas y los archivos de exportación; y
+un módulo de \textbf{orquestación} (\texttt{pipeline/}), que coordina la
+ejecución secuencial del proceso completo. La Figura~\ref{fig:tg-pipeline}
+ilustra el flujo de datos entre estos módulos y los componentes externos de la
+arquitectura de la investigación.
+
+% =============================================================================
+\subsubsection{Flujo de producción de datos}
+\label{subsubsec:tg-flujo-datos}
+% =============================================================================
+
+El proceso de producción cartográfica parte de dos fuentes primarias externas:
+los \textit{feeds} \gtfs{} de la \textsc{semovi} (2024), que contienen los
+horarios, rutas y paradas de los sistemas de transporte de la \cdmx{}; y la
+cartografía base del \textsc{inegi} (2023), que provee los límites
+político-administrativos y la infraestructura vial de la \zmvm{}. Estas fuentes
+alimentan a \textbf{Apimetro} —que las transforma en una \api{} \textsc{rest}
+consumible con la topología del grafo de la red— y a \textbf{VFTModel}, que las
+procesa para calcular los indicadores de eficiencia nodal.
+
+Dentro del repositorio de \textbf{Transport-gis}, el script
+\texttt{apimetro\_client.py} consulta la \api{} de \textbf{Apimetro} para
+recuperar la topología del grafo y los atributos de cada modo de transporte,
+mientras que \texttt{vft\_runner.py} ejecuta las rutinas del \textbf{VFTModel}
+para producir los indicadores por nodo en formato \texttt{.csv}. El orquestador
+\texttt{pipeline/run\_pipeline.py} gestiona la secuencia completa de
+transformaciones hasta exportar las capas procesadas al directorio
+\texttt{data/processed/}. Los fragmentos de código de estos componentes se
+detallarán en un anexo técnico.
+\pendiente{Crear Anexo — Documentación Técnica Transport-gis}
+
+\begin{figure}[htbp]
+\centering
+\input{Figures/TiKz_Libraries/Diagramas/tg-pipeline-cartografico}
+\caption[Pipeline de producción cartográfica de Transport-gis]%
+  {Flujo de datos del sistema \textbf{Transport-gis-zmvm-mjg}.
+Los componentes externos \textbf{Apimetro} y \textbf{VFTModel} proveen la
+información primaria;
+dentro del repositorio, los \textit{scripts} de análisis consolidan los datos en
+capas \texttt{.gpkg}
+  que QGIS transforma en los mapas de presentación exportados a la tesis.}
+\label{fig:tg-pipeline}
+\end{figure}

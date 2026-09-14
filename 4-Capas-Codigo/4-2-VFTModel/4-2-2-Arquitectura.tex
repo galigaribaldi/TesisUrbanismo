@@ -1,0 +1,84 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  4.2.2 — ARQUITECTURA
+% =============================================================================
+\section{Arquitectura del Sistema}
+\label{sec:vft-arquitectura}
+
+\subsection{Tres Capas con Responsabilidades Delimitadas}
+\label{subsec:vft-capas}
+
+\begin{figure}[htbp]
+    \centering
+    \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-ports-adapters}
+    \caption[Arquitectura \textit{Ports and Adapters} de VFTModel]{Diagrama de la
+    arquitectura \termino{Ports and Adapters} de VFTModel. El Dominio central
+    (\texttt{src/core/}) contiene los algoritmos topológicos y permanece aislado
+    de las tecnologías externas. Los tres adaptadores gestionan la comunicación
+    con actores externos: API REST, herramientas de visualización y capa de
+    persistencia. Todo el sistema corre dentro de un contenedor Docker.}
+    \label{fig:VFTModel-arquitectura}
+    \fuentefigura{Elaboración propia.}
+\end{figure}
+
+VFTModel está organizado bajo el patrón de \termino{arquitectura hexagonal} (
+\termino{Ports and Adapters}). La idea central es que el núcleo matemático del
+sistema —los algoritmos que calculan los indicadores topológicos— no debe
+depender de cómo lleguen los datos ni de cómo se presenten los resultados. Esta
+independencia se logra separando el código en tres capas concéntricas:
+
+\begin{description}
+    \item[\textbf{Capa de \api{}} (\texttt{src/api/})]
+    Recibe las peticiones \textsc{http}, valida los datos de entrada mediante
+    contratos de tipo estrictos y devuelve respuestas \textsc{json}. Es la única
+    capa visible para quien consume el sistema desde el exterior.
+
+    \item[\textbf{Capa de Dominio} (\texttt{src/core/})]
+    Contiene los algoritmos topológicos, los modelos matemáticos y los servicios
+    de construcción del grafo. Aquí reside toda la inteligencia analítica del
+    modelo. No depende de cómo lleguen los datos ni de cómo se muestren.
+
+    \item[\textbf{Capa de Infraestructura} (\texttt{src/infrastructure/})]
+    Gestiona los clientes \textsc{http} para comunicarse con Apimetro, el acceso
+    a archivos \geojson{} locales de respaldo y las colas de procesamiento
+    asíncrono. Se encarga de obtener los datos, no de analizarlos.
+\end{description}
+
+La Figura~\ref{fig:vft-arquitectura} ilustra la jerarquía de las tres capas y el
+sentido de las dependencias entre ellas.
+
+\begin{figure}[H]
+    \centering
+    \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-hexagonal}
+    \caption[Arquitectura hexagonal de VFTModel]{Las tres capas de la arquitectura
+    hexagonal de VFTModel. Las flechas bidireccionales indican dependencias
+    controladas: cada capa solicita servicios a la inferior; la inferior nunca
+    dicta qué calcular a las superiores.}
+    \label{fig:vft-arquitectura}
+    \fuentefigura{Elaboración propia.}
+\end{figure}
+
+El beneficio práctico de esta separación es la reproducibilidad: si el formato
+de datos de Apimetro cambia, o si los resultados se requieren en un visor
+cartográfico distinto, solo se modifica la capa correspondiente sin alterar el
+núcleo matemático.
+
+\subsection{Flujo de Procesamiento}
+\label{subsec:vft-flujo}
+
+El procesamiento de una solicitud de análisis sigue una cadena de seis
+transformaciones sucesivas, desde la ingesta de datos geográficos crudos hasta
+la entrega de métricas finales, como se esquematiza en la Figura~
+\ref{fig:vft-flujo}.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\linewidth}{!}{%
+    \input{Figures/TiKz_Libraries/Diagramas/vft-flujo-procesamiento}}%
+    \caption[Flujo de procesamiento de VFTModel]{Cadena de transformación de
+    VFTModel: desde los datos geográficos crudos de Apimetro hasta los
+    indicadores topológicos publicados vía \api{} \textsc{rest}.}
+    \label{fig:vft-flujo}
+    \fuentefigura{Elaboración propia.}
+\end{figure}

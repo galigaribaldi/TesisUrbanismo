@@ -1,0 +1,76 @@
+% !TeX root = ../../tesis.tex
+
+\subsection{Modelo de Datos y Esquema Relacional}
+\label{subsec:modelo-datos}
+
+\subsubsection{Esquema Entidad-Relación E-R}
+\label{subsubsec:EsquemaER}
+
+El diseño del esquema relacional busca simplificar el estándar complejo del
+\gtfs{} (que incluye tablas como \textit{trips}, \textit{stop\_times} y
+\textit{shapes}) en tres entidades primordiales optimizadas para el consumo de
+la \api{} y el cálculo de indicadores topológicos:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figures/Cap4/DiagramaER.png}
+    \caption[Esquema Relacional Simplificado de Apimetro]{Representación de las entidades principales (Estaciones, Líneas y Polígonos) y sus relaciones para el cálculo de indicadores topológicos.}
+    \label{fig:diagrama-er}
+    \fuentefigura{Elaboración propia.}
+\end{figure}
+
+
+Como se observa en la Figura \ref{fig:diagrama-er}, el modelo se articula bajo
+los siguientes componentes:
+
+\begin{itemize}
+\item \textbf{Estaciones:} Nodo puntual que contiene atributos de conectividad y
+ubicación.
+\item \textbf{Líneas:} Aristas de tipo \texttt{MultiLineString} que almacenan
+métricas operativas (velocidad, capacidad, frecuencia).
+\item \textbf{Polígonos:} Áreas administrativas para filtrado por alcaldía o
+municipio.
+\item \textbf{Relaciones:} Las líneas se vinculan con las estaciones a través de
+un identificador de sistema y ramal, permitiendo la reconstrucción del grafo
+metropolitano.
+\end{itemize}
+
+
+\subsubsection{Definición de Tablas Principales}
+\label{subsubsec:DefinicionSQL}
+
+El esquema relacional se implementa en tres tablas: \texttt{estaciones} (nodos
+puntuales con atributos de conectividad), \texttt{lineas} (aristas
+\texttt{MultiLineString} con métricas operativas de velocidad, frecuencia y
+capacidad) y \texttt{poligonos} (áreas administrativas para filtrado por
+alcaldía o municipio). Todas las columnas de geometría utilizan el tipo
+\texttt{GEOMETRY} con proyección WGS~84 (SRID~4326) e índices espaciales
+\texttt{GIST} para optimizar las consultas de ruteo. La definición completa del
+esquema \textsc{sql} se presenta en el Anexo~\ref{anx:apimetro-sql}.
+
+La arquitectura de estas tablas responde a dos necesidades fundamentales
+identificadas en la investigación:
+\begin{itemize}
+\item \textbf{Optimización de Consultas Geográficas:} El uso de columnas de tipo
+\texttt{GEOMETRY} y la creación de índices
+\texttt{GIST} permiten realizar operaciones espaciales masivas en milisegundos,
+tales como \texttt{ST\_AsGeoJSON} para la
+exportación de geometrías, \texttt{ST\_DWithin} para el cálculo de áreas de
+influencia o cobertura, y \texttt{ST\_Length} para
+    determinar las distancias reales sobre la red vial.
+\item \textbf{Cálculo de Indicadores Operativos:} A diferencia de un
+\texttt{SIG}
+convencional, la tabla \texttt{lineas} integra atributos operativos críticos
+como la \textit{capacidad} del vehículo y la
+\textit{frecuencia} de paso. Esto permite que el motor \texttt{VFTModel} calcule
+automáticamente indicadores de desempeño como la
+\textbf{Fuerza Nodal ($C_i$)} y el \textbf{Tiempo de Viaje ($T$)}, ponderando el
+grafo metropolitano no solo por su fricción espacial,
+sino por la oferta real de transporte y las penalizaciones por transferencia.
+\end{itemize}
+
+Finalmente, es importante señalar que esta infraestructura está alineada con los
+preceptos de soberanía tecnológica y reproducibilidad científica, siendo
+totalmente instalable en cualquier entorno (Docker, Linux, Windows o MacOS)
+mediante el archivo de inicialización \texttt{init.sql} (o \texttt{seed.sql})
+disponible en el repositorio oficial de \texttt{Apimetro} en GitHub.

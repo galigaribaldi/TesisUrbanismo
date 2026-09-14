@@ -1,0 +1,47 @@
+% !TeX root = ../../tesis.tex
+
+\section{Filosofía de la Arquitectura: Hacia la democratización de la Tecnología de planeación}
+\label{sec:filosofia-arquitectura}
+La arquitectura computacional de esta investigación se fundamenta en la
+transición hacia herramientas de análisis de acceso abierto, rompiendo con la
+dependencia histórica de ecosistemas de software cerrados y onerosos para la
+administración pública. Históricamente, la planeación de redes de transporte ha
+estado supeditada al acceso a bases de datos comerciales, como NAVTEQ Map Data
+\citep{navteq2012}, o al uso de plataformas SIG especializadas como TransCAD
+\citep{caliper2010}, cuyos costos de licenciamiento y opacidad algorítmica
+imponen barreras de entrada significativas para los organismos locales. Frente a
+este modelo, la democratización tecnológica se apoya en proyectos como
+OpenStreetMap (OSM) \citep{osm2012}, que proporcionan capas de infraestructura
+vial libre, permitiendo una construcción transparente de grafos ruteables. Este
+enfoque se alinea con los preceptos de la
+\textbf{Free Software Foundation (FSF)}, la cual establece que la libertad del
+software radica en la capacidad de los usuarios para usar, estudiar, modificar y
+redistribuir las herramientas según las necesidades de la comunidad. En términos
+de planeación urbana, la adopción de esta filosofía permite alcanzar una
+soberanía tecnológica, facilitando que las instituciones públicas acumulen
+capacidades analíticas autónomas y reduzcan la brecha de información en las
+periferias urbanas. Consecuentemente, el desarrollo de motores propios como
+\textbf{Apimetro} y \textbf{VFTModel}, basados en lenguajes de programación
+modernos como Go y Python, garantiza que el modelado y la optimización de la red
+multimodal de la ZMVM sea un proceso reproducible, transparente y accesible para
+el interés público.
+
+La arquitectura de la investigación se articula en tres capas tecnológicas
+interdependientes, cuya interacción se resume en la Figura~
+\ref{fig:macro-arquitectura-stack}: \textbf{Apimetro} como capa de ingesta y
+datos; \textbf{VFTModel} como motor analítico; y
+\textbf{Transport-gis-zmvm-mjg} como interfaz cartográfica de presentación. Los
+capítulos siguientes desarrollan cada capa en detalle.
+
+\begin{figure}[H]
+    \centering
+    \input{Figures/TiKz_Libraries/Diagramas/macro-arquitectura-stack}
+    \caption[Macro-arquitectura del \textit{stack} tecnológico de la investigación]{
+    Las tres capas del \textit{stack} tecnológico de la investigación. La Capa~1
+    (Apimetro) provee los datos geoespaciales vía \api{} REST; la Capa~2
+    (VFTModel) construye el grafo topológico y calcula los indicadores; la
+    Capa~3 (Transport-gis) produce la cartografía de presentación mediante QGIS.
+    Las flechas indican el flujo de datos entre capas.}
+    \label{fig:macro-arquitectura-stack}
+    \fuentefigura{Elaboración propia.}
+\end{figure}

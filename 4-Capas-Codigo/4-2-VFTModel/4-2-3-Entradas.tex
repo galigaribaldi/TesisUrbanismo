@@ -1,0 +1,65 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  4.2.3 — ENTRADAS Y VALIDACIÓN
+% =============================================================================
+\section{Entradas y Validación de Datos}
+\label{sec:vft-entradas}
+
+\subsection{Formato de Ingesta: GeoJSON}
+\label{subsec:vft-geojson}
+
+VFTModel se alimenta de los datos geográficos producidos por Apimetro en formato
+\geojson{} \citep{butler2016geojson}. Cada petición devuelve una
+\texttt{FeatureCollection} con dos tipos de elementos:
+
+\begin{itemize}
+\item \textbf{Estaciones} (campo \texttt{tipo\_entidad} = \texttt{estacion}):
+representadas
+    como puntos geográficos (\texttt{Point}), con coordenadas GPS y atributos
+    operativos —nombre, sistema, jerarquía de transporte, alcaldía y si es un
+    nodo \textsc{cetram}—.
+\item \textbf{Rutas} (campo \texttt{tipo\_entidad}\allowbreak{} = \texttt{ruta}
+): representadas como
+    trazos lineales (\texttt{MultiLineString}), con las métricas que el motor de
+    impedancia requiere —velocidad operacional, frecuencia de servicio, tipo de
+    derecho de vía y sentido de circulación—.
+\end{itemize}
+
+Antes de procesar cualquier elemento, VFTModel valida que todos los campos
+requeridos existan y sean válidos, como se describe en la siguiente sección.
+
+\subsection{Validación Estricta con Pydantic}
+\label{subsec:vft-pydantic}
+
+Cada \texttt{Feature} recibido es sometido a una validación estricta mediante
+\textbf{Pydantic}, una biblioteca de Python que verifica que los datos cumplan
+exactamente los contratos de tipo definidos en el modelo. Si algún campo es
+inválido —por ejemplo, un sistema de transporte no reconocido o un valor de
+velocidad negativo—, el sistema lo rechaza antes de que contamine los cálculos.
+Este filtro está implementado en \texttt{src/api/schemas/schemas.py}.
+
+El contrato verifica ocho campos críticos: \texttt{sistema} (Enum de 12
+valores), \texttt{tipo\_entidad} (\texttt{estacion} o \texttt{ruta}),
+\texttt{jerarquia\_transporte}, \texttt{derecho\_de\_via},
+\texttt{velocidad\_promedio\_kmh}, \texttt{frecuencia\_minutos},
+\texttt{sentido} y \texttt{es\_cetram}. La especificación completa del contrato
+de datos se presenta en el Cuadro~\ref{tab:vft-campos-validados} del Anexo~
+\ref{anx:vft-validacion}.
+
+\subsection{Catálogo de Sistemas de Transporte}
+\label{subsec:vft-sistemas}
+
+VFTModel reconoce exactamente doce sistemas de transporte metropolitano. Cuando
+los datos de velocidad o frecuencia no llegan desde Apimetro, el modelo aplica
+valores de \termino{fallback} calibrados a la operación real de cada sistema.
+Los sistemas estructurales de mayor peso en el análisis son el STC Metro (36
+km/h, vía exclusiva), Metrobús (16.3 km/h, vía confinada), Tren Ligero (22 km/h,
+vía exclusiva), \textsc{rtp} (14 km/h, vía mixta) y Corredores Concesionados (11
+km/h, vía mixta). El catálogo completo con claves de código y parámetros de
+\termino{fallback} se presenta en el Cuadro~\ref{tab:vft-sistemas} del Anexo~
+\ref{anx:vft-catalogo}.
+
+El tipo de derecho de vía es el parámetro que determina el coeficiente de
+fricción aplicado a cada arista del grafo, como se describe en la Sección~
+\ref{subsec:vft-cf}.

@@ -1,0 +1,77 @@
+% !TeX root = ../../tesis.tex
+
+\section{Apimetro: El motor de Datos metropolitano (Ingesta y ETL)}
+\label{sec:apimetro-intro}
+
+El proyecto \texttt{Apimetro} tiene su génesis entre los años 2023 y 2024,
+derivado de una necesidad cartográfica y de modelación espacial para el universo
+narrativo de \textbf{"La Saga de la Catacumba"}, obra del autor de la presente
+investigación. El primer volumen de esta serie, titulado
+\textbf{La historia de Quince}, explora una distopía urbana denominada «Ciudad
+Capital», la cual funciona como un homónimo especulativo de la Ciudad de México
+donde la habitabilidad se rige por la interacción crítica de tres variables:
+transporte, educación y tiempo. En dicha narrativa, el «tiempo» no es solo una
+dimensión física, sino un recurso de equidad social condicionado por la
+eficiencia de la infraestructura de movilidad. Para la construcción de este
+entorno literario, se requirió el desarrollo de un plan urbanístico que
+resolviera la fricción espacial de los protagonistas, quienes residían en polos
+opuestos de la metrópoli: el oriente y el sur profundo. En la realidad
+geográfica de la Ciudad de México, estas zonas corresponden a demarcaciones con
+un rezago histórico en transporte masivo, tales como Milpa Alta, Xochimilco,
+Tláhuac y Tlalpan. En estos sectores, la oferta de movilidad recae
+primordialmente en la \textbf{Red de Transporte de Pasajeros (RTP)}, cuya baja
+frecuencia y velocidades comerciales limitadas generaban, a nivel narrativo,
+«tiempos muertos» que dificultaban la fluidez de la trama. Esta problemática
+orilló a una convergencia multidisciplinaria que dio origen a cuatro proyectos
+paralelos: \textit{Apimetro}, \textit{La Catacumba}, \textit{VFTModel} y
+\textit{Diarios}.
+
+La primera aproximación técnica para sistematizar la geografía metropolitana fue
+el desarrollo de \textit{«TrainMap»}, una herramienta de visualización que,
+aunque funcional para propósitos creativos, carecía del rigor matemático
+necesario para una auditoría urbana formal. A partir del año 2025, con el
+ingreso a la \textbf{Maestría en Urbanismo de la UNAM}, la investigación dio un
+giro hacia la formalización científica, integrando estándares como el
+\textit{General Transit Feed Specification} (GTFS) y sistemas de información
+geográfica (SIG).
+
+\texttt{Apimetro} recibió una actualización estructural significativa a mediados
+de marzo de 2026, orientándose hacia un modelo de
+\textbf{Software as a Service (SaaS)} especializado en el manejo de tipos de
+datos \texttt{GeoJSON} para la representación cartográfica y el análisis
+ruteable. El núcleo operativo del sistema se define mediante un proceso
+\textbf{ETL}
+\footnote{En esta investigación se adopta la denominación \textit{Extraction, Treatment and Liberation} para enfatizar el carácter transformativo y de acceso abierto del proceso; el acrónimo estándar de la industria es «\textit{Extract, Transform, Load}».}
+, diseñado para transformar la rigidez de los archivos \gtfs{} en geometrías
+flexibles. Si bien el estándar \gtfs{} posee una estructura relacional robusta,
+su formato original dificulta el análisis directo en hojas de cálculo o capas
+\texttt{SHP} convencionales, por lo que la conversión a \texttt{GeoJSON} se
+determinó como la solución óptima para la visualización y el cálculo de
+indicadores topológicos. La persistencia y estructuración de la información se
+ejecutan dentro de una base de datos relacional \textbf{PostgreSQL 15},
+potenciada por la extensión espacial \textbf{PostGIS 3.4}. Esta elección
+tecnológica permite almacenar datos geográficos de manera eficiente y
+proporciona operaciones de consulta avanzadas, como \texttt{ST\_AsGeoJSON} y
+\texttt{ST\_DWithin}, fundamentales para la ingesta y el ruteo asíncrono. Para
+la implementación de esta fase, se utilizó el lenguaje de programación
+\textbf{Python}, aprovechando la robustez de librerías especializadas en el
+manejo de grandes volúmenes de datos como \texttt{Pandas} y \texttt{PySpark}.
+Gracias a esta arquitectura, la ingesta de datos se consume de manera
+autosuficiente y óptima, resultando en una base de datos de apenas 38 MB en
+estado de desarrollo que es fácilmente replicable en diversos entornos
+operativos, incluyendo Linux, Windows, MacOS y plataformas web. Esta
+portabilidad facilita la auditoría de la red mediante gestores de consultas como
+\texttt{Postman} o su despliegue local a través de tecnologías de contenedores
+como \textbf{Docker} y \textbf{Docker Compose}. En última instancia,
+\texttt{Apimetro} garantiza la soberanía tecnológica de la investigación,
+permitiendo que la replicación del esquema de datos se realice de forma
+transparente mediante el archivo \texttt{seed.sql} disponible en su repositorio
+oficial.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\textwidth]{Figures/Cap3/APImetroIcon.png}
+  \caption[Ícono Personal de Apimetro]{Ícono Creado para el proyecto Apimetro}
+  \label{fig:apimetro-icon}
+  \fuentefigura{Elaboración propia.}
+\end{figure}

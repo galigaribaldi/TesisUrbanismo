@@ -1,0 +1,30 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+\subsubsection{Capas del sistema de información geográfica}
+\label{subsubsec:tg-capas}
+% =============================================================================
+
+El módulo de datos mantiene diez capas \termino{GeoPackage} en
+\texttt{data/processed/}, todas proyectadas en \textsc{epsg}:32614 (UTM
+zona~14N), referencia cartográfica adecuada para la extensión de la \zmvm{}. Las
+capas se organizan en tres categorías temáticas, ilustradas en la Figura~
+\ref{fig:tg-capas}: (i)~\textbf{contexto territorial}, con los límites
+político-administrativos de la \cdmx{}, del Estado de México, el polígono de
+estudio y las variables de medio físico natural; (ii)~
+\textbf{red e infraestructura}, con las geometrías de los sistemas de
+transporte, la infraestructura vial y el trazado del Periférico; y (iii)~
+\textbf{indicadores del modelo VFT}, con las capas derivadas del cálculo de
+cobertura espacial, fuerza capilar y factor de desviación descritos en el
+Capítulo~ \ref{ch:resultados-vft}.
+
+\begin{figure}[htbp]
+\centering
+\input{Figures/TiKz_Libraries/Diagramas/tg-capas-geopackage}
+\caption[Organización de las capas GeoPackage de Transport-gis]%
+{Las diez capas \termino{GeoPackage} del directorio \texttt{data/processed/},
+organizadas por
+categoría temática. Todas están proyectadas en \textsc{epsg}:32614 (UTM
+zona~14N) y versionadas con Git~\textsc{lfs}.}
+\label{fig:tg-capas}
+\end{figure}

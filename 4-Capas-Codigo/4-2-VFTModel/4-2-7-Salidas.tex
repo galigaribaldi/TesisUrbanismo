@@ -1,0 +1,33 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  4.2.7 — SALIDAS
+% =============================================================================
+\section{Salidas: API REST con FastAPI}
+\label{sec:vft-salidas}
+
+Los resultados de VFTModel se entregan a través de una
+\textbf{\api{} \textsc{rest}} construida con \textbf{FastAPI}, expuesta
+localmente en \texttt{localhost:8000} con documentación interactiva disponible
+en el endpoint \texttt{/docs}.
+
+La \api{} expone cinco endpoints bajo \texttt{/api/v1/network/}:
+\texttt{build-auto} (POST, construye el grafo en caché),
+\texttt{spatial-coverage} (GET, cobertura por alcaldía),
+\texttt{topological/capillary-strength} (GET, ranking de fuerza capilar),
+\texttt{topological/geo-capillary} (GET, macro-hubs) y
+\texttt{topological/detour-factor} (GET, factor de desviación por par O-D). La
+especificación completa de los endpoints se presenta en el Cuadro~
+\ref{tab:vft-endpoints} del Anexo~\ref{anx:vft-api}.
+
+Cada respuesta \textsc{json} puede contener tres tipos de datos:
+
+\begin{itemize}
+    \item \textbf{Tablas de métricas:} listas de nodos con su puntuación en el
+    indicador calculado, ordenadas de mayor a menor relevancia.
+    \item \textbf{Geometrías de ruta:} la trayectoria real sobre la red y la
+    línea recta teórica entre origen y destino, ambas en formato \geojson{},
+    listas para ser renderizadas en visores cartográficos.
+    \item \textbf{Resúmenes estadísticos:} promedio, máximo y distribución del
+    indicador sobre el conjunto de pares O-D analizados en el muestreo.
+\end{itemize}

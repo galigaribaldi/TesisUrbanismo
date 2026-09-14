@@ -1,0 +1,53 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  4.2.6 — INDICADORES
+% =============================================================================
+\section{Indicadores Topológicos Implementados}
+\label{sec:vft-indicadores}
+
+VFTModel organiza sus indicadores en cuatro fases de cálculo progresivo, cuya
+dependencia es estricta: las Fases~III y IV requieren un grafo completamente
+ponderado —producto de las Fases~I y II— para ejecutar los algoritmos de caminos
+mínimos. El Cuadro~\ref{tab:vft-indicadores-estado} presenta el mapa completo de
+indicadores con su estado de implementación a la fecha de cierre del documento.
+
+\begin{table}[H]
+    \centering
+    \caption[Indicadores topológicos de VFTModel y estado de implementación]{
+Indicadores topológicos de VFTModel, sus símbolos y estado de implementación.
+    Los resultados de cada indicador se presentan en el
+    Capítulo~\ref{ch:resultados-vft}.}
+    \label{tab:vft-indicadores-estado}
+    \begin{tabularx}{\textwidth}{|c|c|X|l|}
+        \hline
+        \textbf{Fase} & \textbf{\#} & \textbf{Indicador} & \textbf{Estado} \\
+        \hline
+        \multirow{4}{*}{\textbf{I}}
+          & 1 & Validación de Impedancia                  & Implementado \\
+          & 2 & Cobertura Espacial ($C$)                  & Implementado \\
+          & 3 & Fuerza Capilar ($FC$)                     & Implementado \\
+          & 4 & Factor de Desviación ($DF$)               & Implementado \\
+        \hline
+        \multirow{3}{*}{\textbf{II}}
+          & 5 & Coeficiente de Fricción Vial ($CF$)       & Implementado \\
+          & 6 & Penalización por Transferencia ($T_b$)    & Parcial      \\
+          & 7 & Node Score ($\text{VFT\_score}$)          & Planificado  \\
+        \hline
+        \multirow{2}{*}{\textbf{III}}
+          & 8 & Tiempo de Viaje Promedio ($T$)            & Pendiente    \\
+          & 9 & Centralidad de Intermediación ($B(v)$)   & Pendiente    \\
+        \hline
+        \textbf{IV}
+          & 10 & Vulnerabilidad Estructural ($\Delta E$) & Pendiente    \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia (VFTModel, 2026-04-28).}
+\end{table}
+
+Los indicadores de Fase~I son implementados en módulos independientes dentro de
+\path{src/core/algorithms/topologicalIndicators/}: la clase
+\texttt{SpatialCoverageAnalyzer} para la cobertura espacial, la clase
+\texttt{CapillaryStrengthAnalyzer} para la fuerza capilar, y el submódulo
+\texttt{detaurFactor/} —con sus módulos \texttt{engine.py} y
+\texttt{orchestator.py}— para el factor de desviación.
