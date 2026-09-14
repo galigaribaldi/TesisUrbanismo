@@ -59,6 +59,13 @@ _VERBATIM_ENVS = frozenset({
 _BEGIN_RE = re.compile(r'^\s*\\begin\{([^}]+)\}')
 _END_RE   = re.compile(r'^\s*\\end\{([^}]+)\}')
 
+# Entornos que fuerzan flush del buffer de prosa pero cuyo contenido
+# se procesa normalmente (no son verbatim)
+_FLUSH_ENVS = frozenset({
+    'figure', 'table', 'itemize', 'enumerate', 'description',
+    'center', 'minipage',
+})
+
 # Líneas estructurales fuera de entornos que pasan intactas
 _STRUCTURAL_RE = re.compile(
     r'^\s*('
@@ -79,6 +86,11 @@ _STRUCTURAL_RE = re.compile(
     r'|\\vspace[\[{]'
     r'|\\hspace[\[{]'
     r'|\\noindent'
+    r'|\\paragraph\*?\{'
+    r'|\\item\b'
+    r'|\\medskip'
+    r'|\\bigskip'
+    r'|\\smallskip'
     r'|\\setcounter\{'
     r'|\\addtocontents\{'
     r'|\\markboth\{'
@@ -148,6 +160,18 @@ def _split_into_tokens(text: str) -> list[str]:
             tokens.append(text[i:j])
             i = j
 
+        elif c == '$':
+            # Inline math $...$ → token atómico (nunca se parte)
+            j = i + 1
+            while j < n and text[j] != '$':
+                if text[j] == '\\' and j + 1 < n:
+                    j += 1  # skip escaped char inside math
+                j += 1
+            if j < n:
+                j += 1  # include closing $
+            tokens.append(text[i:j])
+            i = j
+
         elif c == ' ':
             j = i
             while j < n and text[j] == ' ':
@@ -213,60 +237,84 @@ def wrap_prose_line(line: str, width: int = WIDTH) -> str:
 def format_file(path: Path, width: int = WIDTH) -> tuple[bool, int]:
     """
     Reformatea un archivo .tex in-place.
-    Devuelve (modificado, líneas_reformateadas).
+    Devuelve (modificado, párrafos_reformateados).
+    Acumula líneas de prosa en un buffer y las une antes del word-wrap,
+    corrigiendo quiebres mid-sentence además de líneas largas.
     """
     original = path.read_text(encoding='utf-8')
     lines = original.splitlines(keepends=True)
 
     output: list[str] = []
-    env_stack: list[str] = []  # entornos verbatim activos anidados
+    env_stack: list[str] = []
     reformatted = 0
+    prose_buffer: list[str] = []
+
+    def flush_prose() -> None:
+        nonlocal reformatted
+        if not prose_buffer:
+            return
+        joined = ' '.join(l.rstrip('\n').strip() for l in prose_buffer)
+        wrapped = wrap_prose_line(joined + '\n', width)
+        original_block = ''.join(prose_buffer)
+        if wrapped != original_block:
+            reformatted += 1
+        output.append(wrapped)
+        prose_buffer.clear()
 
     for line in lines:
 
-        # ── Límite de entorno: \begin{env} / \end{env} ─────────────────
+        # ── begin{env} ─────────────────────────────────────────────────
         begin_m = _BEGIN_RE.match(line)
         if begin_m:
+            flush_prose()
             env = begin_m.group(1)
-            if env in _VERBATIM_ENVS:
+            if env in _VERBATIM_ENVS or env in _FLUSH_ENVS:
                 env_stack.append(env)
             output.append(line)
             continue
 
+        # ── end{env} ───────────────────────────────────────────────────
         end_m = _END_RE.match(line)
         if end_m:
+            flush_prose()
             env = end_m.group(1)
             if env_stack and env_stack[-1] == env:
                 env_stack.pop()
             output.append(line)
             continue
 
-        # ── Dentro de entorno estructurado → intacto ───────────────────
+        # ── dentro de entorno protegido → intacto ──────────────────────
         if env_stack:
+            flush_prose()
             output.append(line)
             continue
 
-        # ── Línea vacía → intacta ──────────────────────────────────────
+        # ── línea vacía → flush + preservar ────────────────────────────
         stripped = line.rstrip('\n')
         if not stripped.strip():
+            flush_prose()
             output.append(line)
             continue
 
-        # ── Línea estructural → intacta ────────────────────────────────
+        # ── línea estructural → flush + preservar ──────────────────────
         if _STRUCTURAL_RE.match(line):
+            flush_prose()
             output.append(line)
             continue
 
-        # ── Línea corta → intacta ──────────────────────────────────────
-        if len(stripped) <= width:
-            output.append(line)
+        # ── línea con quiebre LaTeX explícito (\\) → flush individual ──
+        if stripped.rstrip().endswith('\\\\'):
+            flush_prose()
+            wrapped = wrap_prose_line(line, width)
+            if wrapped != line:
+                reformatted += 1
+            output.append(wrapped)
             continue
 
-        # ── Prosa larga → word-wrap ────────────────────────────────────
-        wrapped = wrap_prose_line(line, width)
-        if wrapped != line:
-            reformatted += 1
-        output.append(wrapped)
+        # ── prosa: acumular ────────────────────────────────────────────
+        prose_buffer.append(line)
+
+    flush_prose()
 
     result = ''.join(output)
     if result == original:
@@ -336,29 +384,48 @@ def main() -> None:
 
         if args.dry_run:
             original = f.read_text(encoding='utf-8')
-            # Contar líneas de prosa largas (excluye entornos y estructurales)
             env_stack: list[str] = []
+            buf: list[str] = []
             count = 0
+
+            def _check_buf(b: list[str]) -> None:
+                nonlocal count
+                if not b:
+                    return
+                joined = ' '.join(l.rstrip('\n').strip() for l in b)
+                wrapped = wrap_prose_line(joined + '\n', args.width)
+                if wrapped != ''.join(b):
+                    count += 1
+
             for line in original.splitlines(keepends=True):
                 bm = _BEGIN_RE.match(line)
                 if bm:
-                    if bm.group(1) in _VERBATIM_ENVS:
-                        env_stack.append(bm.group(1))
+                    _check_buf(buf); buf = []
+                    env = bm.group(1)
+                    if env in _VERBATIM_ENVS or env in _FLUSH_ENVS:
+                        env_stack.append(env)
                     continue
                 em = _END_RE.match(line)
                 if em:
+                    _check_buf(buf); buf = []
                     if env_stack and env_stack[-1] == em.group(1):
                         env_stack.pop()
                     continue
                 if env_stack:
+                    _check_buf(buf); buf = []
                     continue
                 stripped = line.rstrip('\n')
-                if (stripped.strip()
-                        and not _STRUCTURAL_RE.match(line)
-                        and len(stripped) > args.width):
-                    count += 1
+                if not stripped.strip():
+                    _check_buf(buf); buf = []
+                    continue
+                if _STRUCTURAL_RE.match(line):
+                    _check_buf(buf); buf = []
+                    continue
+                buf.append(line)
+            _check_buf(buf)
+
             if count:
-                print(f'   ~  {rel}  ({count} líneas largas)')
+                print(f'   ~  {rel}  ({count} párrafos a reformatear)')
             continue
 
         modified, count = format_file(f, args.width)
