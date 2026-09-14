@@ -6,36 +6,33 @@
 %-----------------------------------------------------------------------
 
 La problemática expuesta anteriormente revela que la Zona Metropolitana del
-Valle de México (ZMVM) padece una desarticulación
-topográfica profunda, donde el sistema de transporte masivo estructurado
-presenta una cobertura insuficiente en las franjas
-periféricas que componen el \textbf{Tercer y Cuarto Contorno} metropolitano
-\citep{semovi2020diagnostico}. Esta limitación
-técnica genera una dependencia crítica del transporte público concesionado de
-baja capacidad y del automóvil particular,
-lo cual resulta ineficiente para mitigar una demanda de movilidad que desborda
-las fronteras administrativas de la capital.
+Valle de México (ZMVM) padece una desarticulación topográfica profunda, donde el
+sistema de transporte masivo estructurado presenta una cobertura insuficiente en
+las franjas periféricas que componen el \textbf{Tercer y Cuarto Contorno}
+metropolitano \citep{semovi2020diagnostico}. Esta limitación técnica genera una
+dependencia crítica del transporte público concesionado de baja capacidad y del
+automóvil particular, lo cual resulta ineficiente para mitigar una demanda de
+movilidad que desborda las fronteras administrativas de la capital.
 
 Diversos diagnósticos urbanos coinciden en que la red masiva (Metro y Metrobús)
-se ha consolidado bajo una lógica de centralización,
-obligando a los habitantes de zonas periféricas en el
-\textbf{Norte (Ecatepec, Naucalpan)}, \textbf{Oriente (Iztapalapa, Chalco)} y
-\textbf{Sur (Tlalpan, Xochimilco)} a realizar desplazamientos radiales que
-saturan los nodos del núcleo central \citep{obras2025}.
-Esta configuración no solo incrementa los tiempos de traslado ---superando en
-promedio los 122 minutos para los habitantes del
-cuarto contorno---, sino que eleva la \textit{vulnerabilidad funcional} del
-sistema ante fallas operativas en hubs críticos como Pantitlán,
-Indios Verdes o Taxqueña \citep{loterovélez2014}.
+se ha consolidado bajo una lógica de centralización, obligando a los habitantes
+de zonas periféricas en el \textbf{Norte (Ecatepec, Naucalpan)},
+\textbf{Oriente (Iztapalapa, Chalco)} y \textbf{Sur (Tlalpan, Xochimilco)} a
+realizar desplazamientos radiales que saturan los nodos del núcleo central
+\citep{obras2025}. Esta configuración no solo incrementa los tiempos de traslado
+---superando en promedio los 122 minutos para los habitantes del cuarto
+contorno---, sino que eleva la \textit{vulnerabilidad funcional} del sistema
+ante fallas operativas en hubs críticos como Pantitlán, Indios Verdes o Taxqueña
+\citep{loterovélez2014}.
 
 Aunque el Anillo Periférico fue proyectado como una infraestructura estratégica
 para conectar la capital, su diseño priorizó históricamente la automovilidad
 privada, dejando una brecha topográfica para el transporte masivo transversal.
-La adopción de geometrías anillares ha demostrado ser una alternativa robusta
-en grandes metrópolis para descomprimir el centro y articular las periferias
-\citep{efe2023}; de este modo, surge la necesidad de contar con herramientas
-que permitan evaluar cuantitativamente el impacto topológico de escenarios
-anillares hipotéticos en la red metropolitana.
+La adopción de geometrías anillares ha demostrado ser una alternativa robusta en
+grandes metrópolis para descomprimir el centro y articular las periferias
+\citep{efe2023}; de este modo, surge la necesidad de contar con herramientas que
+permitan evaluar cuantitativamente el impacto topológico de escenarios anillares
+hipotéticos en la red metropolitana.
 
 %-----------------------------------------------------------------------
 \subsection{La morfología y topología en la periferia de la ZMVM}
@@ -43,38 +40,32 @@ anillares hipotéticos en la red metropolitana.
 %-----------------------------------------------------------------------
 
 La estructura urbana de la periferia metropolitana no constituye una extensión
-continua y ordenada de la traza central.
-Siguiendo el análisis de \citet{ortiz2007}, la morfología de la Ciudad de
-México se define como una jerarquía de centros que da
-lugar a un ``\textit{Patchwork of offset grids}'' (mosaico de retículas
-desfasadas). En este modelo, cada sector periférico
+continua y ordenada de la traza central. Siguiendo el análisis de
+\citet{ortiz2007}, la morfología de la Ciudad de México se define como una
+jerarquía de centros que da lugar a un ``\textit{Patchwork of offset grids}''
+(mosaico de retículas desfasadas). En este modelo, cada sector periférico
 (Norte, Oriente, Poniente o Sur) actúa como un ``parche'' geométricamente
-aislado, cuya trama interna no se alinea con
-la estructura vial primaria de la ciudad.
+aislado, cuya trama interna no se alinea con la estructura vial primaria de la
+ciudad.
 
 Esta fragmentación morfológica es el factor determinante de la ineficiencia en
-las alcaldías y municipios del cinturón metropolitano.
-A diferencia de la \textbf{Ciudad Central}, donde la conectividad en red
-facilita desplazamientos multidireccionales, estos parches
-periféricos operan como islas conectadas únicamente por arterias radiales que
-tienden al colapso crónico. Desde la perspectiva del
-motor \texttt{VFTModel}, esta desconexión implica que los caminos mínimos entre
-dos nodos periféricos aledaños tienen
-un \textbf{Índice de Ruta Directa ($DI$)} significativamente elevado, ya que la
-red vial obliga a los usuarios a converger hacia
-el centro para luego retornar a su zona de destino
-\citep{fortin2016innovative}.
+las alcaldías y municipios del cinturón metropolitano. A diferencia de la
+\textbf{Ciudad Central}, donde la conectividad en red facilita desplazamientos
+multidireccionales, estos parches periféricos operan como islas conectadas
+únicamente por arterias radiales que tienden al colapso crónico. Desde la
+perspectiva del motor \texttt{VFTModel}, esta desconexión implica que los
+caminos mínimos entre dos nodos periféricos aledaños tienen un
+\textbf{Índice de Ruta Directa ($DI$)} significativamente elevado, ya que la red
+vial obliga a los usuarios a converger hacia el centro para luego retornar a su
+zona de destino \citep{fortin2016innovative}.
 
 Complementariamente, la teoría de redes de \citet{owais2020} sostiene que en
-ciudades con estructuras no ortogonales,
-la carencia de conexiones transversales entre estos parches fragmentados genera
-una pérdida de robustez sistémica.
-Esta teoría valida la tesis central de este trabajo: la problemática de la
-periferia de la ZMVM no es únicamente una cuestión de
-capacidad vehicular, sino una \textbf{desconexión geométrica estructural}.
-Mediante el procesamiento de datos en \texttt{Apimetro},
-se demostrará que la implementación de una ruta anillar en el Tercer Contorno
-permite ``coser'' estos parches urbanos,
-optimizando la topología del grafo metropolitano y reduciendo la fricción vial
-global.
+ciudades con estructuras no ortogonales, la carencia de conexiones transversales
+entre estos parches fragmentados genera una pérdida de robustez sistémica. Esta
+teoría valida la tesis central de este trabajo: la problemática de la periferia
+de la ZMVM no es únicamente una cuestión de capacidad vehicular, sino una
+\textbf{desconexión geométrica estructural}. Mediante el procesamiento de datos
+en \texttt{Apimetro}, se demostrará que la implementación de una ruta anillar en
+el Tercer Contorno permite ``coser'' estos parches urbanos, optimizando la
+topología del grafo metropolitano y reduciendo la fricción vial global.
 
