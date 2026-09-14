@@ -1,4 +1,4 @@
-% !TeX root = ../tesis.tex
+% !TeX root = ../../tesis.tex
 
 % =============================================================================
 %  SECCIÓN 3.1.1 — Definición de Conceptos Fundamentales: Introducción y
@@ -34,75 +34,72 @@ y los resultados.
 \subsubsection{Sistema de Información Geográfica (\gis{})}
 \label{subsubsec:glosario-gis}
 Un \gis{} es un sistema informático que captura, almacena, verifica y despliega
-datos vinculados a posiciones en la superficie terrestre
-\citep{longley2015}. Su aplicación al análisis de redes de transporte permite
-integrar capas de información espacial heterogéneas ---geometría de paradas,
-trazados de rutas, población censal y red vial--- para calcular indicadores de
-cobertura y accesibilidad sobre un mismo marco georreferenciado
-\citep{ugur2025}. En esta investigación, el \gis{} se implementa con
-herramientas de código abierto ---PostGIS, GeoPandas y QGIS---, cuya cadena
-de procesamiento produce los indicadores definidos en
-\autoref{sec:indicadores-formulas}.
+datos vinculados a posiciones en la superficie terrestre \citep{longley2015}. Su
+aplicación al análisis de redes de transporte permite integrar capas de
+información espacial heterogéneas ---geometría de paradas, trazados de rutas,
+población censal y red vial--- para calcular indicadores de cobertura y
+accesibilidad sobre un mismo marco georreferenciado \citep{ugur2025}. En esta
+investigación, el \gis{} se implementa con herramientas de código abierto
+---PostGIS, GeoPandas y QGIS---, cuya cadena de procesamiento produce los
+indicadores definidos en \autoref{sec:indicadores-formulas}.
 
 \subsubsection{Información Geográfica Voluntaria (\textsc{vgi})}
 \label{subsubsec:glosario-vgi}
 El término Información Geográfica Voluntaria ---\textsc{vgi}, del inglés
 \textit{Volunteered Geographic Information}--- refiere a los datos geoespaciales
-producidos y publicados colectivamente por ciudadanos en plataformas abiertas
-en línea \citep{haklay2010good}. En esta investigación, la red vial de base
-procede de fuentes oficiales ---el portal de datos abiertos de la \cdmx{} y
-el \textsc{inegi}---; OpenStreetMap (\textsc{osm}) opera como fuente secundaria
+producidos y publicados colectivamente por ciudadanos en plataformas abiertas en
+línea \citep{haklay2010good}. En esta investigación, la red vial de base procede
+de fuentes oficiales ---el portal de datos abiertos de la \cdmx{} y el
+\textsc{inegi}---; OpenStreetMap (\textsc{osm}) opera como fuente secundaria
 para cubrir los vacíos donde la cobertura oficial es incompleta, función que
-resulta indispensable en la construcción de los grafos de acceso peatonal
-sobre los que se calculan las isócronas del Indicador de Cobertura $C$
-(§\ref{subsec:indicador-cobertura}).
+resulta indispensable en la construcción de los grafos de acceso peatonal sobre
+los que se calculan las isócronas del Indicador de Cobertura $C$ (§
+\ref{subsec:indicador-cobertura}).
 
-Su completitud supera el 80\,\% a escala global, con valores especialmente
-altos en ciudades latinoamericanas de la talla de la \zmvm{}; la precisión
-posicional en zonas urbanas densas no difiere significativamente de la de
-fuentes cartográficas institucionales \citep{barrington2017world,
-haklay2010good}, lo que sustenta su uso como complemento de la cartografía
-oficial en este análisis.
+Su completitud supera el 80\,\% a escala global, con valores especialmente altos
+en ciudades latinoamericanas de la talla de la \zmvm{}; la precisión posicional
+en zonas urbanas densas no difiere significativamente de la de fuentes
+cartográficas institucionales \citep{barrington2017world, haklay2010good}, lo
+que sustenta su uso como complemento de la cartografía oficial en este análisis.
 
 \subsubsection{Estándar de datos abiertos de transporte (\gtfs{})}
 \label{subsubsec:glosario-gtfs}
 El \gtfs{} (\textit{General Transit Feed Specification}) es el formato de
 archivos de texto plano mediante el cual los operadores de transporte público
 publican rutas, paradas, frecuencias y horarios de forma interoperable
-\citep{fortin2016innovative}. Creado en 2005 por Google y la agencia TriMet
-de Portland, Oregón, hoy lo adoptan más de 10\,000 operadoras en todo el
-mundo. En esta investigación, los feeds \gtfs{} de todos los modos de la
-red de movilidad integrada de la \cdmx{} ---disponibles en el portal de
-datos abiertos de la ciudad \citep{adip_gtfs_2024}--- constituyen el insumo
-primario que el Apímetro descarga e integra para construir el grafo
-multimodal de análisis (§\ref{sec:apimetro-intro}).
+\citep{fortin2016innovative}. Creado en 2005 por Google y la agencia TriMet de
+Portland, Oregón, hoy lo adoptan más de 10\,000 operadoras en todo el mundo. En
+esta investigación, los feeds \gtfs{} de todos los modos de la red de movilidad
+integrada de la \cdmx{} ---disponibles en el portal de datos abiertos de la
+ciudad \citep{adip_gtfs_2024}--- constituyen el insumo primario que el Apímetro
+descarga e integra para construir el grafo multimodal de análisis (§
+\ref{sec:apimetro-intro}).
 
 \subsubsection{Normalización de datos de transporte}
 \label{subsubsec:glosario-normalizacion}
-La normalización de datos es el proceso mediante el cual registros de
-distintas fuentes se reorganizan en un esquema relacional canónico, libre de
-redundancias y anomalías de actualización \citep{ramakrishnan2003}. En el
-contexto de esta investigación, cada sistema de transporte de la \zmvm{}
-opera bajo un orden de gobierno diferente ---federal, estatal o
-municipal--- y genera sus propios feeds \gtfs{} con convenciones de
-nomenclatura, codificación y granularidad temporal distintas. El Apímetro
-aplica este proceso sobre \textsc{postgresql} \citep{postgresql2024}, lo
-que transforma esos feeds heterogéneos en un esquema unificado; condición
-indispensable para construir el grafo multimodal $\grafo$ descrito en el
-\autoref{ch:Capas-codigo}.
+La normalización de datos es el proceso mediante el cual registros de distintas
+fuentes se reorganizan en un esquema relacional canónico, libre de redundancias
+y anomalías de actualización \citep{ramakrishnan2003}. En el contexto de esta
+investigación, cada sistema de transporte de la \zmvm{} opera bajo un orden de
+gobierno diferente ---federal, estatal o municipal--- y genera sus propios feeds
+\gtfs{} con convenciones de nomenclatura, codificación y granularidad temporal
+distintas. El Apímetro aplica este proceso sobre \textsc{postgresql}
+\citep{postgresql2024}, lo que transforma esos feeds heterogéneos en un esquema
+unificado; condición indispensable para construir el grafo multimodal $\grafo$
+descrito en el \autoref{ch:Capas-codigo}.
 
 \subsubsection{Grafo de transporte ponderado y dirigido}
 \label{subsubsec:glosario-grafo}
-Un grafo de transporte es la representación matemática de la red en la que
-cada parada o estación corresponde a un nodo $v \in \nodos$ y cada conexión
-operada entre dos paradas es una arista dirigida $e \in \aristas$
+Un grafo de transporte es la representación matemática de la red en la que cada
+parada o estación corresponde a un nodo $v \in \nodos$ y cada conexión operada
+entre dos paradas es una arista dirigida $e \in \aristas$
 \citep{newman2010networks}. La función de peso $W: \aristas \to \mathbb{R}^+$
-asigna a cada arista el costo compuesto de recorrerla ---tiempo de viaje,
-tiempo de espera y, cuando aplica, penalización por transbordo---, de modo
-que la estructura $\grafo = \{\nodos,\, \aristas,\, W\}$ sirve de base para
-calcular los indicadores del \autoref{sec:indicadores-formulas} mediante el
-algoritmo de \dijkstra{}. La formalización matemática completa, junto con sus
-propiedades topológicas e implementación computacional, se desarrolla en la
+asigna a cada arista el costo compuesto de recorrerla ---tiempo de viaje, tiempo
+de espera y, cuando aplica, penalización por transbordo---, de modo que la
+estructura $\grafo = \{\nodos,\, \aristas,\, W\}$ sirve de base para calcular
+los indicadores del \autoref{sec:indicadores-formulas} mediante el algoritmo de
+\dijkstra{}. La formalización matemática completa, junto con sus propiedades
+topológicas e implementación computacional, se desarrolla en la
 \autoref{sec:grafos-matematicos}.
 
 \subsubsection{Red de transporte multimodal de la \zmvm{}}
@@ -110,125 +107,119 @@ propiedades topológicas e implementación computacional, se desarrolla en la
 La red de transporte multimodal de la \zmvm{} comprende doce sistemas de
 transporte estructurado ---Metro, Metrobús, \brt{}, Tren Suburbano, Cablebús,
 Mexicable, Mexibús, Trolebús, Tren Ligero, Tren Interurbano, \textsc{rtp} y
-rutas de superficie concesionadas--- integrados bajo una estructura unificada
-de análisis \citep{semovi2020diagnostico}. En términos de grafo, las aristas
-de trayecto representan los recorridos dentro de cada línea; las aristas de
-transferencia conectan modos distintos en el mismo punto físico, con un peso
-que refleja el tiempo de caminata entre andenes y el tiempo de espera según la
+rutas de superficie concesionadas--- integrados bajo una estructura unificada de
+análisis \citep{semovi2020diagnostico}. En términos de grafo, las aristas de
+trayecto representan los recorridos dentro de cada línea; las aristas de
+transferencia conectan modos distintos en el mismo punto físico, con un peso que
+refleja el tiempo de caminata entre andenes y el tiempo de espera según la
 frecuencia del servicio \citep{molinero2002}.
 
 \subsubsection{\textit{Hub} y Centro de Transferencia Modal (\textsc{cetram})}
 \label{subsubsec:glosario-hub-cetram}
 En la teoría de redes, un \termino{hub} es un nodo con un grado de conexión
 excepcionalmente alto respecto a la distribución del resto del sistema
-\citep{newman2010networks}. En el transporte metropolitano de la \cdmx{},
-los Centros de Transferencia Modal (\textsc{cetram}) ---Pantitlán, Indios
-Verdes, Cuatro Caminos y Taxqueña--- operan como \textit{hubs} que
-concentran la articulación entre las redes capilares de superficie y las
-arterias masivas \citep{semovi2020diagnostico}. Su alta Centralidad de
-Intermediación $B(v)$ los convierte, simultáneamente, en los puntos de mayor
-vulnerabilidad ante fallas o saturación del sistema
-\citep{lotero2014vulnerabilidad} (§\ref{subsec:centralidad-intermediacion}).
+\citep{newman2010networks}. En el transporte metropolitano de la \cdmx{}, los
+Centros de Transferencia Modal (\textsc{cetram}) ---Pantitlán, Indios Verdes,
+Cuatro Caminos y Taxqueña--- operan como \textit{hubs} que concentran la
+articulación entre las redes capilares de superficie y las arterias masivas
+\citep{semovi2020diagnostico}. Su alta Centralidad de Intermediación $B(v)$ los
+convierte, simultáneamente, en los puntos de mayor vulnerabilidad ante fallas o
+saturación del sistema \citep{lotero2014vulnerabilidad} (§
+\ref{subsec:centralidad-intermediacion}).
 
 \subsubsection{Corredor de alta capacidad anillar}
 \label{subsubsec:glosario-corredor-anillar}
-Bajo la categoría de corredor de alta capacidad se agrupan líneas de
-transporte público con infraestructura exclusiva ---carril confinado,
-plataformas de abordaje a nivel, control centralizado de frecuencias---
-que alcanzan rendimientos operativos comparables a los sistemas ferroviarios
-a una fracción de su costo \citep{molinero2002}. La variante anillar se distingue de los trazados radiales
-por su geometría: en lugar de converger al centro, el corredor describe un arco
-concéntrico paralelo a la frontera entre el área central y la primera corona
-periférica, articulando cuadrantes de la periferia entre sí y desviando
-los flujos que de otro modo saturarían los nodos de alta intermediación
-\citep{aldous2019optimal}. Dos proyectos recientes ilustran la viabilidad
-del modelo: el orbital ferroviario de 90\,km en Melbourne
+Bajo la categoría de corredor de alta capacidad se agrupan líneas de transporte
+público con infraestructura exclusiva ---carril confinado, plataformas de
+abordaje a nivel, control centralizado de frecuencias--- que alcanzan
+rendimientos operativos comparables a los sistemas ferroviarios a una fracción
+de su costo \citep{molinero2002}. La variante anillar se distingue de los
+trazados radiales por su geometría: en lugar de converger al centro, el corredor
+describe un arco concéntrico paralelo a la frontera entre el área central y la
+primera corona periférica, articulando cuadrantes de la periferia entre sí y
+desviando los flujos que de otro modo saturarían los nodos de alta
+intermediación \citep{aldous2019optimal}. Dos proyectos recientes ilustran la
+viabilidad del modelo: el orbital ferroviario de 90\,km en Melbourne
 \citep{suburbanrailloop2021} y la Gran Línea Circular de 54 estaciones
 inaugurada en Moscú en 2023 \citep{efe2023}. Para la \zmvm{}, cuya periferia
 carece de vínculos directos de transporte estructurado entre cuadrantes
 \citep{obras2025}, esta investigación evalúa el impacto hipotético de
-implementar corredores anillares en los cuatro cuadrantes del Anillo
-Periférico de la \cdmx{} como escenario de demostración metodológica.
+implementar corredores anillares en los cuatro cuadrantes del Anillo Periférico
+de la \cdmx{} como escenario de demostración metodológica.
 
 \subsubsection{Términos de arquitectura de software}
 \label{subsubsec:glosario-software}
 
-Los siguientes términos corresponden a estándares y patrones de ingeniería
-de software empleados en la implementación del Apímetro. Se definen aquí
-para que el lector no especializado pueda seguir la descripción técnica del
+Los siguientes términos corresponden a estándares y patrones de ingeniería de
+software empleados en la implementación del Apímetro. Se definen aquí para que
+el lector no especializado pueda seguir la descripción técnica del
 \autoref{ch:Capas-codigo} sin ambigüedad.
 
 \paragraph{JSON (\textit{JavaScript Object Notation}).}
-Formato ligero de intercambio de datos basado en texto plano,
-independiente del lenguaje de programación y legible por humanos
-\citep{bray2017json}. Es la representación estándar para la comunicación
-entre servicios web modernos.
+Formato ligero de intercambio de datos basado en texto plano, independiente del
+lenguaje de programación y legible por humanos \citep{bray2017json}. Es la
+representación estándar para la comunicación entre servicios web modernos.
 
 \paragraph{GeoJSON.}
 Extensión del formato JSON para la codificación de objetos geográficos
 ---puntos, líneas y polígonos--- con sus atributos espaciales y temáticos
-\citep{butler2016geojson}. El Apímetro entrega todos sus resultados en
-este formato.
+\citep{butler2016geojson}. El Apímetro entrega todos sus resultados en este
+formato.
 
 \paragraph{\api{} \textsc{rest}.}
-Estilo arquitectónico para sistemas de software distribuidos que define
-seis restricciones ---entre ellas la interfaz uniforme y la ausencia de
-estado--- que, aplicadas a servicios web sobre \textsc{http}, producen
-interfaces predecibles e interoperables \citep{fielding2000rest}.
+Estilo arquitectónico para sistemas de software distribuidos que define seis
+restricciones ---entre ellas la interfaz uniforme y la ausencia de estado---
+que, aplicadas a servicios web sobre \textsc{http}, producen interfaces
+predecibles e interoperables \citep{fielding2000rest}.
 
 \paragraph{Arquitectura hexagonal (\textit{Ports and Adapters}).}
-Patrón de diseño que aísla la lógica central de la aplicación
----el \textit{dominio}--- de cualquier tecnología de entrada/salida
-mediante puertos abstractos e implementaciones intercambiables
-\citep{cockburn2005hexagonal}. Adoptado en el Apímetro para separar
-las reglas de procesamiento de grafos de sus adaptadores de
-persistencia y exposición de datos.
+Patrón de diseño que aísla la lógica central de la aplicación ---el
+\textit{dominio}--- de cualquier tecnología de entrada/salida mediante puertos
+abstractos e implementaciones intercambiables \citep{cockburn2005hexagonal}.
+Adoptado en el Apímetro para separar las reglas de procesamiento de grafos de
+sus adaptadores de persistencia y exposición de datos.
 
 \paragraph{Go (lenguaje de programación).}
-Lenguaje compilado y tipado estáticamente desarrollado en Google,
-diseñado para la concurrencia estructurada y la compilación rápida
-\citep{go2024spec}. El Apímetro está implementado en Go por su
-rendimiento en operaciones de entrada/salida intensiva y su soporte
-nativo para concurrencia mediante \textit{goroutines}.
+Lenguaje compilado y tipado estáticamente desarrollado en Google, diseñado para
+la concurrencia estructurada y la compilación rápida \citep{go2024spec}. El
+Apímetro está implementado en Go por su rendimiento en operaciones de
+entrada/salida intensiva y su soporte nativo para concurrencia mediante
+\textit{goroutines}.
 
 \paragraph{Pipeline (cadena metodológica).}
-Secuencia ordenada de etapas de procesamiento en la que la salida de
-cada fase es la entrada de la siguiente \citep{ramakrishnan2003}. En
-este trabajo, el término designa la cadena Apímetro $\to$ VFTModel $\to$
-motor de indicadores que transforma feeds \gtfs{} crudos en resultados
-de análisis urbano.
+Secuencia ordenada de etapas de procesamiento en la que la salida de cada fase
+es la entrada de la siguiente \citep{ramakrishnan2003}. En este trabajo, el
+término designa la cadena Apímetro $\to$ VFTModel $\to$ motor de indicadores que
+transforma feeds \gtfs{} crudos en resultados de análisis urbano.
 
 \subsubsection{Herramientas de software de la investigación}
 \label{subsubsec:glosario-herramientas}
 
-Esta investigación desarrolló tres herramientas de código abierto que
-articulan la cadena metodológica completa. Se presentan aquí en una línea
-cada una; su arquitectura técnica se documenta en el
-\autoref{ch:Capas-codigo}.
+Esta investigación desarrolló tres herramientas de código abierto que articulan
+la cadena metodológica completa. Se presentan aquí en una línea cada una; su
+arquitectura técnica se documenta en el \autoref{ch:Capas-codigo}.
 
 \paragraph{Apímetro.}
-Motor de adquisición e integración de datos: descarga, normaliza y unifica
-feeds \gtfs{} de múltiples operadores en el esquema relacional de
-\textsc{postgresql}, produciendo el archivo Geojson multimodal $\grafo$ que alimenta
-el análisis (§\ref{sec:apimetro-intro}).
+Motor de adquisición e integración de datos: descarga, normaliza y unifica feeds
+\gtfs{} de múltiples operadores en el esquema relacional de \textsc{postgresql},
+produciendo el archivo Geojson multimodal $\grafo$ que alimenta el análisis (§
+\ref{sec:apimetro-intro}).
 
 \paragraph{VFTModel.}
-Modelo de análisis urbano: recibe el grafo $\grafo$ y calcula los
-indicadores de cobertura, eficiencia, centralidad y robustez definidos en
-la \autoref{sec:indicadores-formulas}; implementado con arquitectura
-hexagonal para separar la lógica analítica de sus adaptadores de datos.
+Modelo de análisis urbano: recibe el grafo $\grafo$ y calcula los indicadores de
+cobertura, eficiencia, centralidad y robustez definidos en la
+\autoref{sec:indicadores-formulas}; implementado con arquitectura hexagonal para
+separar la lógica analítica de sus adaptadores de datos.
 
 \paragraph{Transport-\gis{}.}
-Capa de visualización geoespacial: transforma los resultados del VFTModel
-en capas cartográficas comparables entre escenarios base e hipotéticos,
-exportadas en formato GeoJSON para su publicación en el portal de datos
-abiertos.
+Capa de visualización geoespacial: transforma los resultados del VFTModel en
+capas cartográficas comparables entre escenarios base e hipotéticos, exportadas
+en formato GeoJSON para su publicación en el portal de datos abiertos.
 
 \medskip
 
 Los términos definidos en este glosario aparecen de forma recurrente en los
 capítulos metodológicos y de resultados. Que figuren aquí antes de cualquier
-desarrollo analítico garantiza que los Objetivos Específicos del 1 al 5
----que los invocan directamente en su formulación
-(§\ref{subsec:obj-especificos})--- puedan leerse sin ambigüedad desde el
-inicio del documento.
+desarrollo analítico garantiza que los Objetivos Específicos del 1 al 5 ---que
+los invocan directamente en su formulación (§\ref{subsec:obj-especificos})---
+puedan leerse sin ambigüedad desde el inicio del documento.
