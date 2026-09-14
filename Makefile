@@ -1,5 +1,5 @@
 # Makefile — Tesis de Maestría en Urbanismo, UNAM
-# Motor: XeLaTeX + Biber
+# Motor: XeLaTeX + BibTeX (apalike)
 # Uso: make <objetivo>  (por defecto: make pdf)
 
 DOCUMENTO    = tesis
@@ -7,7 +7,9 @@ TEXBIN       = $(shell ls -d /Library/TeX/texbin 2>/dev/null || echo /usr/local/
 MOTOR        = $(TEXBIN)/xelatex
 BIBTEX       = $(TEXBIN)/bibtex
 LATEXMK      = $(TEXBIN)/latexmk
-LATEXMKFLAGS = -xelatex -interaction=nonstopmode
+# -f: fuerza la compilación completa aunque XeLaTeX devuelva código 1
+# -bibtex: activa explícitamente el backend BibTeX (no biber)
+LATEXMKFLAGS = -xelatex -bibtex -interaction=nonstopmode -f
 
 # ──────────────────────────────────────────────
 # Objetivos principales
@@ -22,19 +24,21 @@ pdf:
 	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 
-## rapido: Una sola pasada de XeLaTeX (para revisar cambios menores)
+## rapido: Una sola pasada de XeLaTeX (para revisar cambios menores, sin bib)
 rapido:
-	$(MOTOR) $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 
-## latexmk: Compilación automática con latexmk (recomendado, maneja las pasadas)
+## latexmk: Compilación automática con latexmk (usa -f para continuar ante errores no fatales)
 latexmk:
 	$(LATEXMK) $(LATEXMKFLAGS) $(DOCUMENTO).tex
 
-## bib: Compilar solo la bibliografía (útil tras añadir entradas a referencias.bib)
+## bib: Regenerar bibliografía desde cero (úsalo después de limpiar o añadir entradas al .bib)
+## Flujo: XeLaTeX → BibTeX → XeLaTeX × 2
 bib:
-	$(MOTOR) $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 	$(BIBTEX) $(DOCUMENTO)
-	$(MOTOR) $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
+	$(MOTOR) -interaction=nonstopmode $(DOCUMENTO).tex
 
 ## watch: Compilación continua; recompila al detectar cambios en cualquier .tex
 watch:
