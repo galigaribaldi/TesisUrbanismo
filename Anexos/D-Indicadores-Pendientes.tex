@@ -1,0 +1,140 @@
+% !TeX root = ../tesis.tex
+
+% =============================================================================
+%  ANEXO D — Implementaciones Computacionales de Indicadores
+%  Prototipo teórico — sustituir con código de producción verificado
+% =============================================================================
+
+Este anexo reúne los prototipos de implementación en Python de cada indicador
+definido en §\ref{sec:indicadores-formulas}. El código aquí presentado
+corresponde a implementaciones teóricas de referencia; la versión de producción
+---validada sobre los datos reales de la \zmvm{}--- se desarrollará en
+investigaciones posteriores o en la fase de cierre del presente trabajo.
+
+% -----------------------------------------------------------------------
+\section{Cobertura de la Red \texorpdfstring{$C$}{C}}
+\label{anx:impl-cobertura}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $C$ definido en §
+\ref{subsec:indicador-cobertura}, utilizando \textbf{GeoPandas} y
+\textbf{Shapely} sobre los datos \gtfs{} de la red metropolitana.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo del indicador $C$ con GeoPandas (prototipo).},
+  label={lst:cobertura}]
+# GeoPandas + Shapely
+gdf_stops = gpd.read_file("paradas_red.geojson")
+buffers = gdf_stops.geometry.buffer(400)       # Buffer 400 m
+covered_area = buffers.unary_union             # Union de poligonos
+city_polygon = gpd.read_file("zmvm.geojson").geometry[0]
+C = covered_area.intersection(city_polygon).area / city_polygon.area
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Alimentación Capilar --- Fuerza Nodal \texorpdfstring{($C_i$)}{(Ci)}}
+\label{anx:impl-capilar}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $C_i$ definido en §
+\ref{subsec:alimentacion-capilar}, utilizando \textbf{NetworkX}. El código
+calcula la fuerza nodal como suma de pesos de aristas de superficie, conforme a
+la fórmula $C_i = \sum_{j \in S} A_{ij} \cdot w_{ij}$.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo del indicador $C_i$ con NetworkX (prototipo).},
+  label={lst:fuerza-nodal}]
+# NetworkX - Fuerza nodal C_i: suma de pesos de aristas de superficie
+capilar_strength = {
+    node: sum(d.get('weight', 0)
+              for _, _, d in G.edges(node, data=True)
+              if d.get('tipo') == 'superficie')
+    for node in G.nodes()
+}
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{\textit{Detour Factor} --- Índice de Ruta Directa \texorpdfstring{($DI$)}{(DI)}}
+\label{anx:impl-detour}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $DI$ definido en §
+\ref{subsec:ruta-directa}. Usa \textbf{geopy} para la distancia haversine y
+\textbf{NetworkX} para el camino mínimo ponderado por distancia en km.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo del \textit{Detour Factor} $DI$ (prototipo).},
+  label={lst:detour}]
+from geopy.distance import geodesic
+import networkx as nx
+
+d_euclidiana = geodesic(coords_origen, coords_destino).km
+ruta_minima = nx.shortest_path(G, origen, destino, weight='distancia_km')
+d_red = sum(G[u][v]['distancia_km'] for u, v in zip(ruta_minima, ruta_minima[1:]))
+DI = d_red / d_euclidiana
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Centralidad de Intermediación (\textit{Betweenness Centrality}) \texorpdfstring{($B(v)$)}{(B(v))}}
+\label{anx:impl-betweenness}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $B(v)$ definido en §
+\ref{subsec:centralidad-intermediacion}, utilizando \textbf{NetworkX} con peso
+por tiempo de viaje real y normalización en $[0, 1]$.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo de \textit{Betweenness Centrality} $B(v)$ con NetworkX (prototipo).},
+  label={lst:betweenness}]
+import networkx as nx
+centrality = nx.betweenness_centrality(G, weight='tiempo_minutos', normalized=True)
+# Ordenar por centralidad descendente
+top_nodes = sorted(centrality.items(), key=lambda x: x[1], reverse=True)[:10]
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Tiempo de Viaje Promedio \texorpdfstring{($T$)}{(T)}}
+\label{anx:impl-tiempo}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $T$ definido en §
+\ref{subsec:tiempo-viaje}, utilizando \textbf{NetworkX}. Para redes de gran
+escala se recomienda sustituir el cómputo exhaustivo por una muestra
+representativa de pares O--D.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo del Tiempo de Viaje Promedio $T$ con NetworkX (prototipo).},
+  label={lst:tiempo}]
+import networkx as nx
+# Para redes grandes: sustituir por muestra representativa de pares O-D
+T = nx.average_shortest_path_length(G, weight='tiempo_minutos')
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Robustez Geométrica \texorpdfstring{($\Delta E$)}{(Delta E)}}
+\label{anx:impl-robustez}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $\Delta E$ definido en
+§\ref{subsec:robustez-geometrica}. Pendiente de validación empírica sobre la
+red real de la \zmvm{} (véase nota aclaratoria en §\ref{sec:indicadores-formulas}).
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo de Robustez Geométrica $\Delta E$ con NetworkX (prototipo).},
+  label={lst:robustez}]
+import networkx as nx, copy
+
+def eficiencia_global(G):
+    T = nx.average_shortest_path_length(G, weight='tiempo_minutos')
+    return 1 / T
+
+E0 = eficiencia_global(G)
+
+# Remover nodo critico (reemplazar con nodo real de mayor B(v))
+G_fallido = copy.deepcopy(G)
+G_fallido.remove_node('Pantitlan')
+Ef = eficiencia_global(G_fallido)
+
+delta_E = (E0 - Ef) / E0
+print(f"Caida de eficiencia: {delta_E:.2%}")
+\end{lstlisting}

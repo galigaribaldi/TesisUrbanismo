@@ -1,0 +1,38 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  3.3.0 — Introducción a los Indicadores de Análisis
+% =============================================================================
+
+El análisis computacional de la red de transporte público de la \cdmx{} y su
+zona metropolitana se articula a través de ocho indicadores cuantitativos
+organizados en cuatro fases de construcción progresiva. Esta jerarquía no es
+arbitraria: cada indicador depende de los insumos producidos por los anteriores,
+de modo que la arquitectura metodológica constituye en sí misma un modelo de
+grafo que crece en complejidad desde el análisis espacial puro hasta las pruebas
+de estrés topológico. A continuación se presenta cada uno de los indicadores con
+su fundamento matemático, la fuente académica que lo sustenta, y un ejemplo
+práctico calibrado con datos del área de estudio.
+
+Los ocho indicadores están distribuidos entre los Objetivos Específicos 1 al 5
+(§\ref{subsec:obj-especificos}): los indicadores de la Fase 1 ---$C$, $C_i$, $DI$ y $CF_h$--- alimentan los
+Objetivos Específicos 2 y 4; el de la Fase 2 ---$W_{s,h}$--- refina el grafo
+del Objetivo Específico 1; el Tiempo de Viaje
+Promedio $T$ y la Centralidad de Intermediación $B(v)$ responden a los Objetivos
+Específicos 2 y 3 respectivamente; y la Robustez Geométrica $\Delta E$ integra
+los Objetivos Específicos 3 y 5 al cuantificar el efecto de la propuesta anillar
+sobre la vulnerabilidad estructural de la red. La tabla de síntesis al final de
+esta sección (§\ref{subsec:resumen-indicadores}) concentra estas
+correspondencias de manera visual.
+
+\bigskip
+\noindent\textbf{Nota aclaratoria sobre el alcance de los indicadores.}
+Todos los indicadores enumerados en este capítulo se definen en su fundamento
+conceptual y matemático. No obstante, el indicador de
+\textbf{Robustez Geométrica $\Delta E$} constituye una excepción en cuanto a su
+demostración aplicada: por los tiempos del presente estudio y el enfoque de los
+resultados esperados en las capas de código, $\Delta E$ no se implementa ni
+valida empíricamente en los capítulos de desarrollo tecnológico. Su definición
+formal se preserva aquí como marco teórico; la implementación computacional y la
+validación sobre la red de la \zmvm{} se proponen como línea prioritaria de
+investigación futura.

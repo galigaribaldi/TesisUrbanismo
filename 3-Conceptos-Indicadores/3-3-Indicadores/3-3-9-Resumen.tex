@@ -1,0 +1,32 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+\subsection{Resumen de Indicadores y Fases de Construcción}
+\label{subsec:resumen-indicadores}
+% =============================================================================
+
+La Tabla~\ref{tab:resumen-indicadores} concentra los ocho indicadores con su
+símbolo, la fase metodológica correspondiente y las dependencias jerárquicas
+entre ellos.
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen de los ocho indicadores de análisis y sus fases de
+             construcción.}
+    \label{tab:resumen-indicadores}
+    \begin{tabularx}{\textwidth}{c >{\raggedright\arraybackslash}X c c >{\raggedright\arraybackslash}X}
+        \toprule
+        \textbf{\#} & \textbf{Indicador} & \textbf{Símbolo} &
+        \textbf{Fase} & \textbf{Dependencias} \\
+        \midrule
+        1 & Nivel de Cobertura de la Red     & $C$          & 1 & Ninguna (espacial puro) \\
+        2 & Nivel de Alimentación Capilar    & $C_i$        & 1 & Indicador 1 \\
+        3 & Índice de Ruta Directa           & $DI$         & 1 & Indicadores 1--2 \\
+        4 & Coeficiente de Fricción Vial     & $CF_h$       & 1 & Ninguna (datos históricos externos) \\
+        5 & Penalización por Transferencia   & $W_{s,h}$    & 2 & Indicadores 1--4 \\
+        6 & Tiempo de Viaje Promedio         & $T$          & 3 & Fases 1 y 2 completas \\
+        7 & Centralidad de Intermediación (\termino{Betweenness Centrality}) & $B(v)$ & 3 & Indicadores 1--6 \\
+        8 & Robustez Geométrica              & $\Delta E$   & 4 & Todos los anteriores \\
+        \bottomrule
+    \end{tabularx}
+\end{table}

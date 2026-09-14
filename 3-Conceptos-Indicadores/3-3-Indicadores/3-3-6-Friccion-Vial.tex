@@ -1,0 +1,86 @@
+% !TeX root = ../../tesis.tex
+
+% -----------------------------------------------------------------------
+\subsection{Coeficiente de Fricción Vial \texorpdfstring{($CF_h$)}{(CFh)}}
+\label{subsec:friccion-vial}
+% -----------------------------------------------------------------------
+
+\textbf{Fuente principal:} \citet{fortin2016innovative}
+
+\subsubsection{Definición y Fundamentación}
+
+El Coeficiente de Fricción Vial es un multiplicador dinámico que corrige la
+sobreestimación de eficiencia que ocurre cuando se asigna a las rutas de
+transporte de superficie un tiempo de viaje ideal, sin considerar el efecto de
+la congestión vehicular. \citet{fortin2016innovative} reconocen que los datos
+estandarizados del \gtfs{} representan únicamente horarios planificados, y que
+utilizar tiempos ajustados a las condiciones reales de tráfico devuelve
+estimaciones sustancialmente más precisas al ejecutar el algoritmo de
+\dijkstra{}.
+
+Este indicador distingue dos categorías de modos con comportamientos
+radicalmente distintos respecto a la congestión: los \termino{modos confinados}
+(Metro, Cablebús, Suburbano, Tren Ligero), que circulan en infraestructura
+segregada y mantienen un $CF = 1.0$ constante, y los
+\termino{modos de tráfico mixto} (RTP, Trolebús, Metrobús en tramos compartidos,
+microbuses concesionados), cuyo tiempo de viaje real se incrementa en función de
+la hora del día y las condiciones de la vialidad.
+
+\subsubsection{Fórmula}
+
+\begin{equation}
+    CF_h = \frac{T_{\text{real},h}}{T_{\text{ideal}}}
+    \label{eq:friccion-vial}
+\end{equation}
+
+\begin{equation}
+    T_{\text{real},h} = T_{\text{ideal}} \times CF_h
+    \label{eq:tiempo-real}
+\end{equation}
+
+Donde:
+\begin{itemize}
+    \item $CF_h$ = Coeficiente de Fricción Vial en la franja horaria $h$
+    (adimensional, $CF_h \geq 1.0$).
+\item $T_{\text{real},h}$ = Tiempo de viaje observado en el tramo a la hora $h$,
+    en minutos.
+    \item $T_{\text{ideal}}$ = Tiempo de viaje en condiciones de flujo libre
+    (referencia: 05:00\,h, sin congestión), en minutos.
+\end{itemize}
+
+\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+
+Los valores de $T_{\text{real},h}$ que permiten calcular $CF_h$ se obtienen del
+\textbf{TomTom Traffic Index} \citep{tomtom2024}, base de datos histórica que
+registra la velocidad promedio de cada corredor vial de la \cdmx{} por franja
+horaria y día de la semana. Para cada arista de tráfico mixto del grafo, el
+coeficiente se estima como el cociente entre el tiempo real medido a la hora $h$
+y el tiempo de referencia en condiciones de flujo libre (05:00\,h).
+
+\textbf{Tramo de referencia:} Ruta RTP, Insurgentes Norte (5\,km, tiempo en
+flujo libre: 10 minutos).
+
+\begin{table}[H]
+    \centering
+    \caption{Valores del coeficiente $CF_h$ por franja horaria.}
+    \label{tab:friccion-vial}
+    \begin{tabularx}{\textwidth}{X r r}
+        \toprule
+        \textbf{Franja horaria} & \textbf{$T_{\text{real}}$ observado} &
+        \textbf{$CF_h$} \\
+        \midrule
+        05:00\,h (flujo libre)          & 10 min   & 1.00 (referencia) \\
+        08:00\,h (pico máximo)          & 18.5 min & \textbf{1.85} \\
+        15:00\,h (pico vespertino)      & 16 min   & 1.60 \\
+        19:00\,h (pico nocturno)        & 17 min   & 1.70 \\
+        Metro (cualquier hora)          & 10 min   & \textbf{1.00} (confinado) \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+El coeficiente $CF_h$ calibra las aristas de tráfico mixto del grafo construido
+en el Objetivo Específico 1 (§\ref{subsec:obj-especificos}): sin esta
+corrección, los datos \gtfs{} estáticos producirían un modelo que sobreestima la
+eficiencia de los modos de superficie y subestima la brecha operativa entre los
+modos confinados y los concesionados, distorsionando el diagnóstico de la red
+actual que el Objetivo Específico 2 requiere.
