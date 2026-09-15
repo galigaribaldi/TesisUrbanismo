@@ -1,0 +1,79 @@
+% !TeX root = ../../tesis.tex
+
+\section{Guía de Replicabilidad}
+\label{anx:apimetro-replicabilidad}
+
+Esta sección condensa lo necesario para levantar \texttt{Apimetro} en un entorno
+local desde cero. El código fuente y la documentación interactiva viven en
+\url{https://github.com/galigaribaldi/Apimetro} y \url{https://apimetro.dev}
+respectivamente.
+
+\subsection*{Stack tecnológico}
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Componente} & \textbf{Versión} \\ \hline
+        Lenguaje            & Go~1.25 \\ \hline
+        Framework web       & Gin~v1.9 + \texttt{gin-contrib/cors}~v1.7.7 \\ \hline
+        Base de datos       & PostgreSQL~15 + PostGIS~3.4 \\ \hline
+        ORM                 & GORM~v1.25 \\ \hline
+        Documentación       & Swaggo~v1.16.4 (genera Swagger UI en \texttt{/swagger/}) \\ \hline
+        Hot reload          & Air (\texttt{.air.toml}) \\ \hline
+        Contenedores        & Docker + docker-compose con perfiles dev/qa/main \\ \hline
+        ETL                 & Python~3 (scripts en \texttt{ETL/}) \\ \hline
+    \end{tabular}
+    \caption{Stack tecnológico de \texttt{Apimetro}.}
+    \label{tab:stack-apimetro}
+\end{table}
+
+\subsection*{Rutas de la \api{}}
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Ruta} & \textbf{Descripción} \\ \hline
+        \texttt{GET /movilidad/mapas/geojsonEstacion}  & Estaciones en GeoJSON \\ \hline
+        \texttt{GET /movilidad/mapas/geojsonLinea}     & Líneas con métricas operativas \\ \hline
+        \texttt{GET /movilidad/mapas/geojsonPoligono}  & Polígonos administrativos \\ \hline
+        \texttt{GET /movilidad/analitico/agebs}        & AGEBs urbanas (paginado) \\ \hline
+        \texttt{CRUD /movilidad/:sistema/linea}        & Gestión descriptiva de líneas \\ \hline
+        \texttt{CRUD /movilidad/:sistema/estacion}     & Gestión descriptiva de estaciones \\ \hline
+    \end{tabular}
+    \caption{Rutas principales de la \api{} de \texttt{Apimetro}.}
+    \label{tab:rutas-apimetro}
+\end{table}
+
+Los sistemas soportados en \texttt{:sistema} son: \texttt{METRO}, \texttt{MB},
+\texttt{CBB}, \texttt{RTP}, \texttt{TROLE}, \texttt{TL}, \texttt{MEXIBUS},
+\texttt{MEXICABLE}, \texttt{INTERURBANO}, \texttt{CC}, \texttt{TODOS}.
+
+\subsection*{Levantar el entorno local (DEV)}
+
+\begin{lstlisting}[language=bash,
+    caption={Secuencia mínima para levantar \texttt{Apimetro} en
+             desarrollo local.},
+    label=lst:dev-setup]
+# 1. Levantar la base de datos y la API con hot-reload
+make docker-dev
+
+# 2. Exportar esquema si se hicieron cambios manuales en la DB
+make db-sync
+
+# 3. Verificar que la API responde
+curl http://localhost:8080/movilidad/mapas/geojsonEstacion?sistema=METRO
+\end{lstlisting}
+
+La cadena de conexión por defecto para desarrollo local sin Docker es:
+
+\begin{lstlisting}[language=bash, label=lst:dsn]
+postgresql://prueba:postgres@localhost:5432/db_apimetro
+\end{lstlisting}
+
+Los archivos \texttt{.env.*} con credenciales viven fuera del repositorio en
+\texttt{\textasciitilde/.SecretsFiles/} y son referenciados por el
+\texttt{Makefile} mediante la variable \texttt{SECRETS\_DIR}.

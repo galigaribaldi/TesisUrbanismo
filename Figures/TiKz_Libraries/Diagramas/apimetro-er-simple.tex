@@ -1,0 +1,40 @@
+% Diagrama: Esquema Entidad-Relación simplificado de Apimetro
+% Tres entidades: Estaciones (nodos puntuales), Líneas (trazos con métricas),
+%   Polígonos (áreas administrativas). Sin columnas individuales.
+% Usado en: 4-Capas-Codigo/4-1-Apimetro/4-1-2-Modelo-Datos.tex  (fig:apimetro-er-simple)
+\begin{tikzpicture}[
+  entidad/.style={
+    rectangle, draw=unamAzul, fill=unamAzul!12,
+    thick, rounded corners=4pt,
+    minimum width=3.4cm, minimum height=1.1cm,
+    align=center, font=\small\bfseries
+  },
+  relacion/.style={Stealth-Stealth, thick, color=unamAzul!60},
+  card/.style={font=\footnotesize\color{unamAzul!80}},
+  etiqrel/.style={
+    font=\footnotesize\itshape\color{gray!65},
+    fill=white, inner sep=2pt
+  }
+]
+
+%% — Vértices del triángulo —
+\node[entidad] (est) at (0,    0)    {Estaciones};
+\node[entidad] (lin) at (6.5,  0)    {Líneas};
+\node[entidad] (pol) at (3.25, -3.1) {Polígonos};
+
+%% — Estaciones ↔ Líneas (N:M) —
+\draw[relacion] (est) -- node[etiqrel, above] {agrupa / conecta} (lin);
+\node[card] at (1.0,  0.25) {N};
+\node[card] at (5.5,  0.25) {M};
+
+%% — Estaciones ↔ Polígonos (N:1) —
+\draw[relacion] (est) -- node[etiqrel, left, xshift=-4pt] {ubicada en} (pol);
+\node[card] at (0.55, -0.75) {N};
+\node[card] at (2.65, -2.55) {1};
+
+%% — Líneas ↔ Polígonos (M:N) —
+\draw[relacion] (lin) -- node[etiqrel, right, xshift=4pt] {atraviesa} (pol);
+\node[card] at (5.95, -0.75) {M};
+\node[card] at (3.85, -2.55) {N};
+
+\end{tikzpicture}

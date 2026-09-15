@@ -13,8 +13,13 @@ la \api{} y el cálculo de indicadores topológicos:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{Figures/Cap4/DiagramaER.png}
-    \caption[Esquema Relacional Simplificado de Apimetro]{Representación de las entidades principales (Estaciones, Líneas y Polígonos) y sus relaciones para el cálculo de indicadores topológicos.}
+    % Opción A — TikZ (activo)
+    \input{Figures/TiKz_Libraries/Diagramas/apimetro-er-simple}
+    % Opción B — PNG original (comentado para comparación)
+    %\includegraphics[width=0.85\textwidth]{Figures/Cap4/DiagramaER.png}
+    \caption[Esquema Relacional Simplificado de Apimetro]{Representación
+    de las entidades principales (Estaciones, Líneas y Polígonos) y sus
+    relaciones para el cálculo de indicadores topológicos.}
     \label{fig:diagrama-er}
     \fuentefigura{Elaboración propia.}
 \end{figure}
@@ -24,53 +29,48 @@ Como se observa en la Figura \ref{fig:diagrama-er}, el modelo se articula bajo
 los siguientes componentes:
 
 \begin{itemize}
-\item \textbf{Estaciones:} Nodo puntual que contiene atributos de conectividad y
-ubicación.
-\item \textbf{Líneas:} Aristas de tipo \texttt{MultiLineString} que almacenan
-métricas operativas (velocidad, capacidad, frecuencia).
-\item \textbf{Polígonos:} Áreas administrativas para filtrado por alcaldía o
-municipio.
-\item \textbf{Relaciones:} Las líneas se vinculan con las estaciones a través de
-un identificador de sistema y ramal, permitiendo la reconstrucción del grafo
+\item \textbf{Estaciones:} nodos puntuales de la red con atributos de
+conectividad, sistema de transporte y ubicación administrativa.
+\item \textbf{Líneas:} trazos de los ramales con las métricas operativas
+necesarias para el cálculo posterior (velocidad promedio, frecuencia de paso,
+capacidad del vehículo).
+\item \textbf{Polígonos:} áreas administrativas para filtrar cualquier
+consulta por alcaldía o municipio.
+\item \textbf{Relaciones:} las líneas se vinculan a las estaciones mediante
+un identificador de sistema y ramal, lo que permite reconstruir el grafo
 metropolitano.
 \end{itemize}
 
 
-\subsubsection{Definición de Tablas Principales}
+\subsubsection{Tres tablas, tres preguntas sobre el territorio}
 \label{subsubsec:DefinicionSQL}
 
-El esquema relacional se implementa en tres tablas: \texttt{estaciones} (nodos
-puntuales con atributos de conectividad), \texttt{lineas} (aristas
-\texttt{MultiLineString} con métricas operativas de velocidad, frecuencia y
-capacidad) y \texttt{poligonos} (áreas administrativas para filtrado por
-alcaldía o municipio). Todas las columnas de geometría utilizan el tipo
-\texttt{GEOMETRY} con proyección WGS~84 (SRID~4326) e índices espaciales
-\texttt{GIST} para optimizar las consultas de ruteo. La definición completa del
-esquema \textsc{sql} se presenta en el Anexo~\ref{anx:apimetro-sql}.
+Cada una de las tres tablas del esquema responde a una pregunta geográfica
+concreta sobre la red:
 
-La arquitectura de estas tablas responde a dos necesidades fundamentales
-identificadas en la investigación:
 \begin{itemize}
-\item \textbf{Optimización de Consultas Geográficas:} El uso de columnas de tipo
-\texttt{GEOMETRY} y la creación de índices
-\texttt{GIST} permiten realizar operaciones espaciales masivas en milisegundos,
-tales como \texttt{ST\_AsGeoJSON} para la
-exportación de geometrías, \texttt{ST\_DWithin} para el cálculo de áreas de
-influencia o cobertura, y \texttt{ST\_Length} para
-    determinar las distancias reales sobre la red vial.
-\item \textbf{Cálculo de Indicadores Operativos:} A diferencia de un
-\texttt{SIG}
-convencional, la tabla \texttt{lineas} integra atributos operativos críticos
-como la \textit{capacidad} del vehículo y la
-\textit{frecuencia} de paso. Esto permite que el motor \texttt{VFTModel} calcule
-automáticamente indicadores de desempeño como la
-\textbf{Fuerza Nodal ($C_i$)} y el \textbf{Tiempo de Viaje ($T$)}, ponderando el
-grafo metropolitano no solo por su fricción espacial,
-sino por la oferta real de transporte y las penalizaciones por transferencia.
+    \item \textbf{Estaciones} — ¿dónde está cada parada y a qué sistema
+    pertenece? Cada registro almacena las coordenadas del nodo, su nombre
+    comercial, el sistema de transporte (\textsc{metro}, \textsc{mb},
+    \textsc{rtp}, etc.), la alcaldía donde se ubica y si funciona como
+    \textsc{cetram}.
+
+    \item \textbf{Líneas} — ¿dónde corre cada ramal y bajo qué condiciones
+    opera? Cada registro contiene el trazo geométrico del servicio y, de forma
+    integrada, los atributos que \textit{VFTModel} necesita para ponderar el
+    grafo: velocidad promedio, frecuencia de paso y capacidad del vehículo.
+    Guardar estas métricas junto a la geometría —y no en una hoja de cálculo
+    separada— es lo que hace posible el cálculo de indicadores como la
+    \textbf{Fuerza Nodal ($C_i$)} y el \textbf{Tiempo de Viaje ($T$)} sin
+    procesamiento adicional.
+
+    \item \textbf{Polígonos} — ¿qué zonas administrativas cubre el área de
+    estudio? Los límites de alcaldías y municipios permiten filtrar cualquier
+    consulta por demarcación territorial, facilitando análisis focalizados en
+    la periferia sur u oriente de la \zmvm.
 \end{itemize}
 
-Finalmente, es importante señalar que esta infraestructura está alineada con los
-preceptos de soberanía tecnológica y reproducibilidad científica, siendo
-totalmente instalable en cualquier entorno (Docker, Linux, Windows o MacOS)
-mediante el archivo de inicialización \texttt{init.sql} (o \texttt{seed.sql})
-disponible en el repositorio oficial de \texttt{Apimetro} en GitHub.
+Las tres tablas comparten una proyección geográfica unificada (\textbf{WGS~84})
+e índices espaciales que hacen las consultas de ruteo eficientes. La definición
+completa del esquema \textsc{sql} se encuentra en el Anexo~
+\ref{anx:apimetro-sql}.

@@ -1,0 +1,51 @@
+% Diagrama: Dos tipos de salida de Apimetro
+% Columna izquierda: JSON Descriptivo (atributos alfanuméricos)
+% Columna derecha: GeoJSON Geográfico (geometría + métricas)
+% Usado en: 4-Capas-Codigo/4-1-Apimetro/4-1-4-Salidas.tex (fig:apimetro-salidas-tipos)
+\begin{tikzpicture}[
+  cabecera/.style={
+    rectangle, draw=unamAzul, fill=unamAzul, text=white,
+    minimum width=5.4cm, minimum height=0.9cm,
+    align=center, font=\small\bfseries
+  },
+  cuerpo/.style={
+    rectangle, draw=unamAzul!40, fill=unamAzul!8,
+    minimum width=5.4cm, text width=5.0cm,
+    align=left, inner sep=8pt, font=\footnotesize
+  },
+  uso/.style={
+    rectangle, draw=unamOro!70, fill=unamOro!18,
+    minimum width=5.4cm, minimum height=0.75cm,
+    align=center, font=\footnotesize\itshape, text=unamAzul
+  }
+]
+
+%% ── Columna izquierda: JSON Descriptivo ──────────────────────────
+\node[cabecera] (jh) at (0, 0) {JSON Descriptivo};
+
+\node[cuerpo, anchor=north] (jb) at (jh.south) {%
+  \textbf{¿Qué contiene?}\\[4pt]
+  \texttt{linea\_id} · \texttt{nombre}\\
+  \texttt{sistema} · \texttt{color\_esp}\\
+  \texttt{clasificacion}\\[4pt]
+  \textit{Sin geometría}
+};
+
+\node[uso, anchor=north] (ju) at (jb.south)
+  {tablas · fichas · simbología};
+
+%% ── Columna derecha: GeoJSON Geográfico ──────────────────────────
+\node[cabecera] (gh) at (6.6, 0) {GeoJSON Geográfico};
+
+\node[cuerpo, anchor=north] (gb) at (gh.south) {%
+  \textbf{¿Qué contiene?}\\[4pt]
+  \texttt{coordinates} (Point / MultiLineString)\\
+  \texttt{properties}\\
+  \quad velocidad · frecuencia · capacidad\\[4pt]
+  \textit{Listo para web, sin conversión}
+};
+
+\node[uso, anchor=north] (gu) at (gb.south)
+  {mapas · ruteo · \textit{VFTModel}};
+
+\end{tikzpicture}

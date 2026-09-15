@@ -1,0 +1,39 @@
+% !TeX root = ../../tesis.tex
+
+\section{Infraestructura: Contenedores y Automatización}
+\label{anx:apimetro-infra}
+
+El despliegue de \texttt{Apimetro} se basa en tres archivos de configuración que
+trabajan en conjunto: el \texttt{Dockerfile} produce la imagen del servicio, el
+\texttt{docker-compose.yml} orquesta los contenedores por entorno, y el
+\texttt{Makefile} expone los comandos de uso cotidiano. Los fragmentos
+siguientes muestran las secciones determinantes de cada archivo.
+
+\subsection*{Imagen de producción (\texttt{Dockerfile})}
+
+La construcción usa un patrón \textit{multi-stage}: la etapa \texttt{builder}
+compila el binario estáticamente con \texttt{CGO\_ENABLED=0}; la etapa
+\texttt{runner} arranca desde \texttt{alpine} y copia solo ese binario, dejando
+fuera el código fuente y las dependencias de compilación.
+
+\lstinputlisting[language=bash, caption={\texttt{Dockerfile} de \texttt{Apimetro}: construcción multi-stage Builder → Runner.}, label=lst:dockerfile, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/Infraestructura/Dockerfile.txt}
+
+\subsection*{Orquestación del entorno DEV
+(\texttt{docker-compose.yml}, extracto)}
+
+El entorno de desarrollo levanta dos servicios: \texttt{db\_dev} con la imagen
+oficial \texttt{postgis/postgis:15-3.4} e \texttt{api\_dev} que depende de él
+mediante un \textit{healthcheck} activo, garantizando que la \api{} no arranque
+antes de que PostGIS esté listo. Los entornos \texttt{qa} y \texttt{main}
+replican el mismo patrón en puertos distintos (5434/5435).
+
+\lstinputlisting[language=bash, caption={Servicios DEV del \texttt{docker-compose.yml}: dependencia condicionada por \textit{healthcheck}.}, label=lst:docker-compose, breaklines=true, firstline=15, lastline=65, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/Infraestructura/DockerCompose.txt}
+
+\subsection*{Comandos de automatización (\texttt{Makefile}, extracto)}
+
+El \texttt{Makefile} centraliza el ciclo de desarrollo: regenera la
+documentación Swagger antes de compilar, gestiona los tres entornos Docker y
+ofrece \texttt{db-sync} para exportar el esquema local a \texttt{init.sql}
+cuando se hacen cambios manuales en la base de datos.
+
+\lstinputlisting[language=bash, caption={Extracto del \texttt{Makefile}: targets de desarrollo, Docker y sincronización de esquema.}, label=lst:makefile, breaklines=true, firstline=1, lastline=57, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/Infraestructura/Make.txt}

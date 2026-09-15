@@ -1,0 +1,42 @@
+% !TeX root = ../../tesis.tex
+
+\section{Proceso ETL: del GTFS a la Base de Datos}
+\label{anx:apimetro-etl}
+
+El proceso de ingesta opera en dos fases. La primera lee los archivos
+\textsc{gtfs} originales y produce una plantilla Excel con los campos
+normalizados al esquema de \texttt{Apimetro}. La segunda toma esa plantilla,
+cruza las geometrías del archivo \texttt{stops.txt} y carga el resultado
+directamente en PostgreSQL vía \textit{GeoPandas}.
+
+\subsection*{Dato de entrada: \texttt{routes.txt} del \textsc{gtfs}}
+
+El archivo \texttt{routes.txt} es uno de los cuatro archivos obligatorios del
+estándar \textsc{gtfs}. Cada fila describe una línea de transporte con su
+agencia, número comercial, nombre largo y colores institucionales. La
+heterogeneidad de los valores en \texttt{agency\_id} —\textsc{semovi},
+\textsc{metro}, \textsc{cbb}, \textsc{cc}, entre otros— es el origen de la
+necesidad de normalización.
+
+\lstinputlisting[ caption={Muestra del archivo \texttt{routes.txt} de la \textsc{adip} con nueve líneas de distintos sistemas.}, label=lst:gtfs-routes, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/ejemplo_GTFS_routes.txt}
+
+\subsection*{Fase 1 — Generador de plantilla
+(\texttt{ejemplo\_Generador\_Plantilla.py})}
+
+El script lee los cuatro archivos \textsc{gtfs} requeridos, aplica la función de
+estandarización de nombres por agencia y exporta una plantilla Excel con tres
+hojas: \textit{Líneas}, \textit{Ramales} y \textit{Estaciones}. Se muestra la
+función de normalización y el bloque de procesamiento de líneas; los bloques de
+ramales y estaciones siguen el mismo patrón.
+
+\lstinputlisting[language=Python, caption={Normalización de nombres de sistema a partir de \texttt{agency\_id} y generación de la plantilla Excel.}, label=lst:py-generador, breaklines=true, firstline=35, lastline=83, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/python/ejemplo_Generador_Plantilla.py}
+
+\subsection*{Fase 2 — Carga a PostGIS
+(\texttt{ejemplo\_DataEstacion.py})}
+
+La clase \texttt{EstacionETL} implementa el patrón
+\textit{Extract–Transform–Load} en cuatro métodos: lectura del Excel de
+plantilla, lectura del \texttt{stops.txt}, cruce por \texttt{stop\_gtfs} y carga
+final a la tabla \texttt{estacions} con \texttt{gdf.to\_postgis()}.
+
+\lstinputlisting[language=Python, caption={Clase \texttt{EstacionETL}: extracción, transformación y carga a PostGIS vía \textit{GeoPandas}.}, label=lst:py-etl, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/python/ejemplo_DataEstacion.py}

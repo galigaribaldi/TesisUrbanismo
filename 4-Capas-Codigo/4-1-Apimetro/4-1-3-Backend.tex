@@ -1,64 +1,44 @@
 % !TeX root = ../../tesis.tex
 
-\subsection{Tecnologías Backend}
+\subsection{Tecnología del servicio de datos}
 \label{subsec:backend}
-La arquitectura del motor de datos de la \zmvm se ha implementado utilizando el
-lenguaje de programación \textbf{Go 1.25}. La elección de esta tecnología no es
-fortuita; responde a la necesidad de procesar un grafo metropolitano con miles
-de nodos y aristas bajo condiciones de alta concurrencia y baja latencia. Go, al
-ser un lenguaje compilado, ofrece un rendimiento cercano a C++, pero con una
-gestión de memoria ( \textit{Garbage Collection}) eficiente, lo cual es ideal
-para el ruteo asíncrono y el despacho de geometrías masivas en formato
-\texttt{GeoJSON}. Para la capa de servicios web, se seleccionó el framework
-\textbf{Gin v1.9}. Gin se distingue por su enfoque minimalista y su velocidad en
-el ruteo de peticiones HTTP mediante un árbol de prefijos, lo que permite que
-los endpoints de \texttt{Apimetro} respondan en milisegundos incluso bajo cargas
-pesadas. El sistema se organiza bajo el patrón de diseño
-\textbf{MVC (Modelo-Vista-Controlador)}, permitiendo una separación clara entre
-la lógica de negocio, el dominio matemático y la persistencia de datos.
 
-\subsubsection{Configuración y Entorno de Ejecución}
-\label{subsubsec:configuracionejecucion}
-
-Para garantizar la portabilidad y soberanía tecnológica, el backend se configura
-mediante variables de entorno que permiten su despliegue en contenedores
-\textbf{Docker}. Las variables críticas cubren la conexión al motor espacial (
-\texttt{DB\_HOST}, \texttt{DATABASE\_URL}) y el modo de ejecución del framework
-(\texttt{GIN\_MODE}); su especificación completa se presenta en el Cuadro~
-\ref{tab:env-vars} del Anexo~\ref{anx:apimetro-backend}.
-
-\subsubsection{Estructura de Endpoints y Lógica de Respuesta}
-\label{subsubsec:estructuraEndpoints}
-La capa de rutas de \texttt{Apimetro} expone la interfaz pública del sistema,
-actuando como el punto de entrada para el consumo de datos georreferenciados.
-Todos los endpoints de mapas han sido diseñados para devolver objetos de tipo
-\texttt{FeatureCollection} bajo el estándar \textbf{GeoJSON RFC 7946}
-\citep{cabrera2025apimetro}. Esta arquitectura permite que el sistema opere bajo
-un modelo de \textbf{SaaS (Software as a Service)}, donde clientes analíticos
-como \textit{VFTModel} o visores cartográficos consumen datos ya normalizados y
-ruteables. Esto elimina la necesidad de procesar los archivos de texto plano de
-los feeds \gtfs{} originales en cada consulta, optimizando significativamente el
-rendimiento computacional al calcular indicadores como el
-\textbf{Tiempo de Viaje Promedio (T)} y el \textbf{Índice de Ruta Directa (DI)}
-\citep{cabrera2026VFTModel}.
-
-Para ejemplificar la versatilidad del backend desarrollado en \textbf{Go}, se
-analizan las dos estructuras principales del sistema: la gestión de nodos
-puntuales (estaciones) y la recuperación de geometrías complejas (líneas y
-ramales).
-\paragraph{Control de Estaciones (Nodos):} El controlador
-\texttt{estaciones.go} gestiona la lógica de filtrado de las paradas del sistema
-metropolitano capturando parámetros dinámicos de la \textsc{url} (sistema,
-alcaldía, jerarquía de transporte) para segmentar la red y permitir auditorías
-locales precisas. El código fuente completo se presenta en el Anexo~
+El servicio de \texttt{Apimetro} está construido en \textbf{Go}, lenguaje
+compilado con el rendimiento necesario para atender consultas concurrentes sobre
+el grafo metropolitano. La arquitectura interna —framework web, patrón de diseño
+y configuración de entorno Docker— se documenta en el Anexo~
 \ref{anx:apimetro-backend}.
 
-\paragraph{Optimización de Indicadores:}
-La separación de estas lógicas en controladores especializados permite que una
-petición de ruteo para el \textbf{Tercer Contorno} sea resuelta mediante índices
-espaciales \texttt{GIST} en milisegundos \citep{cabrera2025apimetro}.
+\subsubsection{El modelo SaaS: por qué Apimetro no procesa dos veces}
+\label{subsubsec:estructuraEndpoints}
 
-Esta estructura garantiza que la planeación urbana no dependa de la manipulación
-manual de datos pesados, permitiendo que la simulación de escenarios de
-transporte sea un proceso dinámico, reproducible y basado en la soberanía
-tecnológica de herramientas de código abierto \citep{cabrera2025apimetro}.
+La decisión de arquitectura más relevante de \texttt{Apimetro} no es tecnológica
+sino metodológica: ¿debe cada herramienta que necesita datos de la red
+procesarlos desde cero, o conviene que exista un servicio centralizado que los
+prepare una sola vez?
+
+El modelo adoptado es el del
+\textbf{\termino{Software as a Service} (\textsc{saas})}: \texttt{Apimetro}
+ingesta los archivos \gtfs{} oficiales, aplica el proceso de normalización y
+almacena el resultado. A partir de ese punto, cualquier cliente —
+\textit{VFTModel}, un visor web, un script de análisis— consulta la \api{} REST
+y recibe geometrías con atributos operativos ya integrados
+\citep{cabrera2026VFTModel}. Sin este principio, cada ejecución de
+\textit{VFTModel} requeriría releer los mismos archivos de la \textsc{adip},
+multiplicando el tiempo de cómputo y abriendo margen a inconsistencias entre
+corridas.
+
+La \api{} expone tres tipos de consulta que mapean directamente a las tres
+entidades del modelo relacional:
+
+\begin{itemize}
+    \item \textbf{Estaciones:} puntos georreferenciados filtrables por
+    sistema, alcaldía o jerarquía nodal.
+    \item \textbf{Líneas:} trazos con métricas operativas integradas
+    (velocidad, frecuencia, capacidad del vehículo).
+    \item \textbf{Polígonos:} límites administrativos para el filtrado por
+    demarcación territorial.
+\end{itemize}
+
+El formato de estas respuestas —y la razón de preferir GeoJSON sobre GeoPackage—
+se desarrolla en la sección~\ref{subsec:estructura-geojson}.

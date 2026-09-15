@@ -1,0 +1,71 @@
+% !TeX root = ../../tesis.tex
+
+\section{Estructura de Salidas: JSON Descriptivo y GeoJSON}
+\label{anx:apimetro-salidas}
+
+\subsection*{Salida JSON descriptiva (atributos alfanuméricos)}
+
+\begin{lstlisting}[language=json,
+    caption={Fragmento de salida JSON descriptiva para líneas de
+             transporte.},
+    label=lst:json-descriptivo]
+[
+  {
+    "linea_id": 191,
+    "nombre": "Metro Linea 1",
+    "num_comercial": "1",
+    "sistema": "METRO",
+    "anio_inauguracion": 1969,
+    "color_en": "Pink",
+    "color_esp": "F94F8E",
+    "tam_km": 16.66467,
+    "existe": true,
+    "clasificacion": "existente"
+  }
+]
+\end{lstlisting}
+
+\subsection*{Salida GeoJSON ruteable (geometría con métricas)}
+
+\begin{lstlisting}[language=json,
+    caption={Estructura GeoJSON ruteable de una estación en
+             \texttt{Apimetro}.},
+    label=lst:geojson-estacion]
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-99.13402, 19.42932]
+      },
+      "properties": {
+        "nombre": "20 de Noviembre",
+        "sistema": "MB",
+        "alcaldia_municipio": "Cuauhtémoc",
+        "es_cetram": false,
+        "jerarquia_transporte": "masivo_mediano",
+        "tipo_entidad": "estacion"
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsection*{Conversión a GeoPackage para uso en \textsc{qgis}}
+
+Para el urbanista que trabaja en escritorio, convertir la salida GeoJSON a
+\textit{GeoPackage} requiere una sola línea en Python:
+
+\begin{lstlisting}[language=Python,
+    caption={Conversión de GeoJSON a GeoPackage con \textit{GeoPandas}.},
+    label=lst:geopandas-conversion]
+import geopandas as gpd
+gpd.read_file("estaciones.geojson").to_file("estaciones.gpkg",
+                                            driver="GPKG")
+\end{lstlisting}
+
+El archivo \texttt{.gpkg} resultante es compatible con \textsc{qgis},
+\textsc{arcgis} y cualquier cliente que soporte el estándar \textsc{ogc}
+GeoPackage \citep{ogc2014geopackage}.

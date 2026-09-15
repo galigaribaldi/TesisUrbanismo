@@ -1,123 +1,95 @@
 % !TeX root = ../../tesis.tex
 
-\subsection{Salidas Estructurales (GeoJSON)}
+\subsection{Salidas estructurales: elección del formato de intercambio}
 \label{subsec:estructura-geojson}
 
-La elección del formato de intercambio de datos geoespaciales constituye una
-decisión crítica para la operatividad de los sistemas de transporte modernos. En
-el desarrollo del motor \texttt{Apimetro}, se ha priorizado el uso del estándar
-\textbf{GeoJSON (RFC 7946)} sobre el formato tradicional
-\textit{ESRI Shapefile} (SHP). Mientras que el formato SHP representa un
-estándar de legado que requiere una colección de múltiples archivos
-independientes (\textit{.shp, .dbf, .shx}) para su funcionamiento y presenta
-limitaciones de codificación en entornos web, el GeoJSON es un formato basado
-íntegramente en texto plano (\textit{JSON}) diseñado específicamente para la
-transferencia ágil de datos geográficos en aplicaciones móviles y sistemas
-distribuidos \citep{cabrera2025apimetro}.
+Los datos geoespaciales de la red de transporte metropolitana pueden
+distribuirse en tres formatos vectoriales de uso extendido en el ámbito urbano:
+el \textit{Shapefile} (\textsc{shp}), el \textit{GeoPackage} y el
+\textit{GeoJSON}. Cada uno responde a un contexto de uso distinto
+\citep{longley2015}, como se sintetiza en la Tabla~
+\ref{tab:formatos-geoespaciales}.
 
-Una de las ventajas determinantes de este formato es su
-\textbf{compatibilidad nativa} con las librerías de mapas de alto rendimiento
-más utilizadas en la industria tecnológica, tales como \textit{Leaflet},
-\textit{Mapbox} y \textit{MapLibre} \citep{cabrera2025apimetro}. Esta
-característica permite que los datos de movilidad de la \zmvm se integren
-directamente en visores interactivos sin necesidad de realizar transformaciones
-pesadas en el lado del cliente o recurrir a servidores de mapas intermediarios.
-Al ser un estándar basado en texto, facilita la transparencia en la auditoría de
-los datos y asegura la soberanía tecnológica de la investigación al utilizar
-insumos oficiales de acceso abierto \citep{adip_gtfs_2024}.
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|p{2.2cm}|p{3.2cm}|p{3.8cm}|p{4.2cm}|}
+        \hline
+        \textbf{Formato} & \textbf{Tipo de archivo} &
+        \textbf{Uso habitual} & \textbf{Limitaciones} \\ \hline
+        %
+        \textsc{shp} (Shapefile) &
+        Múltiples archivos binarios (.shp, .dbf, .shx)
+        \citep{esri1998shapefile} &
+        Escritorio \textsc{sig}; herencia institucional
+        (\textsc{inegi}, \textsc{adip}) &
+        Requiere al menos 3 archivos; límite en nombres de campo;
+        problemas de codificación en entornos web \\ \hline
+        %
+        GeoPackage (.gpkg) &
+        Contenedor \textsc{sqlite} binario, archivo único
+        \citep{ogc2014geopackage} &
+        Formato nativo de \textsc{qgis}; análisis local en
+        escritorio &
+        Binario: no legible como texto; difícil de gestionar con
+        control de versiones \\ \hline
+        %
+        GeoJSON &
+        Texto plano \textsc{json}, archivo único
+        \citep{butler2016geojson} &
+        Servicios web, \api{} REST, visores interactivos &
+        Mayor peso en disco para geometrías con millones de
+        vértices \\ \hline
+    \end{tabular}
+    \caption[Comparativa de formatos de datos geoespaciales]{Comparativa
+    entre los tres formatos vectoriales más comunes en flujos de trabajo
+    urbano.}
+    \label{tab:formatos-geoespaciales}
+\end{table}
 
-Asimismo, la integración de GeoJSON con bases de datos espaciales como
-\textbf{PostGIS} permite que la generación de mapas sea un proceso dinámico y
-asíncrono. Mediante funciones nativas de conversión, el sistema transforma la
-topología de la red almacenada en tablas de estaciones y líneas en geometrías
-ruteables de forma inmediata \citep{fortin2016innovative}. Este enfoque supera
-la rigidez de los archivos vectoriales estáticos, permitiendo que cada objeto
-geográfico transporte, dentro de su estructura de \textit{properties}, no solo
-su ubicación espacial, sino también sus métricas operativas críticas —como
-velocidad promedio, frecuencia y capacidad del vehículo—. Esta consolidación de
-información en un solo objeto estructurado es fundamental para el procesamiento
-analítico del motor \textit{VFTModel} al evaluar la eficiencia de la red
+El \textit{Shapefile} continúa presente en entregas de datos institucionales en
+México —archivos de \textsc{inegi}, \textsc{adip} y \textsc{semovi} llegan con
+frecuencia en este formato—, por lo que su lectura sigue siendo parte del
+repertorio cotidiano del urbanista. Sin embargo, para un servicio de datos en
+red como \texttt{Apimetro}, el \textit{GeoJSON} ofrece dos ventajas
+estructurales sobre sus alternativas: es texto plano —cualquier corrupción se
+manifiesta como un error de parseo inmediato, mientras que un archivo binario
+dañado puede aparentar ser válido hasta que se intenta abrir en el \textsc{sig}—
+y es consumible directamente por herramientas web y entornos de programación sin
+conversión previa \citep{butler2016geojson}. Para el urbanista que trabaja en
+escritorio, la conversión de \textit{GeoJSON} a \textit{GeoPackage} es una
+operación de una sola línea en Python con la biblioteca \textit{GeoPandas}
+\citep{tycgis2025}, lo que preserva la interoperabilidad con \textsc{qgis} sin
+sacrificar las ventajas del formato de intercambio. Las métricas operativas
+necesarias para el motor \textit{VFTModel} —velocidad promedio, frecuencia y
+capacidad del vehículo— viajan integradas en las \textit{properties} de cada
+objeto GeoJSON, eliminando el procesamiento adicional de cruce entre archivos
 \citep{cabrera2026VFTModel}.
 
-\subsection{Estructura de JSON Descriptivo (No Geográfico)}
+\subsection{JSON Descriptivo: la ficha técnica de la red}
 \label{subsec:estructura-geojson-descriptivo}
 
-Complementariamente a las salidas espaciales, el motor \texttt{Apimetro} provee
-una capa de \textbf{respuestas descriptivas} en formato JSON estándar. Esta
-estructura está diseñada específicamente para gestionar atributos alfanuméricos,
-metadatos históricos y parámetros de estilo que no requieren de una
-representación geométrica inmediata para su procesamiento
-\citep{cabrera2025apimetro}. La utilidad de esta salida radica en su eficiencia
-para alimentar componentes de interfaz de usuario, tales como fichas técnicas de
-estaciones, tablas de atributos operativos o la configuración de la simbología
-visual en visores cartográficos sin incurrir en el costo computacional de
-transferir coordenadas geográficas masivas.
+\begin{figure}[H]
+    \centering
+    \input{Figures/TiKz_Libraries/Diagramas/apimetro-salidas-tipos}
+    \caption[Tipos de salida de Apimetro]{Los dos tipos de respuesta de
+    la \api{}: JSON descriptivo (atributos alfanuméricos) y GeoJSON
+    geográfico (geometría con métricas operativas).}
+    \label{fig:apimetro-salidas-tipos}
+    \fuentefigura{Elaboración propia.}
+\end{figure}
 
-A diferencia del estándar GeoJSON, orientado al renderizado de mapas, el JSON
-descriptivo permite realizar consultas rápidas sobre la jerarquía administrativa
-y la cronología del sistema de transporte~\citep{cabrera2025apimetro}. Estos
-registros vinculan la información operativa almacenada en la tabla
-\texttt{historico\_operacion} con las identidades comerciales de cada línea. Un
-ejemplo representativo de esta salida se presenta en el Anexo~
-\ref{anx:apimetro-salidas}.
+\texttt{Apimetro} ofrece dos tipos de respuesta según lo que el investigador o
+la herramienta necesite, como ilustra la Figura~\ref{fig:apimetro-salidas-tipos}
+. La primera —el JSON descriptivo— devuelve únicamente atributos alfanuméricos:
+nombre comercial de cada línea, sistema, color institucional y año de
+inauguración \citep{bray2017json}. No contiene geometría. Es la «ficha técnica»
+de la red, adecuada para poblar tablas comparativas o configurar la simbología
+de un visor sin necesidad de transferir coordenadas.
 
-Entre los campos de mayor relevancia para la planeación se encuentran
-\texttt{color\_esp} —que permite la estandarización visual de las rutas bajo los
-lineamientos oficiales de identidad institucional de la \zmvm{}— y
-\texttt{clasificacion} —que distingue entre infraestructura existente, futura o
-eliminada—, ambos fundamentales para que el motor \textit{VFTModel} realice
-comparaciones estadísticas entre la red actual y los escenarios de expansión
-propuestos~\citep{cabrera2026VFTModel, adip_gtfs_2024}. Esta separación de
-intereses entre los datos descriptivos y los geográficos asegura que el flujo de
-información sea escalable y se adapte a las necesidades específicas de la
-planeación urbana estratégica y la auditoría de redes complejas~
-\citep{fortin2016innovative}.
+El campo \texttt{clasificacion} —que distingue infraestructura existente, futura
+o eliminada según los datos de la \textsc{adip} \citep{adip_gtfs_2024}— es el
+insumo que habilita a \textit{VFTModel} para comparar la red actual con
+escenarios de expansión \citep{cabrera2026VFTModel}. Los ejemplos completos de
+ambas salidas se presentan en el Anexo~\ref{anx:apimetro-salidas}.
 
-\subsection{Estructura de GeoJSON (Geográfico)}
-\label{subsec:estructura-geojson-geografico}
-
-La salida geográfica de \texttt{Apimetro} constituye la columna vertebral del
-sistema, transformando la persistencia relacional de la base de datos en objetos
-espaciales listos para el análisis y la visualización
-\citep{cabrera2025apimetro}. A diferencia de los formatos tabulares, la
-estructura GeoJSON permite una jerarquía anidada que encapsula la topología de
-la red metropolitana en un solo archivo de texto plano. A continuación, se
-describen los cuatro componentes fundamentales que integran cada respuesta del
-motor:
-
-\paragraph{1. FeatureCollection:} Es el contenedor de nivel superior que agrupa
-un conjunto de entidades geográficas. En el contexto de esta investigación, un
-\texttt{FeatureCollection} puede representar la totalidad de las estaciones de
-un sistema (como el Metrobús) o el trazo completo de un ramal operativo.
-
-\paragraph{2. Feature:} Representa una unidad individual dentro de la red, ya
-sea un nodo puntual (estación) o una arista (segmento de línea). Cada
-\texttt{Feature} actúa como el vínculo entre la geometría física y sus atributos
-descriptivos.
-
-\paragraph{3. Geometry:} Define el componente espacial de la entidad utilizando
-coordenadas geográficas bajo el elipsoide \textbf{WGS 84 (SRID 4326)}.
-\texttt{Apimetro} emplea primordialmente dos tipos de geometrías:
-\texttt{Point} para la geolocalización exacta de estaciones y paradas, y
-\texttt{MultiLineString} para representar los trazos de las rutas, permitiendo
-capturar la continuidad de la infraestructura vial incluso en segmentos
-fragmentados.
-
-\paragraph{4. Properties:} Es el objeto donde se almacena la metadata
-enriquecida y las métricas operativas. En esta sección, el motor integra datos
-como la \texttt{alcaldia\_municipio}, el \texttt{sistema}, y variables críticas
-para el motor \textit{VFTModel} como la \texttt{velocidad\_promedio\_kmh} y la
-\texttt{frecuencia\_minutos}.
-
-Un ejemplo representativo de la estructura de una estación de transporte masivo
-generada por la \api{} se presenta en el Anexo~\ref{anx:apimetro-salidas}.
-
-La propiedad \texttt{coordinates} proporciona la base para el cálculo de la
-\textbf{Distancia Euclidiana} necesaria para obtener el
-\textbf{Índice de Ruta Directa ($DI$)}. Al mismo tiempo, las
-\texttt{properties} permiten realizar filtrados dinámicos en el lado del
-cliente, facilitando que aplicaciones móviles o visores web presenten únicamente
-la información relevante para la planeación del corredor anillar propuesto
-\citep{cabrera2025apimetro, adip_gtfs_2024}. Esta arquitectura asegura que la
-información geográfica no sea solo una representación visual, sino un insumo
-matemático auditable y reproducible \citep{fortin2016innovative}.

@@ -1,0 +1,67 @@
+% !TeX root = ../../tesis.tex
+
+\section{Backend Go: del Modelo a la Respuesta GeoJSON}
+\label{anx:apimetro-backend}
+
+El servicio web sigue el patrón \textsc{mvc}: los \textit{structs} del paquete
+\texttt{models} definen el mapeo entre columnas de PostGIS y objetos Go; los
+controladores en \texttt{geojson/} y \texttt{transporte/} ejecutan las consultas
+y construyen las respuestas; y el router de Gin expone las rutas. Los tres
+fragmentos siguientes ilustran cada capa.
+
+\subsection*{Estructura de datos (\texttt{result\_gjson.go})}
+
+El \textit{struct} \texttt{ResultGeoJsonEstacion} mapea el resultado de la
+consulta \textsc{sql} —incluyendo el campo \texttt{mapa} que recibe la geometría
+serializada por \texttt{ST\_AsGeoJSON}— a un objeto Go tipado antes de construir
+el \texttt{FeatureCollection}.
+
+\lstinputlisting[language=Go, caption={Estructura de mapeo entre la consulta PostGIS y el objeto Go para estaciones GeoJSON.}, label=lst:go-struct, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/result_gjson.go}
+
+\subsection*{Consulta espacial y ensamblado GeoJSON
+(\texttt{ejemplo\_geojson\_estacion.go})}
+
+La función \texttt{SelectGeoJsonEstacionConFiltros} construye la query de forma
+progresiva: parte de un \texttt{SELECT} con \texttt{ST\_AsGeoJSON(geom)} y
+aplica filtros condicionales por \texttt{sistema}, \texttt{alcaldia\_municipio},
+\texttt{nombre\_ramal} y \texttt{es\_cetram}. Al final recorre los resultados y
+ensambla el \texttt{FeatureCollection} desempaquetando la geometría con
+\texttt{json.Unmarshal}.
+
+\lstinputlisting[language=Go, caption={Consulta PostGIS con filtros dinámicos y construcción del \texttt{FeatureCollection} de estaciones.}, label=lst:go-geojson, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/ejemplo_geojson_estacion.go}
+
+\subsection*{Modelo CRUD con filtrado dinámico
+(\texttt{ejemplo\_estaciones.go})}
+
+\texttt{SearchEstaciones} recibe un mapa de filtros y activa el \textsc{join}
+con la tabla \texttt{lineas} solo cuando algún filtro foráneo está presente,
+evitando el costo de joins innecesarios en consultas simples por id o nombre.
+
+\lstinputlisting[language=Go, caption={Filtrado dinámico de estaciones: JOIN condicional a \texttt{lineas} según los filtros recibidos.}, label=lst:go-estaciones, breaklines=true, firstline=17, lastline=86, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/ejemplo_estaciones.go}
+
+\subsection*{Variables de entorno (Docker)}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Variable} & \textbf{Descripción} & \textbf{Ejemplo} \\ \hline
+        \texttt{DB\_HOST}      & Host de la base de datos PostGIS  & \texttt{localhost / db\_dev}            \\ \hline
+        \texttt{DB\_PORT}      & Puerto de PostgreSQL               & \texttt{5432}                           \\ \hline
+        \texttt{DATABASE\_URL} & DSN completo de conexión           & \texttt{postgresql://user:pass@host/db} \\ \hline
+        \texttt{GIN\_MODE}     & Modo de ejecución del framework    & \texttt{debug / release}               \\ \hline
+    \end{tabular}
+    \caption{Variables de entorno para el backend de \texttt{Apimetro}.}
+    \label{tab:env-vars}
+\end{table}
+
+\subsection*{Ejemplo de petición a la \api{}}
+
+\begin{lstlisting}[language=bash,
+    caption={Petición \texttt{curl} para obtener estaciones del Metro
+             en la alcaldía Cuauhtémoc.},
+    label=lst:api-query]
+# Estaciones del Metro filtradas por alcaldia
+curl "https://apimetro.dev/movilidad/mapas/geojsonEstacion\
+     ?sistema=METRO&alcaldia_municipio=Cuauhtémoc"
+\end{lstlisting}

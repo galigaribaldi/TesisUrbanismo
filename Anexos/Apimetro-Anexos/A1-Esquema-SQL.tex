@@ -1,0 +1,21 @@
+% !TeX root = ../../tesis.tex
+
+\section{Esquema Relacional Completo (DDL)}
+\label{anx:apimetro-sql}
+
+El esquema de \texttt{Apimetro} define siete tablas en el esquema
+\texttt{public} de PostgreSQL, junto con un segundo esquema \texttt{plutarco}
+reservado para datos territoriales del \textsc{inegi}. Las tablas principales
+son \texttt{lineas}, \texttt{ramals}, \texttt{estacions} y
+\texttt{limites\_territoriales}; las tablas auxiliares (
+\texttt{descripcion\_lineas}, \texttt{descripcion\_estacions},
+\texttt{historico\_operacion}) almacenan metadatos históricos y métricas
+operativas que se enriquecen fuera del flujo \textsc{etl} automático.
+
+\lstinputlisting[language=SQL, caption={DDL completo de \texttt{Apimetro}: tablas, restricciones e índices espaciales GiST.}, label=lst:sql-init-completo, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/SQL/ejemplo_init.sql}
+
+El archivo \texttt{seed.sql} contiene los datos de producción (\textasciitilde
+37~MB). El fragmento siguiente muestra la estructura de las filas de
+\texttt{lineas} una vez sembradas:
+
+\lstinputlisting[language=SQL, caption={Fragmento de \texttt{seed.sql}: líneas del Mexibús y Mexicable con métricas integradas.}, label=lst:sql-seed, breaklines=true, firstline=29, lastline=37, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/SQL/ejemplo_seed.sql}

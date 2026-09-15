@@ -35,43 +35,67 @@ giro hacia la formalización científica, integrando estándares como el
 \textit{General Transit Feed Specification} (GTFS) y sistemas de información
 geográfica (SIG).
 
-\texttt{Apimetro} recibió una actualización estructural significativa a mediados
-de marzo de 2026, orientándose hacia un modelo de
-\textbf{Software as a Service (SaaS)} especializado en el manejo de tipos de
-datos \texttt{GeoJSON} para la representación cartográfica y el análisis
-ruteable. El núcleo operativo del sistema se define mediante un proceso
-\textbf{ETL}
-\footnote{En esta investigación se adopta la denominación \textit{Extraction, Treatment and Liberation} para enfatizar el carácter transformativo y de acceso abierto del proceso; el acrónimo estándar de la industria es «\textit{Extract, Transform, Load}».}
-, diseñado para transformar la rigidez de los archivos \gtfs{} en geometrías
-flexibles. Si bien el estándar \gtfs{} posee una estructura relacional robusta,
-su formato original dificulta el análisis directo en hojas de cálculo o capas
-\texttt{SHP} convencionales, por lo que la conversión a \texttt{GeoJSON} se
-determinó como la solución óptima para la visualización y el cálculo de
-indicadores topológicos. La persistencia y estructuración de la información se
-ejecutan dentro de una base de datos relacional \textbf{PostgreSQL 15},
-potenciada por la extensión espacial \textbf{PostGIS 3.4}. Esta elección
-tecnológica permite almacenar datos geográficos de manera eficiente y
-proporciona operaciones de consulta avanzadas, como \texttt{ST\_AsGeoJSON} y
-\texttt{ST\_DWithin}, fundamentales para la ingesta y el ruteo asíncrono. Para
-la implementación de esta fase, se utilizó el lenguaje de programación
-\textbf{Python}, aprovechando la robustez de librerías especializadas en el
-manejo de grandes volúmenes de datos como \texttt{Pandas} y \texttt{PySpark}.
-Gracias a esta arquitectura, la ingesta de datos se consume de manera
-autosuficiente y óptima, resultando en una base de datos de apenas 38 MB en
-estado de desarrollo que es fácilmente replicable en diversos entornos
-operativos, incluyendo Linux, Windows, MacOS y plataformas web. Esta
-portabilidad facilita la auditoría de la red mediante gestores de consultas como
-\texttt{Postman} o su despliegue local a través de tecnologías de contenedores
-como \textbf{Docker} y \textbf{Docker Compose}. En última instancia,
-\texttt{Apimetro} garantiza la soberanía tecnológica de la investigación,
-permitiendo que la replicación del esquema de datos se realice de forma
-transparente mediante el archivo \texttt{seed.sql} disponible en su repositorio
-oficial.
+\subsection{Normalización: una sola red a partir de fuentes dispersas}
+\label{subsec:apimetro-normalizacion}
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.45\textwidth]{Figures/Cap3/APImetroIcon.png}
-  \caption[Ícono Personal de Apimetro]{Ícono Creado para el proyecto Apimetro}
-  \label{fig:apimetro-icon}
-  \fuentefigura{Elaboración propia.}
-\end{figure}
+La red de transporte de la \zmvm{} no llega al investigador como un dato único y
+coherente. Es, en cambio, la intersección de al menos tres fuentes
+institucionales con formatos y esquemas propios que no fueron diseñados para
+operar conjuntamente:
+
+\begin{itemize}
+    \item \textbf{Feeds \gtfs:} archivos de texto delimitado que describe
+    paradas, viajes y trazos, publicados por la Agencia Digital de Innovación
+    Pública \citep{adip_gtfs_2024}.
+    \item \textbf{Polígonos administrativos:} límites de alcaldías y municipios
+    en formato vectorial, provenientes del Instituto Nacional de Estadística y
+    Geografía.
+    \item \textbf{Parámetros operativos:} velocidades comerciales, frecuencias
+    de paso y capacidades de flota por sistema, derivados de reportes de la
+    Secretaría de Movilidad \citep{semovi2020diagnostico}.
+\end{itemize}
+
+Sin un proceso previo de homologación, el cruce directo entre estas fuentes
+produce inconsistencias: estaciones sin línea asignada, trazos que caen fuera de
+todo polígono administrativo, o atributos de operación sin un nodo de referencia
+en el grafo. La \textbf{normalización} \citep{ramakrishnan2003, postgresql2024}
+—descrita en la sección~\ref{subsubsec:glosario-normalizacion}— es, por eso, el
+núcleo conceptual del módulo de ingesta; no un detalle técnico, sino la
+condición que hace posible el cálculo topológico posterior.
+
+\subsection{Flujo de trabajo: entrada, proceso y salida}
+\label{subsec:apimetro-flujo}
+
+Una vez establecida la necesidad de normalizar, el funcionamiento de
+\texttt{Apimetro} puede describirse en tres etapas sucesivas:
+
+\begin{itemize}
+    \item \textbf{Entrada:} las tres fuentes heterogéneas ingresan en sus
+    formatos nativos —archivos \gtfs{} en texto plano, polígonos \texttt{SHP} y
+    tablas operativas—, sin modificación previa de parte del investigador.
+
+    \item \textbf{Proceso
+    \footnote{En esta investigación se adopta la denominación
+    \textit{Extraction, Treatment and Liberation} para enfatizar el carácter
+    transformativo y de acceso abierto; el acrónimo estándar de la industria
+    es «\textit{Extract, Transform, Load}».}
+    (ETL):} un módulo de ingesta lee, homologa y escribe los datos en un
+    esquema relacional unificado dentro de una base de datos
+    \textbf{PostgreSQL/PostGIS}. La implementación técnica de este esquema se
+    documenta en el Anexo~\ref{anx:apimetro-sql}.
+
+    \item \textbf{Salida:} una \api{} REST expone los datos normalizados en
+    formato \textbf{GeoJSON}, listos para ser consumidos directamente por
+    \textit{VFTModel} o por cualquier visor cartográfico. La elección de
+    GeoJSON sobre el formato \textit{GeoPackage} —el contenedor binario que
+    emplea \textsc{qgis} en escritorio— obedece a su menor peso en disco y a su
+    compatibilidad nativa con herramientas web; las implicaciones prácticas se
+    desarrollan en la sección~\ref{subsec:estructura-geojson}.
+\end{itemize}
+
+El resultado final es una base de datos de \textbf{38~MB} reproducible en
+cualquier sistema operativo (Linux, Windows, macOS o nube) mediante un único
+archivo de inicialización (\texttt{seed.sql}) y \textbf{Docker Compose}.
+\textbf{Replicabilidad}, usabilidad para perfiles sin formación en desarrollo de
+software y accesibilidad abierta del modelo de datos son, en conjunto, el eje
+transversal de las tres capas tecnológicas de la investigación.

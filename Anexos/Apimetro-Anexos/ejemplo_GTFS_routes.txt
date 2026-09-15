@@ -1,0 +1,10 @@
+route_id,agency_id,route_short_name,route_long_name,route_type,route_color,route_text_color
+TR13,SEMOVI,13,Trolebús Línea 13,11,009B3A,FFFFFF
+B_CMX0800L3,CBB,3,Los Pinos/Constituyentes a Vasco de Quiroga,6,4EC3E0,FFFFFF
+B_CMX100001,INTERURBANO,1,Zinacantepec - Santa Fe,2,83332E,FFFFFF
+B_CMX040L12,TROLE,12,Tasqueña - Perisur,3,1F5AF0,FFFFFF
+B_CMX01022D,CC,22D,Av. 5 Ermita - Metro Aeropuerto,3,9B26B6,FFFFFF
+B_CMX01022C,CC,22C,Centro de Abasto - Metro Aeropuerto,3,9B26B6,FFFFFF
+B_CMX01022B,CC,22B,UPIICSA - Metro Aeropuerto,3,9B26B6,FFFFFF
+B_CMX01022A,CC,22A,Félix Parra Mixcoac - Metro Aeropuerto,3,9B26B6,FFFFFF
+B_CMX01021D,CC,21D,Metro Observatorio - San Ángel Clínica 4 y 8,3,9B26B6,FFFFFF

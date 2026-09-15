@@ -1,0 +1,62 @@
+% Diagrama: Ecosistema digital de Apimetro — cuatro plataformas de distribución
+% Portal Web, Repositorio GitHub, Comunidad (Discussions) y Wiki
+% Reemplaza las cuatro capturas de pantalla de la sección "El Futuro de Apimetro"
+% Usado en: 4-Capas-Codigo/4-1-Apimetro/4-1-5-Futuro.tex  (fig:apimetro-ecosistema)
+\begin{tikzpicture}[
+  central/.style={
+    rectangle, draw=unamAzul, fill=unamAzul!18,
+    text width=2.8cm, align=center,
+    minimum height=1.5cm, rounded corners=5pt,
+    font=\small\bfseries
+  },
+  plataforma/.style={
+    rectangle, draw=unamAzul!55, fill=unamAzul!6,
+    text width=3.2cm, align=center,
+    minimum height=1.9cm, rounded corners=4pt,
+    font=\footnotesize
+  },
+  flecha/.style={-Stealth, thick, color=unamAzul!55},
+  etiq/.style={
+    font=\scriptsize\itshape\color{gray!65},
+    fill=white, inner sep=1.5pt, align=center
+  }
+]
+
+%% — Nodo central —
+\node[central] (api) at (0, 0) {
+  \textbf{Apimetro}\\[3pt]
+  {\scriptsize Motor de datos\\ZMVM}
+};
+
+%% — Satélites en disposición de cruz —
+\node[plataforma] (portal) at (0, 3.6) {
+  \textbf{Portal Web}\\
+  \texttt{apimetro.dev}\\[3pt]
+  {\scriptsize Documentación interactiva\\Swagger UI · estado del servidor}
+};
+
+\node[plataforma] (wiki) at (0, -3.6) {
+  \textbf{Wiki}\\
+  \texttt{GitHub Wiki}\\[3pt]
+  {\scriptsize Guías de implementación\\Diccionario · \texttt{seed.sql}}
+};
+
+\node[plataforma] (com) at (-5.0, 0) {
+  \textbf{Comunidad}\\
+  \texttt{Discussions}\\[3pt]
+  {\scriptsize Propuestas · reportes\\Gobernanza abierta}
+};
+
+\node[plataforma] (repo) at (5.0, 0) {
+  \textbf{Repositorio}\\
+  \texttt{GitHub}\\[3pt]
+  {\scriptsize Código fuente · Docker\\Licencia BSL~1.1}
+};
+
+%% — Flechas desde el nodo central —
+\draw[flecha] (api.north) -- node[etiq, right=3pt] {interfaz pública} (portal.south);
+\draw[flecha] (api.south) -- node[etiq, right=3pt] {implementación} (wiki.north);
+\draw[flecha] (api.west)  -- node[etiq, above=3pt] {participación} (com.east);
+\draw[flecha] (api.east)  -- node[etiq, above=3pt] {distribución} (repo.west);
+
+\end{tikzpicture}
