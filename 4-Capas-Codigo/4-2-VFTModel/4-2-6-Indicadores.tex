@@ -6,13 +6,13 @@
 \subsection{Indicadores Topológicos Implementados}
 \label{sec:vft-indicadores}
 
-La organización de VFTModel en cuatro fases de cálculo responde a una lógica
-de dependencia estricta: los ocho indicadores no son intercambiables ni pueden
+La organización de VFTModel en cuatro fases de cálculo responde a una lógica de
+dependencia estricta: los ocho indicadores no son intercambiables ni pueden
 calcularse en cualquier orden. Las Fases~III y IV exigen un grafo completamente
 ponderado —construido en las Fases~I y II— para ejecutar los algoritmos de
 caminos mínimos. El Cuadro~\ref{tab:vft-indicadores-estado} presenta el mapa
-completo; las definiciones formales de cada indicador están en el
-§\ref{sec:indicadores-formulas}, y las implementaciones de referencia en el
+completo; las definiciones formales de cada indicador están en el §
+\ref{sec:indicadores-formulas}, y las implementaciones de referencia en el
 Anexo~D.
 
 \begin{table}[H]
@@ -77,10 +77,10 @@ tan directas resultan sus rutas?
 
 \subsubsection*{Fase~II — Calibración del grafo ponderado}
 
-El grafo geométrico de la Fase~I no contiene aún información sobre cuánto
-tiempo tarda un viaje real. La Fase~II lo pondera: dos indicadores traducen
-condiciones operativas concretas —fricción de la vía y tiempos de espera en
-transbordo— en costos temporales sobre cada arista.
+El grafo geométrico de la Fase~I no contiene aún información sobre cuánto tiempo
+tarda un viaje real. La Fase~II lo pondera: dos indicadores traducen condiciones
+operativas concretas —fricción de la vía y tiempos de espera en transbordo— en
+costos temporales sobre cada arista.
 
 \begin{itemize}
     \item \textbf{Coeficiente de Fricción Vial ($CF_h$):} según el tipo de
@@ -137,5 +137,5 @@ empíricamente en el presente estudio:
     §\ref{anx:impl-robustez}.
 \end{itemize}
 
-Con los indicadores calculados, los resultados son entregados a los sistemas
-de visualización a través de la \api{} \textsc{rest} de la sección siguiente.
+Con los indicadores calculados, los resultados son entregados a los sistemas de
+visualización a través de la \api{} \textsc{rest} de la sección siguiente.

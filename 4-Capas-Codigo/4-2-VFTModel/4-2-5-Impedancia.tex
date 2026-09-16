@@ -68,8 +68,8 @@ traslado. Se obtiene mediante:
 \end{itemize}
 
 La clase \texttt{FrictionCalculator} implementa este cálculo de forma aislada,
-aplicando vía mixta ($CF = 1.759$) como caso conservador por defecto. La implementación Python completa se presenta en el
-Anexo~\ref{anx:vft-codigo}.
+aplicando vía mixta ($CF = 1.759$) como caso conservador por defecto. La
+implementación Python completa se presenta en el Anexo~\ref{anx:vft-codigo}.
 
 \subsubsection{Ecuación VFT: Peso Temporal de Cada Arista}
 \label{subsec:vft-ecuacion}
@@ -97,9 +97,8 @@ Con la distancia geodésica y el coeficiente de fricción disponibles, el métod
 La implementación Python completa se presenta en el Anexo~\ref{anx:vft-codigo}.
 
 Las aristas de transbordo peatonal quedan excluidas de este proceso porque ya
-recibieron su peso durante la construcción del grafo: su costo suma el tiempo
-de caminata entre estaciones más la espera promedio hasta el siguiente servicio
-(véase la Sección~\ref{subsec:res-penalizacion-transferencia} del
-Capítulo~\ref{ch:resultados-vft}). El peso de cada arista —en minutos— es la
-entrada de todos los algoritmos de caminos mínimos ejecutados en los indicadores
-de Fase~3.
+recibieron su peso durante la construcción del grafo: su costo suma el tiempo de
+caminata entre estaciones más la espera promedio hasta el siguiente servicio
+(véase la Sección~\ref{subsec:res-penalizacion-transferencia} del Capítulo~
+\ref{ch:resultados-vft}). El peso de cada arista —en minutos— es la entrada de
+todos los algoritmos de caminos mínimos ejecutados en los indicadores de Fase~3.
