@@ -1,0 +1,26 @@
+% !TeX root = ../../tesis.tex
+
+\section{Ejemplo de Respuesta: Índice de Ruta Directa \texorpdfstring{($DI$)}{(DI)}}
+\label{anx:vft-out-detour}
+
+Respuesta de referencia del indicador $DI$ (§\ref{subsec:ruta-directa}).
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Estructura de respuesta del endpoint \texttt{/detour-factor}
+           (valores de referencia).},
+  label=lst:out-detour]
+{
+  "indicador": "indice_ruta_directa",
+  "DI_promedio_global": 0.0,
+  "muestra_pares_od": 0,
+  "pares_od": [
+    {
+      "origen":              "PENDIENTE",
+      "destino":             "PENDIENTE",
+      "DI":                  0.0,
+      "distancia_red_km":    0.0,
+      "distancia_directa_km": 0.0
+    }
+  ]
+}
+\end{lstlisting}

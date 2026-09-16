@@ -1,0 +1,80 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.6 — API REST: ENDPOINTS FASTAPI
+% =============================================================================
+\section{\api{} REST de VFTModel: Endpoints Disponibles}
+\label{anx:vft-api}
+
+El Cuadro~\ref{tab:vft-endpoints} lista los ocho endpoints de VFTModel,
+agrupados por su función. Los de la capa \textit{network} calculan indicadores
+topológicos escalares o tabulares; los de la capa \textit{geolayers}
+(§\ref{anx:vft-geolayers}) serializan los mismos resultados como
+\texttt{FeatureCollection} consumibles directamente por Transport-\textsc{gis}.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption[\api{} REST de VFTModel: endpoints disponibles]{Endpoints de la
+    \api{} \textsc{rest} de VFTModel y el indicador o acción que producen.
+    \fuentefigura{\texttt{src/api/main.py} y \texttt{src/api/routes/geo\_layers.py}
+    (VFTModel, 2026).}}
+    \label{tab:vft-endpoints}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Endpoint} & \textbf{Método} & \textbf{Resultado} \\
+        \hline
+        \multicolumn{3}{|l|}{\textit{Capa topológica (\texttt{/api/v1/network/})}} \\
+        \hline
+        \texttt{/build-auto}
+            & GET  & Construye el grafo y lo almacena en caché \\
+        \texttt{/spatial-coverage}
+            & GET  & Cobertura (\%) por alcaldía o municipio \\
+        \texttt{/topological/capillary-strength}
+            & GET  & Ranking de fuerza capilar por nodo \\
+        \texttt{/topological/geo-capillary}
+            & GET  & Detección de macro-\termino{hubs} por proximidad espacial \\
+        \texttt{/topological/detour-factor}
+            & GET  & Factor de desviación general o por par O-D \\
+        \texttt{/topological/average-travel-time}
+            & GET  & Tiempo de viaje promedio ($T$) \\
+        \texttt{/topological/betweenness-centrality}
+            & GET  & Centralidad de intermediación ($B(v)$) \\
+        \hline
+        \multicolumn{3}{|l|}{\textit{Capa GeoLayers (\texttt{/api/v1/network/geolayers/})}} \\
+        \hline
+        \texttt{/coverage}
+            & GET  & Cobertura como \texttt{FeatureCollection} GeoJSON \\
+        \texttt{/capilar}
+            & GET  & Fuerza capilar con geometría de nodos \\
+        \texttt{/detour}
+            & GET  & Factor de desviación con trayectorias O-D \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection*{Parámetros del endpoint \texttt{build-auto}}
+
+Este endpoint es el punto de entrada obligatorio antes de calcular cualquier
+indicador: construye el grafo, aplica la impedancia y almacena el resultado
+en un caché en memoria (\texttt{Singleton}). Los parámetros configurables son
+el modo de construcción y la tolerancia de transbordo:
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Endpoint de construcción y calentamiento del caché del grafo.
+             \texttt{src/api/main.py}.},
+    label=lst:vft-build-auto]
+@app.get("/api/v1/network/build-auto")
+async def build_network_auto(
+    mode:        str   = Query("REALISTIC_INTEGRATION",
+                               description="STRICT_TOPOLOGY | REALISTIC_INTEGRATION"),
+    tolerance_m: float = Query(85.0,
+                               description="Tolerancia peatonal de transbordo en metros")
+):
+    G = await get_or_build_graph(mode, tolerance_m)
+    return {
+        "status":  "success",
+        "nodos":   G.number_of_nodes(),
+        "aristas": G.number_of_edges()
+    }
+\end{lstlisting}

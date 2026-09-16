@@ -1,0 +1,101 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.8 — INFRAESTRUCTURA: DOCKER Y AUTOMATIZACIÓN
+% =============================================================================
+\section{Infraestructura: Contenedores y Automatización}
+\label{anx:vft-infraestructura}
+
+El despliegue de VFTModel se basa en tres archivos de configuración que
+permiten levantar el servicio tanto en entorno local como en producción sin
+modificar el código fuente.
+
+\subsection*{Dependencias Python}
+
+El archivo \texttt{requirements.txt} agrupa las dependencias en tres
+categorías funcionales:
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Dependencias de VFTModel (\texttt{requirements.txt}).},
+    label=lst:vft-requirements]
+# Web y asincronia
+fastapi==0.110.0    uvicorn==0.29.0
+httpx==0.27.0       pydantic==2.6.4
+python-dotenv==1.0.1
+
+# Analisis espacial y grafos (core)
+geopandas==0.14.3   networkx==3.2.1
+momepy==0.7.0       shapely==2.0.3
+numpy>=1.24.0       scipy>=1.10.0
+
+# Visualizacion
+matplotlib==3.8.3
+\end{lstlisting}
+
+El uso de \textsc{gdal} a nivel de sistema operativo es un requisito previo
+ineludible para GeoPandas y Fiona:
+
+\begin{lstlisting}[language=bash,
+    caption={Instalación de GDAL a nivel de sistema operativo.},
+    label=lst:vft-gdal]
+# Linux (Debian/Ubuntu)
+sudo apt install gdal-bin libgdal-dev
+# macOS
+brew install gdal
+\end{lstlisting}
+
+\subsection*{Dockerfile multietapa}
+
+La imagen Docker utiliza una construcción multietapa (\termino{multi-stage
+build}) para minimizar el tamaño de la imagen de producción: el
+\textit{stage} \texttt{builder} compila e instala las dependencias con todas
+las herramientas de desarrollo, y el \textit{stage} \texttt{runtime} solo
+copia los paquetes ya instalados y el código fuente.
+
+\begin{lstlisting}[language=bash,
+    caption={Dockerfile multietapa de VFTModel.},
+    label=lst:vft-dockerfile]
+# Stage 1: Builder — instala dependencias con compilador
+FROM python:3.12-slim-bookworm AS builder
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgdal-dev gdal-bin libgeos-dev build-essential \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Runtime — imagen minima sin compilador
+FROM python:3.12-slim-bookworm AS runtime
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgdal32 libgeos-c1v5 && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=builder /usr/local/lib/python3.12/site-packages \
+                    /usr/local/lib/python3.12/site-packages
+COPY src/ ./src/
+ENV APIMETRO_URL=https://apimetro.dev/movilidad
+EXPOSE 8000
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+\end{lstlisting}
+
+La imagen base \texttt{python:3.12-slim-bookworm} está fijada a la distribución
+\textit{Bookworm} (Debian 12): la distribución siguiente (\textit{Trixie}) no
+incluye el paquete \texttt{libgdal32} en sus repositorios estables al momento
+de escritura del presente trabajo.
+
+\subsection*{Makefile: automatización de tareas frecuentes}
+
+\begin{lstlisting}[language=bash,
+    caption={Comandos del \texttt{Makefile} de VFTModel.},
+    label=lst:vft-makefile]
+make install           # pip install -r requirements.txt
+make run               # uvicorn LOCAL  (puerto 8000, .env.local)
+make run-dev           # uvicorn DEV    (apimetro.dev, .env.dev)
+make docker-build      # construye la imagen Docker
+make docker-run        # Docker en modo DEV (apimetro.dev)
+make docker-run-local  # Docker LOCAL — agrega --add-host para CDMX local
+make test              # pytest (requiere servidor activo + apimetro)
+make export-geojson    # exporta capas GeoJSON para Tableau/QGIS
+\end{lstlisting}
+
+El \termino{override} de puerto se aplica con \texttt{PORT=<n>}:
+\texttt{make run PORT=9000}.

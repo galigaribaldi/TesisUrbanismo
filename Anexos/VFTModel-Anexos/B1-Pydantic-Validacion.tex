@@ -1,0 +1,110 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.1 — CONTRATOS DE VALIDACIÓN PYDANTIC
+% =============================================================================
+\section{Contratos de Validación de Datos (Pydantic)}
+\label{anx:vft-validacion}
+
+El contrato de datos de VFTModel está implementado en
+\path{src/api/schemas/schemas.py} mediante cuatro enumeraciones cerradas y un
+esquema principal de validación (\texttt{PropertiesSchema}). El diseño garantiza
+que ningún dato proveniente del servidor Go llegue al constructor del grafo sin
+haber pasado por la taxonomía del modelo. El Cuadro~\ref{tab:vft-campos-validados}
+presenta los campos validados; el código siguiente muestra las enumeraciones y
+el validador dinámico que imputa los valores faltantes.
+
+\begin{table}[H]
+    \centering
+    \caption[Campos validados en el contrato de datos de VFTModel]{Campos
+    validados en el contrato de datos de VFTModel.
+    \fuentefigura{\texttt{src/api/schemas/schemas.py} (VFTModel, 2026).}}
+    \label{tab:vft-campos-validados}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Campo} & \textbf{Tipo} & \textbf{Descripción} \\
+        \hline
+        \texttt{sistema}                  & Enum (12 valores) &
+            Identifica el sistema de transporte \\
+        \texttt{tipo\_entidad}            & Enum (2 valores) &
+            \texttt{estacion} o \texttt{ruta} \\
+        \texttt{jerarquia\_transporte}    & Enum (4 niveles) &
+            Jerarquía operativa del sistema \\
+        \texttt{derecho\_de\_via}         & Enum (4 valores) &
+            Exclusividad del carril de circulación \\
+        \texttt{velocidad\_promedio\_kmh} & Flotante &
+            Velocidad comercial en km/h \\
+        \texttt{frecuencia\_minutos}      & Flotante &
+            Intervalo promedio entre servicios \\
+        \texttt{sentido}                  & Entero &
+            Dirección de la ruta: ida (1), regreso (0) \\
+        \texttt{es\_cetram}               & Booleano &
+            Si la estación es un nodo de transferencia \textsc{cetram} \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection*{Enumeraciones de taxonomía}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Enumeraciones cerradas del contrato de datos VFTModel.
+             \texttt{src/api/schemas/schemas.py}.},
+    label=lst:vft-enums]
+class JerarquiaTransporte(str, Enum):
+    masivo_pesado              = "masivo_pesado"
+    masivo_mediano             = "masivo_mediano"
+    superficie_convencional    = "superficie_convencional"
+    superficie_baja            = "superficie_baja"
+
+class DerechoVia(str, Enum):
+    exclusivo  = "exclusivo"   # Metro, Suburbano, Cablebus
+    confinado  = "confinado"   # Metrobus, Mexibus
+    compartido = "compartido"  # Trolebus
+    mixto      = "mixto"       # RTP, CC, Pumabus
+
+class TipoEntidad(str, Enum):
+    estacion = "estacion"
+    ruta     = "ruta"
+
+class SistemaTransporte(str, Enum):
+    metro      = "METRO";    metrobus  = "MB"
+    tren_lig   = "TL";       trolebus  = "TROLE"
+    rtp        = "RTP";      cablebus  = "CBB"
+    cc         = "CC";       mexicable = "MEXICABLE"
+    mexibus    = "MEXIBUS";  suburbano = "SUB"
+    interurb   = "INTERURBANO";  pumabus = "PUMABUS"
+\end{lstlisting}
+
+\subsection*{Validador dinámico y motor de imputación}
+
+El \texttt{model\_validator} de Pydantic actúa como segunda línea de defensa:
+detecta y repara campos nulos antes de que el dato llegue al constructor del
+grafo. Las imputaciones cubren cuatro casos frecuentes en el \textsc{geojson}
+de Apimetro.
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Validador dinámico que repara datos incompletos antes de construir el
+             grafo. \texttt{src/api/schemas/schemas.py}.},
+    label=lst:vft-validator]
+@model_validator(mode='after')
+def validar_y_reparar_entidades(self):
+    # 1. Nombres nulos
+    if self.nombre is None:
+        self.nombre = "Desconocido"
+    # 2. Jerarquia huerfana
+    if self.jerarquia_transporte is None:
+        self.jerarquia_transporte = JerarquiaTransporte.superficie_convencional
+    # 3. Imputacion para RUTAS (aristas fantasma)
+    if self.tipo_entidad == TipoEntidad.ruta:
+        if self.capacidad_vehiculo is None:
+            self.capacidad_vehiculo = 60
+        if self.derecho_de_via is None:
+            self.derecho_de_via = DerechoVia.mixto
+    # 4. Imputacion para ESTACIONES (nodos)
+    elif self.tipo_entidad == TipoEntidad.estacion:
+        if not self.alcaldia_municipio or self.alcaldia_municipio == "0.0":
+            self.alcaldia_municipio = "Desconocida"
+        if not self.tipo_estacion or self.tipo_estacion == "0.0":
+            self.tipo_estacion = "Superficie"
+    return self
+\end{lstlisting}

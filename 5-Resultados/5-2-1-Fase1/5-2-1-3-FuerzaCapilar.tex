@@ -21,12 +21,10 @@ representando el fenómeno urbano del transbordo físico (CETRAMs):
 \end{equation}
 
 El Cuadro~\ref{tab:fuerza-capilar-hubs} detalla el comportamiento numérico de
-los
-cinco principales Macro-Hubs de transferencia identificados en la red con base
-en
-esta formulación, mientras que la Figura~\ref{fig:barplot-macro-hubs} permite
-contrastar las magnitudes relativas de la concentración de flujos en los diez
-nodos más significativos de la metrópoli.
+los cinco principales Macro-Hubs de transferencia identificados en la red con
+base en esta formulación, mientras que la Figura~\ref{fig:barplot-macro-hubs}
+permite contrastar las magnitudes relativas de la concentración de flujos en los
+diez nodos más significativos de la metrópoli.
 
 \begin{table}[H]
     \centering
@@ -68,8 +66,7 @@ nodos más significativos de la metrópoli.
 
 Por último, la distribución espacial y la cobertura geográfica de estos nodos de
 transferencia masiva dentro del entorno urbano de la \zmvm{} se presentan
-mapeadas
-de forma detallada en la Figura~\ref{fig:mapa-fuerza-capilar}.
+mapeadas de forma detallada en la Figura~\ref{fig:mapa-fuerza-capilar}.
 
 \begin{figure}[H]
     \centering
@@ -90,9 +87,8 @@ de forma detallada en la Figura~\ref{fig:mapa-fuerza-capilar}.
 
 \textbf{B. Fuerza Capilar Sistémica o Matemática ($FC$):} A diferencia de la
 aproximación geográfica orientada a macro-hubs, esta perspectiva evalúa de
-manera
-estricta la convergencia de flujos directamente sobre cada nodo topológico
-individual. El análisis permite identificar los puntos exactos de la
+manera estricta la convergencia de flujos directamente sobre cada nodo
+topológico individual. El análisis permite identificar los puntos exactos de la
 infraestructura matemática de la red donde se concentra la mayor densidad de
 aristas de entrada y salida, aislando singularidades críticas en la traza sin
 aplicar tolerancias de proximidad espacial ni fusión de estaciones colindantes.
@@ -160,25 +156,20 @@ Figura~\ref{fig:mapa-nodos-matematicos}.
 \label{subsubsec:periferico-fc}
 
 Como diagnóstico previo a la propuesta del corredor anillar, se aislaron los
-nodos
-y Macro-Hubs cuyos nombres contienen la denominación ``Periférico'', con el
-objetivo
-de identificar los puntos de mayor tensión vehicular e intermodal sobre esta
-vialidad fundamental. Este análisis se divide en dos enfoques: la concentración
-geográfica (transbordos físicos en Macro-Hubs) y la concentración matemática
-estricta (nodos topológicos individuales).
+nodos y Macro-Hubs cuyos nombres contienen la denominación ``Periférico'', con
+el objetivo de identificar los puntos de mayor tensión vehicular e intermodal
+sobre esta vialidad fundamental. Este análisis se divide en dos enfoques: la
+concentración geográfica (transbordos físicos en Macro-Hubs) y la concentración
+matemática estricta (nodos topológicos individuales).
 
 \paragraph{A. Fuerza Capilar Geográfica (Macro-Hubs) en el Periférico}
 
 Al aplicar un radio de tolerancia de 100~m para agrupar las estaciones
-colindantes
-sobre el eje, emergen los principales complejos de transbordo y alimentación. El
-Cuadro~\ref{tab:periferico-hubs-geo} detalla los cinco Macro-Hubs de mayor
-Fuerza
-Capilar Geográfica ($FC_H$), destacando la importancia de Barranca del Muerto y
-la
-intersección con la zona de hospitales/Tlalpan como los anclajes más fuertes del
-corredor.
+colindantes sobre el eje, emergen los principales complejos de transbordo y
+alimentación. El Cuadro~\ref{tab:periferico-hubs-geo} detalla los cinco
+Macro-Hubs de mayor Fuerza Capilar Geográfica ($FC_H$), destacando la
+importancia de Barranca del Muerto y la intersección con la zona de
+hospitales/Tlalpan como los anclajes más fuertes del corredor.
 
 \begin{table}[H]
     \centering
@@ -208,10 +199,9 @@ corredor.
 
 La Figura~\ref{fig:barplot-hubs-periferico} compara las magnitudes relativas de
 estos agrupamientos geográficos, mientras que la Figura~
-\ref{fig:mapa-hubs-periferico}
-espacializa su huella sobre la vialidad, revelando los polos naturales de
-atracción
-de demanda que la futura infraestructura anillar deberá integrar.
+\ref{fig:mapa-hubs-periferico} espacializa su huella sobre la vialidad,
+revelando los polos naturales de atracción de demanda que la futura
+infraestructura anillar deberá integrar.
 
 \begin{figure}[H]
     \centering
@@ -236,9 +226,9 @@ de los diez principales Macro-Hubs geográficos ubicados en el Anillo Periféric
 
 Al desagregar los Hubs y analizar la Fuerza Capilar Sistémica ($FC$) estricta a
 nivel de nodo individual, es posible identificar los paraderos específicos que
-soportan la mayor carga de conexiones en la infraestructura actual. El
-Cuadro~\ref{tab:periferico-nodos-math} presenta los cinco paraderos matemáticos
-de mayor convergencia de flujo.
+soportan la mayor carga de conexiones en la infraestructura actual. El Cuadro~
+\ref{tab:periferico-nodos-math} presenta los cinco paraderos matemáticos de
+mayor convergencia de flujo.
 
 \begin{table}[H]
     \centering
@@ -266,11 +256,11 @@ de mayor convergencia de flujo.
     \fuentefigura{Elaboración propia con \texttt{VFTModel} y datos de \texttt{Apimetro}.}
 \end{table}
 
-La jerarquía analítica de estos puntos singulares se constata en la
-Figura~\ref{fig:barplot-nodos-periferico}, seguida de la
-Figura~\ref{fig:mapa-nodos-periferico}, que detalla la distribución geográfica a
-escala de paradero individual, útil para el micro-posicionamiento de futuras
-estaciones anillares.
+La jerarquía analítica de estos puntos singulares se constata en la Figura~
+\ref{fig:barplot-nodos-periferico}, seguida de la Figura~
+\ref{fig:mapa-nodos-periferico}, que detalla la distribución geográfica a escala
+de paradero individual, útil para el micro-posicionamiento de futuras estaciones
+anillares.
 
 \begin{figure}[H]
     \centering
@@ -294,19 +284,18 @@ estaciones anillares.
 
 \vspace{2ex}
 \begin{quote}
-    \small\textit{Nota aclaratoria:} los datos presentados en esta sección
-reflejan exclusivamente la infraestructura de transporte \textbf{preexistente}
-    sobre el Anillo Periférico. No se ha trazado ni modelado aún la geometría
-    del corredor anillar propuesto; la sección permanece en plano especulativo
-    para identificar los puntos naturales de anclaje de la futura línea a nivel
-    capilar.
+\small\textit{Nota aclaratoria:} los datos presentados en esta sección reflejan
+exclusivamente la infraestructura de transporte \textbf{preexistente} sobre el
+Anillo Periférico. No se ha trazado ni modelado aún la geometría del corredor
+anillar propuesto; la sección permanece en plano especulativo para identificar
+los puntos naturales de anclaje de la futura línea a nivel capilar.
 \end{quote}
 
 La Figura~\ref{fig:mapa-fc-presentacion} consolida, mediante cartografía de
-presentación, la distribución geoespacial de los principales nodos \termino{hub}
-de la red y su intensidad capilar. La versión a página completa se encuentra en
-la Figura~\ref{fig:anx-mapa-fuerza-capilar} del
-Anexo~\ref{anx:cartografia-presentacion}.
+presentación, la distribución geoespacial de los principales nodos
+\termino{hub} de la red y su intensidad capilar. La versión a página completa se
+encuentra en la Figura~\ref{fig:anx-mapa-fuerza-capilar} del Anexo~
+\ref{anx:cartografia-presentacion}.
 
 \begin{figure}[H]
     \centering

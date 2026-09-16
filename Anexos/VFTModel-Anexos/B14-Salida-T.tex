@@ -1,0 +1,20 @@
+% !TeX root = ../../tesis.tex
+
+\section{Ejemplo de Respuesta: Tiempo de Viaje Promedio \texorpdfstring{($T$)}{(T)}}
+\label{anx:vft-out-tiempo}
+
+Respuesta de referencia del indicador $T$ (§\ref{subsec:tiempo-viaje}).
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Estructura de respuesta del endpoint \texttt{/average-travel-time}
+           (valores de referencia).},
+  label=lst:out-tiempo]
+{
+  "indicador":        "tiempo_viaje_promedio",
+  "T_minutos":        0.0,
+  "muestra_pares_od": 0,
+  "modo_integracion": "REALISTIC_INTEGRATION",
+  "umbral_snapping_m": 85,
+  "algoritmo":        "DIJKSTRA"
+}
+\end{lstlisting}

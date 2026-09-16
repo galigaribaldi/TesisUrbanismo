@@ -1,0 +1,112 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.3 — CONSTRUCTOR DEL GRAFO: VFTGraphBuilder
+% =============================================================================
+\section{Constructor del Grafo Topológico (\texttt{VFTGraphBuilder})}
+\label{anx:vft-graphbuilder}
+
+\texttt{VFTGraphBuilder} es la clase que materializa el grafo dirigido
+(\texttt{nx.DiGraph}) a partir del \textsc{geojson} ya validado por Pydantic.
+La construcción ocurre en tres fases secuenciales y una opcional:
+
+\begin{enumerate}
+    \item \textbf{Fase 1 — Nodos:} cada \texttt{Feature} de tipo
+    \texttt{estacion} se registra como nodo con sus coordenadas GPS y
+    atributos operativos.
+    \item \textbf{Fase 2 — Aristas de tránsito:} un \termino{KDTree} por
+    sistema recorre cada \texttt{MultiLineString} y crea una arista entre
+    cada par de estaciones consecutivas, acumulando la distancia Haversine
+    real del trazo.
+    \item \textbf{Filtro fantasma:} elimina aristas de tránsito con
+    distancia superior a 5\,km, causadas por geometrías
+    \texttt{MultiLineString} fragmentadas en el servidor Go.
+    \item \textbf{Fase 3 — Transbordos peatonales} (solo en modo
+    \texttt{REALISTIC\_INTEGRATION}): aristas de caminata entre estaciones
+    de distintos sistemas dentro de la tolerancia configurada, cobrando
+    tiempo de espera al siguiente servicio (\termino{boarding cost}).
+\end{enumerate}
+
+\subsection*{Umbrales estadísticos de transbordo}
+
+Los umbrales pre-configurados se derivan de la distribución empírica de
+distancias entre estaciones del \textsc{geojson} de Apimetro
+(corrida 2026-04-18). El umbral por defecto para análisis es $Q_1 = 85$\,m,
+que representa el transbordo directo más conservador.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption[Umbrales estadísticos de transbordo peatonal]{Umbrales estadísticos
+    de transbordo peatonal en VFTModel.
+    \fuentefigura{Elaboración propia con base en \texttt{graph\_builder.py}
+    (VFTModel, 2026).}}
+    \label{tab:anx-vft-umbrales}
+    \begin{tabular}{|l|r|l|}
+        \hline
+        \textbf{Clave} & \textbf{Valor (m)} & \textbf{Interpretación} \\
+        \hline
+        \texttt{MIN}    &   15 & Intersección estricta / mismo polígono arquitectónico \\
+        \texttt{Q1}     &   85 & Transbordo rápido y directo (conservador) \\
+        \texttt{Q2}     &  180 & Transbordo promedio real — integración plena de CETRAMs \\
+        \texttt{MEAN}   &  245 & Promedio matemático (sesgado por valores extremos) \\
+        \texttt{Q3}     &  420 & Límite máximo de caminata forzada \\
+        \texttt{MAX}    &  880 & Valor extremo / falso transbordo \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection*{Construcción de la red base (Fases 1 y 2)}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Construcción de nodos y aristas de tránsito mediante KDTree por
+             sistema. \texttt{src/core/services/graph\_builder.py}.},
+    label=lst:vft-graph-base]
+# Fase 1: registrar estaciones como nodos
+for feature in self.validated_data.features:
+    if feature.properties.tipo_entidad == TipoEntidad.estacion:
+        lon, lat   = feature.geometry.coordinates
+        node_id    = (lon, lat)
+        self.G.add_node(node_id,
+            pos=(lon, lat),
+            nombre=feature.properties.nombre,
+            sistema=feature.properties.sistema.value,
+            es_cetram=feature.properties.es_cetram,
+            alcaldia_municipio=feature.properties.alcaldia_municipio)
+
+# Fase 2: KDTree por sistema — evita contaminación cruzada entre redes
+sys_kdtrees = {
+    s: (KDTree(np.array([[n[0], n[1]] for n in nlist])), nlist)
+    for s, nlist in sys_nodes_map.items() if nlist
+}
+# Para cada ruta: acumular distancia haversine entre waypoints y
+# crear aristas entre estaciones consecutivas detectadas por KDTree
+for i, coord in enumerate(all_coords):
+    dist_acumulada += haversine(all_coords[i-1], coord)  # tramo real
+    dist_deg, idx   = kdtree_s.query([lon, lat])
+    if dist_deg <= SNAP_TOLERANCE_DEG:  # ~50 m
+        if estacion_node != ultimo_waypoint:
+            self.G.add_edge(ultimo_waypoint, estacion_node,
+                distancia_segmento_m=round(dist_acumulada, 2), **edge_attr)
+\end{lstlisting}
+
+\subsection*{Transbordos peatonales con \termino{boarding cost} (Fase 3)}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Cálculo del peso de aristas peatonales: caminata + espera al
+             siguiente servicio. \texttt{src/core/services/graph\_builder.py}.},
+    label=lst:vft-snapping]
+for i in range(len(nodos_estacion)):
+    for j in range(i + 1, len(nodos_estacion)):
+        distancia_m = haversine(u_attr['pos'], v_attr['pos'])
+        if 0 < distancia_m <= tolerance_m:
+            tiempo_caminata = distancia_m / (5000.0 / 60.0)  # 5 km/h
+            wait_v = FALLBACK_FRECUENCIA.get(sistema_v, 10.0) / 2.0
+            wait_u = FALLBACK_FRECUENCIA.get(sistema_u, 10.0) / 2.0
+            # Arista ida: caminar hacia V + esperar servicio V
+            self.G.add_edge(u_id, v_id, tipo="transfer",
+                weight=round(tiempo_caminata + wait_v, 4))
+            # Arista vuelta: caminar hacia U + esperar servicio U
+            self.G.add_edge(v_id, u_id, tipo="transfer",
+                weight=round(tiempo_caminata + wait_u, 4))
+\end{lstlisting}

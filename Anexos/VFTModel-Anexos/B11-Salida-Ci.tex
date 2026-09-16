@@ -1,0 +1,23 @@
+% !TeX root = ../../tesis.tex
+
+\section{Ejemplo de Respuesta: Alimentación Capilar \texorpdfstring{($C_i$)}{(Ci)}}
+\label{anx:vft-out-capilar}
+
+Respuesta de referencia del indicador $C_i$
+(§\ref{subsec:alimentacion-capilar}).
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Respuesta del endpoint \texttt{/capillary-strength}
+           (valores de referencia).},
+  label=lst:out-capilar]
+{
+  "indicador": "alimentacion_capilar",
+  "top_nodos": [
+    { "nombre": "PENDIENTE", "C_i": 0.0, "rutas_superficie": 0 },
+    { "nombre": "PENDIENTE", "C_i": 0.0, "rutas_superficie": 0 },
+    { "nombre": "PENDIENTE", "C_i": 0.0, "rutas_superficie": 0 }
+  ],
+  "promedio_red": 0.0,
+  "total_nodos": 0
+}
+\end{lstlisting}

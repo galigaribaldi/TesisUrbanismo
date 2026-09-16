@@ -1,0 +1,27 @@
+% !TeX root = ../../tesis.tex
+
+\section{Ejemplo de Respuesta: Coeficiente de Fricción Vial \texorpdfstring{($CF_h$)}{(CFh)}}
+\label{anx:vft-out-friccion}
+
+El indicador $CF_h$ no expone un endpoint independiente: su valor queda
+embebido en el atributo \texttt{weight} de cada arista del grafo. La
+estructura de referencia muestra cómo se almacena en los metadatos de
+arista (§\ref{subsec:friccion-vial}).
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Metadatos de arista que incluyen el valor de $CF_h$
+           (valores de referencia).},
+  label=lst:out-friccion]
+{
+  "arista": {
+    "origen":          "PENDIENTE",
+    "destino":         "PENDIENTE",
+    "sistema":         "PENDIENTE",
+    "derecho_de_via":  "PENDIENTE",
+    "CF_h":            0.0,
+    "velocidad_kmh":   0.0,
+    "distancia_m":     0.0,
+    "weight_minutos":  0.0
+  }
+}
+\end{lstlisting}

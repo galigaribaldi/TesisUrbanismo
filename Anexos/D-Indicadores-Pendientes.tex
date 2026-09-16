@@ -115,9 +115,9 @@ T = nx.average_shortest_path_length(G, weight='tiempo_minutos')
 \label{anx:impl-robustez}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $\Delta E$ definido en
-§\ref{subsec:robustez-geometrica}. Pendiente de validación empírica sobre la
-red real de la \zmvm{} (véase nota aclaratoria en §\ref{sec:indicadores-formulas}).
+Implementación de referencia del indicador $\Delta E$ definido en §
+\ref{subsec:robustez-geometrica}. Pendiente de validación empírica sobre la red
+real de la \zmvm{} (véase nota aclaratoria en §\ref{sec:indicadores-formulas}).
 
 \begin{lstlisting}[style=estiloPython,
   caption={Cálculo de Robustez Geométrica $\Delta E$ con NetworkX (prototipo).},
@@ -137,4 +137,28 @@ Ef = eficiencia_global(G_fallido)
 
 delta_E = (E0 - Ef) / E0
 print(f"Caida de eficiencia: {delta_E:.2%}")
+\end{lstlisting}
+
+% -----------------------------------------------------------------------
+\section{Penalización por Transferencia \texorpdfstring{($W_{s,h}$)}{(W)}}
+\label{anx:impl-transferencia}
+% -----------------------------------------------------------------------
+
+Implementación de referencia del indicador $W_{s,h}$ definido en
+§\ref{subsec:penalizacion-transferencia}. El costo de transbordo suma el
+tiempo de caminata entre estaciones más la espera promedio hasta el siguiente
+servicio. La implementación de producción está integrada en
+\texttt{graph\_builder.py}; el prototipo aquí presentado es de referencia.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Cálculo de la Penalización por Transferencia $W_{s,h}$ (prototipo).},
+  label={lst:transferencia}]
+# Pendiente: integracion completa en graph_builder.py
+# Costo de transbordo = tiempo_caminata + espera_promedio
+# espera_promedio = frecuencia_minutos / 2
+
+def costo_transbordo(distancia_m, velocidad_peatonal_kmh, frecuencia_min):
+    tiempo_caminata = (distancia_m / 1000) / velocidad_peatonal_kmh * 60
+    espera = frecuencia_min / 2
+    return tiempo_caminata + espera
 \end{lstlisting}

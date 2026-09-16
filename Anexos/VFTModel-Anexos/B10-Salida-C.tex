@@ -1,0 +1,24 @@
+% !TeX root = ../../tesis.tex
+
+\section{Ejemplo de Respuesta: Cobertura Espacial \texorpdfstring{($C$)}{(C)}}
+\label{anx:vft-out-cobertura}
+
+Respuesta de referencia del indicador $C$ (§\ref{subsec:indicador-cobertura}).
+Los valores numéricos son de sustitución y deben reemplazarse con los
+resultados de la corrida de producción.
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Estructura de respuesta del endpoint \texttt{/spatial-coverage}
+           (valores de referencia).},
+  label=lst:out-cobertura]
+{
+  "indicador": "cobertura_espacial",
+  "unidad": "fraccion_del_territorio",
+  "C_global": 0.0,
+  "por_alcaldia": [
+    { "alcaldia": "Iztapalapa",  "C_alcaldia": 0.0, "area_cubierta_km2": 0.0 },
+    { "alcaldia": "Tlalpan",     "C_alcaldia": 0.0, "area_cubierta_km2": 0.0 },
+    { "alcaldia": "Xochimilco",  "C_alcaldia": 0.0, "area_cubierta_km2": 0.0 }
+  ]
+}
+\end{lstlisting}

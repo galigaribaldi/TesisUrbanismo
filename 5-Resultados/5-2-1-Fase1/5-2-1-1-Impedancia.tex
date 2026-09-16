@@ -8,8 +8,8 @@
 Para verificar la consistencia del \textbf{Motor de Impedancia VFT}, se calculó
 la velocidad efectiva implícita de cada sistema tras aplicar el Coeficiente de
 Fricción Vial ($C_f$) y se contrastó con los rangos operativos nominales
-documentados por los organismos operadores de la \zmvm. La velocidad efectiva
-se obtiene a partir de la Ecuación~\eqref{eq:velocidad-efectiva}:
+documentados por los organismos operadores de la \zmvm. La velocidad efectiva se
+obtiene a partir de la Ecuación~\eqref{eq:velocidad-efectiva}:
 
 \begin{equation}
     V_{\text{efectiva}} = \frac{V_{\text{fallback}}}{C_f}
@@ -20,8 +20,7 @@ donde $V_{\text{fallback}}$ representa la velocidad comercial de flujo libre del
 sistema y $C_f$ es el coeficiente de fricción según el tipo de derecho de vía.
 
 \colorbox{azulRevision}{El Cuadro~\ref{tab:validacion-impedancia} sintetiza los resultados}
-de la
-corrida del modelo del 16 de abril de 2026, ejecutada sobre
+de la corrida del modelo del 16 de abril de 2026, ejecutada sobre
 \textbf{25{,}197 segmentos de servicio real}.
 
 \begin{table}[H]
@@ -67,12 +66,12 @@ efectiva post-fricción por sistema, coloreada según el tipo de derecho de vía
     \fuentefigura{Elaboración propia con \texttt{VFTModel}.}
 \end{figure}
 
-Los resultados son coherentes con la metodología adoptada. El caso más
-sensible es el del \textbf{Trolebús}, cuya velocidad efectiva ($\approx$\,
-13.0~km/h con
-$C_f = 1.38$) se sitúa ligeramente por debajo del límite inferior del rango
-operativo documentado (14--22~km/h). Esta diferencia de aproximadamente
-1~km/h (7\%) es atribuible a que el tipo de derecho de vía \textit{compartido}
-no captura la preferencia operativa parcial que el trolebús mantiene en ciertas
-vialidades de la \textsc{cdmx}. Para fines de análisis estructural de red,
-esta desviación se encuentra dentro de los márgenes de calibración aceptables.
+Los resultados son coherentes con la metodología adoptada. El caso más sensible
+es el del \textbf{Trolebús}, cuya velocidad efectiva ($\approx
+$\, 13.0~km/h con $C_f = 1.38$) se sitúa ligeramente por debajo del límite
+inferior del rango operativo documentado (14--22~km/h). Esta diferencia de
+aproximadamente 1~km/h (7\%) es atribuible a que el tipo de derecho de vía
+\textit{compartido} no captura la preferencia operativa parcial que el trolebús
+mantiene en ciertas vialidades de la \textsc{cdmx}. Para fines de análisis
+estructural de red, esta desviación se encuentra dentro de los márgenes de
+calibración aceptables.

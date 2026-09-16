@@ -1,0 +1,69 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.5 — CLIENTE HTTP: PUENTE CON APIMETRO
+% =============================================================================
+\section{Cliente HTTP: Puente con el Servidor Apimetro}
+\label{anx:vft-goclient}
+
+La capa de infraestructura de VFTModel incluye un cliente asíncrono
+(\path{src/infrastructure/go_client/client.py}) que consume los endpoints
+espaciales del servidor Go de Apimetro. La URL base se configura mediante la
+variable de entorno \texttt{APIMETRO\_URL}, definida en
+\path{src/infrastructure/go_client/settings.py}, de modo que el mismo código
+funciona tanto en desarrollo local como apuntando al servidor remoto.
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Configuración de la URL de Apimetro por variable de entorno.
+             \texttt{src/infrastructure/go\_client/settings.py}.},
+    label=lst:vft-settings]
+import os
+from dotenv import load_dotenv
+
+load_dotenv(os.getenv("ENV_FILE", ".env.local"))
+APIMETRO_URL = os.getenv("APIMETRO_URL", "http://localhost:8080/movilidad")
+\end{lstlisting}
+
+\subsection*{Descarga paralela de estaciones y líneas}
+
+La función \texttt{fetch\_full\_network} descarga estaciones y líneas en
+concurrencia con \texttt{asyncio.gather} y las unifica en un único
+\texttt{FeatureCollection} listo para el validador Pydantic. Si ambas
+peticiones fallan ---por ejemplo, cuando Apimetro no está disponible--- el
+código activa un protocolo de \termino{fallback} que lee el archivo
+\texttt{map.geojson} almacenado localmente.
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Descarga paralela y unificación de capas espaciales de Apimetro.
+             \texttt{src/infrastructure/go\_client/client.py}.},
+    label=lst:vft-goclient]
+async def fetch_full_network() -> dict:
+    url_estaciones = f"{APIMETRO_URL}/mapas/geojsonEstacion"
+    url_lineas     = f"{APIMETRO_URL}/mapas/geojsonLinea"
+
+    resultados = await asyncio.gather(
+        fetch_single_geojson(url_estaciones),
+        fetch_single_geojson(url_lineas)
+    )
+    features_unificados = []
+    for geojson in resultados:
+        payload = geojson.get("data", geojson)
+        features_unificados.extend(payload.get("features", []))
+
+    # Protocolo Fallback: si la red Go no responde, usar map.geojson local
+    if not features_unificados:
+        vft_logger.warning("Activando protocolo Fallback (map.geojson local).")
+        with open(os.path.join(os.getcwd(), "map.geojson"), "r") as f:
+            features_unificados = json.load(f).get("features", [])
+
+    return {"type": "FeatureCollection", "features": features_unificados}
+\end{lstlisting}
+
+\subsection*{Manejo de errores por endpoint}
+
+Cada petición individual (\texttt{fetch\_single\_geojson}) captura dos tipos
+de falla: errores de conexión (\texttt{httpx.RequestError}) y errores de
+formato \textsc{json}. En ambos casos devuelve un
+\texttt{FeatureCollection} vacío en lugar de propagar la excepción,
+permitiendo que \texttt{fetch\_full\_network} continúe con los datos
+disponibles del otro endpoint.

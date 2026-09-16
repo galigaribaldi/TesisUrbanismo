@@ -1,0 +1,129 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.9 — GUÍA DE REPLICABILIDAD
+% =============================================================================
+\section{Guía de Replicabilidad}
+\label{anx:vft-replicabilidad}
+
+Esta sección condensa lo necesario para levantar VFTModel en un entorno local
+desde cero. El código fuente del repositorio está disponible en
+\url{https://github.com/galigaribaldi/VFTModel}.
+
+\subsection*{Stack tecnológico}
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption[Stack tecnológico de VFTModel]{Stack tecnológico requerido para
+    ejecutar VFTModel.
+    \fuentefigura{Elaboración propia (VFTModel, 2026).}}
+    \label{tab:vft-stack}
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Componente}   & \textbf{Versión} \\ \hline
+        Lenguaje              & Python~3.12 \\ \hline
+        API framework         & FastAPI~0.110.0 + Uvicorn~0.29.0 \\ \hline
+        Validación            & Pydantic~2.6.4 \\ \hline
+        Cliente HTTP          & httpx~0.27.0 \\ \hline
+        Análisis de grafos    & NetworkX~3.2.1 \\ \hline
+        Análisis espacial     & GeoPandas~0.14.3 + Shapely~2.0.3 \\ \hline
+        Morfología urbana     & Momepy~0.7.0 \\ \hline
+        Sistema operativo dep.& GDAL (\texttt{libgdal-dev} / \texttt{gdal-bin}) \\ \hline
+        Contenedores          & Docker (imagen \texttt{python:3.12-slim-bookworm}) \\ \hline
+        Documentación \api{}  & Swagger UI en \texttt{/docs} \\ \hline
+        Tests                 & pytest (39 tests de integración) \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection*{Levantar el entorno local (sin Docker)}
+
+\begin{lstlisting}[language=bash,
+    caption={Secuencia completa para levantar VFTModel en desarrollo local.},
+    label=lst:vft-setup]
+# 1. Clonar el repositorio
+git clone https://github.com/galigaribaldi/VFTModel.git
+cd VFTModel
+
+# 2. Crear y activar entorno virtual
+python3 -m venv venv
+source venv/bin/activate   # macOS / Linux
+
+# 3. Instalar dependencias (requiere GDAL instalado previamente)
+make install
+
+# 4. Configurar la URL de Apimetro
+cp .env.example .env.local
+# Editar .env.local: APIMETRO_URL=http://localhost:8080/movilidad
+\end{lstlisting}
+
+\subsection*{Configuración multi-entorno}
+
+VFTModel distingue dos entornos de conexión mediante archivos \texttt{.env}:
+
+\begin{lstlisting}[language=bash,
+    caption={Selección de entorno mediante variable \texttt{ENV\_FILE}.},
+    label=lst:vft-envfile]
+# Desarrollo local (Apimetro corriendo en localhost:8080)
+make run                         # lee .env.local por defecto
+
+# Desarrollo contra servidor remoto (Apimetro en apimetro.dev)
+make run-dev                     # lee .env.dev
+# o bien:
+ENV_FILE=.env.dev make run-dev
+\end{lstlisting}
+
+\subsection*{Secuencia de cálculo: del grafo a los indicadores}
+
+Los endpoints de indicadores exigen que el grafo esté construido y en caché.
+La secuencia correcta es:
+
+\begin{lstlisting}[language=bash,
+    caption={Secuencia mínima para calcular indicadores tras levantar el servidor.},
+    label=lst:vft-sequence]
+# Terminal 1: levantar el servidor
+make run
+
+# Terminal 2: construir el grafo y calentarlo en cache
+curl "http://localhost:8000/api/v1/network/build-auto?mode=REALISTIC_INTEGRATION"
+# Respuesta esperada: {"status":"success","nodos":11115,"aristas":45679}
+
+# Una vez que build-auto confirmo exito:
+curl "http://localhost:8000/api/v1/network/spatial-coverage"
+curl "http://localhost:8000/api/v1/network/topological/capillary-strength"
+curl "http://localhost:8000/api/v1/network/topological/detour-factor"
+curl "http://localhost:8000/api/v1/network/topological/average-travel-time"
+curl "http://localhost:8000/api/v1/network/topological/betweenness-centrality"
+\end{lstlisting}
+
+La documentación interactiva de todos los endpoints con sus parámetros está
+disponible en \texttt{http://localhost:8000/docs} (Swagger UI generado
+automáticamente por FastAPI).
+
+\subsection*{Levantar con Docker}
+
+\begin{lstlisting}[language=bash,
+    caption={Secuencia para construir y correr VFTModel en Docker.},
+    label=lst:vft-docker]
+# Construir la imagen (una sola vez)
+make docker-build
+
+# Docker apuntando al servidor DEV remoto (apimetro.dev)
+make docker-run PORT=8000
+
+# Docker apuntando a Apimetro local (Linux — requiere host-gateway)
+make docker-run-local PORT=8000
+\end{lstlisting}
+
+\subsection*{Correr la suite de pruebas}
+
+La suite cuenta con 39 pruebas de integración que verifican la cadena
+completa: validación Pydantic, construcción del grafo y cálculo de cada
+indicador. Requiere el servidor activo y acceso a Apimetro:
+
+\begin{lstlisting}[language=bash,
+    caption={Ejecución de la suite pytest de VFTModel.},
+    label=lst:vft-tests]
+make run-dev   # Terminal 1: servidor apuntando a apimetro.dev
+make test      # Terminal 2: pytest tests/ -v
+\end{lstlisting}

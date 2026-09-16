@@ -8,9 +8,9 @@
 
 \notaRevision{Los indicadores de esta fase se encuentran en revisión con el
 comité tutor. Los coeficientes de fricción vial y la penalización por
-transferencia han sido calculados e integrados al grafo; el \termino{Node Score}
-se encuentra en etapa de planificación, pendiente de la disponibilidad de las
-vistas materializadas MV1 y MV2 de \textbf{Apimetro}.}
+transferencia han sido calculados e integrados al grafo; el
+\termino{Node Score} se encuentra en etapa de planificación, pendiente de la
+disponibilidad de las vistas materializadas MV1 y MV2 de \textbf{Apimetro}.}
 
 La Fase~2 del Modelo VFT enriquece el grafo construido en la Fase~1 con dos
 capas de pesos dinámicos que aproximan las condiciones reales de operación de la
@@ -39,10 +39,10 @@ conforman el componente dinámico de la \textbf{Ecuación VFT}:
 \end{itemize}
 
 Para las aristas de servicio normal, el peso de enrutamiento es
-$\mathit{weight} = (D_{uv}/V_{\text{modo}}) \cdot CF_{\text{vía}}$; el
-$T_b$ queda registrado como atributo informativo, pero no penaliza el
-segmento. La penalización por transferencia actúa únicamente sobre aristas de
-tipo \texttt{transfer}, como se describe en la Sección~
+$\mathit{weight} = (D_{uv}/V_{\text{modo}}) \cdot CF_{\text{vía}}$; el $T_b$
+queda registrado como atributo informativo, pero no penaliza el segmento. La
+penalización por transferencia actúa únicamente sobre aristas de tipo
+\texttt{transfer}, como se describe en la Sección~
 \ref{subsec:res-penalizacion-transferencia}.
 
 % ----------------------------------------------------------------
@@ -51,11 +51,11 @@ tipo \texttt{transfer}, como se describe en la Sección~
 % ----------------------------------------------------------------
 
 El \textbf{Coeficiente de Fricción Vial} ($CF$) traduce el tipo de
-\termino{derecho de vía} de cada segmento en un penalizador multiplicativo
-sobre el tiempo de traslado. La premisa es que circular por un túnel del
-Metro —aislado del tráfico en superficie— implica un costo temporal muy
-distinto al de un camión de la \textsc{rtp} inmerso en el flujo vehicular de
-Insurgentes o Periférico.
+\termino{derecho de vía} de cada segmento en un penalizador multiplicativo sobre
+el tiempo de traslado. La premisa es que circular por un túnel del Metro
+—aislado del tráfico en superficie— implica un costo temporal muy distinto al de
+un camión de la \textsc{rtp} inmerso en el flujo vehicular de Insurgentes o
+Periférico.
 
 \subsubsection{Constante de Saturación Vial}
 \label{subsubsec:beta-saturacion}
@@ -68,15 +68,15 @@ derivada del \termino{TomTom Traffic Index} para la \zmvm:
     \label{eq:beta-zmvm}
 \end{equation}
 
-Este valor indica que la ciudad opera, en condiciones promedio, al 76~\% de
-su capacidad vial. Es decir, un vehículo en tráfico mixto experimenta, en
-promedio, un sobretiempo del 76~\% respecto al recorrido en flujo libre.
+Este valor indica que la ciudad opera, en condiciones promedio, al 76~\% de su
+capacidad vial. Es decir, un vehículo en tráfico mixto experimenta, en promedio,
+un sobretiempo del 76~\% respecto al recorrido en flujo libre.
 
 \subsubsection{Fórmula y Valores por Derecho de Vía}
 \label{subsubsec:formula-cf}
 
-El coeficiente $CF$ se obtiene a partir de un parámetro de escala $\alpha$
-que modula la exposición de cada tipo de vía a la saturación urbana:
+El coeficiente $CF$ se obtiene a partir de un parámetro de escala $\alpha$ que
+modula la exposición de cada tipo de vía a la saturación urbana:
 
 \begin{equation}
     CF = 1 + \alpha \cdot \beta_{\text{ZMVM}}
@@ -129,10 +129,9 @@ ya está calibrada en $V_{\text{modo}}$—, sino el efecto sistemático de las
 detenciones por semáforos, cruces peatonales y congestión que son inherentes a
 los segmentos de superficie compartida.
 
-En el caso del sistema de derecho de vía desconocido, el Modelo VFT asigna
-por defecto el valor de vía \texttt{mixto} ($CF = 1.759$), aplicando el
-principio de escenario más conservador para no subestimar los tiempos de
-traslado.
+En el caso del sistema de derecho de vía desconocido, el Modelo VFT asigna por
+defecto el valor de vía \texttt{mixto} ($CF = 1.759$), aplicando el principio de
+escenario más conservador para no subestimar los tiempos de traslado.
 
 % ----------------------------------------------------------------
 \subsection{Penalización por Transferencia (\texorpdfstring{$T_b$}{Tb})}
@@ -140,21 +139,18 @@ traslado.
 % ----------------------------------------------------------------
 
 La \textbf{Penalización por Transferencia} ($T_b$) modela el costo temporal en
-el
-que un pasajero incurre al cambiar de sistema o línea dentro de la red. A
-diferencia
-del tiempo de traslado —que depende de la distancia y la velocidad del
-vehículo—,
-el costo de transbordo consta de dos componentes independientes: el tiempo de
-caminata entre plataformas y el tiempo de espera en el andén de destino.
+el que un pasajero incurre al cambiar de sistema o línea dentro de la red. A
+diferencia del tiempo de traslado —que depende de la distancia y la velocidad
+del vehículo—, el costo de transbordo consta de dos componentes independientes:
+el tiempo de caminata entre plataformas y el tiempo de espera en el andén de
+destino.
 
 \subsubsection{Fórmula de la Penalización}
 \label{subsubsec:formula-tb}
 
 Para cada arista de transbordo generada por el
-\termino{Snapping Lógico Geográfico}
-entre los nodos $u$ (origen del transbordo) y $v$ (destino del transbordo), el
-peso de la arista es:
+\termino{Snapping Lógico Geográfico} entre los nodos $u$ (origen del transbordo)
+y $v$ (destino del transbordo), el peso de la arista es:
 
 \begin{equation}
     T_b(u, v) = t_{\text{caminata}}(u, v) + \frac{F_v}{2}
@@ -184,8 +180,8 @@ El tiempo de caminata se calcula como:
 \end{equation}
 
 donde $D_{uv}$ es la distancia geodésica entre los dos nodos (Haversine) en
-metros, y $V_{\text{peatonal}} = 5000\ \text{m} / 60\ \text{min} = 83.33\
-\text{m/min}$.
+metros, y
+$V_{\text{peatonal}} = 5000\ \text{m} / 60\ \text{min} = 83.33\ \text{m/min}$.
 
 \subsubsection{Valores de Frecuencia de Fallback}
 \label{subsubsec:fallback-frecuencia}
@@ -226,18 +222,19 @@ promedio en condiciones de operación normal en hora no pico.
 \subsubsection{Decisión de Diseño: Boarding Cost Informativo}
 \label{subsubsec:boarding-cost-diseno}
 
-Una precisión metodológica relevante: el costo de abordaje $F_v / 2$ \textbf{no
-se suma al peso de las aristas de servicio normal}. Solo actúa como componente
-del peso de las aristas de transbordo peatonal. Esta decisión responde a que el
-pasajero ya está dentro del vehículo en los segmentos normales; el tiempo de
-espera por frecuencia solo es pertinente en el momento de abordar un nuevo
-sistema. Sumarlo en cada arista normal equivaldría a penalizar al pasajero en
-cada estación intermedia, sobreestimando sistemáticamente los tiempos de ruta.
+Una precisión metodológica relevante: el costo de abordaje $F_v / 2$
+\textbf{no se suma al peso de las aristas de servicio normal}. Solo actúa como
+componente del peso de las aristas de transbordo peatonal. Esta decisión
+responde a que el pasajero ya está dentro del vehículo en los segmentos
+normales; el tiempo de espera por frecuencia solo es pertinente en el momento de
+abordar un nuevo sistema. Sumarlo en cada arista normal equivaldría a penalizar
+al pasajero en cada estación intermedia, sobreestimando sistemáticamente los
+tiempos de ruta.
 
-En consecuencia, el Modelo VFT registra $F_v / 2$ como atributo informativo
-en las aristas de servicio (\texttt{boarding\_cost\_min}) para análisis
-descriptivos, pero el atributo \texttt{weight} de estas aristas solo contiene
-el tiempo de traslado con fricción.
+En consecuencia, el Modelo VFT registra $F_v / 2$ como atributo informativo en
+las aristas de servicio (\texttt{boarding\_cost\_min}) para análisis
+descriptivos, pero el atributo \texttt{weight} de estas aristas solo contiene el
+tiempo de traslado con fricción.
 
 % ----------------------------------------------------------------
 \subsection{\bajoRevision{Node Score — Estado de Implementación}}
@@ -248,9 +245,8 @@ el tiempo de traslado con fricción.
 de planificación. Su cálculo requiere los datos de afluencia por línea (MV1) y
 los polígonos AGEB con atributos censales (MV2) de \textbf{Apimetro}, aún no
 disponibles en la fecha de cierre de este documento. La arquitectura del
-indicador,
-sus fórmulas y las dependencias de datos se presentan a continuación como
-fundamento para la etapa de implementación.}
+indicador, sus fórmulas y las dependencias de datos se presentan a continuación
+como fundamento para la etapa de implementación.}
 
 El \termino{Node Score} ($\text{VFT\_score}_i$) constituye la segunda capa de
 pesos del Modelo VFT: mientras que los pesos de arista modelan el costo temporal
@@ -300,7 +296,7 @@ La normalización de cada componente usa el método \termino{min-max}:
     \label{eq:normalizacion-minmax}
 \end{equation}
 
-\subsubsection{Determinación de los Pesos \texorpdfstring{$\alpha$}{\textalpha}}
+\subsubsection{Determinación de los Pesos \texorpdfstring{$\alpha$}{alpha}}
 \label{subsubsec:pesos-alpha}
 
 Los pesos $\alpha_1, \alpha_2, \alpha_3$ se determinarán en dos etapas
@@ -349,10 +345,11 @@ $\text{VFT\_score}$, fuentes de datos requeridas y estado de implementación.}
     \texttt{apimetro\_requerimientos\_mvs.md} (VFTModel, 2026-04-28).}
 \end{table}
 
-El diseño del \termino{Node Score} garantiza la \textbf{independencia entre
-componentes}: la desagregación de afluencia usa el grado topológico crudo
-$g_i = \deg(i)$ —no la Fuerza Capilar $k_i$— para evitar que $\hat{k}_i$
-domine doblemente el cómputo. Antes de asignar los pesos finales por entropía,
-se verificará la correlación $\rho(\hat{k}, \hat{a})$: si $\rho \geq 0.75$,
-los dos componentes se fusionarán en un índice combinado $\delta_i = \beta
-\hat{k}_i + (1-\beta)\hat{a}_i$ antes de calcular el \termino{score} final.
+El diseño del \termino{Node Score} garantiza la
+\textbf{independencia entre componentes}: la desagregación de afluencia usa el
+grado topológico crudo $g_i = \deg(i)$ —no la Fuerza Capilar $k_i$— para evitar
+que $\hat{k}_i$ domine doblemente el cómputo. Antes de asignar los pesos finales
+por entropía, se verificará la correlación $\rho(\hat{k}, \hat{a})$: si
+$\rho \geq 0.75$, los dos componentes se fusionarán en un índice combinado
+$\delta_i = \beta \hat{k}_i + (1-\beta)\hat{a}_i$ antes de calcular el
+\termino{score} final.

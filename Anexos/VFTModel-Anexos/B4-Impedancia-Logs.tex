@@ -1,0 +1,112 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.4 — MOTOR DE IMPEDANCIA Y LOGS DE CONSTRUCCIÓN
+% =============================================================================
+\section{Motor de Impedancia y Logs de Construcción del Grafo}
+\label{anx:vft-codigo}
+
+\subsection*{Logs de construcción (corrida 2026-04-18)}
+
+\begin{figure}[H]
+    \centering
+    \fontsize{7.5pt}{9pt}\selectfont
+    \begin{minipage}{0.95\textwidth}
+        \hrule\vspace{1ex}
+        \textbf{Logs de Construcción del Grafo (VFTModel):}
+        \vspace{1ex}
+        \begin{verbatim}
+2026-04-18 20:46:41 | INFO | Fase 1 y 2: Extrayendo nodos y trazos base...
+2026-04-18 20:46:43 | INFO | Fase 2 completada: 65220 aristas creadas.
+2026-04-18 20:46:43 | INFO | Grafo Base: 11115 Nodos y 32344 Segmentos.
+2026-04-18 20:46:43 | WARN | Eliminadas 1562 aristas phantom (> 5 km).
+2026-04-18 20:46:43 | INFO | Fase 3: Integrando sistemas (Tolerancia: 85.0m)...
+2026-04-18 20:47:09 | INFO | Se crearon 20482 aristas de Transbordo Peatonal.
+2026-04-18 20:47:09 | INFO | Impedancia aplicada exitosamente a 25197 segmentos.
+2026-04-18 20:47:09 | INFO | Grafo final: 11115 nodos, 45679 aristas.
+        \end{verbatim}
+        \hrule
+    \end{minipage}
+\end{figure}
+
+\subsection*{Implementación de la fórmula de Haversine}
+
+La función \texttt{haversine} calcula la distancia geodésica en metros entre
+dos coordenadas geográficas proyectando la curva terrestre sobre la esfera de
+radio $R = 6\,371\,000$\,m. Es la distancia base para el tiempo de traslado
+en todas las aristas de tránsito y para el tiempo de caminata en las aristas
+de transbordo.
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Implementación de la fórmula de Haversine.
+             \texttt{src/core/models/impedance.py}.},
+    label=lst:haversine]
+@staticmethod
+def haversine(lon1, lat1, lon2, lat2) -> float:
+    R = 6_371_000  # Radio de la Tierra en metros
+    phi_1        = math.radians(lat1)
+    phi_2        = math.radians(lat2)
+    delta_phi    = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+    a = math.sin(delta_phi / 2.0) ** 2 + \
+        math.cos(phi_1) * math.cos(phi_2) * \
+        math.sin(delta_lambda / 2.0) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    return R * c
+\end{lstlisting}
+
+\subsection*{Cálculo del Coeficiente de Fricción Vial ($CF_h$)}
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Cálculo del Coeficiente de Fricción Vial según derecho de vía.
+             \texttt{src/core/models/impedance.py}.},
+    label=lst:cf]
+class FrictionCalculator:
+    BETA_SATURACION_CDMX = 0.759  # TomTom Traffic Index ZMVM
+
+    @classmethod
+    def get_friction(cls, derecho_de_via: str) -> float:
+        alpha_map = {
+            "exclusivo":  0.0,   # Metro, Suburbano, Cablebus
+            "confinado":  0.2,   # Metrobus, Mexibus
+            "compartido": 0.5,   # Trolebus
+            "mixto":      1.0,   # RTP, CC
+        }
+        alpha = alpha_map.get(derecho_de_via, 1.0)  # default: peor caso
+        return 1.0 + (alpha * cls.BETA_SATURACION_CDMX)
+\end{lstlisting}
+
+\subsection*{Inyección de impedancia sobre el grafo}
+
+El método \texttt{apply\_impedance} recorre todas las aristas de tránsito y
+asigna el peso en minutos conforme a la ecuación VFT:
+$w_{ij} = (d_{ij} / v_{ij}) \times CF_h$, donde $d_{ij}$ es la distancia
+Haversine acumulada del trazo real, $v_{ij}$ la velocidad comercial en m/min y
+$CF_h$ el coeficiente de fricción del segmento. Las aristas peatonales
+(\texttt{tipo = transfer}) ya tienen peso propio asignado por el constructor
+del grafo y se omiten.
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Inyección del peso de impedancia en cada arista del grafo dirigido.
+             \texttt{src/core/models/impedance.py}.},
+    label=lst:impedancia]
+def apply_impedance(self) -> nx.DiGraph:
+    for u, v, data in self.G.edges(data=True):
+        if data.get("tipo") == "transfer":
+            continue  # aristas peatonales ya ponderadas
+
+        d     = data.get("distancia_segmento_m") or \
+                self.haversine(u[0], u[1], v[0], v[1])
+        v_kmh = data.get("velocidad_promedio_kmh") or \
+                self.FALLBACK_VELOCIDAD.get(data.get("sistema"), 15.0)
+        v_mmin = v_kmh * (1000.0 / 60.0)
+        cf     = FrictionCalculator.get_friction(
+                     data.get("derecho_de_via", "mixto"))
+
+        self.G[u][v].update({
+            'distancia_segmento_m':  round(d, 2),
+            'travel_time_min':       round((d / v_mmin) * cf, 4),
+            'coeficiente_friccion':  round(cf, 2),
+            'weight':                round((d / v_mmin) * cf, 4)
+        })
+\end{lstlisting}

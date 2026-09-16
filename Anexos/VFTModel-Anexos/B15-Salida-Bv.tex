@@ -1,0 +1,23 @@
+% !TeX root = ../../tesis.tex
+
+\section{Ejemplo de Respuesta: Centralidad de Intermediación \texorpdfstring{($B(v)$)}{(B(v))}}
+\label{anx:vft-out-betweenness}
+
+Respuesta de referencia del indicador $B(v)$
+(§\ref{subsec:centralidad-intermediacion}).
+
+\begin{lstlisting}[style=estiloPython,
+  caption={Estructura de respuesta del endpoint
+           \texttt{/betweenness-centrality} (valores de referencia).},
+  label=lst:out-betweenness]
+{
+  "indicador":            "centralidad_intermediacion",
+  "normalizado":          true,
+  "top_nodos": [
+    { "nombre": "PENDIENTE", "B_v": 0.0, "rango": 1 },
+    { "nombre": "PENDIENTE", "B_v": 0.0, "rango": 2 },
+    { "nombre": "PENDIENTE", "B_v": 0.0, "rango": 3 }
+  ],
+  "total_nodos_evaluados": 0
+}
+\end{lstlisting}

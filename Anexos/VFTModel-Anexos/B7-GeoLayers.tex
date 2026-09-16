@@ -1,0 +1,73 @@
+% !TeX root = ../../tesis.tex
+
+% =============================================================================
+%  B.7 — GEOLAYERS: SERIALIZACIÓN PARA TRANSPORT-GIS
+% =============================================================================
+\section{GeoLayers: Serialización para Transport-\textsc{gis}}
+\label{anx:vft-geolayers}
+
+El módulo \path{src/api/routes/geo_layers.py} es la capa de salida geoespacial
+de VFTModel. No contiene lógica analítica: recibe los \texttt{DataFrame} de
+los algoritmos topológicos y los serializa como \texttt{FeatureCollection}
+en \textsc{crs} \textsc{epsg:4326} (WGS84), consumibles directamente por
+Transport-\textsc{gis}-\textsc{zmvm} y \textsc{qgis}.
+
+Cada respuesta \texttt{FeatureCollection} lleva un bloque de metadatos
+estándar que incluye el nombre del indicador, el número de geometrías, el
+sistema de referencia y la marca temporal de la consulta.
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Envoltura estándar VFT para toda respuesta GeoJSON.
+             \texttt{src/api/routes/geo\_layers.py}.},
+    label=lst:vft-feature-collection]
+def _build_feature_collection(indicador, layer, features, parametros):
+    return {
+        "type": "FeatureCollection",
+        "metadata": {
+            "indicador":  indicador,
+            "layer":      layer,
+            "n_features": len(features),
+            "crs":        "EPSG:4326",
+            "fetched_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "parametros": parametros
+        },
+        "features": features
+    }
+\end{lstlisting}
+
+\subsection*{Clasificadores de umbrales cualitativos}
+
+Para facilitar la visualización en Transport-\textsc{gis}, cada entidad
+lleva un campo categórico derivado de su valor numérico:
+
+\begin{lstlisting}[style=estiloPython,
+    caption={Clasificadores cualitativos para cobertura, fuerza capilar y
+             factor de desviación. \texttt{src/api/routes/geo\_layers.py}.},
+    label=lst:vft-clasifiers]
+def _clasify_coverage(pct: float) -> str:
+    if pct > 60:  return "alta"
+    if pct >= 30: return "media"
+    return "baja"
+
+def _clasify_node(fc_total: float) -> str:
+    if fc_total > 20: return "hub_principal"
+    if fc_total > 10: return "hub_secundario"
+    if fc_total > 6:  return "nodo_relevante"
+    return "nodo_basico"
+
+def _clasify_diff(factor: float) -> str:
+    if factor <= 1.3: return "eficiente"
+    if factor <= 1.6: return "moderado"
+    if factor <= 2.0: return "alto"
+    return "critico"
+\end{lstlisting}
+
+\subsection*{Capas disponibles en \texttt{/geolayers/coverage}}
+
+El endpoint de cobertura expone tres subtipos mediante el parámetro
+\texttt{layer}: \texttt{cobertura\_por\_alcaldia} (polígono de cada demarcación
+coloreado por porcentaje de cobertura), \texttt{estaciones} (puntos de toda la
+red sin duplicados) y \texttt{cobertura\_800m} (mancha vectorial de la unión
+de buffers de 800\,m alrededor de cada parada). Las geometrías internas se
+procesan en \textsc{epsg:32614} para operaciones métricas precisas y se
+reprojectan a \textsc{epsg:4326} antes de la serialización.
