@@ -54,6 +54,14 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
+% TikZ externalization — cachea cada diagrama como PDF independiente.
+% Primera compilación (make compilar-limpio) genera los PDFs en externalized/;
+% las siguientes los reutilizan sin recompilar, ahorrando ~15-30 seg por pasada.
+% Requiere --shell-escape (ya incluido en .latexmkrc y MOTOR del Makefile).
+% Para forzar regeneración: make tikz-clean
+\usetikzlibrary{external}
+\tikzexternalize[prefix=Figures/TiKz_Libraries/externalized/]
+
 
 % =============================================================================
 %  5. ANIMACIONES
@@ -142,6 +150,23 @@
   sensitive    = false,
 }
 \lstdefinestyle{estiloJSON}{style=estiloBase, language=JSON}
+
+% --- JavaScript ---
+\lstdefinelanguage{JavaScript}{
+  morekeywords = {
+    var, let, const, function, return, if, else, for, while, do,
+    switch, case, default, break, continue, new, delete, typeof,
+    instanceof, in, of, this, true, false, null, undefined,
+    class, extends, import, export, from, async, await, try, catch, finally
+  },
+  sensitive    = true,
+  morecomment  = [l]{//},
+  morecomment  = [s]{/*}{*/},
+  morestring   = [b]",
+  morestring   = [b]',
+  morestring   = [b]`,
+}
+\lstdefinestyle{estiloJS}{style=estiloBase, language=JavaScript}
 
 % Etiqueta por defecto para todos los listings
 \renewcommand{\lstlistingname}{Código}
