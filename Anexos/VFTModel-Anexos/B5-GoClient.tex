@@ -6,8 +6,8 @@
 \section{Cliente HTTP: Puente con el Servidor Apimetro}
 \label{anx:vft-goclient}
 
-La capa de infraestructura de VFTModel incluye un cliente asíncrono
-(\path{src/infrastructure/go_client/client.py}) que consume los endpoints
+La capa de infraestructura de VFTModel incluye un cliente asíncrono (
+\path{src/infrastructure/go_client/client.py}) que consume los endpoints
 espaciales del servidor Go de Apimetro. La URL base se configura mediante la
 variable de entorno \texttt{APIMETRO\_URL}, definida en
 \path{src/infrastructure/go_client/settings.py}, de modo que el mismo código
@@ -28,10 +28,10 @@ APIMETRO_URL = os.getenv("APIMETRO_URL", "http://localhost:8080/movilidad")
 
 La función \texttt{fetch\_full\_network} descarga estaciones y líneas en
 concurrencia con \texttt{asyncio.gather} y las unifica en un único
-\texttt{FeatureCollection} listo para el validador Pydantic. Si ambas
-peticiones fallan ---por ejemplo, cuando Apimetro no está disponible--- el
-código activa un protocolo de \termino{fallback} que lee el archivo
-\texttt{map.geojson} almacenado localmente.
+\texttt{FeatureCollection} listo para el validador Pydantic. Si ambas peticiones
+fallan ---por ejemplo, cuando Apimetro no está disponible--- el código activa un
+protocolo de \termino{fallback} que lee el archivo \texttt{map.geojson}
+almacenado localmente.
 
 \begin{lstlisting}[style=estiloPython,
     caption={Descarga paralela y unificación de capas espaciales de Apimetro.
@@ -61,9 +61,8 @@ async def fetch_full_network() -> dict:
 
 \subsection*{Manejo de errores por endpoint}
 
-Cada petición individual (\texttt{fetch\_single\_geojson}) captura dos tipos
-de falla: errores de conexión (\texttt{httpx.RequestError}) y errores de
-formato \textsc{json}. En ambos casos devuelve un
-\texttt{FeatureCollection} vacío en lugar de propagar la excepción,
-permitiendo que \texttt{fetch\_full\_network} continúe con los datos
-disponibles del otro endpoint.
+Cada petición individual (\texttt{fetch\_single\_geojson}) captura dos tipos de
+falla: errores de conexión (\texttt{httpx.RequestError}) y errores de formato
+\textsc{json}. En ambos casos devuelve un \texttt{FeatureCollection} vacío en
+lugar de propagar la excepción, permitiendo que \texttt{fetch\_full\_network}
+continúe con los datos disponibles del otro endpoint.

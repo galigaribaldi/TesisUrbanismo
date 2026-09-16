@@ -75,8 +75,8 @@ ENV_FILE=.env.dev make run-dev
 
 \subsection*{Secuencia de cálculo: del grafo a los indicadores}
 
-Los endpoints de indicadores exigen que el grafo esté construido y en caché.
-La secuencia correcta es:
+Los endpoints de indicadores exigen que el grafo esté construido y en caché. La
+secuencia correcta es:
 
 \begin{lstlisting}[language=bash,
     caption={Secuencia mínima para calcular indicadores tras levantar el servidor.},
@@ -117,9 +117,9 @@ make docker-run-local PORT=8000
 
 \subsection*{Correr la suite de pruebas}
 
-La suite cuenta con 39 pruebas de integración que verifican la cadena
-completa: validación Pydantic, construcción del grafo y cálculo de cada
-indicador. Requiere el servidor activo y acceso a Apimetro:
+La suite cuenta con 39 pruebas de integración que verifican la cadena completa:
+validación Pydantic, construcción del grafo y cálculo de cada indicador.
+Requiere el servidor activo y acceso a Apimetro:
 
 \begin{lstlisting}[language=bash,
     caption={Ejecución de la suite pytest de VFTModel.},

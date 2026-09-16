@@ -29,7 +29,7 @@ hojas: \textit{Líneas}, \textit{Ramales} y \textit{Estaciones}. Se muestra la
 función de normalización y el bloque de procesamiento de líneas; los bloques de
 ramales y estaciones siguen el mismo patrón.
 
-\lstinputlisting[language=Python, caption={Normalización de nombres de sistema a partir de \texttt{agency\_id} y generación de la plantilla Excel.}, label=lst:py-generador, breaklines=true, firstline=35, lastline=83, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/python/ejemplo_Generador_Plantilla.py}
+\lstinputlisting[language=Python, caption={Normalización de nombres de sistema a partir de \texttt{agency\_id} y generación de la plantilla Excel.}, label=lst:py-generador, breaklines=true, firstline=35, lastline=83, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/python/ejemplo_Generador_Plantilla.txt}
 
 \subsection*{Fase 2 — Carga a PostGIS
 (\texttt{ejemplo\_DataEstacion.py})}
@@ -39,4 +39,4 @@ La clase \texttt{EstacionETL} implementa el patrón
 plantilla, lectura del \texttt{stops.txt}, cruce por \texttt{stop\_gtfs} y carga
 final a la tabla \texttt{estacions} con \texttt{gdf.to\_postgis()}.
 
-\lstinputlisting[language=Python, caption={Clase \texttt{EstacionETL}: extracción, transformación y carga a PostGIS vía \textit{GeoPandas}.}, label=lst:py-etl, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/python/ejemplo_DataEstacion.py}
+\lstinputlisting[language=Python, caption={Clase \texttt{EstacionETL}: extracción, transformación y carga a PostGIS vía \textit{GeoPandas}.}, label=lst:py-etl, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/python/ejemplo_DataEstacion.txt}

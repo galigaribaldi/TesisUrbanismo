@@ -16,7 +16,7 @@ consulta \textsc{sql} —incluyendo el campo \texttt{mapa} que recibe la geometr
 serializada por \texttt{ST\_AsGeoJSON}— a un objeto Go tipado antes de construir
 el \texttt{FeatureCollection}.
 
-\lstinputlisting[language=Go, caption={Estructura de mapeo entre la consulta PostGIS y el objeto Go para estaciones GeoJSON.}, label=lst:go-struct, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/result_gjson.go}
+\lstinputlisting[language=Go, caption={Estructura de mapeo entre la consulta PostGIS y el objeto Go para estaciones GeoJSON.}, label=lst:go-struct, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/result_gjson.txt}
 
 \subsection*{Consulta espacial y ensamblado GeoJSON
 (\texttt{ejemplo\_geojson\_estacion.go})}
@@ -28,7 +28,7 @@ aplica filtros condicionales por \texttt{sistema}, \texttt{alcaldia\_municipio},
 ensambla el \texttt{FeatureCollection} desempaquetando la geometría con
 \texttt{json.Unmarshal}.
 
-\lstinputlisting[language=Go, caption={Consulta PostGIS con filtros dinámicos y construcción del \texttt{FeatureCollection} de estaciones.}, label=lst:go-geojson, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/ejemplo_geojson_estacion.go}
+\lstinputlisting[language=Go, caption={Consulta PostGIS con filtros dinámicos y construcción del \texttt{FeatureCollection} de estaciones.}, label=lst:go-geojson, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/ejemplo_geojson_estacion.txt}
 
 \subsection*{Modelo CRUD con filtrado dinámico
 (\texttt{ejemplo\_estaciones.go})}
@@ -37,7 +37,7 @@ ensambla el \texttt{FeatureCollection} desempaquetando la geometría con
 con la tabla \texttt{lineas} solo cuando algún filtro foráneo está presente,
 evitando el costo de joins innecesarios en consultas simples por id o nombre.
 
-\lstinputlisting[language=Go, caption={Filtrado dinámico de estaciones: JOIN condicional a \texttt{lineas} según los filtros recibidos.}, label=lst:go-estaciones, breaklines=true, firstline=17, lastline=86, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/ejemplo_estaciones.go}
+\lstinputlisting[language=Go, caption={Filtrado dinámico de estaciones: JOIN condicional a \texttt{lineas} según los filtros recibidos.}, label=lst:go-estaciones, breaklines=true, firstline=17, lastline=86, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/GO/ejemplo_estaciones.txt}
 
 \subsection*{Variables de entorno (Docker)}
 

@@ -1,6 +1,16 @@
 # PDF compilado (generado localmente o por CI en main — no rastrear en desarrollo)
 tesis.pdf
 
+# Archivos de datos pesados de Transport-gis — generados en tiempo de ejecución
+Anexos/Transport-gis-mjg/exports/*.geojson
+Anexos/Transport-gis-mjg/utils/data/routes_raw.json
+
+# TikZ externalized — PDFs generados en compilación, no rastrear en repo
+Figures/TiKz_Libraries/externalized/*.pdf
+Figures/TiKz_Libraries/externalized/*.md5
+Figures/TiKz_Libraries/externalized/*.log
+Figures/TiKz_Libraries/externalized/*.dpth
+
 # Archivos de configuración de TeXShop (editor macOS)
 *.texshop
 

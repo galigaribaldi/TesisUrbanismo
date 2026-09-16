@@ -10,9 +10,10 @@ El contrato de datos de VFTModel está implementado en
 \path{src/api/schemas/schemas.py} mediante cuatro enumeraciones cerradas y un
 esquema principal de validación (\texttt{PropertiesSchema}). El diseño garantiza
 que ningún dato proveniente del servidor Go llegue al constructor del grafo sin
-haber pasado por la taxonomía del modelo. El Cuadro~\ref{tab:vft-campos-validados}
-presenta los campos validados; el código siguiente muestra las enumeraciones y
-el validador dinámico que imputa los valores faltantes.
+haber pasado por la taxonomía del modelo. El Cuadro~
+\ref{tab:vft-campos-validados} presenta los campos validados; el código
+siguiente muestra las enumeraciones y el validador dinámico que imputa los
+valores faltantes.
 
 \begin{table}[H]
     \centering
@@ -79,8 +80,8 @@ class SistemaTransporte(str, Enum):
 
 El \texttt{model\_validator} de Pydantic actúa como segunda línea de defensa:
 detecta y repara campos nulos antes de que el dato llegue al constructor del
-grafo. Las imputaciones cubren cuatro casos frecuentes en el \textsc{geojson}
-de Apimetro.
+grafo. Las imputaciones cubren cuatro casos frecuentes en el \textsc{geojson} de
+Apimetro.
 
 \begin{lstlisting}[style=estiloPython,
     caption={Validador dinámico que repara datos incompletos antes de construir el

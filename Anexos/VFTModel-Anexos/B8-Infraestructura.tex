@@ -6,14 +6,14 @@
 \section{Infraestructura: Contenedores y Automatización}
 \label{anx:vft-infraestructura}
 
-El despliegue de VFTModel se basa en tres archivos de configuración que
-permiten levantar el servicio tanto en entorno local como en producción sin
-modificar el código fuente.
+El despliegue de VFTModel se basa en tres archivos de configuración que permiten
+levantar el servicio tanto en entorno local como en producción sin modificar el
+código fuente.
 
 \subsection*{Dependencias Python}
 
-El archivo \texttt{requirements.txt} agrupa las dependencias en tres
-categorías funcionales:
+El archivo \texttt{requirements.txt} agrupa las dependencias en tres categorías
+funcionales:
 
 \begin{lstlisting}[style=estiloPython,
     caption={Dependencias de VFTModel (\texttt{requirements.txt}).},
@@ -46,11 +46,11 @@ brew install gdal
 
 \subsection*{Dockerfile multietapa}
 
-La imagen Docker utiliza una construcción multietapa (\termino{multi-stage
-build}) para minimizar el tamaño de la imagen de producción: el
-\textit{stage} \texttt{builder} compila e instala las dependencias con todas
-las herramientas de desarrollo, y el \textit{stage} \texttt{runtime} solo
-copia los paquetes ya instalados y el código fuente.
+La imagen Docker utiliza una construcción multietapa (
+\termino{multi-stage build}) para minimizar el tamaño de la imagen de
+producción: el \textit{stage} \texttt{builder} compila e instala las
+dependencias con todas las herramientas de desarrollo, y el \textit{stage}
+\texttt{runtime} solo copia los paquetes ya instalados y el código fuente.
 
 \begin{lstlisting}[language=bash,
     caption={Dockerfile multietapa de VFTModel.},
@@ -79,8 +79,8 @@ CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 La imagen base \texttt{python:3.12-slim-bookworm} está fijada a la distribución
 \textit{Bookworm} (Debian 12): la distribución siguiente (\textit{Trixie}) no
-incluye el paquete \texttt{libgdal32} en sus repositorios estables al momento
-de escritura del presente trabajo.
+incluye el paquete \texttt{libgdal32} en sus repositorios estables al momento de
+escritura del presente trabajo.
 
 \subsection*{Makefile: automatización de tareas frecuentes}
 

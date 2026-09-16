@@ -31,11 +31,11 @@
 
 \subsection*{Implementación de la fórmula de Haversine}
 
-La función \texttt{haversine} calcula la distancia geodésica en metros entre
-dos coordenadas geográficas proyectando la curva terrestre sobre la esfera de
-radio $R = 6\,371\,000$\,m. Es la distancia base para el tiempo de traslado
-en todas las aristas de tránsito y para el tiempo de caminata en las aristas
-de transbordo.
+La función \texttt{haversine} calcula la distancia geodésica en metros entre dos
+coordenadas geográficas proyectando la curva terrestre sobre la esfera de radio
+$R = 6\,371\,000$\,m. Es la distancia base para el tiempo de traslado en todas
+las aristas de tránsito y para el tiempo de caminata en las aristas de
+transbordo.
 
 \begin{lstlisting}[style=estiloPython,
     caption={Implementación de la fórmula de Haversine.
@@ -82,9 +82,9 @@ El método \texttt{apply\_impedance} recorre todas las aristas de tránsito y
 asigna el peso en minutos conforme a la ecuación VFT:
 $w_{ij} = (d_{ij} / v_{ij}) \times CF_h$, donde $d_{ij}$ es la distancia
 Haversine acumulada del trazo real, $v_{ij}$ la velocidad comercial en m/min y
-$CF_h$ el coeficiente de fricción del segmento. Las aristas peatonales
-(\texttt{tipo = transfer}) ya tienen peso propio asignado por el constructor
-del grafo y se omiten.
+$CF_h$ el coeficiente de fricción del segmento. Las aristas peatonales (
+\texttt{tipo = transfer}) ya tienen peso propio asignado por el constructor del
+grafo y se omiten.
 
 \begin{lstlisting}[style=estiloPython,
     caption={Inyección del peso de impedancia en cada arista del grafo dirigido.

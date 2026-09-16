@@ -8,8 +8,8 @@
 
 El Cuadro~\ref{tab:vft-endpoints} lista los ocho endpoints de VFTModel,
 agrupados por su función. Los de la capa \textit{network} calculan indicadores
-topológicos escalares o tabulares; los de la capa \textit{geolayers}
-(§\ref{anx:vft-geolayers}) serializan los mismos resultados como
+topológicos escalares o tabulares; los de la capa \textit{geolayers} (§
+\ref{anx:vft-geolayers}) serializan los mismos resultados como
 \texttt{FeatureCollection} consumibles directamente por Transport-\textsc{gis}.
 
 \begin{table}[H]
@@ -56,9 +56,9 @@ topológicos escalares o tabulares; los de la capa \textit{geolayers}
 \subsection*{Parámetros del endpoint \texttt{build-auto}}
 
 Este endpoint es el punto de entrada obligatorio antes de calcular cualquier
-indicador: construye el grafo, aplica la impedancia y almacena el resultado
-en un caché en memoria (\texttt{Singleton}). Los parámetros configurables son
-el modo de construcción y la tolerancia de transbordo:
+indicador: construye el grafo, aplica la impedancia y almacena el resultado en
+un caché en memoria (\texttt{Singleton}). Los parámetros configurables son el
+modo de construcción y la tolerancia de transbordo:
 
 \begin{lstlisting}[style=estiloPython,
     caption={Endpoint de construcción y calentamiento del caché del grafo.

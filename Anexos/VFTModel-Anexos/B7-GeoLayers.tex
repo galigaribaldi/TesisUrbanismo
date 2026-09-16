@@ -7,14 +7,14 @@
 \label{anx:vft-geolayers}
 
 El módulo \path{src/api/routes/geo_layers.py} es la capa de salida geoespacial
-de VFTModel. No contiene lógica analítica: recibe los \texttt{DataFrame} de
-los algoritmos topológicos y los serializa como \texttt{FeatureCollection}
-en \textsc{crs} \textsc{epsg:4326} (WGS84), consumibles directamente por
-Transport-\textsc{gis}-\textsc{zmvm} y \textsc{qgis}.
+de VFTModel. No contiene lógica analítica: recibe los \texttt{DataFrame} de los
+algoritmos topológicos y los serializa como \texttt{FeatureCollection} en
+\textsc{crs} \textsc{epsg:4326} (WGS84), consumibles directamente por Transport-
+\textsc{gis}-\textsc{zmvm} y \textsc{qgis}.
 
-Cada respuesta \texttt{FeatureCollection} lleva un bloque de metadatos
-estándar que incluye el nombre del indicador, el número de geometrías, el
-sistema de referencia y la marca temporal de la consulta.
+Cada respuesta \texttt{FeatureCollection} lleva un bloque de metadatos estándar
+que incluye el nombre del indicador, el número de geometrías, el sistema de
+referencia y la marca temporal de la consulta.
 
 \begin{lstlisting}[style=estiloPython,
     caption={Envoltura estándar VFT para toda respuesta GeoJSON.
@@ -37,8 +37,8 @@ def _build_feature_collection(indicador, layer, features, parametros):
 
 \subsection*{Clasificadores de umbrales cualitativos}
 
-Para facilitar la visualización en Transport-\textsc{gis}, cada entidad
-lleva un campo categórico derivado de su valor numérico:
+Para facilitar la visualización en Transport-\textsc{gis}, cada entidad lleva un
+campo categórico derivado de su valor numérico:
 
 \begin{lstlisting}[style=estiloPython,
     caption={Clasificadores cualitativos para cobertura, fuerza capilar y
@@ -67,7 +67,7 @@ def _clasify_diff(factor: float) -> str:
 El endpoint de cobertura expone tres subtipos mediante el parámetro
 \texttt{layer}: \texttt{cobertura\_por\_alcaldia} (polígono de cada demarcación
 coloreado por porcentaje de cobertura), \texttt{estaciones} (puntos de toda la
-red sin duplicados) y \texttt{cobertura\_800m} (mancha vectorial de la unión
-de buffers de 800\,m alrededor de cada parada). Las geometrías internas se
-procesan en \textsc{epsg:32614} para operaciones métricas precisas y se
-reprojectan a \textsc{epsg:4326} antes de la serialización.
+red sin duplicados) y \texttt{cobertura\_800m} (mancha vectorial de la unión de
+buffers de 800\,m alrededor de cada parada). Las geometrías internas se procesan
+en \textsc{epsg:32614} para operaciones métricas precisas y se reprojectan a
+\textsc{epsg:4326} antes de la serialización.

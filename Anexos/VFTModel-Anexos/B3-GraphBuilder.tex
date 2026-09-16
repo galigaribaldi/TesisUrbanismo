@@ -6,9 +6,9 @@
 \section{Constructor del Grafo Topológico (\texttt{VFTGraphBuilder})}
 \label{anx:vft-graphbuilder}
 
-\texttt{VFTGraphBuilder} es la clase que materializa el grafo dirigido
-(\texttt{nx.DiGraph}) a partir del \textsc{geojson} ya validado por Pydantic.
-La construcción ocurre en tres fases secuenciales y una opcional:
+\texttt{VFTGraphBuilder} es la clase que materializa el grafo dirigido (
+\texttt{nx.DiGraph}) a partir del \textsc{geojson} ya validado por Pydantic. La
+construcción ocurre en tres fases secuenciales y una opcional:
 
 \begin{enumerate}
     \item \textbf{Fase 1 — Nodos:} cada \texttt{Feature} de tipo
@@ -30,9 +30,9 @@ La construcción ocurre en tres fases secuenciales y una opcional:
 \subsection*{Umbrales estadísticos de transbordo}
 
 Los umbrales pre-configurados se derivan de la distribución empírica de
-distancias entre estaciones del \textsc{geojson} de Apimetro
-(corrida 2026-04-18). El umbral por defecto para análisis es $Q_1 = 85$\,m,
-que representa el transbordo directo más conservador.
+distancias entre estaciones del \textsc{geojson} de Apimetro (corrida
+2026-04-18). El umbral por defecto para análisis es $Q_1 = 85$\,m, que
+representa el transbordo directo más conservador.
 
 \begin{table}[H]
     \centering
