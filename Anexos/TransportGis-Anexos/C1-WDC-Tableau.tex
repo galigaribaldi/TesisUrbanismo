@@ -1,0 +1,48 @@
+% !TeX root = ../../tesis.tex
+
+\section{Conector Tableau para Datos Tabulares (\termino{WDC})}
+\label{anx:tg-wdc}
+
+El \termino{Web Data Connector} (\textsc{wdc}) es el mecanismo nativo de
+\termino{Tableau Desktop} para ingestar datos desde servicios \textsc{http}
+arbitrarios mediante una página \textsc{html} alojada localmente. El archivo
+\texttt{connectors/apimetro\_wdc.html} implementa la versión~2.3 de la interfaz
+\texttt{tableauwdc}: el usuario introduce la \textsc{url} de \textbf{Apimetro}
+en el formulario de conexión, el conector realiza una llamada de verificación al
+endpoint de afluencia y, si la respuesta es satisfactoria, entrega las
+credenciales de sesión a Tableau para iniciar la extracción completa.
+
+El conector define tres tablas mediante la función \texttt{getSchema} y las
+pobla con datos reales en \texttt{getData}. El Cuadro~\ref{tab:tg-wdc-tablas}
+resume la estructura de cada tabla.
+
+\begin{table}[htbp]
+    \centering
+    \caption[Tablas del \termino{WDC} de Apimetro para Tableau]{Tablas
+    expuestas por el conector \textsc{wdc}, con su identificador interno
+    y el endpoint de \textbf{Apimetro} que las alimenta.}
+    \label{tab:tg-wdc-tablas}
+    \begin{tabularx}{\textwidth}{|l|l|r|X|}
+        \hline
+        \textbf{ID tabla} & \textbf{Endpoint Apimetro} & \textbf{Registros} & \textbf{Descripción} \\
+        \hline
+        \texttt{afluencia\_linea}    & \texttt{/movilidad/analitico/afluencia-linea}    & 1\,197  & Afluencia mensual por línea (CBB, MB, METRO, TL, TROLE) \\
+        \texttt{afluencia\_estacion} & \texttt{/movilidad/analitico/afluencia-estacion} & 38\,219 & Afluencia mensual por estación Metro~\cdmx{} 2010--2026 \\
+        \texttt{estaciones}          & \texttt{/movilidad/mapas/geojsonEstacion}        & variable & Estaciones con latitud y longitud para mapas Tableau \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{apimetro\_wdc.html}
+    (Transport-gis-zmvm-mjg, 2026).}
+\end{table}
+
+El Código~\ref{lst:tg-wdc-schema} muestra \texttt{getSchema}, donde cada tabla
+se declara como un arreglo de objetos con \texttt{id}, \texttt{alias} y
+\texttt{dataType} tipados según el enumerador \texttt{tableau.dataTypeEnum}. La
+función \texttt{getData} (Código~\ref{lst:tg-wdc-data}) traduce las respuestas
+\textsc{json} en filas planas; para la tabla \texttt{estaciones}, convierte el
+\geojson{} de puntos en columnas \texttt{lat}/\texttt{lon} separadas que Tableau
+puede mapear directamente.
+
+\lstinputlisting[ style=estiloBase, language=JavaScript, firstline=100, lastline=162, caption={Función \texttt{getSchema} del \textsc{wdc}: declaración de columnas y tipos para las tres tablas de Apimetro.}, label=lst:tg-wdc-schema, breaklines=true, basicstyle=\tiny\ttfamily ]{Anexos/Transport-gis-mjg/connectors/apimetro_wdc.txt}
+
+\lstinputlisting[ style=estiloBase, language=JavaScript, firstline=220, lastline=248, caption={Función \texttt{getData} (fragmento): conversión del \geojson{} de estaciones en filas Tableau con coordenadas separadas.}, label=lst:tg-wdc-data, breaklines=true, basicstyle=\tiny\ttfamily ]{Anexos/Transport-gis-mjg/connectors/apimetro_wdc.txt}

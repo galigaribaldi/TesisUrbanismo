@@ -1,0 +1,131 @@
+"""
+generate_exports.py — genera todos los GeoJSONs estáticos para Tableau.
+
+Uso:
+    cd Transport-gis-zmvm-mjg
+    python utils/generate_exports.py
+
+Requiere:
+    - VFTModel corriendo en localhost:8000 (make warmup-all desde tableau/)
+    - Dependencias: httpx, geopandas, shapely  (disponibles en .venv)
+
+Salidas (tableau/exports/geo/):
+    df_puntos.geojson        ← rutas O-D como Points (Camino A)
+    df_rutas_lineas.geojson  ← rutas O-D como LineStrings (Camino B — ver instrucciones)
+    fc_puntos.geojson        ← Fuerza Capilar por nodo
+    b_puntos.geojson         ← Centralidad de Intermediación
+    cobertura_estaciones.geojson
+"""
+
+from pathlib import Path
+from typing import Optional
+import sys
+import json
+
+# Asegurar que el repo root está en sys.path
+sys.path.insert(0, str(Path(__file__).parents[1]))
+
+from utils.clients.vft_client import VFTClient
+from utils.exporters.geo_exporter import GeoExporter
+
+client = VFTClient()
+
+
+def run_camino_a():
+    """
+    Camino A — exportaciones vía REST.
+    Requiere solo VFTModel activo; no necesita el SDK Python de VFTModel.
+    """
+    print("\n-- Camino A: exportaciones REST ------------------------------")
+
+    # 1. Calentar grafo
+    print("  [warmup] build-auto...")
+    info = client.build_graph()
+    print(f"  Grafo: {info.get('nodos','?')} nodos")
+
+    # 2. df_puntos (Points)
+    print("  [1/4] df_puntos (Factor de Desviación)...")
+    fc = client.fetch_detour_routes(sample_size=200, seed=42)
+    gdf = GeoExporter.from_geolayer(fc)
+    GeoExporter.save(gdf, "df_puntos")
+
+    # 3. fc_puntos (Fuerza Capilar nodo)
+    print("  [2/4] fc_puntos (Fuerza Capilar)...")
+    fc = client.fetch_capillary_puntos(min_fc=3)
+    gdf = GeoExporter.from_geolayer(fc)
+    GeoExporter.save(gdf, "fc_puntos")
+
+    # 4. b_puntos (Betweenness)
+    print("  [3/4] b_puntos (Centralidad B) — puede tardar hasta 8 min primera vez...")
+    fc = client.fetch_betweenness(limit=2000)
+    gdf = GeoExporter.from_geolayer(fc)
+    GeoExporter.save(gdf, "b_puntos")
+
+    # 5. Cobertura estaciones
+    print("  [4/4] cobertura_estaciones...")
+    fc = client.fetch_coverage(radio_m=800)
+    gdf = GeoExporter.from_geolayer(fc)
+    GeoExporter.save(gdf, "cobertura_estaciones")
+
+
+def run_camino_b(routes_json_path: Optional[str] = None):
+    """
+    Camino B — exportar rutas O-D como LineStrings.
+
+    Este camino requiere datos completos con map_data.network_route,
+    que el REST API no devuelve. Hay dos formas de obtenerlos:
+
+    Opción 1 — desde VFTModel notebook (recomendado):
+        1. Abrir VFTModel/notebooks/04_Detaur_factor.ipynb
+        2. Ejecutar hasta la celda de muestra_json
+        3. Agregar al final:
+               import json
+               with open("routes_raw.json", "w") as f:
+                   json.dump(muestra_json, f)
+        4. Copiar routes_raw.json a Transport-gis-zmvm-mjg/utils/data/
+        5. Ejecutar: python utils/generate_exports.py --linestrings utils/data/routes_raw.json
+
+    Opción 2 — pasar la ruta como argumento a esta función.
+    """
+    if routes_json_path is None:
+        default = Path(__file__).parent / "data" / "routes_raw.json"
+        if default.exists():
+            routes_json_path = str(default)
+        else:
+            print("\n-- Camino B: LineStrings -------------------------------------")
+            print("  ⚠️  No se encontró routes_raw.json.")
+            print("  Sigue las instrucciones en run_camino_b() para generarlo.")
+            return
+
+    print(f"\n-- Camino B: LineStrings desde {routes_json_path} ---------------")
+    with open(routes_json_path) as f:
+        routes = json.load(f)
+
+    print(f"  {len(routes)} rutas cargadas.")
+    gdf = GeoExporter.routes_to_linestrings(routes)
+    GeoExporter.save(gdf, "df_rutas_lineas")
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Genera GeoJSONs para Tableau desde VFTModel.")
+    parser.add_argument(
+        "--linestrings",
+        metavar="PATH",
+        help="Ruta a routes_raw.json para exportar LineStrings (Camino B).",
+        default=None,
+    )
+    parser.add_argument(
+        "--only-linestrings",
+        action="store_true",
+        help="Ejecutar solo el Camino B (omite exportaciones REST).",
+    )
+    args = parser.parse_args()
+
+    if not args.only_linestrings:
+        run_camino_a()
+
+    run_camino_b(args.linestrings)
+
+    print("\nListo. Abre Tableau y reconecta las fuentes espaciales.")

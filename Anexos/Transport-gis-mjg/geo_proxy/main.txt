@@ -1,0 +1,156 @@
+"""
+GeoProxy — Transport-gis-zmvm-mjg
+Servidor ligero que sirve GeoJSON de Apimetro y VFTModel como Spatial Files
+para Tableau Desktop. Tableau no puede recibir geometrías complejas (MultiLineString,
+MultiPolygon) a través de un WDC; en cambio las consume como Spatial File connector
+apuntando a este proxy.
+
+Arrancar:
+    uvicorn main:app --port 5050 --reload
+
+Endpoints disponibles:
+    /connectors/apimetro_wdc.html  → WDC de Apimetro (HTML servido via HTTP)
+    /connectors/vftmodel_wdc.html  → WDC de VFTModel (cuando esté listo)
+    /apimetro/lineas.geojson       → MultiLineString por sistema
+    /apimetro/poligonos.geojson    → MultiPolygon territorial
+    /apimetro/estaciones.geojson   → Point todas las estaciones
+    /vftmodel/cobertura.geojson    → cobertura_800m o cobertura_por_alcaldia
+    /vftmodel/capillary.geojson    → fc_puntos o fc_hubs
+    /vftmodel/detour.geojson       → df_puntos o df_por_alcaldia
+
+Variables de entorno (.env):
+    APIMETRO_URL   default: http://localhost:8080
+    VFTMODEL_URL   default: http://localhost:8000
+"""
+import os
+import pathlib
+from dotenv import load_dotenv
+import httpx
+from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
+from fastapi.staticfiles import StaticFiles
+
+load_dotenv()
+
+APIMETRO_URL = os.getenv("APIMETRO_URL", "http://localhost:8080")
+VFTMODEL_URL = os.getenv("VFTMODEL_URL", "http://localhost:8000")
+
+app = FastAPI(
+    title="Transport-gis GeoProxy",
+    description="Proxy GeoJSON para Tableau Desktop — Apimetro + VFTModel.",
+    version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
+_CONNECTORS_DIR = pathlib.Path(__file__).parent.parent / "connectors"
+app.mount("/connectors", StaticFiles(directory=str(_CONNECTORS_DIR)), name="connectors")
+
+# -- utilidad ------------------------------------------------------------------
+
+async def _proxy(url: str, params: dict = None) -> Response:
+    """Hace GET a `url` y reenvía el cuerpo como application/geo+json."""
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        r = await client.get(url, params=params or {})
+    return Response(
+        content=r.content,
+        media_type="application/geo+json",
+        status_code=r.status_code,
+    )
+
+# -- Apimetro ------------------------------------------------------------------
+
+@app.get(
+    "/apimetro/lineas.geojson",
+    summary="Líneas de transporte (MultiLineString)",
+    tags=["Apimetro"],
+)
+async def apimetro_lineas(
+    sistema: str = Query("", description="METRO | MB | CBB | TL | TROLE | RTP | … Vacío = todos"),
+):
+    params = {"sistema": sistema} if sistema else {}
+    return await _proxy(f"{APIMETRO_URL}/movilidad/mapas/geojsonLinea", params)
+
+
+@app.get(
+    "/apimetro/poligonos.geojson",
+    summary="Polígonos territoriales — alcaldías y municipios EDOMEX (MultiPolygon)",
+    tags=["Apimetro"],
+)
+async def apimetro_poligonos():
+    return await _proxy(f"{APIMETRO_URL}/movilidad/mapas/geojsonPoligono")
+
+
+@app.get(
+    "/apimetro/estaciones.geojson",
+    summary="Estaciones de todos los sistemas (Point)",
+    tags=["Apimetro"],
+)
+async def apimetro_estaciones(
+    sistema: str = Query("", description="Filtrar por sistema. Vacío = todos"),
+):
+    params = {"sistema": sistema} if sistema else {}
+    return await _proxy(f"{APIMETRO_URL}/movilidad/mapas/geojsonEstacion", params)
+
+
+# -- VFTModel ------------------------------------------------------------------
+# Requiere CORS habilitado en VFTModel (CORSMiddleware en src/api/main.py).
+# Ver: tableau/connectors/README.md → sección "Requisito: CORS en VFTModel".
+
+@app.get(
+    "/vftmodel/cobertura.geojson",
+    summary="Cobertura espacial (MultiPolygon / Polygon) — requiere VFTModel",
+    tags=["VFTModel"],
+)
+async def vftmodel_cobertura(
+    layer: str = Query(
+        "cobertura_800m",
+        description="cobertura_800m | cobertura_por_alcaldia",
+    ),
+    radio_m: float = Query(800.0),
+):
+    return await _proxy(
+        f"{VFTMODEL_URL}/api/v1/network/geolayers/coverage",
+        {"layer": layer, "radio_m": radio_m},
+    )
+
+
+@app.get(
+    "/vftmodel/capillary.geojson",
+    summary="Fuerza Capilar (Point) — requiere VFTModel",
+    tags=["VFTModel"],
+)
+async def vftmodel_capillary(
+    layer: str = Query("fc_puntos", description="fc_puntos | fc_hubs"),
+):
+    return await _proxy(
+        f"{VFTMODEL_URL}/api/v1/network/geolayers/capillary",
+        {"layer": layer},
+    )
+
+
+@app.get(
+    "/vftmodel/detour.geojson",
+    summary="Factor de Desviación (Point / Polygon) — requiere VFTModel",
+    tags=["VFTModel"],
+)
+async def vftmodel_detour(
+    layer: str = Query("df_por_alcaldia", description="df_puntos | df_por_alcaldia"),
+):
+    return await _proxy(
+        f"{VFTMODEL_URL}/api/v1/network/geolayers/detour",
+        {"layer": layer},
+    )
+
+
+# -- entrypoint ----------------------------------------------------------------
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=5050, reload=True)

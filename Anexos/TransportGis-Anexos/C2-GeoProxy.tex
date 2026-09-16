@@ -1,0 +1,70 @@
+% !TeX root = ../../tesis.tex
+
+\section{Servidor Proxy de Geometrías para Tableau (\termino{GeoProxy})}
+\label{anx:tg-geoproxy}
+
+El conector \termino{WDC} transmite filas tabulares pero no puede manejar
+geometrías complejas como \texttt{MultiLineString} o \texttt{MultiPolygon}. Para
+esas capas, Tableau Desktop dispone de un conector de \termino{Spatial File} que
+apunta a un archivo \geojson{} accesible por \textsc{http}. El servidor
+\textbf{GeoProxy} (\texttt{geo\_proxy/main.py}) opera como puente: re-expone los
+endpoints geoespaciales de \textbf{Apimetro} y \textbf{VFTModel} como
+\textsc{url}s locales que Tableau reconoce como fuentes espaciales sin necesidad
+de guardar archivos en disco.
+
+El servidor corre sobre \textbf{FastAPI} en el puerto~\texttt{5050} y ofrece
+seis rutas organizadas en dos grupos. Su único componente de lógica es la
+función \texttt{\_proxy}, que realiza un \textsc{get} asíncrono al servicio
+externo y reenvía el cuerpo con tipo \textsc{mime} \texttt{application/geo+json}
+, preservando el código de estado original. El Cuadro~
+\ref{tab:tg-geoproxy-endpoints} lista todos los endpoints disponibles.
+
+\begin{table}[htbp]
+    \centering
+    \caption[Endpoints del \termino{GeoProxy} para Tableau Spatial File]{Rutas
+    del servidor \textbf{GeoProxy} disponibles como fuentes espaciales
+    en Tableau Desktop mediante el conector \termino{Spatial File}.}
+    \label{tab:tg-geoproxy-endpoints}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{URL local (:5050)} & \textbf{Geometría} & \textbf{Endpoint origen} \\
+        \hline
+        \texttt{/apimetro/lineas.geojson}     & MultiLineString & \texttt{Apimetro/movilidad/mapas/geojsonLinea} \\
+        \texttt{/apimetro/poligonos.geojson}  & MultiPolygon    & \texttt{Apimetro/movilidad/mapas/geojsonPoligono} \\
+        \texttt{/apimetro/estaciones.geojson} & Point           & \texttt{Apimetro/movilidad/mapas/geojsonEstacion} \\
+        \texttt{/vftmodel/cobertura.geojson}  & Polygon         & \texttt{VFTModel/api/v1/network/geolayers/coverage} \\
+        \texttt{/vftmodel/capillary.geojson}  & Point           & \texttt{VFTModel/api/v1/network/geolayers/capillary} \\
+        \texttt{/vftmodel/detour.geojson}     & Point           & \texttt{VFTModel/api/v1/network/geolayers/detour} \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{geo\_proxy/main.py}
+    (Transport-gis-zmvm-mjg, 2026).}
+\end{table}
+
+La configuración del servidor se gestiona mediante dos variables de entorno
+definidas en \texttt{geo\_proxy/.env} (plantilla en \texttt{.env.example}):
+\texttt{APIMETRO\_URL} (por defecto \texttt{http://localhost:8080}) y
+\texttt{VFTMODEL\_URL} (por defecto \texttt{http://localhost:8000}). La
+secuencia de arranque desde la raíz del repositorio es:
+
+\begin{lstlisting}[style=estiloBase, language=bash,
+  caption={Arranque del servidor \textbf{GeoProxy} en el puerto~5050.},
+  label=lst:tg-geoproxy-arranque,
+  basicstyle=\small\ttfamily]
+cd geo_proxy
+cp .env.example .env          # ajustar APIMETRO_URL y VFTMODEL_URL
+pip install -r requirements.txt
+uvicorn main:app --port 5050 --reload
+\end{lstlisting}
+
+Una vez activo, Tableau Desktop puede conectarse mediante
+\textbf{Conectar~$\to$ Más\ldots~$\to$ Archivo espacial} escribiendo la
+\textsc{url} del endpoint deseado (por ejemplo,
+\texttt{http://localhost:5050/apimetro/lineas.geojson}).
+
+El Código~\ref{lst:tg-geoproxy-proxy} presenta la función \texttt{\_proxy} y el
+Código~\ref{lst:tg-geoproxy-endpoint} un endpoint representativo.
+
+\lstinputlisting[ style=estiloPython, firstline=57, lastline=65, caption={Función auxiliar \texttt{\_proxy}: proxy asíncrono que reenvía el cuerpo con tipo \texttt{application/geo+json}.}, label=lst:tg-geoproxy-proxy, breaklines=true, basicstyle=\tiny\ttfamily ]{Anexos/Transport-gis-mjg/geo_proxy/main.txt}
+
+\lstinputlisting[ style=estiloPython, firstline=68, lastline=79, caption={Endpoint \texttt{/apimetro/lineas.geojson}: ejemplo representativo de los seis endpoints del servidor.}, label=lst:tg-geoproxy-endpoint, breaklines=true, basicstyle=\tiny\ttfamily ]{Anexos/Transport-gis-mjg/geo_proxy/main.txt}

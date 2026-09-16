@@ -1,0 +1,64 @@
+% !TeX root = ../../tesis.tex
+
+\section{Exportaciones \geojson{} Estáticas para Tableau}
+\label{anx:tg-exports}
+
+El script \texttt{utils/generate\_exports.py} genera los archivos \geojson{}
+estáticos que Tableau carga como fuentes espaciales cuando el \textbf{GeoProxy}
+no está activo —por ejemplo, al abrir el libro de trabajo en una máquina sin
+acceso a la \textsc{api}. Su ejecución requiere que \textbf{VFTModel} esté
+corriendo en \texttt{localhost:8000}.
+
+El Cuadro~\ref{tab:tg-exports} describe los cinco archivos que produce el
+script.
+
+\begin{table}[htbp]
+    \centering
+    \caption[Exportaciones \geojson{} de Transport-gis para Tableau]{Archivos
+    \geojson{} estáticos generados por \texttt{generate\_exports.py} y
+    el indicador que representan.}
+    \label{tab:tg-exports}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Archivo} & \textbf{Geometría} & \textbf{Indicador} \\
+        \hline
+        \texttt{df\_puntos.geojson}           & Point      & Factor de Desviación $DF$ — pares O-D muestreados \\
+        \texttt{fc\_puntos.geojson}           & Point      & Fuerza Capilar $CF_h$ por nodo \\
+        \texttt{b\_puntos.geojson}            & Point      & Centralidad de Intermediación $B(v)$ \\
+        \texttt{cobertura\_estaciones.geojson} & Polygon    & Cobertura espacial $C$ a radio~800~m \\
+        \texttt{df\_rutas\_lineas.geojson}     & LineString & Trayectorias O-D reales (Camino~B) \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{generate\_exports.py}
+    (Transport-gis-zmvm-mjg, 2026).}
+\end{table}
+
+El Camino~A (\textsc{rest}) genera los primeros cuatro archivos directamente
+desde los endpoints de \textbf{VFTModel}:
+
+\begin{lstlisting}[style=estiloBase, language=bash,
+  caption={Ejecución de \texttt{generate\_exports.py} — Camino~A.},
+  label=lst:tg-exports-cmda,
+  basicstyle=\small\ttfamily]
+cd Transport-gis-zmvm-mjg
+python utils/generate_exports.py
+\end{lstlisting}
+
+Para el quinto archivo (\texttt{df\_rutas\_lineas.geojson}), que requiere
+trayectorias completas como \texttt{LineString}, se utiliza el Camino~B:
+exportar \texttt{routes\_raw.json} desde el cuaderno de VFTModel y pasarlo como
+argumento:
+
+\begin{lstlisting}[style=estiloBase, language=bash,
+  caption={Ejecución con Camino~B: trayectorias lineales desde el
+  cuaderno de VFTModel.},
+  label=lst:tg-exports-cmdb,
+  basicstyle=\small\ttfamily]
+python utils/generate_exports.py --linestrings utils/data/routes_raw.json
+\end{lstlisting}
+
+El Código~\ref{lst:tg-exports-func} muestra la función \texttt{run\_camino\_a},
+que orquesta la descarga de los cuatro indicadores vía \textsc{rest} en
+secuencia.
+
+\lstinputlisting[ style=estiloPython, firstline=41, lastline=68, caption={Función \texttt{run\_camino\_a}: descarga de cuatro indicadores desde \textbf{VFTModel} y exportación a \geojson{}.}, label=lst:tg-exports-func, breaklines=true, basicstyle=\tiny\ttfamily ]{Anexos/Transport-gis-mjg/utils/generate_exports.txt}

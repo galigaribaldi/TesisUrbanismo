@@ -1,0 +1,70 @@
+% !TeX root = ../../tesis.tex
+
+\section{Utilidades Python: \texttt{VFTClient} y \texttt{GeoExporter}}
+\label{anx:tg-utils}
+
+El directorio \texttt{utils/} contiene dos clases que separan la comunicación
+con \textbf{VFTModel} de la persistencia de resultados. \texttt{VFTClient} actúa
+como cliente \textsc{http} sincrónico que encapsula cada endpoint del
+\textsc{api}; \texttt{GeoExporter} recibe las respuestas y las convierte en
+\texttt{GeoDataFrame} proyectado en \textsc{epsg}:4326, que puede guardarse
+directamente como \geojson{}.
+
+\subsection*{VFTClient}
+
+\texttt{VFTClient} (\texttt{utils/clients/vft\_client.py}) envuelve los
+endpoints de \textbf{VFTModel} en métodos tipados. Todos retornan el diccionario
+\textsc{json} crudo sin transformación de geometría; la conversión a estructura
+espacial la delega a \texttt{GeoExporter}. El Cuadro~
+\ref{tab:tg-vftclient-metodos} resume los métodos disponibles.
+
+\begin{table}[htbp]
+    \centering
+    \caption[Métodos de \texttt{VFTClient} e indicadores asociados]{Métodos
+    de \texttt{VFTClient} con el endpoint de \textbf{VFTModel} que
+    invocan y el tipo de respuesta devuelta.}
+    \label{tab:tg-vftclient-metodos}
+    \begin{tabularx}{\textwidth}{|l|l|X|}
+        \hline
+        \textbf{Método} & \textbf{Endpoint VFTModel} & \textbf{Devuelve} \\
+        \hline
+        \texttt{build\_graph(mode, tol\_m)}  & \texttt{/api/v1/network/build-auto}                    & Nodos y aristas del grafo construido \\
+        \texttt{fetch\_travel\_time()}        & \texttt{/api/v1/.../average-travel-time}               & Escalar $T$ global \\
+        \texttt{fetch\_detour\_routes(n)}    & \texttt{/api/v1/.../geolayers/detour}                  & FeatureCollection Points $DF$ \\
+        \texttt{fetch\_capillary\_puntos()}   & \texttt{/api/v1/.../geolayers/capillary?layer=fc\_puntos} & FeatureCollection Points $CF_h$ \\
+        \texttt{fetch\_capillary\_hubs(top)} & \texttt{/api/v1/.../geolayers/capillary?layer=fc\_hubs}   & FeatureCollection macro-hubs \\
+        \texttt{fetch\_betweenness(limit)}   & \texttt{/api/v1/.../geolayers/betweenness}             & FeatureCollection Points $B(v)$ \\
+        \texttt{fetch\_coverage(radio\_m)}   & \texttt{/api/v1/.../geolayers/coverage}                & FeatureCollection Polygons $C$ \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{vft\_client.py}
+    (Transport-gis-zmvm-mjg, 2026).}
+\end{table}
+
+\lstinputlisting[ style=estiloPython, firstline=19, lastline=31, caption={Clase \texttt{VFTClient}: constructor y método base \texttt{\_get}. El resto de métodos sigue el mismo patrón, variando solo la ruta y los parámetros de consulta (ver Cuadro~\ref{tab:tg-vftclient-metodos}).}, label=lst:tg-vftclient, breaklines=true, basicstyle=\tiny\ttfamily ]{Anexos/Transport-gis-mjg/utils/clients/vft_client.txt}
+
+\subsection*{GeoExporter}
+
+\texttt{GeoExporter} (\texttt{utils/exporters/geo\_exporter.py}) implementa dos
+rutas de exportación según el tipo de datos disponible:
+
+\begin{description}
+    \item[\textbf{Camino~A — endpoints REST (GeoLayer):}]
+    El método \texttt{from\_geolayer(fc)} recibe un
+    \texttt{FeatureCollection} de \texttt{VFTClient} y lo convierte en
+    \texttt{GeoDataFrame} mediante \texttt{GeoDataFrame.from\_features()},
+    preservando todas las propiedades originales del \textsc{api}. No
+    requiere el \textsc{sdk} interno de \textbf{VFTModel}.
+
+    \item[\textbf{Camino~B — rutas del \textsc{sdk} (notebook):}]
+    El método \texttt{routes\_to\_linestrings(routes)} convierte una lista
+    de \textit{route dicts} con el campo \texttt{map\_data.network\_route}
+    en geometrías \texttt{LineString}. Ese campo solo está disponible
+    ejecutando el cuaderno \texttt{VFTModel/notebooks/04\_Detour\_factor.ipynb};
+    el resultado se serializa a \texttt{routes\_raw.json} y se copia a
+    \texttt{utils/data/} antes de invocar \texttt{generate\_exports.py}.
+\end{description}
+
+El método \texttt{save(gdf, filename)} persiste el \texttt{GeoDataFrame}
+resultante de cualquiera de los dos caminos como \geojson{} en
+\texttt{tableau/exports/geo/}.

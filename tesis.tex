@@ -12,6 +12,7 @@
 % =============================================================================
 %  2. TIPOGRAFÍA Y LAYOUT BASE
 % =============================================================================
+
 \usepackage{geometry}
 \geometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm}
 \usepackage{setspace}
@@ -92,6 +93,21 @@
 }
 
 % =============================================================================
+%  HOOKS DE COMPILACIÓN SELECTIVA
+%  Activar desde Makefile — nunca editar directamente.
+% =============================================================================
+
+% make borrador → figuras como caja vacía (compilación ~3× más rápida)
+\ifdefined\borrador
+  \PassOptionsToPackage{draft}{graphicx}
+\fi
+
+% make solo CAP=<ruta> → compila solo ese capítulo (p.ej. 6-Analisis.../1-Analisis)
+\ifdefined\SoloCapitulo
+  \includeonly{\SoloCapitulo}
+\fi
+
+% =============================================================================
 %  INICIO DEL DOCUMENTO
 % =============================================================================
 \begin{document}
@@ -170,25 +186,13 @@
 % ---------------------------------------------------------------------------
 \mainmatter
 
-\input{1-Introduccion/1-1-Apertura-Problematica}
-\input{1-Introduccion/1-2-Planteamiento}
-\input{1-Introduccion/1-3-Objetivos}
-\input{1-Introduccion/1-4-Justificacion-Hipotesis}
-\input{1-Introduccion/1-5-Metodo-Metodologia}
-\input{2-MarcoTeorico/2-1-Apertura-Hegemonia}
-\input{2-MarcoTeorico/2-2-Anillo-Periferico}
-\input{2-MarcoTeorico/2-3-Marco-Dispersion}
-\input{2-MarcoTeorico/2-4-Teoria-Casos}
-\input{2-MarcoTeorico/2-5-SIG-Datos-Abiertos}
-\input{3-Conceptos-Indicadores/3-1-Definiciones/3-1-Definiciones}
-\input{3-Conceptos-Indicadores/3-2-Grafos-Matematicos/3-2-Grafos-Matematicas}
-\input{3-Conceptos-Indicadores/3-3-Indicadores/3-3-Indicadores-Formula}
-\input{4-Capas-Codigo/4-1-Apimetro}
-\input{4-Capas-Codigo/4-2-VFTModel}
-\input{4-Capas-Codigo/4-3-Visualizacion}
-\input{5-Resultados/1-Resultados}
-\input{6-Analisis-SocioEspacial/1-Analisis}
-\input{7-Conclusiones/1-Conclusiones}
+\include{1-Introduccion/1-Introduccion}
+\include{2-MarcoTeorico/2-MarcoTeorico}
+\include{3-Conceptos-Indicadores/3-Conceptos}
+\include{4-Capas-Codigo/4-Capas}
+\include{5-Resultados/1-Resultados}
+\include{6-Analisis-SocioEspacial/1-Analisis}
+\include{7-Conclusiones/1-Conclusiones}
 
 % ---------------------------------------------------------------------------
 %  ANEXOS
@@ -202,6 +206,10 @@
 \chapter{Documentación Técnica: VFTModel}
 \label{anx:vftmodel-tecnico}
 \input{Anexos/B-VFTModel-Tecnico}
+
+\chapter{Documentación Técnica: Transport-gis}
+\label{anx:transportgis-tecnico}
+\input{Anexos/C-TransportGis-Tecnico}
 
 \chapter{Implementaciones Computacionales de Indicadores}
 \label{anx:indicadores-implementacion}
