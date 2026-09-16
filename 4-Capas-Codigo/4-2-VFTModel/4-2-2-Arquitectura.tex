@@ -3,24 +3,12 @@
 % =============================================================================
 %  4.2.2 — ARQUITECTURA
 % =============================================================================
-\section{Arquitectura del Sistema}
+\subsection{Arquitectura del Sistema}
 \label{sec:vft-arquitectura}
 
-\subsection{Tres Capas con Responsabilidades Delimitadas}
+\subsubsection{Tres Capas con Responsabilidades Delimitadas}
 \label{subsec:vft-capas}
 
-\begin{figure}[htbp]
-    \centering
-    \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-ports-adapters}
-    \caption[Arquitectura \textit{Ports and Adapters} de VFTModel]{Diagrama de la
-    arquitectura \termino{Ports and Adapters} de VFTModel. El Dominio central
-    (\texttt{src/core/}) contiene los algoritmos topológicos y permanece aislado
-    de las tecnologías externas. Los tres adaptadores gestionan la comunicación
-    con actores externos: API REST, herramientas de visualización y capa de
-    persistencia. Todo el sistema corre dentro de un contenedor Docker.}
-    \label{fig:VFTModel-arquitectura}
-    \fuentefigura{Elaboración propia.}
-\end{figure}
 
 VFTModel está organizado bajo el patrón de \termino{arquitectura hexagonal} (
 \termino{Ports and Adapters}). La idea central es que el núcleo matemático del
@@ -42,7 +30,10 @@ independencia se logra separando el código en tres capas concéntricas:
     \item[\textbf{Capa de Infraestructura} (\texttt{src/infrastructure/})]
     Gestiona los clientes \textsc{http} para comunicarse con Apimetro, el acceso
     a archivos \geojson{} locales de respaldo y las colas de procesamiento
-    asíncrono. Se encarga de obtener los datos, no de analizarlos.
+    asíncrono. Se encarga de obtener los datos, no de analizarlos. El cliente
+    HTTP y la lógica de \termino{fallback} local se documentan en el
+    Anexo~\ref{anx:vft-goclient}; la configuración de contenedores Docker y la
+    automatización con \textit{Makefile} en el Anexo~\ref{anx:vft-infraestructura}.
 \end{description}
 
 La Figura~\ref{fig:vft-arquitectura} ilustra la jerarquía de las tres capas y el
@@ -50,11 +41,20 @@ sentido de las dependencias entre ellas.
 
 \begin{figure}[H]
     \centering
-    \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-hexagonal}
-    \caption[Arquitectura hexagonal de VFTModel]{Las tres capas de la arquitectura
-    hexagonal de VFTModel. Las flechas bidireccionales indican dependencias
-    controladas: cada capa solicita servicios a la inferior; la inferior nunca
-    dicta qué calcular a las superiores.}
+    \resizebox{\linewidth}{!}{%
+        \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-unificada}}%
+    \caption[Arquitectura hexagonal de VFTModel]{Arquitectura hexagonal de
+    VFTModel: el hexágono central es el \textbf{Dominio} (\texttt{src/core/}),
+    núcleo analítico aislado de cualquier tecnología externa. El
+    \textbf{adaptador primario} (izquierda) expone los algoritmos vía \api{}
+    \textsc{rest}; los \textbf{adaptadores secundarios} (derecha) conectan el
+    núcleo con Apimetro, los archivos locales de respaldo y la capa de caché. La
+    zona inferior —fuera del contenedor Docker— representa los
+    \textbf{Conectores de Visualización}: \termino{Transport-GIS-MJG}, Tableau y
+    \textsc{qgis} consumen los resultados topológicos a través de los siete
+    \termino{geo-layers} que expone la \api{}. El nombre \termino{hexagonal}
+    proviene de esta disposición en puertos alrededor del núcleo, siguiendo el
+    patrón \termino{Ports and Adapters} propuesto por Alistair Cockburn.}
     \label{fig:vft-arquitectura}
     \fuentefigura{Elaboración propia.}
 \end{figure}
@@ -64,7 +64,7 @@ de datos de Apimetro cambia, o si los resultados se requieren en un visor
 cartográfico distinto, solo se modifica la capa correspondiente sin alterar el
 núcleo matemático.
 
-\subsection{Flujo de Procesamiento}
+\subsubsection{Flujo de Procesamiento}
 \label{subsec:vft-flujo}
 
 El procesamiento de una solicitud de análisis sigue una cadena de seis

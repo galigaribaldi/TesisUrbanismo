@@ -3,17 +3,16 @@
 % =============================================================================
 %  4.2.4 — CONSTRUCCIÓN DEL GRAFO
 % =============================================================================
-\section{Construcción del Grafo Topológico}
+\subsection{Construcción del Grafo Topológico}
 \label{sec:vft-grafo}
 
-\subsection{De la Geometría GeoJSON a NetworkX}
+\subsubsection{De la Geometría GeoJSON a NetworkX}
 \label{subsec:vft-geom-networkx}
 
-El módulo central del sistema es la clase \texttt{\textbf{VFTGraphBuilder}}
-\allowbreak{} (\path{src/core/services/graph_builder.py}), responsable de
-transformar las geometrías \geojson{} en un \textbf{dígrafo} representado
-mediante la biblioteca \textbf{NetworkX} de Python \citep{hagberg2008networkx}.
-La construcción opera en dos fases internas:
+El módulo central de VFTModel es la clase \texttt{VFTGraphBuilder},
+responsable de transformar las geometrías \geojson{} en un \textbf{dígrafo}
+representado mediante la biblioteca \textbf{NetworkX} de Python
+\citep{hagberg2008networkx}. La construcción opera en dos fases internas:
 
 \begin{description}
     \item[\textbf{Fase 1 — Registro de estaciones (nodos):}]
@@ -29,11 +28,12 @@ La construcción opera en dos fases internas:
     estructura de búsqueda espacial (\termino{KDTree}) con una tolerancia de
     50~m. Por cada par de estaciones consecutivas detectadas, crea una arista
     con la distancia real acumulada a lo largo del trazo —no la distancia en
-    línea recta entre las estaciones—. Esta distinción es crítica para sistemas
-    como \textsc{rtp} y Corredores Concesionados, cuyos trazos urbanos pueden
-    ser hasta un 40~\% más largos que la cuerda directa.
+    línea recta entre las estaciones—. Esta distinción resulta especialmente
+    relevante en sistemas como \textsc{rtp} y Corredores Concesionados, cuyos
+    trazos urbanos pueden superar con amplitud la cuerda directa entre paradas.
 \end{description}
-\subsection{Snapping Lógico Geográfico}
+
+\subsubsection{Snapping Lógico Geográfico}
 \label{subsec:vft-snapping}
 
 En el modo de integración realista (\texttt{REALISTIC\_INTEGRATION}), el
@@ -66,12 +66,10 @@ estación a otra aunque no estén formalmente conectadas en los datos oficiales.
         \caption{Arista de transbordo}
         \label{fig:snap3}
     \end{subfigure}
-    \caption[Secuencia del Snapping Lógico Geográfico]
-{Representación visual del proceso de \termino{Snapping Lógico Geográfico}. Las
-estaciones
-cercanas de distintos sistemas se conectan mediante aristas de transbordo si
-cumplen con
-    la tolerancia de distancia establecida.}
+    \caption[Secuencia del Snapping Lógico Geográfico]{Representación visual
+    del proceso de \termino{Snapping Lógico Geográfico}. Las estaciones
+    cercanas de distintos sistemas se conectan mediante aristas de transbordo
+    si cumplen con la tolerancia de distancia establecida.}
     \label{fig:proceso-snapping}
     \fuentefigura{Elaboración propia (VFTModel, 2026).}
 \end{figure}
@@ -79,8 +77,8 @@ cumplen con
 
 La tolerancia de transbordo se selecciona a partir de seis umbrales estadísticos
 derivados del análisis de las distancias reales entre estaciones de la red
-metropolitana, definidos bajo la constante \texttt{STATISTICAL\_THRESHOLDS} en
-\texttt{src/core/services/graph\_builder.py}.
+metropolitana, cuyas definiciones se presentan en el
+Cuadro~\ref{tab:vft-umbrales}.
 
 \begin{table}[H]
     \centering
@@ -112,9 +110,12 @@ tránsito y 20{,}482 de transbordo peatonal generadas algorítmicamente—, tras
 eliminar 1{,}562 aristas que superaron el umbral de falsa conexión de 5~km.
 
 Los registros de construcción completos de la corrida del 2026-04-18, que
-documentan cada fase del proceso, se presentan en el Anexo~\ref{anx:vft-codigo}.
+documentan cada fase del proceso, se presentan en el Anexo~\ref{anx:vft-codigo};
+la implementación íntegra de \texttt{VFTGraphBuilder} —incluyendo la lógica
+\termino{KDTree} y el cálculo de \termino{boarding cost} en los transbordos
+peatonales— se documenta en el Anexo~\ref{anx:vft-graphbuilder}.
 
-\subsection{Modos de Operación}
+\subsubsection{Modos de Operación}
 \label{subsec:vft-modos}
 
 \texttt{VFTGraphBuilder} ofrece dos modos de construcción del grafo, que
@@ -130,9 +131,13 @@ determinan si se generan o no las aristas de transbordo peatonal:
 
     \item[\texttt{REALISTIC\_INTEGRATION}:]
     Además de las aristas de tránsito, genera las aristas de transbordo peatonal
-    entre estaciones próximas de distintos sistemas. El costo de cada arista de
-    transbordo incluye el tiempo de caminata (a 5~km/h, límite superior del
-    \citep{sedatu2019manual}) más la espera promedio del siguiente servicio
+    entre estaciones próximas de distintos sistemas. El costo de cada arista
+    incluye el tiempo de caminata —a 5~km/h, según el límite superior establecido
+    por \citet{sedatu2019manual}— más la espera promedio del siguiente servicio
     ($F_v / 2$). Este modo es el utilizado en todos los cálculos de indicadores
     presentados en el Capítulo~\ref{ch:resultados-vft}.
 \end{description}
+
+Con el grafo topológico construido y los modos de operación definidos, el
+paso siguiente es asignar a cada arista un peso temporal mediante el motor
+de impedancia.

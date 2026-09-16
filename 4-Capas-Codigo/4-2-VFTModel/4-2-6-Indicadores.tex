@@ -1,53 +1,141 @@
 % !TeX root = ../../tesis.tex
 
 % =============================================================================
-%  4.2.6 — INDICADORES
+%  4.2.6 — INDICADORES TOPOLÓGICOS
 % =============================================================================
-\section{Indicadores Topológicos Implementados}
+\subsection{Indicadores Topológicos Implementados}
 \label{sec:vft-indicadores}
 
-VFTModel organiza sus indicadores en cuatro fases de cálculo progresivo, cuya
-dependencia es estricta: las Fases~III y IV requieren un grafo completamente
-ponderado —producto de las Fases~I y II— para ejecutar los algoritmos de caminos
-mínimos. El Cuadro~\ref{tab:vft-indicadores-estado} presenta el mapa completo de
-indicadores con su estado de implementación a la fecha de cierre del documento.
+La organización de VFTModel en cuatro fases de cálculo responde a una lógica
+de dependencia estricta: los ocho indicadores no son intercambiables ni pueden
+calcularse en cualquier orden. Las Fases~III y IV exigen un grafo completamente
+ponderado —construido en las Fases~I y II— para ejecutar los algoritmos de
+caminos mínimos. El Cuadro~\ref{tab:vft-indicadores-estado} presenta el mapa
+completo; las definiciones formales de cada indicador están en el
+§\ref{sec:indicadores-formulas}, y las implementaciones de referencia en el
+Anexo~D.
 
 \begin{table}[H]
     \centering
     \caption[Indicadores topológicos de VFTModel y estado de implementación]{
-Indicadores topológicos de VFTModel, sus símbolos y estado de implementación.
-    Los resultados de cada indicador se presentan en el
-    Capítulo~\ref{ch:resultados-vft}.}
+    Indicadores topológicos de VFTModel con el símbolo adoptado del
+    §\ref{sec:indicadores-formulas} y el estado de implementación al cierre
+    del documento. Los resultados se presentan en el
+    Cap.~\ref{ch:resultados-vft}.}
     \label{tab:vft-indicadores-estado}
-    \begin{tabularx}{\textwidth}{|c|c|X|l|}
+    \begin{tabularx}{\textwidth}{|c|c|X|c|l|}
         \hline
-        \textbf{Fase} & \textbf{\#} & \textbf{Indicador} & \textbf{Estado} \\
+        \textbf{Fase} & \textbf{\#} & \textbf{Indicador} &
+        \textbf{Símbolo} & \textbf{Estado} \\
         \hline
-        \multirow{4}{*}{\textbf{I}}
-          & 1 & Validación de Impedancia                  & Implementado \\
-          & 2 & Cobertura Espacial ($C$)                  & Implementado \\
-          & 3 & Fuerza Capilar ($FC$)                     & Implementado \\
-          & 4 & Factor de Desviación ($DF$)               & Implementado \\
+        \multirow{3}{*}{\textbf{I}}
+          & 1 & Cobertura Espacial             & $C$        & Implementado \\
+          & 2 & Alimentación Capilar           & $C_i$      & Implementado \\
+          & 3 & Índice de Ruta Directa         & $DI$       & Implementado \\
         \hline
-        \multirow{3}{*}{\textbf{II}}
-          & 5 & Coeficiente de Fricción Vial ($CF$)       & Implementado \\
-          & 6 & Penalización por Transferencia ($T_b$)    & Parcial      \\
-          & 7 & Node Score ($\text{VFT\_score}$)          & Planificado  \\
+        \multirow{2}{*}{\textbf{II}}
+          & 4 & Coeficiente de Fricción Vial   & $CF_h$     & Implementado \\
+          & 5 & Penalización por Transferencia & $W_{s,h}$  & Parcial      \\
         \hline
         \multirow{2}{*}{\textbf{III}}
-          & 8 & Tiempo de Viaje Promedio ($T$)            & Pendiente    \\
-          & 9 & Centralidad de Intermediación ($B(v)$)   & Pendiente    \\
+          & 6 & Tiempo de Viaje Promedio       & $T$        & Implementado \\
+          & 7 & Centralidad de Intermediación  & $B(v)$     & Implementado \\
         \hline
         \textbf{IV}
-          & 10 & Vulnerabilidad Estructural ($\Delta E$) & Pendiente    \\
+          & 8 & Robustez Geométrica            & $\Delta E$ & Fuera de alcance \\
         \hline
     \end{tabularx}
-    \fuentefigura{Elaboración propia (VFTModel, 2026-04-28).}
+    \fuentefigura{Elaboración propia (VFTModel, 2026).}
 \end{table}
 
-Los indicadores de Fase~I son implementados en módulos independientes dentro de
-\path{src/core/algorithms/topologicalIndicators/}: la clase
-\texttt{SpatialCoverageAnalyzer} para la cobertura espacial, la clase
-\texttt{CapillaryStrengthAnalyzer} para la fuerza capilar, y el submódulo
-\texttt{detaurFactor/} —con sus módulos \texttt{engine.py} y
-\texttt{orchestator.py}— para el factor de desviación.
+\subsubsection*{Fase~I — Diagnóstico espacial de la red}
+
+Sin necesidad de ponderar aristas, los tres primeros indicadores describen la
+red tal como existe en el territorio. Su pregunta de fondo es espacial: ¿dónde
+llega el transporte, qué tan bien alimentados están sus nodos principales y qué
+tan directas resultan sus rutas?
+
+\begin{itemize}
+    \item \textbf{Cobertura Espacial ($C$):} expresa la fracción del territorio
+    metropolitano que queda dentro de distancia caminable de alguna parada.
+    Las zonas que quedan fuera de esa cobertura son el punto de partida para
+    evaluar la pertinencia de un corredor anillar perimetral
+    (§\ref{subsec:indicador-cobertura}; §\ref{anx:impl-cobertura}).
+
+    \item \textbf{Alimentación Capilar ($C_i$):} para cada nodo de tránsito
+    masivo, suma las rutas de superficie que convergen en él. Los \textsc{cetram}s
+    y estaciones con mayor $C_i$ concentran la mayor presión de demanda capilar
+    y son los candidatos más urgentes para una expansión en red
+    (§\ref{subsec:alimentacion-capilar}; §\ref{anx:impl-capilar}).
+
+    \item \textbf{Índice de Ruta Directa ($DI$):} cociente entre la longitud
+    real del recorrido en red y la distancia en línea recta entre dos puntos.
+    Cuando el valor es alto, la red obliga rodeos apreciables; el tiempo de
+    viaje percibido supera con creces lo que la velocidad nominal sugeriría
+    (§\ref{subsec:ruta-directa}; §\ref{anx:impl-detour}).
+\end{itemize}
+
+\subsubsection*{Fase~II — Calibración del grafo ponderado}
+
+El grafo geométrico de la Fase~I no contiene aún información sobre cuánto
+tiempo tarda un viaje real. La Fase~II lo pondera: dos indicadores traducen
+condiciones operativas concretas —fricción de la vía y tiempos de espera en
+transbordo— en costos temporales sobre cada arista.
+
+\begin{itemize}
+    \item \textbf{Coeficiente de Fricción Vial ($CF_h$):} según el tipo de
+    derecho de vía de cada segmento —exclusivo, confinado, compartido o
+    mixto—, aplica un multiplicador sobre la velocidad nominal del sistema,
+    incorporando el índice de saturación vial de la \zmvm{}. Su cálculo se
+    describió en §\ref{subsec:vft-cf}; la definición conceptual está en
+    §\ref{subsec:friccion-vial} y el código de producción en §\ref{anx:vft-codigo}.
+
+    \item \textbf{Penalización por Transferencia ($W_{s,h}$):} a diferencia del
+    tiempo de caminata —ya incluido en las aristas de transbordo—, este
+    indicador añade la espera al siguiente servicio. La implementación en esta
+    versión del modelo es parcial; los resultados disponibles se presentan en
+    §\ref{subsec:res-penalizacion-transferencia}. Definición en
+    §\ref{subsec:penalizacion-transferencia}; prototipo en
+    §\ref{anx:impl-transferencia}.
+\end{itemize}
+
+\subsubsection*{Fase~III — Análisis de rutas y nodos críticos}
+
+Con el grafo ponderado disponible, la Fase~III responde las preguntas de mayor
+peso urbanístico: ¿cuánto tarda en promedio un viaje en la red?, y ¿qué
+estaciones son estructuralmente indispensables para el funcionamiento del
+sistema?
+
+\begin{itemize}
+    \item \textbf{Tiempo de Viaje Promedio ($T$):} promedia los tiempos de
+    recorrido óptimo entre todos los pares de estaciones de la red. Es la
+    métrica sintética de eficiencia global del sistema: a menor $T$, mejor
+    conectividad. Sus resultados se presentan en el Cap.~\ref{ch:resultados-vft}
+    (§\ref{subsec:tiempo-viaje}; §\ref{anx:impl-tiempo}).
+
+    \item \textbf{Centralidad de Intermediación ($B(v)$):} identifica cuáles
+    estaciones aparecen con mayor frecuencia en los caminos mínimos de la red.
+    Un nodo con $B(v)$ elevado concentra flujos desproporcionados; su
+    saturación o falla tiene consecuencias que se extienden por toda la red
+    (§\ref{subsec:centralidad-intermediacion}; §\ref{anx:impl-betweenness}).
+\end{itemize}
+
+\subsubsection*{Fase~IV — Estrés topológico}
+
+La última fase cuantifica la fragilidad de la red ante la pérdida de nodos
+críticos. Se trata del único indicador que no pudo implementarse ni validarse
+empíricamente en el presente estudio:
+
+\begin{itemize}
+    \item \textbf{Robustez Geométrica ($\Delta E$):} mide la diferencia de
+    eficiencia global de la red antes y después de remover una estación de alta
+    centralidad. Responde a la pregunta: ¿cuánto se degrada la conectividad si
+    Pantitlán o Indios Verdes queda fuera de servicio? Por los tiempos y el
+    alcance del presente trabajo, su cálculo queda propuesto como línea
+    prioritaria de investigación futura. La definición formal se preserva en
+    §\ref{subsec:robustez-geometrica}; el prototipo de referencia en
+    §\ref{anx:impl-robustez}.
+\end{itemize}
+
+Con los indicadores calculados, los resultados son entregados a los sistemas
+de visualización a través de la \api{} \textsc{rest} de la sección siguiente.

@@ -1,0 +1,52 @@
+% Diagrama: Filtro de validación Pydantic en VFTModel
+% Usado en: 4-Capas-Codigo/4-2-VFTModel/4-2-3-Entradas.tex  (fig:vft-pydantic)
+% Paleta: vftVerde / vftGris, definidas localmente (no en Comands.tex)
+\definecolor{vftVerde}{HTML}{059669}
+\definecolor{vftGris}{HTML}{6B7280}
+
+\begin{tikzpicture}[
+    node distance = 0.6cm and 1.2cm,
+    caja/.style = {
+        rectangle, draw=vftGris, fill=vftGris!8,
+        text width=2.8cm, align=center,
+        minimum height=1.0cm, rounded corners=4pt,
+        font=\small
+    },
+    filtro/.style = {
+        rectangle, draw=vftVerde, fill=vftVerde!10,
+        text width=2.8cm, align=center,
+        minimum height=1.1cm, rounded corners=4pt,
+        font=\small\bfseries
+    },
+    ok/.style = {
+        rectangle, draw=vftVerde, fill=vftVerde!15,
+        text width=2.8cm, align=center,
+        minimum height=1.0cm, rounded corners=4pt,
+        font=\small
+    },
+    nok/.style = {
+        rectangle, draw=vftGris!60, fill=vftGris!8,
+        text width=2.8cm, align=center,
+        minimum height=1.0cm, rounded corners=4pt,
+        font=\small, text=vftGris
+    },
+    flecha_ok/.style = {-Stealth, thick, color=vftVerde},
+    flecha_no/.style = {-Stealth, thick, color=vftGris!70, dashed},
+    etiq/.style      = {font=\scriptsize\itshape, fill=white, inner sep=1.5pt}
+]
+    \node[caja]   (inp) {\texttt{Feature} \geojson{}\\[-1pt]
+                         {\scriptsize de Apimetro}};
+    \node[filtro, right=of inp] (pyd)
+                        {Pydantic\\[-1pt]
+                         {\scriptsize 8 campos verificados}};
+    \node[ok,  right=of pyd]    (ok)
+                        {Grafo\\[-1pt]
+                         {\scriptsize dato incorporado}};
+    \node[nok, below=of pyd]    (no)
+                        {Descartado\\[-1pt]
+                         {\scriptsize campo inválido}};
+
+    \draw[flecha_ok] (inp) -- (pyd);
+    \draw[flecha_ok] (pyd) -- node[etiq, above] {$\checkmark$~válido}   (ok);
+    \draw[flecha_no] (pyd) -- node[etiq, right] {$\times$~inválido}     (no);
+\end{tikzpicture}

@@ -1,33 +1,43 @@
 % !TeX root = ../../tesis.tex
 
 % =============================================================================
-%  4.2.7 — SALIDAS
+%  4.2.7 — SALIDAS Y ENTREGA DE RESULTADOS
 % =============================================================================
-\section{Salidas: API REST con FastAPI}
+\subsection{Salidas y Entrega de Resultados}
 \label{sec:vft-salidas}
 
-Los resultados de VFTModel se entregan a través de una
-\textbf{\api{} \textsc{rest}} construida con \textbf{FastAPI}, expuesta
-localmente en \texttt{localhost:8000} con documentación interactiva disponible
-en el endpoint \texttt{/docs}.
-
-La \api{} expone cinco endpoints bajo \texttt{/api/v1/network/}:
-\texttt{build-auto} (POST, construye el grafo en caché),
-\texttt{spatial-coverage} (GET, cobertura por alcaldía),
-\texttt{topological/capillary-strength} (GET, ranking de fuerza capilar),
-\texttt{topological/geo-capillary} (GET, macro-hubs) y
-\texttt{topological/detour-factor} (GET, factor de desviación por par O-D). La
-especificación completa de los endpoints se presenta en el Cuadro~
-\ref{tab:vft-endpoints} del Anexo~\ref{anx:vft-api}.
-
-Cada respuesta \textsc{json} puede contener tres tipos de datos:
+Una vez calculados los ocho indicadores topológicos descritos en la sección
+anterior, VFTModel los entrega en dos formatos complementarios. La elección
+no es arbitraria: cada formato responde al tipo de herramienta que lo
+consumirá en la cadena de procesamiento.
 
 \begin{itemize}
-    \item \textbf{Tablas de métricas:} listas de nodos con su puntuación en el
-    indicador calculado, ordenadas de mayor a menor relevancia.
-    \item \textbf{Geometrías de ruta:} la trayectoria real sobre la red y la
-    línea recta teórica entre origen y destino, ambas en formato \geojson{},
-    listas para ser renderizadas en visores cartográficos.
-    \item \textbf{Resúmenes estadísticos:} promedio, máximo y distribución del
-    indicador sobre el conjunto de pares O-D analizados en el muestreo.
+    \item \textbf{Métricas tabulares (\textsc{json}):} listas de estaciones o
+    pares origen-destino ordenados por su puntuación en el indicador calculado.
+    Permiten identificar de inmediato los nodos más relevantes ---los
+    \textsc{cetram}s con mayor alimentación capilar, los corredores con mayor
+    factor de desviación--- sin necesidad de procesar geometrías. Son el
+    insumo directo para las tablas y gráficas del
+    Capítulo~\ref{ch:resultados-vft}.
+
+    \item \textbf{Geometrías geoespaciales (\geojson{}):} para los indicadores
+    que implican recorridos en red, la respuesta incluye la trayectoria real
+    sobre la red y la línea recta teórica entre origen y destino. Al mantener
+    el estándar \geojson{}, estas geometrías son compatibles de forma directa
+    con la capa de visualización Transport-\textsc{gis}
+    (§\ref{sec:transport-gis}), que las traduce en cartografía interpretable.
+    La lógica de serialización de cada capa —incluyendo los clasificadores
+    cualitativos de cobertura, capilaridad y desviación— se detalla en el
+    Anexo~\ref{anx:vft-geolayers}.
 \end{itemize}
+
+La especificación técnica de los endpoints ---rutas, métodos y estructura
+de cada respuesta--- se presenta en el Cuadro~\ref{tab:vft-endpoints} del
+Anexo~\ref{anx:vft-api}. Ejemplos con valores de referencia para cada
+indicador implementado se presentan a partir del §\ref{anx:vft-out-cobertura}
+del mismo anexo.
+
+Con esta entrega de resultados, VFTModel cierra su ciclo de procesamiento y
+pasa el control a Transport-\textsc{gis}, cuya función es recibir esas
+geometrías y convertirlas en representaciones cartográficas para el análisis
+urbano de la red metropolitana.

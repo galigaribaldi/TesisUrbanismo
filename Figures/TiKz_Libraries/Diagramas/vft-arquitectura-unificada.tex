@@ -1,0 +1,143 @@
+% Diagrama: Arquitectura hexagonal de VFTModel (v4)
+% Paleta: vftVerde (#059669, esmeralda) + vftGris (#6B7280, neutro)
+% R=4.0 cm — zona segura (apotema=3.464) soporta text width=4.0 hasta y=−2.8
+
+\definecolor{vftVerde}{HTML}{059669}
+\definecolor{vftGris}{HTML}{6B7280}
+
+\begin{tikzpicture}[
+    adaptadorP/.style={
+        rectangle, draw=vftVerde, fill=vftVerde!8,
+        rounded corners=5pt, text width=3.6cm, align=left,
+        minimum height=5.8cm, inner sep=11pt, font=\small
+    },
+    adaptador/.style={
+        rectangle, draw=vftVerde!65, fill=vftVerde!4,
+        rounded corners=4pt, text width=3.2cm, align=left,
+        minimum height=2.8cm, inner sep=9pt, font=\small
+    },
+    adaptadorViz/.style={
+        rectangle, draw=vftGris!55, fill=vftGris!5,
+        rounded corners=5pt, text width=7.0cm, align=center,
+        minimum height=2.6cm, inner sep=12pt, font=\small
+    },
+    actor/.style={
+        rectangle, draw=vftGris!55, fill=vftGris!7,
+        rounded corners=4pt, text width=2.1cm, align=center,
+        minimum height=3.0cm, font=\small
+    },
+    flecha/.style={Stealth-Stealth, thick, color=vftVerde!65},
+    flechaext/.style={Stealth-Stealth, thick, color=vftGris!50, dashed},
+    flechaviz/.style={-Stealth, thick, color=vftGris!60, dashed}
+]
+
+%% ——— Hexágono central: Dominio (src/core/) ———
+%% Flat-top, R = 4.0 cm
+%% Vértices izq/der: (±4.0, 0)
+%% Lados sup/inf: (±2.0, ±3.464)   [R·√3/2 = 4.0 · 0.866 = 3.464]
+\draw[fill=vftVerde!10, draw=vftVerde, line width=1.5pt]
+    ( 4.0,  0.000) --
+    ( 2.0,  3.464) --
+    (-2.0,  3.464) --
+    (-4.0,  0.000) --
+    (-2.0, -3.464) --
+    ( 2.0, -3.464) -- cycle;
+
+%% — Contenido del hexágono —
+%% "Ports & Adapters" como tiny italic justo bajo src/core/, con holgura
+\node[align=center, text width=4.0cm] at (0, 0) {
+    \textbf{\large Dominio}\\[6pt]
+    {\scriptsize\ttfamily src/core/}\\[4pt]
+    {\tiny\itshape\textcolor{vftVerde!50!black}{Ports \& Adapters}}\\[10pt]
+    \textcolor{vftVerde!45!black}{\rule{3.6cm}{0.3pt}}\\[8pt]
+    {\small VFTGraphBuilder}\\[3pt]
+    {\scriptsize \textit{STRICT} $\cdot$ \textit{REALISTIC}}\\[5pt]
+    {\small Impedancia Vial}\\[8pt]
+    \textcolor{vftVerde!45!black}{\rule{3.6cm}{0.3pt}}\\[8pt]
+    {\scriptsize\textcolor{vftVerde!80!black}{Indicadores:}}\\[7pt]
+    {\small $C$ — Cobertura Espacial}\\[6pt]
+    {\small $k_{\text{in}}$ — Fuerza Capilar}
+};
+
+%% — Nodo invisible para posicionamiento y fit Docker —
+\node[minimum width=8.0cm, minimum height=6.928cm,
+      inner sep=0pt, draw=none, fill=none] (hexbox) at (0, 0) {};
+
+%% ——— Adaptador primario (driving): Capa API ———
+\node[adaptadorP, left=1.6cm of hexbox] (api) {
+    \textbf{Capa \api{}}\\
+    {\scriptsize\ttfamily src/api/}\\[7pt]
+    FastAPI + Uvicorn\\
+    Schemas Pydantic\\[7pt]
+    \textcolor{vftVerde!70!black}{\scriptsize Endpoints \textsc{rest}:}\\[4pt]
+    {\scriptsize\ttfamily /network/build-auto}\\[1pt]
+    {\scriptsize\ttfamily /topological/*}\\[1pt]
+    {\scriptsize\ttfamily /spatial-coverage}\\[1pt]
+    {\scriptsize\ttfamily /geo-layers}\\[1pt]
+    {\scriptsize (7~capas GeoJSON)}
+};
+
+%% ——— Adaptadores secundarios (driven): Infraestructura ———
+%% yshift ±3.2 cm + height 2.8 cm → hueco 0.4 cm entre cajas
+\node[adaptador, right=1.6cm of hexbox, yshift= 3.2cm] (goclient) {
+    \textbf{Go Client}\\
+    {\scriptsize\ttfamily go\_client/}\\[5pt]
+    {\scriptsize Fetch estaciones,}\\
+    {\scriptsize líneas, polígonos}\\[3pt]
+    {\scriptsize $\to$ Apimetro \api{}}
+};
+\node[adaptador, right=1.6cm of hexbox, yshift= 0.0cm] (geojson) {
+    \textbf{GeoJSON local}\\
+    {\scriptsize\ttfamily geojson\_service/}\\[5pt]
+    {\scriptsize Fallback: \texttt{map.geojson}}\\
+    {\scriptsize sin conexión de red}
+};
+\node[adaptador, right=1.6cm of hexbox, yshift=-3.2cm] (cache) {
+    \textbf{Persistencia}\\
+    {\scriptsize\ttfamily persistence/}\\[5pt]
+    {\scriptsize Redis (caché grafos)}\\
+    {\scriptsize Celery (colas \textit{async})}
+};
+
+%% ——— Actores externos ———
+\node[actor, left=1.3cm of api] (cliente) {
+    Urbanista\\/ Analista
+};
+\node[actor, right=1.3cm of goclient] (apimetro) {
+    \textbf{Apimetro}\\[3pt]
+    {\scriptsize Go \textsc{rest}}
+};
+
+%% ——— Conector de Visualización (exterior al Docker, abajo) ———
+\node[adaptadorViz, below=2.2cm of hexbox] (viz) {
+    \textbf{Conectores de Visualización}\\[5pt]
+    {\small Transport-GIS-MJG}\\[2pt]
+    {\small Tableau $\cdot$ \textsc{qgis}}\\[5pt]
+    {\scriptsize\textcolor{vftGris!80!black}{%
+        GeoLayers \api{} $\to$ 7 capas GeoJSON georreferenciadas%
+    }}
+};
+
+%% ——— Flechas dominio ↔ adaptadores internos ———
+\draw[flecha] (api.east)  -- (-4.0,  0.0);
+\draw[flecha] ( 4.0, 0.0) -- (goclient.west);
+\draw[flecha] ( 4.0, 0.0) -- (geojson.west);
+\draw[flecha] ( 4.0, 0.0) -- (cache.west);
+
+%% ——— Flecha visualización (desciende desde el lado inferior del hexágono) ———
+\draw[flechaviz] (0, -3.464) -- (viz.north);
+
+%% ——— Flechas externas ———
+\draw[flechaext] (cliente.east)  -- (api.west);
+\draw[flechaext] (goclient.east) -- (apimetro.west);
+
+%% ——— Borde Docker (solo las tres capas internas) ———
+\begin{scope}[on background layer]
+    \node[draw=vftVerde!40, dashed, rounded corners=14pt, fill=vftVerde!2,
+          fit={(api)(hexbox)(goclient)(geojson)(cache)},
+          inner sep=22pt] (docker) {};
+\end{scope}
+\node[font=\scriptsize\bfseries, color=vftVerde!65, anchor=north]
+    at (docker.north) {Docker};
+
+\end{tikzpicture}

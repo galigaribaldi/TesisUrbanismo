@@ -3,16 +3,15 @@
 % =============================================================================
 %  4.2.5 — MOTOR DE IMPEDANCIA
 % =============================================================================
-\section{Motor de Impedancia: La Ecuación VFT}
+\subsection{Motor de Impedancia: La Ecuación VFT}
 \label{sec:vft-impedancia}
 
-Una vez construido el grafo topológico, el módulo \texttt{VFTImpedanceModel} (
-\path{src/core/models/impedance.py}) recorre cada arista y le asigna un
-\textbf{peso temporal en minutos}: el tiempo estimado de recorrido que los
-algoritmos de caminos mínimos utilizarán para determinar la ruta más eficiente
-entre dos estaciones.
+Una vez construido el grafo topológico, el módulo \texttt{VFTImpedanceModel}
+recorre cada arista y le asigna un \textbf{peso temporal en minutos}: el tiempo
+estimado de recorrido que los algoritmos de caminos mínimos utilizarán para
+determinar la ruta más eficiente entre dos estaciones.
 
-\subsection{Distancia Geodésica: Fórmula de Haversine}
+\subsubsection{Distancia Geodésica: Fórmula de Haversine}
 \label{subsec:vft-haversine}
 
 Todos los cálculos de distancia del modelo utilizan la
@@ -48,7 +47,7 @@ La implementación como método estático de \texttt{VFTImpedanceModel} es
 reutilizada por prácticamente todos los módulos del sistema. El código fuente
 completo se presenta en el Anexo~\ref{anx:vft-codigo}.
 
-\subsection{Coeficiente de Fricción Vial}
+\subsubsection{Coeficiente de Fricción Vial}
 \label{subsec:vft-cf}
 
 El \textbf{Coeficiente de Fricción Vial} ($CF$) traduce el tipo de derecho de
@@ -65,15 +64,14 @@ traslado. Se obtiene mediante:
     según el tipo de derecho de vía, con referencia normativa en
     \citep{sedatu2019manual}.
     \item $\beta_{\text{ZMVM}} = 0.759$: índice de saturación vial de la
-    \zmvm{} (\termino{TomTom Traffic Index}).
+    \zmvm{} \citep{tomtom2024}.
 \end{itemize}
 
-La clase \texttt{\textbf{FrictionCalculator}} implementa este cálculo de forma
-aislada, aplicando el principio de vía mixta ($CF = 1.759$) como caso
-conservador por defecto. La implementación Python completa se presenta en el
+La clase \texttt{FrictionCalculator} implementa este cálculo de forma aislada,
+aplicando vía mixta ($CF = 1.759$) como caso conservador por defecto. La implementación Python completa se presenta en el
 Anexo~\ref{anx:vft-codigo}.
 
-\subsection{Ecuación VFT: Peso Temporal de Cada Arista}
+\subsubsection{Ecuación VFT: Peso Temporal de Cada Arista}
 \label{subsec:vft-ecuacion}
 
 Con la distancia geodésica y el coeficiente de fricción disponibles, el método
@@ -87,22 +85,21 @@ Con la distancia geodésica y el coeficiente de fricción disponibles, el métod
 \begin{itemize}
     \item $w_{ij}$: peso de la arista en minutos (tiempo de viaje estimado entre
     estaciones $i$ y $j$).
-\item $d_{ij}$: distancia real del trazo entre $i$ y $j$ en metros, acumulada
-    vértice a vértice sobre el \texttt{MultiLineString} durante la construcción
-    del grafo.
+    \item $d_{ij}$: distancia real del trazo entre $i$ y $j$ en metros,
+    acumulada vértice a vértice sobre el \texttt{MultiLineString} durante la
+    construcción del grafo.
     \item $v_{ij}$: velocidad comercial del sistema en metros por minuto:
     $v_{ij} = v_{\text{km/h}} \times (1000/60)$.
     \item $CF_{ij}$: Coeficiente de Fricción Vial de la arista
     (Ecuación~\ref{eq:vft-cf}).
 \end{itemize}
 
-La implementación Python del método \path{apply_impedance()} se presenta en el
-Anexo~\ref{anx:vft-codigo}.
+La implementación Python completa se presenta en el Anexo~\ref{anx:vft-codigo}.
 
 Las aristas de transbordo peatonal quedan excluidas de este proceso porque ya
-recibieron su peso durante la construcción del grafo:
-$w_{\text{transbordo}} = t_{\text{caminata}} + F_v / 2$ (véase la Sección~
-\ref{subsec:res-penalizacion-transferencia} del Capítulo~
-\ref{ch:resultados-vft}). El atributo \texttt{weight} de cada arista —en
-minutos— es la entrada de todos los algoritmos de caminos mínimos ejecutados en
-los indicadores de Fase~3.
+recibieron su peso durante la construcción del grafo: su costo suma el tiempo
+de caminata entre estaciones más la espera promedio hasta el siguiente servicio
+(véase la Sección~\ref{subsec:res-penalizacion-transferencia} del
+Capítulo~\ref{ch:resultados-vft}). El peso de cada arista —en minutos— es la
+entrada de todos los algoritmos de caminos mínimos ejecutados en los indicadores
+de Fase~3.
