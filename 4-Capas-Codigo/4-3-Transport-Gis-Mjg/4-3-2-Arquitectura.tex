@@ -3,13 +3,16 @@
 \subsection{Transport-gis: Su arquitectura y funcionamiento}
 \label{subsec:transport-gis-arquitectura-funcionamiento}
 
-\textbf{Transport-gis} se organiza en cuatro módulos funcionales
+\textbf{Transport-gis} se organiza en cinco módulos funcionales
 interdependientes: un módulo de \textbf{análisis} (\texttt{analysis/}), que
 gestiona la consulta a los servicios externos y el procesamiento de indicadores;
-un módulo de \textbf{datos} ( \texttt{data/processed/}), que almacena las capas
+un módulo de \textbf{datos} (\texttt{data/processed/}), que almacena las capas
 geoespaciales en formato \termino{GeoPackage} (\texttt{.gpkg}) bajo control de
-Git~\textsc{lfs}; un módulo \textbf{cartográfico} ( \texttt{maps/}), que agrupa
-los proyectos QGIS, las plantillas tipográficas y los archivos de exportación; y
+Git~\textsc{lfs}; un módulo \textbf{cartográfico} (\texttt{maps/}), que agrupa
+los proyectos \textsc{qgis}, las plantillas tipográficas y los archivos de
+exportación; un módulo de \textbf{conectividad analítica} (\texttt{tableau/}),
+que contiene un \termino{Web Data Connector} para \termino{Tableau Desktop}, un
+servidor proxy para geometrías complejas y utilidades Python de exportación; y
 un módulo de \textbf{orquestación} (\texttt{pipeline/}), que coordina la
 ejecución secuencial del proceso completo. La Figura~\ref{fig:tg-pipeline}
 ilustra el flujo de datos entre estos módulos y los componentes externos de la
@@ -37,8 +40,7 @@ para producir los indicadores por nodo en formato \texttt{.csv}. El orquestador
 \texttt{pipeline/run\_pipeline.py} gestiona la secuencia completa de
 transformaciones hasta exportar las capas procesadas al directorio
 \texttt{data/processed/}. Los fragmentos de código de estos componentes se
-detallarán en un anexo técnico.
-\pendiente{Crear Anexo — Documentación Técnica Transport-gis}
+documentan en el Anexo~\ref{anx:transportgis-tecnico}.
 
 \begin{figure}[htbp]
 \centering
@@ -52,3 +54,33 @@ capas \texttt{.gpkg}
   que QGIS transforma en los mapas de presentación exportados a la tesis.}
 \label{fig:tg-pipeline}
 \end{figure}
+
+% =============================================================================
+\subsubsection{Integración con Tableau Desktop}
+\label{subsubsec:tg-tableau}
+% =============================================================================
+
+Junto al flujo cartográfico de \textsc{qgis}, \textbf{Transport-gis} cuenta con
+herramientas para alimentar tableros en \termino{Tableau Desktop}. La distinción
+entre ambas salidas responde a necesidades distintas: \textsc{qgis} produce
+representaciones estáticas de alta resolución para la tesis impresa; Tableau
+habilita la exploración temporal por sistema, alcaldía y período sin requerir
+reprocesar las capas ya calculadas.
+
+El módulo de conectividad analítica articula dos mecanismos según la naturaleza
+del dato. La afluencia mensual y el catálogo de estaciones son estructuras
+tabulares; para ellas se emplea un \termino{Web Data Connector} (\textsc{wdc}):
+una página \textsc{html} con JavaScript que invoca los endpoints analíticos de
+\textbf{Apimetro} y mapea las respuestas \textsc{json} a columnas tipadas
+directamente en Tableau. Los trazados y polígonos de cobertura, en cambio, son
+geometrías complejas (\texttt{MultiLineString}, \texttt{MultiPolygon}) que el
+\textsc{wdc} no puede transmitir; para estas capas se utiliza el conector
+\termino{Spatial File} de Tableau, que acepta \textsc{url}s \textsc{http} que
+sirvan \geojson{}. El servidor \textbf{GeoProxy} (FastAPI, puerto~\texttt{5050})
+cubre ese rol: re-expone como rutas locales lo que \textbf{Apimetro} y
+\textbf{VFTModel} ya sirven en sus propios puertos, sin transformar el
+contenido.
+
+La implementación completa de ambos mecanismos —código \textsc{wdc}, servidor
+\textbf{GeoProxy} y utilidades de exportación— se documenta en el Anexo~
+\ref{anx:transportgis-tecnico}.
