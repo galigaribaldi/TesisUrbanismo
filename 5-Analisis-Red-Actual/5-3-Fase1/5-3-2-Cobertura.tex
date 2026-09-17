@@ -1,0 +1,295 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.3.2 — NIVEL DE COBERTURA ESPACIAL (C)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Nivel de Cobertura Espacial (\texorpdfstring{$C$}{C})}
+\label{subsec:cobertura-espacial}
+
+El \textbf{Nivel de Cobertura Espacial} ($C$) evalúa la equidad territorial
+de la red al cuantificar qué proporción del área de cada demarcación
+político-administrativa se encuentra dentro de un radio de caminata aceptable
+respecto a alguna estación. Se define como:
+
+\begin{equation}
+    C = \frac{A_{\text{cubierta}}}{A_{\text{total}}} \times 100
+    \label{eq:cobertura-res}
+\end{equation}
+
+donde $A_{\text{cubierta}}$ es el área resultante de la unión de los
+isócronos peatonales (\termino{buffers} de 800~m) de todas las estaciones del
+sistema sobre la demarcación, y $A_{\text{total}}$ es la superficie geodésica
+total de la demarcación analizada. El análisis abarca las 16~alcaldías de la
+\cdmx{} y los 125 municipios de la \zmvm{} incluidos en el dataset
+del \textbf{Apímetro} \citep{cabrera2025apimetro}, para un total de
+141 demarcaciones.
+
+La Figura~\ref{fig:grafica-cobertura-sistema} sintetiza el nivel de cobertura
+agregado por sistema, evidenciando la marcada diferencia entre la red capilar
+de superficie y los sistemas estructurados de mayor escala.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
+        Grafica_VFTModel_2026_Cobertura_sistema}
+    \caption[Cobertura territorial agregada por sistema de transporte]{
+    Cobertura territorial agregada por sistema de transporte en la \zmvm{},
+    calculada a partir de isócronos peatonales de 800~m sobre las
+    141 demarcaciones analizadas. Corrida: 2026-04-18.}
+    \label{fig:grafica-cobertura-sistema}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsubsection{Sistemas de Infraestructura Estructurada}
+\label{subsubsec:cobertura-estructurados}
+% ---------------------------------------------------------------
+
+Los sistemas con derecho de vía exclusivo o confinado —\textsc{Metro},
+Metrobús, Tren Ligero, Cablebús, Tren Suburbano, Mexicable y Mexibús— presentan
+coberturas territoriales altas en las alcaldías centrales, pero decrecen
+abruptamente hacia la periferia. Su distribución refleja la lógica de inversión
+en infraestructura pesada, concentrada históricamente en las zonas de mayor
+densidad y actividad económica de la cuenca.
+
+\begin{table}[H]
+    \centering
+    \caption[Cobertura territorial — sistemas estructurados, top 3 por alcaldía]{
+    Tres alcaldías de la \cdmx{} con mayor cobertura territorial por sistema de
+    infraestructura estructurada. Isócrono: 800~m. Corrida: 2026-04-18.}
+    \label{tab:cobertura-estructurados}
+    \fontsize{8.5pt}{10.5pt}\selectfont
+    \begin{tabularx}{\textwidth}{|l|X|r|r|r|}
+        \hline
+        \textbf{Sistema} & \textbf{Alcaldía} &
+        \textbf{Área total (km²)} & \textbf{Área cub. (km²)} &
+        \textbf{$C$ (\%)} \\
+        \hline
+        \multirow{3}{*}{\textsc{Metro}}
+            & Cuauhtémoc          & 32.50 & 28.35 & 87.23 \\
+            & Benito Juárez       & 26.68 & 21.34 & 79.99 \\
+            & Venustiano Carranza & 33.84 & 24.39 & 72.77 \\
+        \hline
+        \multirow{3}{*}{Metrobús}
+            & Cuauhtémoc    & 32.50 & 26.74 & 82.27 \\
+            & Benito Juárez & 26.68 & 16.21 & 60.74 \\
+            & Iztacalco     & 23.08 & 13.95 & 60.44 \\
+        \hline
+        \multirow{3}{*}{Tren Ligero}
+            & Coyoacán   &  53.88 &  9.31 & 17.28 \\
+            & Xochimilco & 114.03 &  6.82 &  5.98 \\
+            & Tlalpan    & 314.25 &  4.07 &  1.30 \\
+        \hline
+        \multirow{3}{*}{Cablebús}
+            & Gustavo A. Madero &  87.84 & 11.31 & 12.88 \\
+            & Miguel Hidalgo    &  46.39 &  5.50 & 11.85 \\
+            & Iztapalapa        & 113.07 & 12.74 & 11.27 \\
+        \hline
+        \multirow{3}{*}{Tren Suburbano}
+            & Cuauhtémoc   & 32.50 & 2.01 & 6.18 \\
+            & Azcapotzalco & 33.50 & 2.01 & 5.99 \\
+            & (resto)      &  ---  & 0.00 & 0.00 \\
+        \hline
+        \multirow{3}{*}{Mexicable}
+            & Gustavo A. Madero &  87.84 & 2.80 & 3.19 \\
+            & (resto)           &   ---  & 0.00 & 0.00 \\
+            &                   &        &      &      \\
+        \hline
+        \multirow{3}{*}{Mexibús\textsuperscript{†}}
+            & Iztacalco           & 23.08 & 1.52 & 6.58 \\
+            & Venustiano Carranza & 33.84 & 1.90 & 5.62 \\
+            & Gustavo A. Madero   & 87.84 & 3.23 & 3.67 \\
+        \hline
+    \end{tabularx}
+    \vspace{0.4em}
+
+    \noindent\textsuperscript{†}\,Datos de geometría y paradas integrados
+    desde \termino{OpenStreetMap} \citep{osm2012} por ausencia de registro
+    en el Portal de Datos Abiertos a la fecha de corrida.
+
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}; datos: \citep{adip_gtfs_2024, osm2012}.}
+\end{table}
+
+% ---------------------------------------------------------------
+\subsubsection{Transporte de Superficie}
+\label{subsubsec:cobertura-superficie}
+% ---------------------------------------------------------------
+
+Los sistemas que operan en vía compartida o mixta —\textsc{rtp}, Corredores
+Concesionados, Trolebús, Pumabús y Tren Interurbano— presentan el patrón
+territorial inverso: coberturas elevadas en las alcaldías centrales, pero con
+una capilaridad que penetra en zonas periféricas donde la infraestructura
+pesada no llega. La \textsc{rtp} y los Corredores Concesionados son los
+sistemas con mayor cobertura absoluta de la red metropolitana, superando el
+90\,\% en múltiples alcaldías.
+
+\begin{table}[H]
+    \centering
+    \caption[Cobertura territorial — transporte de superficie, top 3 por alcaldía]{
+    Tres alcaldías de la \cdmx{} con mayor cobertura territorial por sistema
+    de transporte de superficie. Isócrono: 800~m. Corrida: 2026-04-18.}
+    \label{tab:cobertura-superficie}
+    \fontsize{8.5pt}{10.5pt}\selectfont
+    \begin{tabularx}{\textwidth}{|l|X|r|r|r|}
+        \hline
+        \textbf{Sistema} & \textbf{Alcaldía} &
+        \textbf{Área total (km²)} & \textbf{Área cub. (km²)} &
+        \textbf{$C$ (\%)} \\
+        \hline
+        \multirow{3}{*}{\textsc{rtp}}
+            & Miguel Hidalgo    & 46.39 & 41.90 & 90.32 \\
+            & Cuauhtémoc        & 32.50 & 29.32 & 90.22 \\
+            & Azcapotzalco      & 33.50 & 30.08 & 89.81 \\
+        \hline
+        \multirow{3}{*}{Corredores Conc.}
+            & Cuauhtémoc          & 32.50 & 32.47 & 99.90 \\
+            & Benito Juárez       & 26.68 & 26.32 & 98.65 \\
+            & Iztacalco           & 23.08 & 22.25 & 96.42 \\
+        \hline
+        \multirow{3}{*}{Trolebús\textsuperscript{†}}
+            & Cuauhtémoc    & 32.50 & 22.72 & 69.90 \\
+            & Benito Juárez & 26.68 & 16.50 & 61.85 \\
+            & Azcapotzalco  & 33.50 & 17.48 & 52.18 \\
+        \hline
+        \multirow{3}{*}{Pumabús}
+            & Coyoacán      &  53.88 & 10.85 & 20.13 \\
+            & Álvaro Obregón &  95.82 &  2.25 &  2.34 \\
+            & Tlalpan        & 314.25 &  0.25 &  0.08 \\
+        \hline
+        \multirow{3}{*}{Tren Interurbano}
+            & Cuajimalpa de Morelos &  71.10 & 1.59 & 2.23 \\
+            & Álvaro Obregón        &  95.82 & 0.42 & 0.44 \\
+            & (resto)               &   ---  & 0.00 & 0.00 \\
+        \hline
+    \end{tabularx}
+    \vspace{0.4em}
+
+    \noindent\textsuperscript{†}\,La Línea 13 del Trolebús no contaba con
+    registro en el Portal de Datos Abiertos a la fecha de corrida; su
+    geometría fue integrada desde \termino{OpenStreetMap}
+    \citep{osm2012}. Los valores de cobertura excluyen esa línea.
+
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}; datos: \citep{adip_gtfs_2024, osm2012}.}
+\end{table}
+
+% ---------------------------------------------------------------
+\subsubsection{Zonas de Mayor Déficit Territorial}
+\label{subsubsec:cobertura-deficit}
+% ---------------------------------------------------------------
+
+El análisis de cobertura integrada —considerando la unión de los isócronos de
+todos los sistemas— revela una inequidad territorial estructural: las
+demarcaciones con menor acceso al transporte masivo son, de manera consistente,
+las de mayor extensión territorial y menor densidad urbana consolidada, ubicadas
+en las periferias sur y oriente de la cuenca.
+
+\begin{table}[H]
+    \centering
+    \caption[Demarcaciones con menor cobertura de transporte masivo]{
+    Cinco demarcaciones de la \cdmx{} y del Estado de México con menor
+    cobertura territorial integrada del sistema multimodal. Isócrono: 800~m.
+    Corrida: 2026-04-18.}
+    \label{tab:cobertura-deficit}
+    \begin{tabular}{|l|l|r|r|r|}
+        \hline
+        \textbf{Entidad} & \textbf{Demarcación} &
+        \textbf{Área total (km²)} & \textbf{Área cub. (km²)} &
+        \textbf{$C$ (\%)} \\
+        \hline
+        \multirow{5}{*}{\cdmx{}}
+            & Milpa Alta              & 298.01 &  35.00 & 11.75 \\
+            & La Magdalena Contreras  &  63.37 &  16.33 & 25.76 \\
+            & Tlalpan                 & 314.25 &  94.31 & 30.01 \\
+            & Tláhuac                 &  85.78 &  43.85 & 51.12 \\
+            & Cuajimalpa de Morelos   &  71.10 &  37.12 & 52.20 \\
+        \hline
+        \multirow{5}{*}{Estado de México}
+            & Tonanitla    &   8.52 & 0.00 & 0.00 \\
+            & Capulhuac    &  21.50 & 0.00 & 0.00 \\
+            & Calimaya     & 104.26 & 0.00 & 0.00 \\
+            & Donato Guerra & 181.36 & 0.00 & 0.00 \\
+            & Ayapango     &  50.83 & 0.00 & 0.00 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{table}
+
+La Figura~\ref{fig:grafica-cobertura-alcaldia} complementa esta lectura con
+la distribución de cobertura integrada por alcaldía, permitiendo identificar
+el gradiente centro-periferia que caracteriza la inequidad territorial de la
+red metropolitana.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
+        Grafica_VFTModel_2026_Cobertura_alcaldia}
+    \caption[Cobertura territorial integrada por alcaldía de la \cdmx{}]{
+    Cobertura territorial integrada de la red multimodal por alcaldía de la
+    \cdmx{}, expresada como porcentaje del área cubierta por isócronos
+    peatonales de 800~m. El gradiente centro-periferia es el patrón
+    dominante.}
+    \label{fig:grafica-cobertura-alcaldia}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsubsection{Vista Cartográfica de la Cobertura Total}
+\label{subsubsec:cobertura-cartografia}
+% ---------------------------------------------------------------
+
+Las Figuras~\ref{fig:mapa-cobertura-red-total} y~\ref{fig:mapa-cobertura-calor}
+sintetizan la distribución espacial de la cobertura integrada mediante dos
+representaciones cartográficas complementarias: el alcance territorial acumulado
+de los isócronos de todos los sistemas y la densidad de esa cobertura como mapa
+de calor. Ambas fueron elaboradas con \textbf{QGIS} a partir de los
+\termino{GeoPackages} exportados por el \textbf{Modelo VFT}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Mapa_Cobertura_Red_Total}
+    \caption[Cobertura espacial total de la red multimodal — isócronas 800~m]{
+    Cobertura espacial integrada de los once sistemas de transporte masivo de
+    la \zmvm{}, calculada a partir de isócronos peatonales de 800~m. Las zonas
+    sin cobertura se concentran en el sur y oriente de la cuenca metropolitana,
+    evidenciando las demarcaciones con mayor exclusión territorial.}
+    \label{fig:mapa-cobertura-red-total}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel},
+    GTFS \citep{adip_gtfs_2024} e INEGI 2023.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Mapa_Cobertura_Mapa_Calor}
+    \caption[Densidad de cobertura de la red multimodal — mapa de calor]{
+    Densidad de la cobertura espacial de la red multimodal expresada como mapa
+    de calor. Los núcleos de máxima accesibilidad se ubican en las alcaldías
+    centrales (Cuauhtémoc, Benito Juárez, Iztacalco), mientras que las
+    periferias sur y oriente presentan densidades cercanas a cero, confirmando
+    la inequidad territorial diagnosticada.}
+    \label{fig:mapa-cobertura-calor}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel},
+    GTFS \citep{adip_gtfs_2024} e INEGI 2023.}
+\end{figure}
+
+Los datos de los once sistemas apuntan en la misma dirección: el acceso al
+transporte masivo en la \zmvm{} no se distribuye de manera homogénea. Alcaldías
+como Cuauhtémoc registran coberturas de hasta el 99.90\,\% bajo los Corredores
+Concesionados; Milpa Alta, segunda demarcación en superficie de la \cdmx{}
+solo superada por Tlalpan, no rebasa el 11.75\,\% en ningún sistema. Esa
+distancia no expresa una diferencia operativa sino una acumulación histórica de
+trazados e inversiones que reproduce, dentro del campo de la movilidad urbana,
+la estratificación descrita por \citet{rendon2009ciudadanos}: ciudadanos con
+acceso pleno a la red de oportunidades de la ciudad frente a quienes lo tienen
+de forma parcial o ninguna. Sobre esta base territorial, la
+Sección~\ref{subsec:fuerza-capilar} examina cómo esa escasez periférica se
+concentra en un puñado de nodos que conectan la periferia con la red troncal.

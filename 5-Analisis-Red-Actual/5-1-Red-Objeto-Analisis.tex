@@ -1,0 +1,74 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.1 — LA RED METROPOLITANA COMO OBJETO DE ANÁLISIS
+% Issue #24 [C-7]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La Red Metropolitana como Objeto de Análisis}
+\label{sec:red-objeto-analisis}
+
+El diagnóstico del sistema de transporte público de la \zmvm{} enfrenta un
+problema de escala: la red integra once modalidades de transporte masivo
+distribuidas sobre un territorio metropolitano que trasciende la \cdmx{} e
+incorpora municipios del Estado de México en una continuidad urbana funcional
+\citep{semovi2020diagnostico}. Los indicadores de movilidad son difíciles de
+aplicar de forma homogénea a cada sistema de transporte, y este problema no
+radica en la falta de datos: el Gobierno de la \cdmx{} libera sistemáticamente
+la información de sus redes a través del Portal de Datos Abiertos
+\citep{adip_gtfs_2024}. La barrera real es la heterogeneidad estructural de
+esos datos: once sistemas con esquemas, frecuencias, geometrías y atributos
+distintos que, sin una herramienta capaz de integrarlos bajo un modelo común,
+no pueden analizarse como red sino solo como inventario.
+
+Este es el problema que el \textbf{Apímetro} y el \textbf{Modelo VFT},
+desarrollados y documentados en el Capítulo~4, están diseñados para resolver
+\citep{cabrera2025apimetro, cabrera2026VFTModel}. Al representar la red como
+un grafo dirigido y ponderado —donde cada estación es un nodo y cada segmento
+operativo una arista con peso temporal— los once sistemas quedan integrados
+bajo un modelo matemático común \citep{newman2010networks}. Sobre esa
+representación es posible calcular propiedades estructurales independientes de
+la demanda: la cobertura territorial de la red, la concentración de flujos en
+los nodos de transferencia, la eficiencia de los trayectos y la fragilidad de
+los puntos críticos.
+
+El presente capítulo aplica esa herramienta al sistema de transporte actual de
+la \zmvm{} para responder tres preguntas estructurales: ¿qué territorio cubre
+la red y dónde se concentran los flujos? ¿Cuánto tarda en promedio
+desplazarse entre cualquier par de estaciones y qué nodos articulan la mayor
+parte de esos trayectos? ¿Qué tan frágil es la red ante la pérdida de sus
+nodos más críticos? Las respuestas se organizan en tres fases de análisis
+—indicadores topológicos, ponderación dinámica y análisis de red— y culminan
+en un diagnóstico territorial que identifica las zonas de mayor déficit
+estructural como punto de partida para el corredor anillar hipotético del
+Capítulo~6.
+
+El Cuadro~\ref{tab:resumen-indicadores-cap5} sintetiza los ocho indicadores
+que componen el análisis, su fase de cálculo y su estado de avance.
+
+\begin{table}[H]
+    \centering
+    \caption[Indicadores del Modelo VFT por fase de cálculo]{Resumen de los
+    indicadores del \textbf{Modelo VFT}, su fase de cálculo, dependencias y
+    estado de avance en esta investigación.}
+    \label{tab:resumen-indicadores-cap5}
+    \begin{tabularx}{\textwidth}{|l|c|X|l|}
+        \hline
+        \textbf{Indicador} & \textbf{Fase} & \textbf{Dependencias} &
+        \textbf{Estado} \\
+        \hline
+        Validación de Impedancia      & 1 & Grafo base + fallbacks       & Calculado \\
+        Cobertura Espacial ($C$)      & 1 & Geometría de estaciones      & Calculado \\
+        Fuerza Capilar ($FC$)         & 1 & Grafo base                   & Calculado \\
+        Factor de Desviación ($DI$)   & 1 & Grafo base + impedancia      & Calculado \\
+        \hline
+        Coef. de Fricción Vial ($CF$)     & 2 & Fase 1 completa          & Calculado \\
+        Penalización por Transf. ($T_b$)  & 2 & Fase 1 + $CF$            & Calculado \\
+        Node Score ($\text{VFT\_score}$)  & 2 & Fase 1 + datos MV1/MV2   & En diseño \\
+        \hline
+        Tiempo de Viaje Prom. ($T$)   & 3 & Fases 1 y 2 completas        & Calculado \\
+        Centralidad Interm. ($B$)     & 3 & Fases 1 y 2 + $T$            & Calculado \\
+        Vulnerabilidad ($\Delta E$)   & 3 & Fases 1, 2 y $B$             & Calculado \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{table}

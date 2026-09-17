@@ -1,0 +1,123 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.2 — CONSTRUCCIÓN DEL GRAFO TOPOLÓGICO
+% Issue #24 [C-7]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Construcción del Grafo Topológico}
+\label{sec:grafo-topologico}
+
+A partir de los datos geoespaciales procesados por el \textbf{Apímetro}, el
+\textbf{Modelo VFT} construyó un grafo dirigido y ponderado que representa la
+red de transporte masivo de la \zmvm{} como objeto de análisis estructural
+(véanse Capítulo~4 y Anexo~B para el detalle de implementación). El proceso de
+integración topológica —mediante un árbol \texttt{KDTree} con tolerancia de
+85~m, corrida del 18 de abril de 2026— redujo las 22{,}766 entidades espaciales
+del dataset de origen a \textbf{11{,}115 nodos canónicos} conectados por
+\textbf{45{,}679 aristas}, de las cuales 25{,}197 corresponden a segmentos de
+servicio real y 20{,}482 a aristas de transbordo peatonal generadas
+algorítmicamente \citep{cabrera2026VFTModel}.
+
+\begin{figure}[H]
+    \centering
+    \input{Figures/TiKz_Libraries/Diagramas/vft-pipeline-procesamiento}
+    \caption[Pipeline de procesamiento del Modelo VFT]{Las cuatro etapas que
+    transforman los datos brutos de \textbf{Apímetro} en el grafo topológico
+    operativo. El \termino{Snapping Lógico Geográfico} mediante árbol
+    \texttt{KDTree} (tolerancia: 85~m) reduce las 22{,}766 entidades originales
+    a 11{,}115 nodos canónicos; la ponderación final asigna impedancias
+    temporales a las 45{,}679 aristas del grafo dirigido
+    $\mathcal{G}(\mathcal{V},\mathcal{E},w)$.}
+    \label{fig:arq-capas}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{11{,}115 nodos topológicos} — estaciones operativas tras
+    eliminar nodos fantasma y redundancias geométricas.
+    \item \textbf{45{,}679 aristas}: 25{,}197 segmentos de servicio real y
+    20{,}482 aristas de transbordo peatonal generadas por el
+    \termino{Snapping Lógico Geográfico}.
+    \item \textbf{11 sistemas de transporte} representados: \textsc{Metro},
+    Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Cablebús, Mexicable,
+    Mexibús, \textsc{rtp}, Corredores Concesionados y Pumabús.
+    \item Distribución modal: \textbf{12\,\% infraestructura estructurada} con
+    derecho de vía exclusivo o confinado (\textsc{Metro}, Metrobús, Tren Ligero,
+    Cablebús, Tren Suburbano) y \textbf{88\,\% transporte de superficie} en
+    vía compartida o mixta (\textsc{rtp}, Corredores Concesionados, Trolebús,
+    Mexibús, Mexicable, Pumabús).
+    \item \textbf{Componente gigante}: 10{,}561 nodos (95\,\% del total),
+    sobre la cual se ejecutan los algoritmos de Fase~3.
+\end{itemize}
+
+El Cuadro~\ref{tab:aristas-por-sistema} detalla la distribución de aristas de
+servicio real por sistema, el tipo de derecho de vía asignado y el coeficiente
+de fricción vial correspondiente.
+
+\begin{table}[H]
+    \centering
+    \caption[Distribución de aristas de servicio por sistema de transporte]{
+    Distribución de aristas de servicio real por sistema de transporte en el
+    grafo de la \zmvm{}. El coeficiente $CF$ refleja el tipo de derecho de vía.
+    Corrida: 2026-04-18.}
+    \label{tab:aristas-por-sistema}
+    \begin{tabular}{|l|r|l|c|}
+        \hline
+        \textbf{Sistema} & \textbf{Aristas} & \textbf{Derecho de vía} &
+        \textbf{$CF$} \\
+        \hline
+        \textsc{rtp}                  & 11{,}041 & Mixto       & 1.759 \\
+        Corredores Concesionados (CC) & 10{,}603 & Mixto       & 1.759 \\
+        Trolebús\textsuperscript{†}   &  1{,}506 & Compartido  & 1.380 \\
+        Metrobús (MB)                 &    792   & Exclusivo   & 1.000 \\
+        \textsc{Metro} (STC)          &    528   & Exclusivo   & 1.000 \\
+        Mexibús\textsuperscript{†}    &    391   & Confinado   & 1.152 \\
+        Pumabús                       &    234   & Mixto       & 1.759 \\
+        Tren Ligero (TL)              &     52   & Exclusivo   & 1.000 \\
+        Cablebús (CBB)\textsuperscript{‡} &  30  & Confinado   & 1.152 \\
+        Mexicable\textsuperscript{†}  &     17   & Confinado   & 1.152 \\
+        Tren Suburbano (SUB)          &      3   & Exclusivo   & 1.000 \\
+        \hline
+        \textbf{Total}                & \textbf{25{,}197} & & \\
+        \hline
+    \end{tabular}
+    \vspace{0.5em}
+
+    \noindent\textsuperscript{†}\,A la fecha de ingesta (2026-04-18), la
+    Línea 13 del Trolebús, el Mexicable y el Mexibús no contaban con registros
+    publicados en el Portal de Datos Abiertos de la \cdmx{}. Su geometría y
+    paradas fueron integradas a partir de datos de
+    \termino{OpenStreetMap} \citep{osm2012}.
+
+    \noindent\textsuperscript{‡}\,El sistema Cablebús registra únicamente
+    30 aristas, cifra inferior a la esperada para sus tres líneas operativas.
+    Esta subrepresentación es una limitación del \textit{backend} del
+    \textbf{Apímetro} en la fecha de corrida y no afecta los indicadores de
+    los sistemas restantes.
+
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}; datos: \citep{adip_gtfs_2024, osm2012}.}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Mapa_Transporte_Publico}
+    \caption[Red multimodal de la \zmvm{} por sistema de transporte]{Red
+    multimodal de la \zmvm{} organizada por tipo de sistema de transporte,
+    elaborada con \textbf{QGIS} a partir de los datos procesados por el
+    \textbf{Apímetro}. La versión cartográfica extendida de la red esquemática
+    se presenta en la Figura~\ref{fig:anx-mapa-red-esquematica} del
+    Anexo~\ref{anx:cartografia-presentacion}.}
+    \label{fig:mapa-transporte-publico}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \citep{adip_gtfs_2024, osm2012}.}
+\end{figure}
+
+El grafo resultante constituye la representación operativa sobre la que se
+calculan todos los indicadores presentados en las secciones siguientes. Su
+escala —11{,}115 nodos y 45{,}679 aristas distribuidos en once sistemas— hace
+de la \zmvm{} uno de los grafos de transporte público más densos documentados
+en la literatura latinoamericana \citep{lotero2014vulnerabilidad}, lo que
+confiere mayor relevancia a los resultados de los indicadores de cobertura,
+centralidad y vulnerabilidad que se exponen a continuación.

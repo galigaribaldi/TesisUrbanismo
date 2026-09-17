@@ -1,0 +1,143 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.3.3 — FUERZA CAPILAR (FC)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Fuerza Capilar (\texorpdfstring{$FC$}{FC})}
+\label{subsec:fuerza-capilar}
+
+Todo usuario del transporte metropolitano reconoce el fenómeno
+aunque no lo nombre: el nodo de Barranca del Muerto, el complejo de
+Chapultepec, los grandes paraderos sobre Tlalpan. Son puntos donde
+múltiples líneas y sistemas convergen, donde la red se aprieta antes
+de abrirse de nuevo hacia las colonias periféricas. La \textbf{Fuerza
+Capilar} ($FC$) es el indicador que formaliza esa intuición urbana:
+cuantifica el nivel de convergencia de flujos en cada nodo o
+agrupación de nodos del grafo, identificando los puntos donde la red
+concentra y redistribuye la mayor cantidad de conexiones. El
+indicador se evalúa en dos perspectivas complementarias: la
+\textbf{Fuerza Capilar de Macro-Hub} ($FC_H$), que agrupa estaciones
+físicamente colindantes en un radio de 100~m para representar los
+grandes nodos de transbordo, y la \textbf{Fuerza Capilar individual}
+($FC$), que mide la convergencia topológica estricta en cada nodo sin
+tolerancia espacial.
+
+La expresión formal de la perspectiva de Macro-Hub es:
+
+\begin{equation}
+    FC_{H} = \sum_{j \in H}
+    \bigl(k_{\text{in}}(j) + k_{\text{out}}(j)\bigr)
+    - \text{Aristas Internas}
+    \label{eq:fc-geografica}
+\end{equation}
+
+\noindent donde:
+\begin{itemize}
+    \item $H$: conjunto de nodos del Macro-Hub (estaciones agrupadas
+          en un radio de tolerancia de 100~m).
+    \item $k_{\text{in}}(j)$: número de aristas entrantes del nodo $j$
+          dentro del grafo de servicios.
+    \item $k_{\text{out}}(j)$: número de aristas salientes del nodo $j$.
+    \item Aristas Internas: conexiones entre nodos del propio Hub,
+          descontadas para evitar el doble conteo de flujos internos
+          al complejo.
+\end{itemize}
+
+% ---------------------------------------------------------------
+\subsubsection{Distribución por Nodo y Macro-Hub}
+\label{subsubsec:fc-distribucion-nodos}
+% ---------------------------------------------------------------
+
+La Figura~\ref{fig:grafica-fc-nodos} sintetiza la distribución de la
+Fuerza Capilar en los principales nodos de la red, ordenados por su
+nivel de concentración de conexiones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
+        Grafica_VFTModel_2026_Fuerza_capilar}
+    \caption[Distribución de Fuerza Capilar en los principales nodos
+    de la red]{%
+    Distribución de la Fuerza Capilar ($FC$ y $FC_H$) en los
+    principales nodos y Macro-Hubs de transferencia de la \zmvm{}.
+    Los valores más altos corresponden a los complejos donde mayor
+    número de rutas y sistemas se superponen. Corrida: 2026-04-18.}
+    \label{fig:grafica-fc-nodos}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsubsection{Distribución Territorial}
+\label{subsubsec:fc-distribucion-territorial}
+% ---------------------------------------------------------------
+
+Leída en conjunto con el análisis de cobertura de la sección
+anterior, la distribución de la Fuerza Capilar revela la otra cara
+del déficit territorial: las demarcaciones con menor cobertura no
+carecen simplemente de estaciones, sino de nodos redistributores
+capaces de articular los ramales locales con la red troncal. Las
+zonas periféricas que registran los menores valores de $C$ son
+también las que presentan menor densidad de nodos de alta $FC$: en
+ellas, la red no solo es escasa, sino que los pocos nodos existentes
+cargan con una proporción desproporcionada de las conexiones locales,
+sin el respaldo de un Macro-Hub que diversifique la oferta de
+transferencia.
+
+La Figura~\ref{fig:mapa-fuerza-capilar} espacializa esa distribución
+sobre la cuenca metropolitana, permitiendo identificar los corredores
+y zonas de mayor densidad capilar a escala territorial.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.90\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Mapa_Fuerza_Capilar}
+    \caption[Distribución espacial de la Fuerza Capilar — red
+    multimodal \zmvm{}]{%
+    Distribución espacial de la Fuerza Capilar ($FC_H$) en la red
+    de transporte masivo de la \zmvm{}. Los nodos de mayor
+    concentración de conexiones se ubican en el corredor sur de la
+    cuenca, sobre los ejes Insurgentes--Tlalpan y el entorno del
+    Anillo Periférico. Corrida: 2026-04-18.}
+    \label{fig:mapa-fuerza-capilar}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel},
+    GTFS \citep{adip_gtfs_2024} e INEGI 2023.}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsubsection{Vista Integral de la Red}
+\label{subsubsec:fc-vista-integral}
+% ---------------------------------------------------------------
+
+La Figura~\ref{fig:dashboard-fuerza-capilar} consolida, mediante el
+\termino{dashboard} analítico del modelo, la visión integral del
+indicador sobre el conjunto de la red.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/Dashboards/%
+        Dashboard_VFTModel_2026_Fuerza_Capilar}
+    \caption[Dashboard de Fuerza Capilar — red multimodal \zmvm{}]{%
+    Vista integral de la Fuerza Capilar ($FC$ y $FC_H$) sobre la red
+    de transporte masivo de la \zmvm{}, generada con el
+    \termino{dashboard} analítico del \texttt{VFTModel}.
+    Corrida: 2026-04-18.}
+    \label{fig:dashboard-fuerza-capilar}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Los nodos de alta Fuerza Capilar trazan, sobre la ciudad, una
+jerarquía implícita que no emergió de una planificación orientada al
+transporte colectivo: en una metrópoli cuya infraestructura vial se
+estructuró históricamente en función del automóvil privado, la red de
+transporte masivo se fue articulando sobre los márgenes e intersticios
+de esa trama, y su capacidad redistributiva terminó concentrada en un
+puñado de complejos del corredor sur de los que dependen decenas de
+rutas periféricas. Esa concentración no es neutral; reproduce, en
+términos de conectividad, la misma asimetría territorial documentada
+en la cobertura. La sección siguiente evalúa su consecuencia directa
+sobre el usuario: el Factor de Desviación mide cuánto se alarga el
+viaje cuando esa jerarquía obliga a rodeos.
