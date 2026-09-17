@@ -1,0 +1,37 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.4.2 — PENALIZACIÓN POR TRANSFERENCIA (Tb)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Penalización por Transferencia (\texorpdfstring{$T_b$}{Tb})}
+\label{subsec:fase2-tb}
+
+Cambiar de línea o de sistema no es gratuito en términos de tiempo.
+Más allá de la caminata entre andenes, el usuario debe esperar la
+llegada del siguiente servicio: una espera que depende de la frecuencia
+del sistema al que transborda. La penalización por transferencia ($T_b$)
+incorpora ese costo al grafo asignando un peso adicional a cada arista
+de tipo trasbordo.
+
+\begin{equation}
+    T_b = \frac{F}{2}
+    \label{eq:penalizacion-transferencia}
+\end{equation}
+
+\noindent donde $F$ es la frecuencia del sistema destino expresada en
+minutos entre servicios. El factor $\tfrac{1}{2}$ representa la
+espera media esperada bajo llegadas aleatorias al andén: en promedio,
+el usuario llega en el punto medio del intervalo entre dos servicios
+consecutivos.
+
+La penalización actúa exclusivamente sobre las 20,482 aristas de
+trasbordo peatonal del grafo —aquellas que conectan nodos de sistemas
+distintos dentro de un mismo complejo de transferencia— y no modifica
+el tiempo de las aristas de servicio real. Con $T_b$ aplicado, el
+grafo refleja no solo el tiempo de traslado sobre cada línea, sino el
+costo acumulado de cada cambio de sistema que la ruta óptima imponga
+al usuario.
+
+Ambos parámetros —$CF$ y $T_b$— quedan incorporados al grafo ponderado
+antes de ejecutar el algoritmo de ruta mínima. La Fase~3 opera sobre
+ese grafo para derivar el tiempo de viaje promedio de la red y su
+distribución territorial.

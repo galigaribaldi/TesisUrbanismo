@@ -1,0 +1,19 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.4 — PONDERACIÓN DINÁMICA: FASE 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ponderación Dinámica: Fase~2}
+\label{sec:fase2-ponderacion}
+
+Los indicadores de Fase~1 caracterizaron la red desde su geometría y
+conectividad internas. Para aproximar los tiempos de viaje reales, el
+modelo incorpora dos parámetros que ajustan los pesos del grafo a las
+condiciones operativas observadas: el Coeficiente de Fricción Vial
+($CF$), que diferencia la velocidad efectiva según el derecho de vía de
+cada sistema, y la penalización por transferencia ($T_b$), que
+contabiliza el costo temporal de cada trasbordo. Juntos, estos
+parámetros preparan el grafo ponderado sobre el que la Fase~3 calcula
+los tiempos de viaje y la centralidad de la red.
+
+\input{5-Analisis-Red-Actual/5-4-Fase2/5-4-1-CoeficienteFriccion}
+\input{5-Analisis-Red-Actual/5-4-Fase2/5-4-2-PenalizacionTransferencia}

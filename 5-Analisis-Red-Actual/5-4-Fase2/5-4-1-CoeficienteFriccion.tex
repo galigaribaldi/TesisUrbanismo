@@ -1,0 +1,55 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.4.1 — COEFICIENTE DE FRICCIÓN VIAL (CF)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coeficiente de Fricción Vial (\texorpdfstring{$CF$}{CF})}
+\label{subsec:fase2-cf}
+
+El Coeficiente de Fricción Vial, definido en §\ref{subsec:friccion-vial}
+e implementado como \texttt{FrictionCalculator} en §\ref{subsec:vft-cf},
+traduce el tipo de derecho de vía de cada segmento en un multiplicador
+sobre el tiempo de traslado:
+
+\begin{equation*}
+    CF = 1 + \alpha \cdot \beta_{\text{ZMVM}}
+    \tag{\ref{eq:vft-cf}}
+\end{equation*}
+
+Con $\beta_{\text{ZMVM}} = 0.759$ \citep{tomtom2024} y cuatro valores
+de $\alpha$ calibrados según el grado de segregación física de la
+infraestructura \citep{sedatu2019manual}, los coeficientes resultantes
+para cada categoría son los del Cuadro~\ref{tab:cf-derecho-via}.
+
+\begin{table}[H]
+    \centering
+    \caption[Coeficiente de Fricción Vial por categoría de derecho de vía]{%
+    Coeficiente de Fricción Vial ($CF$) por categoría de derecho de vía
+    y sistemas de transporte asignados en la red de la \zmvm{}.
+    Un $CF = 1.000$ indica operación sin interferencia del tráfico.
+    Corrida: 2026-04-18.}
+    \label{tab:cf-derecho-via}
+    \small
+    \begin{tabular}{|l|c|r|l|}
+        \hline
+        \textbf{Derecho de vía} & \textbf{$\alpha$} &
+        \textbf{$CF$} & \textbf{Sistemas} \\
+        \hline
+        Exclusivo  & 0.0 & 1.000 & Metro, Metrobús, Tren Ligero, Tren Suburbano \\
+        Confinado  & 0.2 & 1.152 & Cablebús, Mexibús, Mexicable \\
+        Compartido & 0.5 & 1.380 & Trolebús \\
+        Mixto      & 1.0 & 1.759 & RTP, Corredores Concesionados, Pumabús \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel};
+    $\beta$: \citep{tomtom2024};
+    $\alpha$: \citep{sedatu2019manual}.}
+\end{table}
+
+La brecha entre extremos es considerable: los sistemas con derecho de
+vía exclusivo operan a su velocidad de diseño sin penalización, mientras
+que RTP y los Corredores Concesionados —que concentran más del
+85\,\% de las aristas de servicio real de la red— absorben el índice
+de congestión completo de la ciudad. Dado que esas líneas son también
+las que conectan las periferias con el centro, el $CF$ amplifica las
+asimetrías de cobertura y capilaridad ya documentadas en la Fase~1.
