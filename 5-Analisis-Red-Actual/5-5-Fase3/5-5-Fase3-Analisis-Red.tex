@@ -1,0 +1,18 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.5 — ANÁLISIS DE RED: FASE 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Análisis de Red: Fase~3}
+\label{sec:fase3-analisis-red}
+
+Las Fases~1 y 2 describen la estructura y los pesos de la red; la
+Fase~3 responde una pregunta distinta: ¿cuánto tarda realmente un
+viaje en esta red, qué nodos sostienen ese tiempo y qué ocurre cuando
+alguno falla? Los tres indicadores de esta fase —tiempo de viaje
+promedio, centralidad de intermediación y vulnerabilidad estructural—
+operan sobre el componente gigante del grafo (10,561 nodos, 95\,\% de
+la red) con el algoritmo de \dijkstra{} ponderado.
+
+\input{5-Analisis-Red-Actual/5-5-Fase3/5-5-1-TiempoViaje}
+\input{5-Analisis-Red-Actual/5-5-Fase3/5-5-2-Centralidad}
+\input{5-Analisis-Red-Actual/5-5-Fase3/5-5-3-Vulnerabilidad}

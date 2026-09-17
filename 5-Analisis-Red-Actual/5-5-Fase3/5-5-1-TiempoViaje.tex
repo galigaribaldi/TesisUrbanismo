@@ -1,0 +1,50 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.5.1 — TIEMPO DE VIAJE PROMEDIO (T)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tiempo de Viaje Promedio (\texorpdfstring{$T$}{T})}
+\label{subsec:tiempo-viaje-promedio}
+
+Ejecutado el algoritmo de \dijkstra{} ponderado sobre el componente
+gigante, el tiempo de viaje promedio de la red resulta en
+$T = 108.92$ minutos (corrida: 2026-09-02, 10,561~nodos, tiempo de
+cómputo: 251.8~segundos). El valor sintetiza el costo temporal medio
+de todos los pares origen-destino posibles bajo las condiciones de
+ponderación de Fase~2.
+
+La referencia de campo más cercana proviene de la Encuesta Nacional de
+Ocupación y Empleo (ENOE), que estima en aproximadamente 85~minutos el
+tiempo promedio de traslado en la \zmvm{}. Frente a los 108.92~minutos
+del modelo, la brecha de $\sim$24~minutos tiene origen metodológico, no
+en una sobreestimación del sistema. Mientras la ENOE construye su
+promedio a partir de desplazamientos observados —concentrados en los
+corredores de alta afluencia que conectan el centro con la periferia
+próxima— el modelo asigna el mismo peso a cada par del componente
+gigante. Los trayectos entre periferias opuestas, que la demanda
+cotidiana apenas realiza, quedan contabilizados en igualdad de
+condiciones que los recorridos más frecuentes, elevando el promedio
+topológico por encima del promedio ponderado por demanda.
+
+Esa variación queda desglosada por alcaldía en la
+Figura~\ref{fig:grafica-t-promedio}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
+        Grafica_VFTModel_2026_Tiempo_Promedio}
+    \caption[Tiempo de viaje promedio por alcaldía --- \zmvm{}]{%
+    Tiempo de viaje promedio ($T$) por alcaldía. Corrida sobre el
+    componente gigante (10,561~nodos) con \dijkstra{} ponderado.
+    \zmvm{}, 2026-09-02.}
+    \label{fig:grafica-t-promedio}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Con $T$ calculado, surge una pregunta estructural: ¿qué nodos
+concentran mayor responsabilidad sobre ese valor? No todos los nodos
+son equivalentes en la topología del grafo; algunos articulan una
+fracción desproporcionada de las rutas mínimas y su fallo impacta los
+tiempos en toda la red. La centralidad de intermediación $B(v)$
+—analizada en la sección siguiente— identifica esos puntos.

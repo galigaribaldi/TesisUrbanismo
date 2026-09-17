@@ -1,0 +1,77 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.5.3 — VULNERABILIDAD ESTRUCTURAL ΔE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vulnerabilidad Estructural (\texorpdfstring{$\Delta E$}{Delta E})}
+\label{subsec:vulnerabilidad-estructural}
+
+Los resultados de esta subsección tienen carácter preliminar. La
+simulación de vulnerabilidad estructural se realizó sobre los nodos
+del grafo construido por \texttt{VFTModel}, pero no fue ejecutada
+sobre la capa de red integrada de \texttt{Transport-gis-mjg}; en
+consecuencia, los valores reportados no han sido verificados contra
+la representación completa del sistema. Se presentan como primer
+acercamiento al indicador $\Delta E$, con la intención de enmarcar
+el método y señalar las líneas de trabajo futuro.
+
+A partir del valor de referencia $T = 108.92$~min
+(§\ref{subsec:tiempo-viaje-promedio}), el experimento calcula la
+caída relativa de eficiencia $\Delta E$ cuando se retira cada uno de
+los cinco nodos de mayor $B(v)$ (§\ref{subsec:robustez-geometrica}).
+La eficiencia base es $E_0 = 1/108.92$; tras remover el nodo $v$,
+se recalcula el tiempo promedio $T_f$ y se obtiene
+$\Delta E = (E_0 - E_f)/E_0$.
+
+El Cuadro~\ref{tab:delta-e-top5} registra los resultados del
+experimento sobre los cinco nodos seleccionados.
+
+\begin{table}[H]
+    \centering
+    \caption[Impacto de remoción de nodos críticos --- $\Delta E$ exploratorio]{%
+    Caída relativa de eficiencia $\Delta E$ al remover cada nodo del
+    componente gigante. $E_0 = 1/108.92$; $E_f = 1/T_f$. Corrida
+    exploratoria: 2026-09-02.}
+    \label{tab:delta-e-top5}
+    \small
+    \begin{tabular}{|r|l|r|r|r|}
+        \hline
+        \textbf{\#} & \textbf{Nodo removido} &
+        \textbf{$B(v)$} & \textbf{$T_f$ (min)} & \textbf{$\Delta E$} \\
+        \hline
+        1 & Tacubaya        & 0.2179 & 111.80 & 2.58\,\% \\
+        2 & Mixcoac         & 0.1725 & 110.19 & 1.15\,\% \\
+        3 & Hidalgo         & 0.1595 & 109.90 & 0.89\,\% \\
+        4 & Balderas        & 0.1433 & 109.57 & 0.59\,\% \\
+        5 & Lázaro Cárdenas & 0.1376 & 110.13 & 1.10\,\% \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}. Corrida exploratoria: 2026-09-02.}
+\end{table}
+
+Tacubaya encabeza tanto el ranking de $B(v)$ como el de $\Delta E$: su
+remoción eleva el tiempo promedio de la red en 2.88~min, traducido en
+una caída de eficiencia del 2.58\,\%. El dato es coherente con la
+posición estructural del nodo ---cruce de las Líneas 1, 7 y 9 del
+Metro--- y su papel de puente entre el corredor poniente y el centro.
+Los cuatro nodos restantes producen caídas entre 0.59\,\% y 1.15\,\%,
+lo que confirma que ningún nodo individual colapsa la red, pero la
+pérdida acumulada de varios podría alcanzar umbrales críticos.
+
+Los tres indicadores de Fase~3 convergen en un mismo diagnóstico
+estructural. $T = 108.92$~min revela que el tiempo de viaje promedio
+entre cualquier par de la \zmvm{} supera con amplitud los umbrales de
+movilidad cotidiana. $B(v)$ identifica el corredor que hace posible
+ese tiempo: un conjunto reducido de estaciones del Metro en el eje
+centro-poniente concentra la mayor parte de los caminos mínimos de la
+red. Y la simulación exploratoria de $\Delta E$ confirma que la
+remoción de esos nodos, aunque no colapsa la red, la degrada de
+forma mensurable ---con Tacubaya produciendo el mayor impacto
+individual registrado.
+
+El patrón es consistente con el hallazgo de Fase~1: las zonas que
+registraron menor cobertura y mayor Factor de Desviación son también
+las que más dependen del corredor central para cualquier trayecto de
+largo aliento. La siguiente sección integra estos indicadores en un
+diagnóstico territorial que localiza las zonas de déficit estructural
+de la red.

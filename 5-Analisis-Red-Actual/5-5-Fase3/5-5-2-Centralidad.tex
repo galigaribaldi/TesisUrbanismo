@@ -1,0 +1,194 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 5.5.2 — CENTRALIDAD DE INTERMEDIACIÓN B(v)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Centralidad de Intermediación (\texorpdfstring{$B(v)$}{B(v)})}
+\label{subsec:fase3-centralidad}
+
+No todos los nodos de la red tienen el mismo peso en la conectividad
+global. Algunos funcionan como puentes inevitables: la mayoría de las
+rutas mínimas entre cualquier par de la red pasan por ellos, y su
+ausencia fragmentaría la estructura o alargaría los tiempos de forma
+generalizada. La centralidad de intermediación $B(v)$ mide exactamente
+esa condición: la proporción de rutas mínimas del grafo que atraviesan
+cada nodo.
+
+Dado un grafo $\mathcal{G}$ con nodos $\mathcal{V}$, la centralidad de
+intermediación de un nodo $v$ se define como:
+
+\begin{equation*}
+    B(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}
+    \tag{\ref{eq:betweenness}}
+\end{equation*}
+
+\noindent donde:
+\begin{itemize}
+    \item $\sigma_{st}$: cantidad de rutas mínimas entre los nodos $s$ y $t$.
+    \item $\sigma_{st}(v)$: subconjunto de esas rutas que pasan por $v$.
+\end{itemize}
+
+El modelo calcula $B(v)$ mediante el algoritmo de Brandes, que reduce la
+complejidad computacional a $\mathcal{O}(VE)$ sobre grafos ponderados; la
+corrida sobre el componente gigante (10,561~nodos) tomó 593.4~segundos.
+
+Dicho de otro modo: hay estaciones que sostienen la red desde adentro
+sin que los usuarios lo noten. No son necesariamente las más
+transitadas; son las que aparecen en la ruta cuando no hay otra
+opción. Quitarlas no molesta a unos cuantos pasajeros —desorganiza
+trayectos que atraviesan cuadrantes enteros de la metrópoli.
+
+El Cuadro~\ref{tab:bv-top10} presenta los diez nodos con mayor $B(v)$
+calculados sobre el componente gigante. El resultado más llamativo:
+los diez son estaciones del Metro, y Tacubaya encabeza la lista con
+un valor de 0.2179.
+
+\begin{table}[H]
+    \centering
+    \caption[Top 10 nodos por centralidad de intermediación $B(v)$]{%
+    Diez nodos con mayor centralidad de intermediación ($B(v)$) en la
+    red de transporte de la \zmvm{}. Corrida: 2026-09-02.}
+    \label{tab:bv-top10}
+    \small
+    \begin{tabular}{|r|l|l|l|r|}
+        \hline
+        \textbf{\#} & \textbf{Estación} & \textbf{Sistema} &
+        \textbf{Alcaldía} & \textbf{$B(v)$} \\
+        \hline
+         1 & Tacubaya        & Metro & Miguel Hidalgo & 0.2179 \\
+         2 & Mixcoac         & Metro & Benito Juárez  & 0.1725 \\
+         3 & Hidalgo         & Metro & Cuauhtémoc     & 0.1595 \\
+         4 & Balderas        & Metro & Cuauhtémoc     & 0.1433 \\
+         5 & Lázaro Cárdenas & Metro & Cuauhtémoc     & 0.1376 \\
+         6 & Chilpancingo    & Metro & Cuauhtémoc     & 0.1366 \\
+         7 & Viaducto        & Metro & Benito Juárez  & 0.1346 \\
+         8 & Villa de Cortés & Metro & Benito Juárez  & 0.1341 \\
+         9 & Nativitas       & Metro & Benito Juárez  & 0.1299 \\
+        10 & Zapata          & Metro & Benito Juárez  & 0.1283 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}. Corrida: 2026-09-02.}
+\end{table}
+
+El Metro monopoliza los diez primeros puestos pese a concentrar
+menos del 2\,\% de las aristas de servicio real: su ventaja no es
+volumétrica sino posicional ---sus estaciones ocupan los puntos donde
+más rutas se cruzan.
+
+La distribución geográfica del top~10 es igualmente estrecha: siete
+de los diez nodos quedan en Benito Juárez o Cuauhtémoc, lo que revela
+que la intermediación de la red está concentrada en un corredor
+reducido del centro-poniente de la cuenca.
+
+La Figura~\ref{fig:grafica-bv-nodos} extiende ese ranking a los
+principales nodos de la red.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
+        Grafica_VFTModel_2026_Centralidad_Intermediacion_Nodos}
+    \caption[Centralidad de intermediación $B(v)$ --- top nodos de la red]{%
+    Ranking de los nodos con mayor centralidad de intermediación
+    ($B(v)$) en la red de transporte de la \zmvm{}.
+    Corrida: 2026-09-02.}
+    \label{fig:grafica-bv-nodos}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La centralidad topológica no siempre coincide con la afluencia real.
+Para verificarlo, la Figura~\ref{fig:grafica-top10-estaciones} muestra
+las diez estaciones con mayor volumen de usuarios según los registros
+de Apímetro ---un contraste directo con el ranking de $B(v)$ del
+Cuadro~\ref{tab:bv-top10}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/Apimetro/UniGrafica/%
+        Grafica_Apimetro_2026_Top_10_estaciones}
+    \caption[Top 10 estaciones por afluencia de usuarios --- \zmvm{}]{%
+    Diez estaciones con mayor volumen de usuarios registrado por
+    \texttt{Apímetro} en la red de transporte de la \zmvm{}.
+    Corrida: 2026-04-18.}
+    \label{fig:grafica-top10-estaciones}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{Apímetro} \citep{cabrera2025apimetro}.}
+\end{figure}
+
+La Figura~\ref{fig:grafica-bv-sistema} agrega esos valores por sistema,
+mostrando cuánto peso acumulado concentra cada modo en la intermediación
+global de la red.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
+        Grafica_VFTModel_2026_Centralidad_Intermediacion_sistema}
+    \caption[Centralidad de intermediación $B(v)$ acumulada por sistema]{%
+    Suma acumulada de $B(v)$ agrupada por sistema de transporte.
+    El Metro concentra la mayor proporción de intermediación global
+    de la red. Corrida: 2026-09-02.}
+    \label{fig:grafica-bv-sistema}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Para traducirlo al lenguaje urbano: imaginemos que cada par de colonias
+de la \zmvm{} traza su ruta más rápida hacia el destino. Las estaciones
+que aparecen con mayor frecuencia en ese ejercicio colectivo no son
+necesariamente las más concurridas en términos de afluencia, sino las
+más difíciles de sustituir: su ausencia obligaría a miles de trayectos
+a buscar desvíos más largos o, en el peor caso, a no encontrarlos.
+$B(v)$ mide exactamente esa indispensabilidad estructural.
+
+La Figura~\ref{fig:mapa-betweenness} traslada ese ranking al territorio,
+mostrando cómo la intermediación topológica se distribuye espacialmente
+sobre la cuenca metropolitana.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Mapa_Betweenness}
+    \caption[Mapa de centralidad de intermediación $B(v)$ --- \zmvm{}]{%
+    Distribución espacial de la centralidad de intermediación ($B(v)$)
+    en la red de transporte de la \zmvm{}. El corredor de alta
+    intermediación traza una banda en el centro-poniente de la cuenca.
+    Corrida: 2026-09-02.}
+    \label{fig:mapa-betweenness}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La concentración que revelan los datos tabulares adquiere forma geográfica
+en el mapa: el corredor de alta intermediación no cubre la metrópoli de
+manera uniforme, sino que traza una banda relativamente estrecha sobre el
+centro-poniente, dejando amplias zonas periféricas con valores bajos o
+nulos. Esas zonas ---las mismas que registraron menor cobertura y mayor
+Factor de Desviación en Fase~1--- son también las que dependen de los
+nodos del corredor central para cualquier viaje de largo aliento.
+
+La Figura~\ref{fig:dashboard-bv} consolida la visión integral del indicador
+sobre el conjunto de la red.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/VFTModel/Dashboards/%
+        Dashboard_VFTModel_2026_Centralidad_intermediacion}
+    \caption[Dashboard integral de centralidad de intermediación $B(v)$ --- \zmvm{}]{%
+    Vista integral del indicador de centralidad de intermediación ($B(v)$)
+    sobre la red de transporte de la \zmvm{}.
+    Corrida: 2026-09-02.}
+    \label{fig:dashboard-bv}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Los tres indicadores de Fase~3 ---tiempo de viaje, intermediación y
+vulnerabilidad preliminar--- apuntan en la misma dirección: la red
+concentra su capacidad de articulación en un corredor reducido del
+centro-poniente, mientras la periferia sur y oriente queda
+estructuralmente subordinada a él. La sección siguiente examina qué
+ocurre cuando alguno de esos nodos críticos desaparece de la red.
