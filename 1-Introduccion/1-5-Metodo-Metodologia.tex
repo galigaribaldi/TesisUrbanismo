@@ -59,10 +59,10 @@ para la visualización, validación espacial y análisis territorial de resultad
 
 La investigación se estructura en cuatro fases secuenciales e interdependientes,
 cada una orientada a cubrir uno o más de los objetivos específicos planteados.
-El hilo conductor del proceso es la construcción progresiva del análisis: de la
-adquisición y modelado de los datos hacia el diagnóstico estructural de la red,
-la simulación de escenarios y, finalmente, la formulación de lineamientos de
-política pública en materia de movilidad \citep{allauca2023}.
+El hilo que las une es la pregunta sobre el anillo: los datos se procesan
+para construir el grafo, el grafo se analiza para diagnosticar la red actual,
+y ese diagnóstico es el referente contra el que se mide el escenario hipotético
+\citep{allauca2023}.
 
 \subsection{Fase 1: Adquisición y construcción del grafo multimodal}
 \label{subsec:fase1}
@@ -142,15 +142,18 @@ Esta fase tiene una ponderación del 35\% y cubre los
 los indicadores calculados para identificar zonas con déficit de conectividad
         lateral, tiempos de traslado elevados y dependencia de nodos de alta
         intermediación \citep{mishra2015, ugur2025}.
-\item \textit{Diseño del escenario propuesto}: Modelado de corredores anillares
-en los cuatro cuadrantes del Anillo Periférico como un conjunto de nuevos
-nodos $\nodos'$ y aristas $\aristas'$ incorporados al grafo original, con
-pesos $\peso{i}{j}$ estimados a partir de la velocidad comercial de sistemas
-análogos de transporte masivo.
-\item \textit{Simulación comparativa}: Ejecución de \textit{VFTModel} sobre
-        el grafo ampliado para calcular la variación neta en $DI$, $T$ y $B(v)$,
-cuantificando la reducción de tiempos de traslado y la redistribución de la
-        centralidad de intermediación \citep{cabrera2026VFTModel}.
+\item \textit{Diseño de los escenarios hipotéticos}: Dos configuraciones de
+        corredor anillar de alta capacidad en los cuatro cuadrantes del
+        Anillo Periférico. El Caso~2 toma como referencia la operación del
+        Metro: velocidad comercial de 35~km/h y paradas cada 1\,200~m. El
+        Caso~3 toma como referencia el Metrobús: 22~km/h y paradas cada
+        600~m. En ambos, los pesos $\peso{i}{j}$ se calculan igual que en
+        el grafo base y las penalizaciones de transbordo no cambian.
+\item \textit{Simulación comparativa}: Se corre \textit{VFTModel} por
+        separado sobre el Caso~2 y el Caso~3; los valores de $DI$, $T$ y
+        $B(v)$ se comparan contra el Caso~1 para establecer qué
+        configuración anillar produce mayor beneficio topológico en la
+        \zmvm{} \citep{cabrera2026VFTModel}.
     \end{itemize}
 \end{description}
 
@@ -162,9 +165,10 @@ Esta fase tiene una ponderación del 10\% y complementa el
 
 \begin{description}
 \item[Objetivo de la Fase:] Interpretar los resultados comparativos de la
-simulación hipotética para evaluar la capacidad analítica de la metodología
-desarrollada y establecer las condiciones de replicabilidad del proceso en
-otros contextos metropolitanos con datos \gtfs{} disponibles.
+simulación hipotética para valorar el alcance del impacto topológico del
+escenario anillar y documentar los parámetros, supuestos y condiciones que
+hacen replicable el proceso en otros contextos metropolitanos con datos
+\gtfs{} disponibles.
 
     \item[Actividades a Desarrollar:]~
     \begin{itemize}

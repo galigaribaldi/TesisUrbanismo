@@ -147,6 +147,56 @@ carece de vínculos directos de transporte estructurado entre cuadrantes
 implementar corredores anillares en los cuatro cuadrantes del Anillo Periférico
 de la \cdmx{} como escenario de demostración metodológica.
 
+Para el análisis comparativo, este trabajo distingue dos variantes hipotéticas
+del corredor anillar según el modo que replican. El \textbf{Caso~2} adopta los
+parámetros operativos del Metro de la \cdmx{}: velocidad comercial de 35~km/h y
+paradas cada 1\,200~m. El \textbf{Caso~3} adopta los del Metrobús: 22~km/h y
+paradas cada 600~m. Ambos se incorporan al grafo multimodal como nodos y aristas
+adicionales; la comparación de sus indicadores $DI$, $T$ y $B(v)$ contra los del
+Caso~1 (red actual) permite estimar el impacto diferencial de cada modo.
+
+\subsubsection{Clasificación Garibelt y Escala Garibelt}
+\label{subsubsec:glosario-clasificacion-garibelt}
+La Clasificación Garibelt es un instrumento de síntesis diagnóstica que compila los cinco
+indicadores topológicos calculados por \textit{VFTModel} sobre el grafo multimodal de la
+\zmvm{}. Su propósito es revelar las fortalezas y debilidades estructurales de la red en
+cada dimensión de análisis de forma independiente; la normalización que emplea no agrega
+los indicadores en un escalar único, sino que los lleva a una escala común de lectura
+$[0,\,1]$ para permitir su clasificación. Esta distinción es central: siguiendo a
+\citet{hossain2024}, fusionar dimensiones inconmensurables genera el problema de
+\textit{compensabilidad}, donde un valor alto en eficiencia de ruta puede ocultar una
+vulnerabilidad estructural severa en la centralidad. El instrumento adopta, en cambio, el
+enfoque de perfil multidimensional empleado por \citet{kujala2018} para redes \gtfs{} de
+25 ciudades: un espectro de diagnóstico, no un ranking.
+
+La clasificación utiliza la \textbf{Escala Garibelt}, una escala de cuatro bandas que
+traduce el score normalizado $[0,\,1]$ a una categoría de diagnóstico urbano:
+
+\begin{table}[htbp]
+\centering
+\caption[Escala Garibelt]{Escala Garibelt: bandas de diagnóstico topológico.}
+\label{tab:escala-garibelt}
+\small
+\begin{tabular}{@{} l c p{7.5cm} @{}}
+\toprule
+\textbf{Banda} & \textbf{Rango normalizado} & \textbf{Interpretación urbana} \\
+\midrule
+Crítico   & $[0.00,\;0.25)$ & Deficiencia estructural severa; intervención prioritaria. \\
+Débil     & $[0.25,\;0.50)$ & Rendimiento por debajo de la mediana de la red; área de mejora. \\
+Aceptable & $[0.50,\;0.75)$ & Desempeño adecuado para la función urbana de la dimensión. \\
+Idóneo    & $[0.75,\;1.00]$ & La red es estructuralmente apta en esta dimensión. \\
+\bottomrule
+\end{tabular}
+\smallskip
+
+\fuentefigura{Elaboración propia.}
+\end{table}
+
+El producto final del instrumento es el \textbf{Espectro MJG}: una tabla descriptiva que
+presenta, dimensión por dimensión, la banda asignada y el valor normalizado correspondiente.
+La definición formal, sus cinco dimensiones y los criterios de normalización de cada una
+se desarrollan en la \autoref{sec:indicadores-formulas}.
+
 \subsubsection{Términos de arquitectura de software}
 \label{subsubsec:glosario-software}
 
