@@ -52,6 +52,9 @@ solo:
 	  "\def\SoloCapitulo{$(CAP)}\input{$(DOCUMENTO)}" || true
 	$(MOTOR) -interaction=nonstopmode \
 	  "\def\SoloCapitulo{$(CAP)}\input{$(DOCUMENTO)}"
+	@CAPNAME=$$(dirname "$(CAP)"); \
+	mv $(DOCUMENTO).pdf tesis_$$CAPNAME.pdf; \
+	echo "→ PDF generado: tesis_$$CAPNAME.pdf"
 
 ## bib: regenerar bibliografía — usar tras limpiar-todo o agregar citas
 bib:
