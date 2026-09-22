@@ -147,16 +147,28 @@ referencias.bib              ← Base de datos bibliográfica (natbib/apalike + 
 1-Introduccion/
 2-MarcoTeorico/
 3-Conceptos-Indicadores/
-  3-1-Definiciones.tex
-  3-2-Grafos-Matematicas.tex
-  3-3-Indicadores-Formula.tex
+  3-1-Definiciones/
+    3-1-1-Glosario-Base.tex  ← incluye subsubsec Clasificación Garibelt (2026-09-19)
+  3-2-Grafos-Matematicos/
+  3-3-Indicadores/
+    3-3-0-Intro.tex … 3-3-9-Resumen.tex
+    3-3-10-Clasificacion-Garibelt.tex  ← NUEVO (2026-09-19)
+  3-3-Indicadores-Formula.tex  ← padre; inputs 3-3-0 a 3-3-10
 4-Capas-Codigo/
-5-Resultados/
-6-Analisis-SocioEspacial/
-7-Conclusiones/
+5-Analisis-Red-Actual/       ← Cap. 5 activo (§5.1–§5.5 completos)
+  5-6-Clasificacion-Garibelt/  ← §5.6 en construcción (Issue #27)
+    CONTEXTO_CLASIFICACION_GARIBELT.md
+    (archivos .tex por crear: 5-6-Diagnostico, 5-6-1-Fundamento,
+     5-6-2-Clasificacion, 5-6-3-Espectro-MJG)
+6-Analisis-Red-Anillo/       ← Cap. 6 placeholder (Issue #22)
+7-Conclusiones/              ← Cap. 7 placeholder (Issue #23)
 Figures/Cap2/, Figures/Cap3/ ← Imágenes por capítulo
 Logos/                       ← Logos institucionales (PDF y PNG)
 ```
+
+> **Nota:** `5-Resultados/` y `6-Analisis-SocioEspacial/` fueron eliminados el
+> 2026-09-19. El contenido fue reescrito en `5-Analisis-Red-Actual/`. El historial
+> git los conserva.
 
 ---
 

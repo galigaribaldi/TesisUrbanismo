@@ -1,0 +1,117 @@
+% !TeX root = ../../../tesis.tex
+
+% =====================================================================
+\subsubsection{La Escala Garibelt}
+\label{subsubsec:garibelt-escala}
+% =====================================================================
+
+El resultado normalizado de cada dimensión cae en algún punto del
+intervalo $[0, 1]$. La Escala Garibelt divide ese intervalo en cuatro
+bandas que traducen el valor numérico a un diagnóstico territorial.
+Crítico $[0.00, 0.25)$ señala una deficiencia estructural severa: la
+dimensión requiere intervención antes que cualquier otra. Débil
+$[0.25, 0.50)$ indica rendimiento por debajo de la mediana; no es una
+emergencia, pero tampoco es aceptable sin un plan de mejora. Aceptable
+$[0.50, 0.75)$ describe una dimensión que cumple su función urbana sin
+destacar. Idóneo $[0.75, 1.00]$ reserva el extremo superior para redes
+con solidez estructural en ese aspecto. La
+Figura~\ref{fig:escala-garibelt-barra} muestra la distribución como
+espectro continuo.
+
+\begin{figure}[htbp]
+\centering
+\input{Figures/TiKz_Libraries/Diagramas/garibelt-escala-barra}
+\caption[Escala Garibelt: espectro de cuatro bandas de diagnóstico]{%
+    Escala Garibelt: distribución del intervalo $[0,1]$ en cuatro bandas
+    de diagnóstico territorial. Cada dimensión del Espectro MJG recibe
+    una banda según su valor normalizado.}
+\label{fig:escala-garibelt-barra}
+\fuentefigura{Elaboración propia.}
+\end{figure}
+
+% =====================================================================
+\subsubsection{Qué pregunta responde cada dimensión}
+\label{subsubsec:garibelt-preguntas}
+% =====================================================================
+
+Para leer el Espectro MJG sin necesidad de conocer los detalles
+computacionales, conviene tener presente qué pregunta urbana responde
+cada dimensión:
+\begin{itemize}
+    \item Cobertura~$C$: ¿cuánto del área metropolitana queda dentro del
+          radio de caminata de la red?
+    \item Fuerza capilar~$C_i$: ¿qué tan variadas son las opciones de
+          conexión disponibles en cada nodo?
+    \item Índice de ruta directa~$DI$: ¿obliga la red a recorrer
+          trayectos muy alejados de la distancia mínima?
+    \item Tiempo promedio~$T$: ¿cuánto dura un viaje típico de extremo
+          a extremo de la red?
+    \item Intermediación~$B(v)$: ¿depende el flujo de la red de unos
+          pocos nodos críticos o está distribuido entre muchos?
+\end{itemize}
+Cada banda del Espectro se lee como la respuesta a esa pregunta: Crítico
+significa que la respuesta es desfavorable en grado severo; Idóneo,
+que la red cumple con solidez estructural en esa dimensión.
+
+% =====================================================================
+\subsubsection{El procedimiento de normalización}
+\label{subsubsec:garibelt-procedimiento}
+% =====================================================================
+
+Llevar un valor bruto a la escala $[0, 1]$ de la Clasificación Garibelt
+requiere un rango de referencia. Para~$T$, ese rango lo entrega la
+\textsc{enoe}: los tiempos de traslado en la \cdmx{} oscilan en la
+práctica entre 85 y 180 minutos, de modo que 85 min normaliza a $1.0$
+(Idóneo) y 180 min a $0.0$ (Crítico). Para~$DI$, la teoría de grafos
+fija el piso en $1.0$ ---ruta directa perfecta--- y la práctica urbana
+establece el techo en $2.5$ ---desviación que ya resulta inaceptable
+para el usuario. Para~$C$, el estándar peatonal urbano de 80\,\% es la
+referencia. Para~$C_i$, el rango es el del propio dataset: los
+percentiles Q1 y Q3 de la distribución de grado nodal. Para~$B(v)$,
+se calcula el índice de Gini de la distribución completa de
+intermediación y se invierte: Gini~$= 0$ (distribución perfecta) da
+$1.0$; Gini cercano a $1$ (monopolio) da $0.0$. La
+Tabla~\ref{tab:normalizacion-garibelt} consolida estos rangos.
+
+\begin{table}[htbp]
+\centering
+\caption[Rangos de normalización de la Clasificación Garibelt]{%
+    Rangos de referencia y método de normalización para cada dimensión
+    de la Clasificación Garibelt~v1.}
+\label{tab:normalizacion-garibelt}
+\begin{tabularx}{\textwidth}{l c >{\raggedright\arraybackslash}X c c}
+    \toprule
+    \textbf{Dimensión} & \textbf{Símbolo} &
+    \textbf{Rango de referencia} &
+    \textbf{Valor óptimo} & \textbf{Valor crítico} \\
+    \midrule
+    Accesibilidad        & $C$    & 0\,\%–80\,\% (estándar peatonal)       & 80\,\%  & 0\,\%   \\
+    Conectividad capilar & $C_i$  & Q1–Q3 del dataset                      & Q3      & Q1      \\
+    Eficiencia de ruta   & $DI$   & 1.0–2.5 (límites teóricos)             & 1.0     & 2.5     \\
+    Fluidez global       & $T$    & 85–180 min (\textsc{enoe}/\cdmx{})     & 85 min  & 180 min \\
+    Centralidad crítica  & $B(v)$ & $1 - \mathrm{Gini}(B)$: rango $[0,1]$ & 1.0     & 0.0     \\
+    \bottomrule
+\end{tabularx}
+\smallskip
+\fuentefigura{Elaboración propia con base en \citet{talukder2017} y
+\citet{bocarejo2012}.}
+\end{table}
+
+% =====================================================================
+\subsubsection{Un tablero, no un marcador}
+\label{subsubsec:garibelt-tablero}
+% =====================================================================
+
+Una ciudad puede cubrir la cuota legal de suministro de agua y tener,
+al mismo tiempo, colonias con presión insuficiente, cortes en horas punta
+y parámetros de saneamiento fuera de norma. Un clasificador escalar único
+---«porcentaje de cobertura hídrica»--- tendería a ocultar esos puntos de
+falla detrás de un valor promedio que parece satisfactorio. El transporte
+metropolitano enfrenta el mismo problema de escala: la red puede mostrar
+tiempos de viaje razonables y, en paralelo, tener toda su carga
+concentrada en dos o tres nodos que la vuelven estructuralmente frágil.
+La Clasificación Garibelt mantiene las cinco dimensiones separadas
+precisamente para no perder esa información. \citet{deng2023} articulan
+el principio como \termino{Safe-to-Fail}: evaluar una red es localizar
+sus vulnerabilidades, no suavizarlas en un promedio. La subsección
+siguiente presenta el procedimiento con un ejemplo hipotético.

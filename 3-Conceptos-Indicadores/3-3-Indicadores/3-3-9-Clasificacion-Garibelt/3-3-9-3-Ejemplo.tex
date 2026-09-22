@@ -1,0 +1,35 @@
+% !TeX root = ../../../tesis.tex
+
+% =====================================================================
+\subsubsection{Ejemplo ilustrativo: Red Hipotética~\texorpdfstring{$\alpha$}{α}}
+\label{subsubsec:garibelt-ejemplo}
+% =====================================================================
+
+La Figura~\ref{fig:garibelt-perfil-hipotetico} recorre el procedimiento
+completo con la Red Hipotética~$\alpha$, cuyos valores son ilustrativos.
+El perfil muestra lo que el instrumento está diseñado para detectar:
+cobertura sólida en el territorio, pero eficiencia de ruta, fluidez y
+distribución de carga en la banda Débil. Si esta fuera la red real de
+una ciudad, el diagnóstico señalaría que el problema no es de alcance
+---la red llega--- sino de calidad del servicio una vez dentro de la red.
+
+\begin{figure}[htbp]
+\centering
+\input{Figures/TiKz_Libraries/Diagramas/garibelt-perfil-hipotetico}
+\caption[Perfil ilustrativo de la Clasificación Garibelt: Red Hipotética~$\alpha$]{%
+    Perfil Garibelt de la Red Hipotética~$\alpha$. Cada fila corresponde a
+    una dimensión del Espectro MJG; el círculo indica el valor normalizado
+    y su posición en la Escala Garibelt. Los valores son ilustrativos.}
+\label{fig:garibelt-perfil-hipotetico}
+\fuentefigura{Elaboración propia.}
+\end{figure}
+
+De los ocho indicadores del capítulo, dos quedan fuera de la versión~1
+del instrumento. $W_{s,h}$ (Penalización por Transferencia) tiene
+implementación parcial en el motor \termino{VFTModel}; su incorporación
+queda diferida a la versión~2. $\Delta E$ (Robustez Geométrica) requiere
+múltiples corridas del grafo con nodos removidos, operación que
+corresponde a la Fase~4 y está fuera del alcance del presente análisis.
+La aplicación del instrumento a la red de la \zmvm{} ---incluyendo los
+valores normalizados y la lectura por dimensión--- se presenta en la
+\autoref{sec:diagnostico-garibelt} del \autoref{ch:analisis-red-actual}.

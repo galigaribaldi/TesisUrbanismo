@@ -1,0 +1,58 @@
+% !TeX root = ../../../tesis.tex
+
+% =============================================================================
+%  SECCIÓN 3.3.9 — Clasificación Garibelt: instrumento de síntesis diagnóstica
+% =============================================================================
+
+\subsection{Clasificación Garibelt: instrumento de síntesis diagnóstica}
+\label{subsec:clasificacion-garibelt}
+
+Los ocho indicadores definidos en esta sección caracterizan la red de forma
+independiente: cada uno mide una dimensión específica del grafo $\grafo$ y
+produce un valor cuya unidad y escala le son propias. La
+\textbf{Clasificación Garibelt} opera en un nivel distinto: no es el noveno
+indicador sino un instrumento de síntesis que toma cinco de los ocho
+---$C$, $C_i$, $DI$, $T$ y $B(v)$--- y los reúne en un tablero de
+diagnóstico topológico sin colapsar sus diferencias en un escalar único.
+
+\begin{table}[htbp]
+\centering
+\caption[Clasificación Garibelt: dimensiones e instrumentos de normalización]{%
+    Clasificación Garibelt v1: cinco dimensiones, indicadores fuente y métodos
+    de normalización.}
+\label{tab:clasificacion-garibelt-dims}
+\begin{tabularx}{\textwidth}{c >{\raggedright\arraybackslash}X c c >{\raggedright\arraybackslash}X}
+    \toprule
+    \textbf{\#} & \textbf{Dimensión} & \textbf{Símbolo} &
+    \textbf{Método de normalización} & \textbf{Referencia de calibración} \\
+    \midrule
+    1 & Accesibilidad — Cobertura Espacial
+      & $C$
+      & \textit{Literature Standard}
+      & Estándar peatonal urbano (0–80\,\%) \\
+    2 & Conectividad capilar — Fuerza Capilar
+      & $C_i$
+      & \textit{Empirical Percentile}
+      & Percentiles Q1–Q3 del dataset \\
+    3 & Eficiencia de ruta — Índice de Ruta Directa
+      & $DI$
+      & \textit{Theoretical Bounds}
+      & $DI = 1$ óptimo; $DI \geq 2.5$ crítico \\
+    4 & Fluidez global — Tiempo de Viaje Promedio
+      & $T$
+      & \textit{Reference-based}
+      & \textsc{inegi}/\textsc{enoe} \cdmx{} (85–180\,min) \\
+    5 & Centralidad crítica — Intermediación (Gini)
+      & $B(v)$
+      & $1 - \mathrm{Gini}(B)$
+      & Monopolio topológico: Gini\,=\,0 equidistribuido \\
+    \bottomrule
+\end{tabularx}
+\smallskip
+\fuentefigura{Elaboración propia con base en \citet{bocarejo2012} y
+\citet{talukder2017}.}
+\end{table}
+
+\input{3-Conceptos-Indicadores/3-3-Indicadores/3-3-9-Clasificacion-Garibelt/3-3-9-1-Fundamento}
+\input{3-Conceptos-Indicadores/3-3-Indicadores/3-3-9-Clasificacion-Garibelt/3-3-9-2-Instrumento}
+\input{3-Conceptos-Indicadores/3-3-Indicadores/3-3-9-Clasificacion-Garibelt/3-3-9-3-Ejemplo}

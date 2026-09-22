@@ -1,0 +1,98 @@
+% !TeX root = ../../../tesis.tex
+
+% =====================================================================
+\subsubsection{El problema de la compensabilidad}
+\label{subsubsec:garibelt-compensabilidad}
+% =====================================================================
+
+Los cinco indicadores que integra este instrumento no son cinco formas
+distintas de medir lo mismo: son cinco dimensiones de un fenómeno que no
+admite una unidad de medida única. La cobertura~$C$ opera sobre fracciones
+del territorio; el tiempo promedio~$T$ recoge la experiencia del usuario en
+minutos; la intermediación~$B(v)$ describe la posición de cada nodo en la
+estructura del grafo. Reunir estas magnitudes en un solo número es
+técnicamente posible, pero produce una cifra que oscurece más de lo que
+revela. La Clasificación Garibelt propone una salida distinta: un tablero de
+cinco lecturas donde cada dimensión conserva su propio rango y su propio
+significado, y donde las diferencias estructurales permanecen visibles.
+
+Agregar cinco indicadores en un promedio parece resolver el problema de la
+heterogeneidad, pero introduce otro: el sesgo de compensabilidad. Una red
+puede obtener una nota global «aceptable» si dos dimensiones son excelentes,
+aunque una tercera esté en estado crítico; el promedio absorbe ese dato en
+lugar de exhibirlo \citep{hossain2024}. \citet{deng2023} documentan este
+riesgo en redes multimodales: la concentración de flujo en nodos clave no
+queda visible en índices compuestos, y esa invisibilidad dificulta la
+priorización de intervenciones. La
+Figura~\ref{fig:compensabilidad-garibelt} ilustra el contraste con la
+Red~$\beta$: el índice ponderado arroja $0.56$ —Aceptable— mientras el
+Espectro Garibelt deja en primer plano la dimensión de eficiencia en estado
+Crítico.
+
+\begin{figure}[htbp]
+\centering
+\input{Figures/TiKz_Libraries/Diagramas/garibelt-compensabilidad}
+\caption[Problema de compensabilidad en índices compuestos de transporte]{%
+    Problema de compensabilidad en una red hipotética ($\beta$). A la
+    izquierda, el índice ponderado produce $0.56$ (Aceptable), ocultando
+    que la eficiencia de ruta está en estado Crítico. A la derecha, el
+    Espectro Garibelt preserva esa información al mantener cada dimensión
+    en su propia banda.}
+\label{fig:compensabilidad-garibelt}
+\fuentefigura{Elaboración propia. Ejemplo hipotético con fines ilustrativos.}
+\end{figure}
+
+% =====================================================================
+\subsubsection{Normalización como calibración, no como agregación}
+\label{subsubsec:garibelt-normalizacion}
+% =====================================================================
+
+Resolver el problema de las unidades heterogéneas no es lo mismo que
+sumarlas: es calibrarlas. Llevar magnitudes distintas a una escala común
+sirve para que sean comparables en un mismo tablero, no para operarlas
+aritméticamente. \citet{kujala2018} construyeron un repositorio de
+indicadores de redes de transporte para 25 ciudades normalizando los datos
+\gtfs{} de cada una, pero sin producir un índice global: el resultado de
+su trabajo es un perfil multidimensional por ciudad, precisamente porque
+normalizar y agregar son operaciones con propósitos distintos. La
+Clasificación Garibelt sigue esa misma lógica: normaliza para que las
+cinco dimensiones se lean en la misma escala de bandas, no para sumarlas.
+
+% =====================================================================
+\subsubsection{Calibraciones distintas para naturalezas distintas}
+\label{subsubsec:garibelt-calibraciones}
+% =====================================================================
+
+Si cada dimensión tiene propiedades estadísticas distintas, no tendría
+sentido normalizarlas con el mismo procedimiento. \citet{talukder2017}
+formalizan este criterio al desarrollar el índice de Objetivos de
+Desarrollo Sostenible: el Paso~5 de las guías de la \textsc{ocde} exige
+que el método de normalización se ajuste tanto al marco teórico de la
+variable como a las propiedades de su distribución. En la Clasificación
+Garibelt esto se traduce así: $T$ se calibra contra el rango de tiempos
+de traslado documentado por la \textsc{enoe} para la \cdmx{} (85–180
+min), porque existe una referencia externa confiable; $DI$ se normaliza
+contra sus límites teóricos ($1.0$–$2.5$), porque la teoría de grafos
+define con precisión cuándo una ruta es óptima y cuándo es
+inaceptablemente desviada; $C_i$ usa percentiles del propio dataset,
+porque su significado es relativo al comportamiento de la red analizada;
+y $B(v)$ se transforma mediante el índice de Gini, que captura si el
+flujo de intermediación está concentrado o distribuido.
+
+% =====================================================================
+\subsubsection{Por qué estas cinco dimensiones}
+\label{subsubsec:garibelt-dimensiones}
+% =====================================================================
+
+Detrás de la selección de los cinco indicadores hay un marco teórico
+explícito. \citet{bocarejo2012} identifican cuatro componentes de la
+accesibilidad urbana que no tienen una unidad de medida en común:
+infraestructura, uso de suelo, restricciones temporales y condición del
+usuario. Los tres primeros son los que el instrumento captura. $T$ y $DI$
+miden qué tan eficiente y rápida es la red para conectar orígenes con
+destinos; $B(v)$ señala si esa eficiencia depende de pocos nodos o está
+distribuida; $C$ informa qué fracción del territorio metropolitano queda
+dentro del radio de caminata de alguna parada; $C_i$ refleja cuántas rutas
+convergen en cada nodo, funcionando como proxy de la oferta temporal. La
+condición socioeconómica del usuario ---el cuarto componente de Bocarejo y
+Oviedo--- queda diferida a la versión~2 del instrumento.

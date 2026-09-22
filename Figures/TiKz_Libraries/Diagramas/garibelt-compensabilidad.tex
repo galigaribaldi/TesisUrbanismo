@@ -1,0 +1,118 @@
+% Diagrama: Problema de compensabilidad — Clasificación Garibelt
+% Usado en: 5-Analisis-Red-Actual/5-6-Clasificacion-Garibelt/5-6-1-Fundamento.tex
+% fig:compensabilidad-garibelt
+%
+% Muestra cómo un índice compuesto (0.56 — Aceptable) oculta la dimensión
+% Crítica que el Espectro Garibelt sí deja visible.
+% Colores de bandas: red!65 / orange!65 / yellow!55!green!35 / green!50
+% Coordenadas diseñadas para caber en \textwidth (≈14 cm).
+
+\begin{tikzpicture}[
+    casilla/.style = {
+        rectangle,
+        minimum width  = 3.8cm,
+        minimum height = 0.65cm,
+        inner sep      = 5pt,
+        align          = center,
+        font           = \small,
+        rounded corners= 3pt
+    },
+    etiq/.style = {
+        font       = \small,
+        align      = right,
+        text width = 3.4cm
+    }
+]
+
+% ================================================================
+%  PANEL IZQUIERDO — índice compuesto
+%  Barra de escala [0,1] con 4 bandas; marcador en 0.56
+%  Barra: x in [0, 5];  y in [4.10, 4.85]
+%  Bandas: 0–1.25 / 1.25–2.50 / 2.50–3.75 / 3.75–5.00
+% ================================================================
+
+\node[font=\small\bfseries, align=center] at (2.5, 5.65)
+    {Índice compuesto};
+\node[font=\scriptsize\itshape, color=gray!60, align=center] at (2.5, 5.25)
+    {Red hipotética $\beta$};
+
+% Bandas coloreadas
+\fill[red!65]             (0.00, 4.10) rectangle (1.25, 4.85);
+\fill[orange!65]          (1.25, 4.10) rectangle (2.50, 4.85);
+\fill[yellow!55!green!35] (2.50, 4.10) rectangle (3.75, 4.85);
+\fill[green!50]           (3.75, 4.10) rectangle (5.00, 4.85);
+\draw[gray!50, thin]      (0.00, 4.10) rectangle (5.00, 4.85);
+\draw[gray!55, thin] (1.25, 4.10) -- (1.25, 4.85);
+\draw[gray!55, thin] (2.50, 4.10) -- (2.50, 4.85);
+\draw[gray!55, thin] (3.75, 4.10) -- (3.75, 4.85);
+
+% Etiquetas de banda
+\node[font=\tiny\bfseries, white]  at (0.625, 4.475) {Crít.};
+\node[font=\tiny\bfseries]         at (1.875, 4.475) {Débil};
+\node[font=\tiny\bfseries]         at (3.125, 4.475) {Acept.};
+\node[font=\tiny\bfseries, white]  at (4.375, 4.475) {Idón.};
+
+% Marcador en 0.56 → x = 0.56 × 5 = 2.80
+\fill[unamAzul!80]
+    (2.80, 4.10) -- (2.67, 3.86) -- (2.93, 3.86) -- cycle;
+\node[font=\footnotesize\bfseries, anchor=north]
+    at (2.80, 3.85) {$0.56$ — Aceptable};
+
+% Ticks de escala inferior
+\foreach \xval/\lab in {0.00/0.0, 1.25/0.25, 2.50/0.50, 3.75/0.75, 5.00/1.0}{
+    \draw[gray!45] (\xval, 4.10) -- (\xval, 3.97);
+    \node[font=\tiny, color=gray!55, anchor=north] at (\xval, 3.97) {\lab};
+}
+
+% ================================================================
+%  FLECHA CENTRAL
+% ================================================================
+\draw[-Stealth, thick, color=gray!45]
+    (5.30, 4.48) -- (6.10, 4.48)
+    node[midway, above, font=\tiny\itshape, color=gray!55] {desagregado};
+
+% ================================================================
+%  PANEL DERECHO — Espectro Garibelt
+%  Labels (right-aligned, text width 3.4 cm): centradas en x = 8.0
+%  Casillas (width 3.8 cm): centradas en x = 11.80
+%  Filas: y = 4.90, 4.08, 3.26, 2.44, 1.62  (dy = 0.82)
+% ================================================================
+
+\node[font=\small\bfseries, align=center] at (10.30, 5.65)
+    {Espectro Garibelt};
+\node[font=\scriptsize\itshape, color=gray!60, align=center] at (10.30, 5.25)
+    {misma Red $\beta$};
+
+% Fila 1 — Accesibilidad 0.80 Idóneo
+\node[etiq] at (8.0, 4.90) {Accesibilidad ($C$)};
+\node[casilla, fill=green!50, draw=gray!40]
+    at (11.80, 4.90) {$0.80$ — \textbf{Idóneo}};
+
+% Fila 2 — Conectividad 0.75 Idóneo
+\node[etiq] at (8.0, 4.08) {Conectividad ($C_i$)};
+\node[casilla, fill=green!50, draw=gray!40]
+    at (11.80, 4.08) {$0.75$ — \textbf{Idóneo}};
+
+% Fila 3 — Eficiencia 0.20 Crítico (resaltada)
+\node[etiq, font=\small\bfseries] at (8.0, 3.26) {Eficiencia ($DI$)};
+\node[casilla, fill=red!65, text=white, draw=red!70, line width=0.8pt]
+    at (11.80, 3.26) {$0.20$ — \textbf{Crítico}};
+
+% Fila 4 — Fluidez 0.45 Débil
+\node[etiq] at (8.0, 2.44) {Fluidez ($T$)};
+\node[casilla, fill=orange!65, draw=gray!40]
+    at (11.80, 2.44) {$0.45$ — Débil};
+
+% Fila 5 — Centralidad 0.60 Aceptable
+\node[etiq] at (8.0, 1.62) {Centralidad ($B(v)$)};
+\node[casilla, fill=yellow!55!green!35, draw=gray!40]
+    at (11.80, 1.62) {$0.60$ — Aceptable};
+
+% Nota al pie del panel derecho
+\node[font=\scriptsize\itshape, color=red!60,
+      anchor=north, text width=4.6cm, align=center]
+    at (10.30, 1.15)
+    {Dimensión Crítica: visible en el espectro,\\
+     oculta en el índice compuesto};
+
+\end{tikzpicture}
