@@ -2,67 +2,393 @@
 
 % ============================================================
 %  §5.6.2 — El Espectro MJG: diagnóstico de la red actual
+%  Valores confirmados (Dashboards 2026-09-23):
+%    C   = 4.4 % cob. 800 m  → 0.055  Crítico
+%    C_i = mediana 7.0 (Q1=6, Q3=10) → 0.250  Débil
+%    DI  = mediana 1.43      → 0.713  Aceptable
+%    T   = 108.92 min        → 0.748  Aceptable
+%    B(v)= Gini 0.7891 → 1−Gini → 0.211  Crítico
 % ============================================================
 
 \subsection{El Espectro MJG: diagnóstico de la red actual de la \zmvm}
 \label{subsec:espectro-mjg}
 
-% Valores confirmados (Notebook 06, 2026-09-18):
-%   T   = 108.92 min  → T_norm = (180-108.92)/(180-85) = 0.748 → Aceptable
-%   DI  = mediana ~1.4 → DI_norm = (2.5-1.4)/(2.5-1.0) = 0.733 → Aceptable
-%   FC top = 92       → C_i: \pendiente{Q1/Q3 desde Notebook 05}
-%   B(v) Tacubaya=0.2179 (top) → Gini: \pendiente{desde Notebook 06}
-%   C   = \pendiente{C integrada ZMVM desde coverage_df, Notebook 04}
+Los valores obtenidos en las Fases~1 a~3 ---calculados sobre el grafo
+de la \zmvm{} al 2025--- constituyen la entrada directa de la
+Clasificación Garibelt. La aplicación del instrumento a esos resultados
+produce el \textbf{Espectro MJG}: el perfil de cinco bandas que
+describe, sin colapsar dimensiones inconmensurables en un escalar, la
+condición estructural actual de la red de transporte colectivo de la
+metrópoli.
 
 % =====================================================================
-\subsubsection*{Apertura}
-\label{subsubsec:espectro-apertura}
-% =====================================================================
-
-% §5.6.2.A — Párrafo de transición del instrumento a la aplicación real.
-% Una oración que cierre el contexto de §5.6.1 y anuncie que los valores
-% de las Fases 1–3 se clasifican a continuación.
-% [POR REDACTAR — protocolo: 3 variantes → score → aprobación]
-
-% =====================================================================
-\subsubsection*{El Espectro MJG de la \zmvm{} 2026}
+\subsubsection{El perfil de cinco bandas}
 \label{subsubsec:espectro-tabla}
 % =====================================================================
 
-% §5.6.2.B — Tabla principal (tab:espectro-mjg) + párrafo de presentación.
-% Columnas: Dimensión | Indicador | Valor bruto | Valor normalizado | Banda
-% Párrafo anuncia qué muestra la tabla sin leer cada fila.
-% [tab:espectro-mjg POR CREAR — requiere C y C_i_norm confirmados]
+La Figura~\ref{fig:espectro-mjg-barras} reúne el resultado de aplicar
+la Clasificación Garibelt a los valores calculados en las Fases~1
+a~3. Cada barra horizontal corresponde a una dimensión del instrumento
+y su longitud indica el valor normalizado en la escala $[0,\,1]$; los
+valores brutos de cada indicador quedan anotados sobre la barra. Las
+líneas punteadas verticales delimitan los umbrales entre bandas.
+
+El Cuadro~\ref{tab:indicadores-espectro} recoge los cinco indicadores
+con su símbolo y expresión formal.
+
+\begin{table}[H]
+    \centering
+    \caption[Indicadores del Espectro MJG --- símbolo y expresión formal]{%
+    Los cinco indicadores de la Clasificación Garibelt, con su símbolo
+    y expresión formal. Las definiciones extendidas se presentan en
+    las secciones correspondientes de las Fases~1 a~3.}
+    \label{tab:indicadores-espectro}
+    \small
+    \begin{tabular}{|l|c|l|}
+        \hline
+        \textbf{Indicador} & \textbf{Símbolo} & \textbf{Expresión formal} \\
+        \hline
+        Nivel de Cobertura Espacial   & $C$    &
+            $C = A_{\text{cubierta}} / A_{\text{total}} \times 100$ \\
+        Alimentación Capilar          & $C_i$  &
+            $C_i(v) = k_{\text{in}}(v) + k_{\text{out}}(v)$ \\
+        Factor de Desviación          & $DI$   &
+            $DI = (D_{\text{red}} + D_{\text{cam}}) / D_{\text{hav}}(O,D)$ \\
+        Tiempo de Viaje Promedio      & $T$    &
+            $T = \overline{d}(s,\,t)$ \\
+        Centralidad de Intermediación & $B(v)$ &
+            $B(v) = \displaystyle\sum_{s \neq v \neq t}
+            \dfrac{\sigma_{st}(v)}{\sigma_{st}}$ \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia. Fases~1--3:
+    §§\ref{subsec:cobertura-espacial}--\ref{subsec:fase3-centralidad}.}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Dashboard_Espectro_Red_Actual}
+    \caption[Espectro MJG --- perfil Garibelt de la \zmvm{} 2026]{%
+    Perfil de la Clasificación Garibelt aplicado a la red de transporte
+    de la \zmvm{} al 2025. Barras horizontales sobre la Escala Garibelt
+    $[0,\,1]$; valor bruto del indicador anotado sobre cada barra;
+    líneas punteadas en los umbrales de banda. Corrida: 2026-09-02.}
+    \label{fig:espectro-mjg-barras}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Ninguna dimensión alcanza la banda Idóneo. Dos quedan en Crítico
+---$C$ y $B(v)$---, una en Débil ---$C_i$--- y dos en Aceptable
+---$T$ y $DI$. No se trata de una red inoperante: las dimensiones de
+servicio directo al usuario funcionan en rango aceptable. Lo que el
+espectro expone es una red que sirve razonablemente bien al pasajero
+que ya está dentro de ella, pero que no llega al territorio de manera
+uniforme y que descansa su efectividad sobre un número reducido de
+nodos.
 
 % =====================================================================
-\subsubsection*{Lectura por dimensión}
+\subsubsection{Lectura por dimensión}
 \label{subsubsec:espectro-lectura}
 % =====================================================================
 
-% §5.6.2.C — Un solo párrafo integrado con las 5 dimensiones agrupadas
-% por lo que revelan sobre el sistema:
-%   • T + DI  → calidad de servicio una vez dentro de la red
-%   • C       → alcance territorial
-%   • C_i     → variedad de opciones nodales
-%   • B(v)    → concentración de carga estructural
-% [POR REDACTAR — requiere C y C_i_norm para D y B(v) Gini]
+Los valores del espectro adquieren su significado pleno cuando se
+los devuelve al territorio. La lectura por dimensión que sigue no
+describe indicadores abstractos: describe condiciones concretas de
+la ciudad y de quienes la habitan.
+
+\paragraph{$C$ --- Nivel de Cobertura Espacial}
+
+El territorio de la \zmvm{} analizada comprende 141 demarcaciones: las
+16 alcaldías de la \cdmx{} y los 125 municipios conurbados de los
+estados de México, Hidalgo, Puebla y Tlaxcala incluidos en el dataset
+del \texttt{Apímetro}~\citep{cabrera2025apimetro}. Sobre ese conjunto,
+la cobertura peatonal de 800\,m alcanza el 4.4\,\%: 95 de cada 100
+metros cuadrados del suelo metropolitano quedan fuera del radio
+caminable de cualquier parada. Una red de agua potable con esa misma
+distribución dejaría a nueve de cada diez colonias dependientes de
+pipas o pozos para abastecerse. Que el viajero habitual de las
+alcaldías centrales no perciba ese déficit se explica por la
+polarización del propio dato: Cuauhtémoc registra hasta 99\,\% de
+cobertura bajo Corredores Concesionados
+(\autoref{subsubsec:cobertura-estructurados}), mientras 102 de las
+141 demarcaciones reportan cobertura cero en el escenario actual
+(\autoref{subsubsec:cobertura-deficit}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/%
+        Clasificacion_Garibelt_Mapa_Cobertura}
+    \caption[Clasificación Garibelt --- cobertura peatonal 800\,m sobre la \zmvm{}]{%
+    Distribución territorial de la cobertura peatonal (800\,m) sobre
+    las 141 demarcaciones de la \zmvm{}, coloreada por banda de la
+    Escala Garibelt. Las zonas sin cobertura se concentran en la
+    corona periférica sur y oriente de la cuenca.
+    Corrida: 2026-09-24.}
+    \label{fig:mapa-garibelt-cobertura}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel},
+    GTFS~\citep{adip_gtfs_2024} e INEGI 2023.}
+\end{figure}
+
+\paragraph{$C_i$ --- Alimentación Capilar}
+
+Una mediana de 7.0 conexiones por nodo significa que la mitad de los
+nodos de la red tienen siete o menos aristas disponibles para
+distribuir o recibir flujo. En términos urbanos, es el equivalente
+de un barrio al que acceden solo siete calles: funcional en
+condiciones normales, pero expuesto a cualquier corte de una de
+ellas. El percentil~75 del grafo (Q3\,=\,10) revela que incluso los
+nodos mejor conectados apenas duplican ese valor: la red no tiene
+núcleos de alta redundancia distribuidos por el territorio, sino una
+base de nodos de baja conectividad sobre la que descansa la mayor
+parte de la circulación periférica.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/%
+        Clasificacion_Garibelt_Fuerza_Capilar}
+    \caption[Clasificación Garibelt --- alimentación capilar $C_i$ sobre la \zmvm{}]{%
+    Distribución territorial del grado nodal ($C_i$) sobre la \zmvm{},
+    coloreada por banda de la Escala Garibelt. Los nodos en banda
+    Crítico dominan la periferia; los nodos en bandas superiores se
+    concentran en el corredor central de la cuenca.
+    Corrida: 2026-09-24.}
+    \label{fig:mapa-garibelt-capilar}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel},
+    GTFS~\citep{adip_gtfs_2024} e INEGI 2023.}
+\end{figure}
+
+\paragraph{$DI$ --- Factor de Desviación}
+
+Una mediana de $DI = 1.43$ indica que el viaje en la red recorre,
+en promedio, un 43\,\% más de distancia que la línea recta entre el
+mismo par origen-destino: por cada kilómetro que separa al viajero
+de su destino, la red le exige trasladarse 1.43\,km sobre la
+infraestructura. El resultado queda en banda Aceptable, lo que
+señala que la red no impone rodeos severos en la mayoría de los
+trayectos. Sin embargo, la distribución no es homogénea: el extremo
+superior de la muestra ---$DI_{\text{máx}} = 4.34$,
+\autoref{subsubsec:di-casos}--- corresponde a viajes entre periferias
+opuestas de la cuenca, donde la ausencia de conectividad transversal
+obliga a internar el recorrido hacia el centro antes de salir de
+nuevo hacia la periferia contraria.
+
+\paragraph{$T$ --- Tiempo de Viaje Promedio}
+
+Un tiempo promedio de $T = 108.92$\,min refleja el costo temporal de
+conectar, sin preferencia de demanda, cualquier par de nodos del
+componente gigante de la red. La referencia comparativa proviene de
+la Encuesta Nacional de Ocupación y Empleo, que estima en 85\,min
+el desplazamiento promedio en la \zmvm{}; la diferencia de
+aproximadamente 24\,min tiene origen metodológico, no implica
+sobrestimación del sistema (\autoref{subsec:tiempo-viaje-promedio}).
+Para situar ese valor en términos cotidianos: un trabajador que
+tardara 109\,min en llegar a su destino y otros tantos en regresar
+destinaría más de tres horas y media diarias al traslado ---casi la
+mitad de una jornada de ocho horas solo en desplazarse. Que este
+indicador alcance la banda Aceptable refleja que la red cumple su
+función de conectar nodos en tiempos razonables para la cuenca; que
+no alcance Idóneo señala el margen estructural que una red de mayor
+capilaridad y menor concentración de carga podría reducir.
+
+\paragraph{$B(v)$ --- Centralidad de Intermediación}
+
+Un índice de Gini de $B(v) = 0.7891$ sobre los 10{,}561\,nodos del
+componente gigante indica que la capacidad de articulación de la red
+está concentrada de manera más desigual que el ingreso en la mayoría
+de los países de América Latina, donde el coeficiente típico oscila
+entre 0.40 y 0.55. La traducción directa: uno de cada cinco caminos
+mínimos de toda la red pasa por Tacubaya ($B(v) = 0.2179$,
+\autoref{subsec:fase3-centralidad}). En una ciudad de diez millones
+de viajes cotidianos, el equivalente sería que dos millones de esos
+viajes tuvieran que cruzar la misma estación sin importar su origen ni
+su destino. El resto del top-10 de intermediación está conformado
+exclusivamente por estaciones del Metro en el corredor
+centro-poniente: la red no tiene varios nodos de articulación
+distribuidos por el territorio; tiene una sola cadena de nodos
+críticos. La simulación exploratoria de
+\autoref{subsec:vulnerabilidad-estructural} cuantificó esa
+dependencia: retirar Tacubaya reduce la eficiencia global de la red
+en 2.58\,\%, la caída individual más alta del experimento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/%
+        Clasificacion_Garibelt_Betweenness_Centrality}
+    \caption[Clasificación Garibelt --- centralidad de intermediación
+    $B(v)$ sobre la \zmvm{}]{%
+    Distribución territorial de la centralidad de intermediación
+    ($B(v)$) sobre la \zmvm{}, coloreada por banda de la Escala
+    Garibelt. El corredor de alta intermediación traza una banda
+    estrecha en el centro-poniente; la periferia registra valores en
+    banda Crítico de forma generalizada. Corrida: 2026-09-24.}
+    \label{fig:mapa-garibelt-betweenness}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel},
+    GTFS~\citep{adip_gtfs_2024} e INEGI 2023.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Dashboard_Betweenness_Red_Actual}
+    \caption[Ranking de centralidad de intermediación $B(v)$ --- \zmvm{}]{%
+    Ranking de los nodos con mayor centralidad de intermediación en
+    la red de la \zmvm{}, desglosado por sistema de transporte.
+    Tacubaya encabeza la jerarquía con $B(v) = 0.2179$.
+    Corrida: 2026-09-02.}
+    \label{fig:dashboard-betweenness-garibelt}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Las cinco lecturas confluyen en un mismo diagnóstico: la red de la
+\zmvm{} llega al territorio, pero lo hace de forma desigual y con
+escasa redundancia. Las condiciones del viaje para quien ya accede
+a ella son razonables; las condiciones de acceso para quien está
+en la periferia son, en la mayor parte del suelo metropolitano,
+inexistentes. La Figura~\ref{fig:kpi-red-actual} sintetiza esos
+valores brutos en un panel de indicadores.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Dashboard_KPI_Red_Actual}
+    \caption[KPI de indicadores estructurales --- \zmvm{} 2026]{%
+    Valores brutos de los cuatro indicadores síntesis de la red de
+    transporte de la \zmvm{}; color por banda de la Escala Garibelt.
+    Corrida: 2026-09-02.}
+    \label{fig:kpi-red-actual}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
 
 % =====================================================================
-\subsubsection*{El patrón estructural de la \zmvm}
-\label{subsubsec:espectro-sintesis}
-% =====================================================================
-
-% §5.6.2.D — Síntesis analítica: qué dice el perfil como conjunto.
-% Hallazgo central del capítulo: la red llega al territorio pero
-% concentra carga y muestra eficiencia en rango Aceptable, no Idóneo.
-% [POR REDACTAR]
-
-% =====================================================================
-\subsubsection*{El Espectro MJG como línea base}
+\subsubsection{El Espectro MJG como línea base}
 \label{subsubsec:espectro-cierre}
 % =====================================================================
 
-% §5.6.2.E — Cierre: este perfil establece la condición de referencia.
-% Cap. 6 aplica el mismo instrumento a la red con el anillo y compara
-% los dos perfiles dimensión a dimensión.
-% [POR REDACTAR]
+La red de transporte colectivo de la \zmvm{} es una de las más extensas
+del mundo en términos de cobertura nominal: Metro, Metrobús, Trolebús,
+Cablebús, Corredores Concesionados, Red de Transporte de Pasajeros (RTP),
+Tren Ligero y, en los municipios del Estado de México, Mexibús y Mexicable
+conforman un sistema multimodal que desde abril de 2019 opera bajo un
+esquema de pago único a través de la Tarjeta MI \citep{gaceta_movilidad_2019}.
+Esa homogeneización tarifaria convierte a la \zmvm{} en un territorio
+formalmente integrado desde la perspectiva del usuario: una sola tarjeta
+permite transbordar entre modos sin pagar una nueva tarifa. Sin embargo,
+la integración operacional y tarifaria no se extiende a la integración de
+datos: cada modo es administrado por un organismo o sindicato distinto, y
+sus registros de operación se encuentran dispersos en fuentes oficiales
+heterogéneas con distintos estándares de publicación
+(\autoref{ch:Capas-codigo}). Esa dispersión es la razón por la que el
+\texttt{Apímetro} fue necesario como paso previo al análisis: la herramienta
+normalizó los datos de 141 demarcaciones en un formato único que permitió
+construir el grafo sobre el que operan las Fases~1 a~3
+(\autoref{sec:apimetro-intro}).
+
+El análisis del Espectro MJG puede leerse en dos registros simultáneos:
+estructural y social. El registro estructural es el que producen los cinco
+indicadores de la Clasificación Garibelt y que se ha desarrollado a lo largo
+de este capítulo: describe la topología de la red, su alcance territorial,
+su eficiencia de trayecto y la distribución de su capacidad de articulación.
+El registro social es la traducción de esa topología a la experiencia
+cotidiana del habitante metropolitano, y su comprensión requiere situar a
+ese habitante en el territorio.
+
+La \zmvm{} puede organizarse en tres contornos de acceso al transporte
+estructurado. El primer contorno ---las alcaldías centrales de la \cdmx{}---
+concentra la red del Metro y los corredores de mayor frecuencia: el habitante
+de ese territorio accede a la red en condiciones de eficiencia altas, con
+tiempos de espera reducidos y transbordo caminable. El segundo contorno ---las
+alcaldías periféricas de la \cdmx{} y los municipios conurbados con mayor
+densidad de servicio--- dispone de Trolebús, Cablebús, Tren Ligero o Mexibús
+como modos de acceso al primer contorno; el tiempo de traslado aumenta, pero
+la cadena modal sigue siendo de dos o tres etapas. El tercer contorno ---la
+corona periférica de la \zmvm{} y en particular los municipios alejados del
+eje vial central--- accede al sistema a través de Corredores Concesionados,
+RTP y servicios no formalizados: la secuencia habitual implica dos o tres
+transbordos antes de alcanzar el Metro, lo que convierte el traslado en un
+gasto compuesto de tiempo y dinero. \citet{rendon2009ciudadanos} describe
+esta jerarquía bajo la figura de ciudadanos de primera, segunda y tercera
+clase: la categoría a la que pertenece el habitante no la determina su
+condición socioeconómica declarada, sino la calidad del transporte que tiene
+más próximo. La relevancia de esa distinción se amplifica cuando se considera
+la \termino{pobreza de tiempo}: \citet{gaceta_cuidados_2026} define este
+concepto como la situación en que el habitante queda rebasado por el trabajo
+remunerado y no remunerado, sin margen para el descanso, el autocuidado,
+la participación social o el desarrollo personal. Para los habitantes del
+tercer contorno, el tiempo de traslado no es un costo periférico: es el
+factor que cierra ese margen.
+
+El conjunto de cinco valores define el carácter estructural de la red con
+más precisión que cualquier indicador individual. Una red que combina $T$
+y $DI$ aceptables con $C$ y $B(v)$ críticos no tiene un problema de
+operación: tiene un problema de distribución. La infraestructura produce
+viajes eficientes para quien ya forma parte de la red; el sistema no alcanza
+a convertir en usuarios a quienes quedan fuera de su radio de cobertura.
+Esa asimetría ---eficiencia interna, exclusión perimetral--- es el patrón
+estructural que el Espectro MJG registra.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Dashboard_Clasificacion_Red_Actual}
+    \caption[Clasificación Garibelt --- perfil y ranking de la \zmvm{} 2026]{%
+    Perfil de la Clasificación Garibelt aplicado a la red de la \zmvm{} al
+    2026, junto con el ranking de intermediación por nodo. El tablero combina
+    los cinco valores normalizados sobre la Escala Garibelt con la
+    distribución de $B(v)$ por sistema de transporte. Corrida: 2026-09-02.}
+    \label{fig:espectro-mjg-clasificacion}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La Figura~\ref{fig:espectro-mjg-clasificacion} presenta el perfil Garibelt
+completo junto con el ranking de intermediación. La combinación de ambas
+vistas permite leer, al mismo tiempo, cuánto logra la red y desde qué nodos
+lo logra. Este perfil se convierte en la \textbf{línea base de referencia}
+del trabajo comparativo del Capítulo~6, donde los mismos cinco indicadores
+se calculan sobre los escenarios de red con anillo periférico ---$MB$ y
+$METRO$--- para cuantificar, dimensión a dimensión, el efecto estructural
+de cada propuesta de infraestructura.
+
+A diferencia de una puntuación global, un espectro de diagnóstico no aspira
+a colapsar la complejidad en un número: aspira a poner todas las dimensiones
+sobre la mesa para que quien toma decisiones pueda ver dónde están las
+fortalezas y dónde están las brechas. En medicina, un espectro no es un
+veredicto; es el paso previo al tratamiento. La analogía aplica al caso de
+la \zmvm{}: la red de transporte colectivo tiene fortalezas reales y
+documentadas ---su cobertura dentro del corredor central es extensa, su
+conectividad mejora conforme se acerca al núcleo de la cuenca, sus tiempos
+de viaje son razonables para quien ya forma parte del sistema--- y el
+objetivo del análisis no es impugnar esas fortalezas, sino identificar las
+condiciones bajo las cuales podrían replicarse en las zonas que todavía no
+las tienen. Diagnosticar una entidad tan vasta y heterogénea como la red
+metropolitana de la \zmvm{} con un solo indicador, o incluso con dos o tres
+términos urbanos convencionales, no es insuficiente: es metodológicamente
+incorrecto. Esa es también una de las apuestas centrales de este trabajo:
+la aplicación de herramientas computacionales modernas
+---\textsc{Python}, \textsc{Go}, \textsc{SQL}--- como soporte de conceptos
+matemáticos en problemas de análisis urbanístico permite construir un
+diagnóstico integral que ningún indicador aislado podría ofrecer. Sobre la
+red de la \zmvm{} no caben términos absolutos como «deficiente» o
+«ineficiente», pero tampoco «robusto» o «eficiente»: la red es las dos
+cosas en distintas partes del territorio y para distintos grupos de usuarios.
+Si el fin de esta investigación fuera el diagnóstico de la red actual, este
+capítulo podría ser su conclusión. No es el caso. La Clasificación Garibelt
+responde la primera pregunta ---¿en qué condición estructural se encuentra
+la red al año 2026?--- y lo hace con el rigor que permite el estado actual
+de los datos. Los capítulos siguientes utilizarán ese diagnóstico como línea
+base para explorar si, y en qué medida, la incorporación de un anillo de
+transporte periférico modifica el perfil de las cinco bandas.
