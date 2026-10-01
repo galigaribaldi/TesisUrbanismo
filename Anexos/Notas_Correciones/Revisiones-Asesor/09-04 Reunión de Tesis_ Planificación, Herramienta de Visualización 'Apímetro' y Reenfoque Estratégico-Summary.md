@@ -3,7 +3,7 @@
 # Resumen de Reunión Técnica - Planificación de Tesis de Maestría
 **Fecha de la Reunión:** 04 de septiembre de 2026
 **Hora de la Reunión:** 14:46:59
-**Asistentes:** Galileo (Estudiante de Maestría), Tutor (Ingeniero/Asesor)
+**Asistentes:** Galileo (Estudiante de Maestría), Tutor (Dr David Flores López, Asesor)
 ### **Índice de Temas**
 1. **Revisión y Comentarios del Borrador de la Tesis**
    - Revisión por el Dr. Jairo Olguín Roque

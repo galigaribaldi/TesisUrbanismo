@@ -52,6 +52,10 @@
       "Bash(git commit *)"
     ]
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "env": {
     "LATEX_ENGINE": "xelatex",
     "BIB_ENGINE": "bibtex",
