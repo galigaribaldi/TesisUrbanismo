@@ -80,6 +80,43 @@ con su símbolo y expresión formal.
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption[Espectro MJG --- diagnóstico cuantitativo de la red actual]{%
+    Espectro MJG: valor bruto, valor normalizado y banda de la Escala Garibelt
+    para cada dimensión de la Clasificación Garibelt aplicada a la red de la
+    \zmvm{}. Corrida: 2026-09-02.}
+\label{tab:espectro-mjg-diagnostico}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X c >{\raggedright\arraybackslash}X c c}
+    \toprule
+    \textbf{Dimensión} & \textbf{Sím.} & \textbf{Valor bruto} &
+    \textbf{Valor $[0,1]$} & \textbf{Banda} \\
+    \midrule
+    Accesibilidad — Cobertura Espacial
+        & $C$    & 4.4\,\% (área cubierta 800\,m / área total)
+        & 0.055 & \textbf{Crítico} \\
+    Conectividad capilar — Fuerza Capilar
+        & $C_i$  & mediana $= 7.0$\enspace (Q1\,=\,6;\enspace Q3\,=\,10)
+        & 0.250 & \textbf{Débil} \\
+    Eficiencia de ruta — Factor de Desviación
+        & $DI$   & mediana $= 1.43$
+        & 0.713 & Aceptable \\
+    Fluidez global — Tiempo de Viaje Promedio
+        & $T$    & 108.92\,min
+        & 0.748 & Aceptable \\
+    Centralidad crítica — Intermediación
+        & $B(v)$ & $\mathrm{Gini}(B) = 0.789$
+        & 0.211 & \textbf{Crítico} \\
+    \bottomrule
+\end{tabularx}
+\smallskip
+\fuentefigura{Elaboración propia. Valores calculados con
+\texttt{VFTModel}~\citep{cabrera2026VFTModel} sobre el grafo de
+la \zmvm{} al 2025. Métodos de normalización por dimensión:
+véase \autoref{tab:clasificacion-garibelt-dims}.}
+\end{table}
+
 Ninguna dimensión alcanza la banda Idóneo. Dos quedan en Crítico
 ---$C$ y $B(v)$---, una en Débil ---$C_i$--- y dos en Aceptable
 ---$T$ y $DI$. No se trata de una red inoperante: las dimensiones de

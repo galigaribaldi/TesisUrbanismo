@@ -41,11 +41,11 @@ algorítmicamente \citep{cabrera2026VFTModel}.
     \item \textbf{11 sistemas de transporte} representados: \textsc{Metro},
     Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Cablebús, Mexicable,
     Mexibús, \textsc{rtp}, Corredores Concesionados y Pumabús.
-    \item Distribución modal: \textbf{12\,\% infraestructura estructurada} con
+    \item Distribución modal: \textbf{7\,\% infraestructura estructurada} con
     derecho de vía exclusivo o confinado (\textsc{Metro}, Metrobús, Tren Ligero,
-    Cablebús, Tren Suburbano) y \textbf{88\,\% transporte de superficie} en
-    vía compartida o mixta (\textsc{rtp}, Corredores Concesionados, Trolebús,
-    Mexibús, Mexicable, Pumabús).
+    Cablebús, Tren Suburbano, Mexibús y Mexicable) y \textbf{93\,\% transporte
+    de superficie} en vía compartida o mixta (\textsc{rtp}, Corredores
+    Concesionados, Trolebús y Pumabús).
     \item \textbf{Componente gigante}: 10{,}561 nodos (95\,\% del total),
     sobre la cual se ejecutan los algoritmos de Fase~3.
 \end{itemize}
@@ -76,7 +76,7 @@ de fricción vial correspondiente.
         Tren Ligero (TL)              &     52   & Exclusivo   & 1.000 \\
         Cablebús (CBB)\textsuperscript{‡} &  30  & Confinado   & 1.152 \\
         Mexicable\textsuperscript{†}  &     17   & Confinado   & 1.152 \\
-        Tren Suburbano (SUB)          &      3   & Exclusivo   & 1.000 \\
+        Tren Suburbano (SUB)\textsuperscript{‡} &  3 & Exclusivo   & 1.000 \\
         \hline
         \textbf{Total}                & \textbf{25{,}197} & & \\
         \hline
@@ -89,11 +89,11 @@ de fricción vial correspondiente.
     paradas fueron integradas a partir de datos de
     \termino{OpenStreetMap} \citep{osm2012}.
 
-    \noindent\textsuperscript{‡}\,El sistema Cablebús registra únicamente
-    30 aristas, cifra inferior a la esperada para sus tres líneas operativas.
-    Esta subrepresentación es una limitación del \textit{backend} del
-    \textbf{Apímetro} en la fecha de corrida y no afecta los indicadores de
-    los sistemas restantes.
+    \noindent\textsuperscript{‡}\,El Cablebús registra únicamente 30 aristas
+    para sus tres líneas operativas; el Tren Suburbano registra solo 3 aristas
+    para sus siete estaciones activas. Ambos casos reflejan subrepresentación
+    en el dataset de origen a la fecha de corrida (2026-04-18) y no afectan
+    los indicadores de los demás sistemas.
 
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel}; datos: \citep{adip_gtfs_2024, osm2012}.}

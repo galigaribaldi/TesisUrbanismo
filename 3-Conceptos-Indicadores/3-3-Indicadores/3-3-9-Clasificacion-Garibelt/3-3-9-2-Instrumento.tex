@@ -10,9 +10,9 @@ intervalo $[0, 1]$. La Escala Garibelt divide ese intervalo en cuatro
 bandas que traducen el valor numérico a un diagnóstico territorial.
 Crítico $[0.00, 0.25)$ señala una deficiencia estructural severa: la
 dimensión requiere intervención antes que cualquier otra. Débil
-$[0.25, 0.50)$ indica rendimiento por debajo de la mediana; no es una
-emergencia, pero tampoco es aceptable sin un plan de mejora. Aceptable
-$[0.50, 0.75)$ describe una dimensión que cumple su función urbana sin
+$[0.25, 0.50)$ indica rendimiento en la mitad inferior del rango de 
+referencia normalizada; no constituye una emergencia, pero requiere un plan de mejora. 
+Aceptable $[0.50, 0.75)$ describe una dimensión que cumple su función urbana sin
 destacar. Idóneo $[0.75, 1.00]$ reserva el extremo superior para redes
 con solidez estructural en ese aspecto. La
 Figura~\ref{fig:escala-garibelt-barra} muestra la distribución como
@@ -71,31 +71,7 @@ percentiles Q1 y Q3 de la distribución de grado nodal. Para~$B(v)$,
 se calcula el índice de Gini de la distribución completa de
 intermediación y se invierte: Gini~$= 0$ (distribución perfecta) da
 $1.0$; Gini cercano a $1$ (monopolio) da $0.0$. La
-Tabla~\ref{tab:normalizacion-garibelt} consolida estos rangos.
-
-\begin{table}[htbp]
-\centering
-\caption[Rangos de normalización de la Clasificación Garibelt]{%
-    Rangos de referencia y método de normalización para cada dimensión
-    de la Clasificación Garibelt~v1.}
-\label{tab:normalizacion-garibelt}
-\begin{tabularx}{\textwidth}{l c >{\raggedright\arraybackslash}X c c}
-    \toprule
-    \textbf{Dimensión} & \textbf{Símbolo} &
-    \textbf{Rango de referencia} &
-    \textbf{Valor óptimo} & \textbf{Valor crítico} \\
-    \midrule
-    Accesibilidad        & $C$    & 0\,\%–80\,\% (estándar peatonal)       & 80\,\%  & 0\,\%   \\
-    Conectividad capilar & $C_i$  & Q1–Q3 del dataset                      & Q3      & Q1      \\
-    Eficiencia de ruta   & $DI$   & 1.0–2.5 (límites teóricos)             & 1.0     & 2.5     \\
-    Fluidez global       & $T$    & 85–180 min (\textsc{enoe}/\cdmx{})     & 85 min  & 180 min \\
-    Centralidad crítica  & $B(v)$ & $1 - \mathrm{Gini}(B)$: rango $[0,1]$ & 1.0     & 0.0     \\
-    \bottomrule
-\end{tabularx}
-\smallskip
-\fuentefigura{Elaboración propia con base en \citet{talukder2017} y
-\citet{bocarejo2012}.}
-\end{table}
+la Tabla~\ref{tab:clasificacion-garibelt-dims} consolida estos rangos.
 
 % =====================================================================
 \subsubsection{Un tablero, no un marcador}

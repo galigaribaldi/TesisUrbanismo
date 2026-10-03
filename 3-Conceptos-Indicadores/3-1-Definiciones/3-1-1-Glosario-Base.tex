@@ -104,11 +104,11 @@ topológicas e implementación computacional, se desarrolla en la
 
 \subsubsection{Red de transporte multimodal de la \zmvm{}}
 \label{subsubsec:glosario-red-multimodal}
-La red de transporte multimodal de la \zmvm{} comprende doce sistemas de
-transporte estructurado ---Metro, Metrobús, \brt{}, Tren Suburbano, Cablebús,
-Mexicable, Mexibús, Trolebús, Tren Ligero, Tren Interurbano, \textsc{rtp} y
-rutas de superficie concesionadas--- integrados bajo una estructura unificada de
-análisis \citep{semovi2020diagnostico}. En términos de grafo, las aristas de
+La red de transporte multimodal de la \zmvm{} comprende once sistemas de
+transporte ---Metro, Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Cablebús,
+Mexicable, Mexibús, \textsc{rtp}, Corredores Concesionados y Pumabús---
+integrados bajo una estructura unificada de análisis
+\citep{semovi2020diagnostico}. En términos de grafo, las aristas de
 trayecto representan los recorridos dentro de cada línea; las aristas de
 transferencia conectan modos distintos en el mismo punto físico, con un peso que
 refleja el tiempo de caminata entre andenes y el tiempo de espera según la
@@ -120,12 +120,15 @@ En la teoría de redes, un \termino{hub} es un nodo con un grado de conexión
 excepcionalmente alto respecto a la distribución del resto del sistema
 \citep{newman2010networks}. En el transporte metropolitano de la \cdmx{}, los
 Centros de Transferencia Modal (\textsc{cetram}) ---Pantitlán, Indios Verdes,
-Cuatro Caminos y Taxqueña--- operan como \textit{hubs} que concentran la
-articulación entre las redes capilares de superficie y las arterias masivas
-\citep{semovi2020diagnostico}. Su alta Centralidad de Intermediación $B(v)$ los
-convierte, simultáneamente, en los puntos de mayor vulnerabilidad ante fallas o
-saturación del sistema \citep{lotero2014vulnerabilidad} (§
-\ref{subsec:centralidad-intermediacion}).
+Cuatro Caminos y Taxqueña--- concentran la articulación entre las redes
+capilares de superficie y las arterias masivas en términos de afluencia de
+pasajeros \citep{semovi2020diagnostico}. Sin embargo, la alta afluencia de un
+nodo no implica necesariamente una alta centralidad topológica: el análisis de
+intermediación $B(v)$ presentado en la \autoref{subsec:fase3-centralidad}
+muestra que Tacubaya encabeza el ranking de intermediación de la red, mientras
+que los \textsc{cetram} formales exhiben posiciones más variadas. Esta
+disociación entre volumen de pasajeros y posición topológica es un hallazgo
+relevante para la priorización de intervenciones \citep{lotero2014vulnerabilidad}.
 
 \subsubsection{Corredor de alta capacidad anillar}
 \label{subsubsec:glosario-corredor-anillar}
@@ -150,7 +153,7 @@ de la \cdmx{} como escenario de demostración metodológica.
 Para el análisis comparativo, este trabajo distingue dos variantes hipotéticas
 del corredor anillar según el modo que replican. El \textbf{Caso~2} adopta los
 parámetros operativos del Metro de la \cdmx{}: velocidad comercial de 35~km/h y
-paradas cada 1\,200~m. El \textbf{Caso~3} adopta los del Metrobús: 22~km/h y
+paradas cada 1\,200~m. El \textbf{Caso~3} adopta los del Metrobús: 16.3~km/h y
 paradas cada 600~m. Ambos se incorporan al grafo multimodal como nodos y aristas
 adicionales; la comparación de sus indicadores $DI$, $T$ y $B(v)$ contra los del
 Caso~1 (red actual) permite estimar el impacto diferencial de cada modo.
@@ -182,7 +185,7 @@ traduce el score normalizado $[0,\,1]$ a una categoría de diagnóstico urbano:
 \textbf{Banda} & \textbf{Rango normalizado} & \textbf{Interpretación urbana} \\
 \midrule
 Crítico   & $[0.00,\;0.25)$ & Deficiencia estructural severa; intervención prioritaria. \\
-Débil     & $[0.25,\;0.50)$ & Rendimiento por debajo de la mediana de la red; área de mejora. \\
+Débil     & $[0.25,\;0.50)$ & Rendimiento en la mitad inferior del rango de referencia; área de mejora identificada. \\
 Aceptable & $[0.50,\;0.75)$ & Desempeño adecuado para la función urbana de la dimensión. \\
 Idóneo    & $[0.75,\;1.00]$ & La red es estructuralmente apta en esta dimensión. \\
 \bottomrule

@@ -7,8 +7,8 @@
 
 Cambiar de línea o de sistema no es gratuito en términos de tiempo.
 Más allá de la caminata entre andenes, el usuario debe esperar la
-llegada del siguiente servicio: una espera que depende de la frecuencia
-del sistema al que transborda. La penalización por transferencia ($T_b$)
+llegada del siguiente servicio: una espera que depende del intervalo de
+paso del sistema al que transborda. La penalización por transferencia ($T_b$)
 incorpora ese costo al grafo asignando un peso adicional a cada arista
 de tipo trasbordo.
 
@@ -17,11 +17,11 @@ de tipo trasbordo.
     \label{eq:penalizacion-transferencia}
 \end{equation}
 
-\noindent donde $F$ es la frecuencia del sistema destino expresada en
-minutos entre servicios. El factor $\tfrac{1}{2}$ representa la
-espera media esperada bajo llegadas aleatorias al andén: en promedio,
-el usuario llega en el punto medio del intervalo entre dos servicios
-consecutivos.
+\noindent donde $F$ es el intervalo de paso (\termino{headway}) del
+sistema de destino —los minutos que separan dos servicios consecutivos—.
+El factor $\tfrac{1}{2}$ representa la espera media esperada bajo
+llegadas aleatorias al andén: en promedio, el usuario llega en el punto
+medio del intervalo entre dos servicios consecutivos.
 
 La penalización actúa exclusivamente sobre las 20,482 aristas de
 trasbordo peatonal del grafo —aquellas que conectan nodos de sistemas

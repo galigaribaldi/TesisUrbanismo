@@ -17,40 +17,38 @@ diagnóstico topológico sin colapsar sus diferencias en un escalar único.
 
 \begin{table}[htbp]
 \centering
-\caption[Clasificación Garibelt: dimensiones e instrumentos de normalización]{%
-    Clasificación Garibelt v1: cinco dimensiones, indicadores fuente y métodos
-    de normalización.}
+\small
+\caption[Clasificación Garibelt v1: dimensiones, métodos de normalización y rangos de referencia]{%
+    Clasificación Garibelt v1: cinco dimensiones con su método de normalización
+    y rango de referencia para el diagnóstico topológico.}
 \label{tab:clasificacion-garibelt-dims}
-\begin{tabularx}{\textwidth}{c >{\raggedright\arraybackslash}X c c >{\raggedright\arraybackslash}X}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X c >{\raggedright\arraybackslash}l >{\raggedright\arraybackslash}X c c}
     \toprule
-    \textbf{\#} & \textbf{Dimensión} & \textbf{Símbolo} &
-    \textbf{Método de normalización} & \textbf{Referencia de calibración} \\
+    \textbf{Dimensión} & \textbf{Sím.} &
+    \textbf{Método de normalización} &
+    \textbf{Rango de referencia} &
+    \textbf{Óptimo} & \textbf{Crítico} \\
     \midrule
-    1 & Accesibilidad — Cobertura Espacial
-      & $C$
-      & \textit{Literature Standard}
-      & Estándar peatonal urbano (0–80\,\%) \\
-    2 & Conectividad capilar — Fuerza Capilar
-      & $C_i$
-      & \textit{Empirical Percentile}
-      & Percentiles Q1–Q3 del dataset \\
-    3 & Eficiencia de ruta — Índice de Ruta Directa
-      & $DI$
-      & \textit{Theoretical Bounds}
-      & $DI = 1$ óptimo; $DI \geq 2.5$ crítico \\
-    4 & Fluidez global — Tiempo de Viaje Promedio
-      & $T$
-      & \textit{Reference-based}
-      & \textsc{inegi}/\textsc{enoe} \cdmx{} (85–180\,min) \\
-    5 & Centralidad crítica — Intermediación (Gini)
-      & $B(v)$
-      & $1 - \mathrm{Gini}(B)$
-      & Monopolio topológico: Gini\,=\,0 equidistribuido \\
+    Accesibilidad — Cobertura Espacial
+      & $C$ & Estándar bibliográfico
+      & 0\,\%–80\,\% (peatonal urbano) & 80\,\% & 0\,\% \\
+    Conectividad capilar — Fuerza Capilar
+      & $C_i$ & Percentil empírico
+      & Q1–Q3 del dataset & Q3 & Q1 \\
+    Eficiencia de ruta — Índice de Ruta Directa
+      & $DI$ & Límites teóricos
+      & $[1.0,\;2.5]$ & 1.0 & 2.5 \\
+    Fluidez global — Tiempo de Viaje Promedio
+      & $T$ & Por referencia externa
+      & 85–180\,min (\textsc{enoe}/\cdmx{}) & 85\,min & 180\,min \\
+    Centralidad crítica — Intermediación
+      & $B(v)$ & $1 - \mathrm{Gini}(B)$
+      & Rango $[0,1]$, Gini invertido & 1.0 & 0.0 \\
     \bottomrule
 \end{tabularx}
 \smallskip
-\fuentefigura{Elaboración propia con base en \citet{bocarejo2012} y
-\citet{talukder2017}.}
+\fuentefigura{Elaboración propia con base en \citet{talukder2017} y
+\citet{bocarejo2012}.}
 \end{table}
 
 \input{3-Conceptos-Indicadores/3-3-Indicadores/3-3-9-Clasificacion-Garibelt/3-3-9-1-Fundamento}
