@@ -20,7 +20,7 @@ LATEXMKFLAGS = -interaction=nonstopmode -f
 .PHONY: pdf rapido bib borrador solo compilar-limpio latexmk watch \
         limpiar limpiar-todo tikz-clean \
         formatear formatear-preview \
-        checar-bib checar-etiquetas checar-refs ayuda
+        checar checar-bib checar-etiquetas checar-refs ayuda help
 
 ## pdf: compilación completa manual — XeLaTeX → BibTeX → XeLaTeX × 2
 pdf:
@@ -78,37 +78,21 @@ watch:
 # Herramientas de verificación
 # ──────────────────────────────────────────────────────────────────────────────
 
-## checar-bib: Citas usadas en el documento vs. entradas en referencias.bib
+## checar-bib: Claves citadas sin entrada en referencias.bib, entradas sin citar y \cite{} directo
 checar-bib:
-	@echo "── Claves citadas en el documento ──"
-	@grep -rh '\\citet{\|\\citep{' --include="*.tex" . \
-		| grep -oP '(?<=\{)[^}]+' | sort | uniq
-	@echo ""
-	@echo "── Claves definidas en referencias.bib ──"
-	@grep -oP '(?<=@\w{2,20}\{)[^,]+' referencias.bib | sort | uniq
+	@python3.10 tools/checar_latex.py bib
 
-## checar-etiquetas: Detectar \label duplicados en todos los .tex
+## checar-etiquetas: Detectar \label{} y label= (listings) duplicados
 checar-etiquetas:
-	@echo "── Labels duplicados ──"
-	@grep -rn '\\label{' --include="*.tex" . \
-		| grep -oP '(?<=\\label\{)[^}]+' \
-		| sort | uniq -d \
-		| while read l; do \
-			echo "DUPLICADO: $$l"; \
-			grep -rn "\\\\label{$$l}" --include="*.tex" .; \
-		done
-	@echo "Revisión completa."
+	@python3.10 tools/checar_latex.py etiquetas
 
-## checar-refs: Detectar \ref o \eqref sin \label correspondiente
+## checar-refs: Detectar \ref, \eqref, \autoref, \pageref sin \label
 checar-refs:
-	@echo "── Referencias sin label definido ──"
-	@refs=$$(grep -rh '\\ref{\|\\eqref{' --include="*.tex" . \
-		| grep -oP '(?<=\{)[^}]+' | sort | uniq); \
-	labels=$$(grep -rh '\\label{' --include="*.tex" . \
-		| grep -oP '(?<=\{)[^}]+' | sort | uniq); \
-	for r in $$refs; do \
-		echo "$$labels" | grep -qx "$$r" || echo "SIN LABEL: $$r"; \
-	done
+	@python3.10 tools/checar_latex.py refs
+
+## checar: Ejecutar las tres verificaciones (bib + etiquetas + refs)
+checar:
+	@python3.10 tools/checar_latex.py todo
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Formateo de prosa
@@ -152,7 +136,9 @@ tikz-clean:
 # Ayuda
 # ──────────────────────────────────────────────────────────────────────────────
 
-## ayuda: Mostrar esta lista de objetivos
+## ayuda: Mostrar esta lista de objetivos — alias «make help»
+help: ayuda
+
 ayuda:
 	@echo ""
 	@echo "  Tesis Urbanismo UNAM — Comandos disponibles"
@@ -165,4 +151,11 @@ ayuda:
 	@echo "    make solo CAP=6-Analisis.../1-Analisis     — compilar solo Cap. 6"
 	@echo "    make compilar-limpio                       — después de cambios estructurales"
 	@echo "    make tikz-clean && make compilar-limpio    — regenerar diagramas TikZ"
+	@echo "    make checar                                — verificar citas, labels y refs antes de enviar"
+	@echo ""
+	@echo "  Verificación (tools/checar_latex.py, ignora comentarios y Notas_Correciones/):"
+	@echo "    make checar-bib        — claves sin entrada en .bib (error) y entradas sin citar (aviso)"
+	@echo "    make checar-etiquetas  — labels duplicados, incluye label= de listings"
+	@echo "    make checar-refs       — ref, eqref, autoref y pageref sin label"
+	@echo "    Salida: archivo:línea por hallazgo; código 1 si hay errores"
 	@echo ""
