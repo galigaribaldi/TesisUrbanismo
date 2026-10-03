@@ -8,16 +8,17 @@
 %   F.3  Tableros Modelo VFT  → Figures/Mapas/Tableau_Resources/RedActual/VFTModel/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Este anexo reúne los recursos visuales analíticos generados durante el procesamiento
-de la red de transporte actual de la \zmvm{}. A diferencia del Anexo~E, que contiene
-los mapas de presentación para el jurado, este anexo sirve como referencia técnica
-completa para los capítulos de análisis. Cada figura está vinculada a uno o más
-indicadores del Capítulo~\ref{ch:analisis-red-actual}.
+Este anexo reúne los recursos visuales analíticos generados durante el
+procesamiento de la red de transporte actual de la \zmvm{}. A diferencia del
+Anexo~E, que contiene los mapas de presentación para el jurado, este anexo sirve
+como referencia técnica completa para los capítulos de análisis. Cada figura
+está vinculada a uno o más indicadores del Capítulo~\ref{ch:analisis-red-actual}
+.
 
 Los mapas cartográficos provienen de \textbf{QGIS~3.x} con proyección
 \textsc{epsg}:32614 (UTM zona~14N). Los tableros y gráficas fueron producidos
-con \textbf{Tableau Desktop 2026.1} a partir de los \textit{GeoPackages} exportados
-por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
+con \textbf{Tableau Desktop 2026.1} a partir de los \textit{GeoPackages}
+exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
 
 % =============================================================================
 \section{Cartografía \textsc{QGIS} — Red Actual}
@@ -59,16 +60,16 @@ por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
 \end{figure}
 
 % --- F.1.3 -------------------------------------------------------------------
-\subsection{Cobertura Espacial — Isócronas de 800~m}
+\subsection{Cobertura Espacial — \termino{Buffers} de 800~m}
 \label{anx:f-qgis-cobertura-total}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Cobertura_Red_Total}
-  \caption[Cobertura espacial de la red — isócronas 800~m, alta resolución]{Cobertura
+  \caption[Cobertura espacial de la red — \termino{buffers} de 800~m, alta resolución]{Cobertura
   espacial del indicador $C$ calculado por el Modelo VFT. El área sombreada representa
-  la zona alcanzable a 800~m de caminata desde cualquier parada o estación
-  (isócrona peatonal equivalente a 10--15~min). Las zonas sin cobertura
+  la zona situada en un radio de 800~m desde cualquier parada o estación
+  (unos 10.7~min de caminata en línea recta a 4.5~km/h). Las zonas sin cobertura
   revelan los municipios y alcaldías con mayor déficit de acceso estructurado al
   transporte público.}
   \label{fig:anx-f-qgis-cobertura-total}
@@ -85,7 +86,7 @@ por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Cobertura_Mapa_Calor}
   \caption[Densidad de cobertura de la red — mapa de calor, alta resolución]{Densidad
   de la cobertura espacial representada como mapa de calor. La intensidad refleja
-  la superposición de isócronas de distintos sistemas: los núcleos de mayor
+  la superposición de \termino{buffers} de distintos sistemas: los núcleos de mayor
   temperatura corresponden a zonas con acceso simultáneo a tres o más modos de
   transporte, mientras que las áreas frías indican escasa o nula cobertura multimodal.}
   \label{fig:anx-f-qgis-cobertura-calor}
@@ -367,11 +368,11 @@ exportados como \textit{GeoPackages} y servidos a Tableau Desktop a través del
 \subsection{Datos de Corrida: Factor de Desviación (n=100, semilla=42)}
 \label{anx:di-corrida-completa}
 
-Los 100 pares origen-destino generados con semilla reproducible $= 42$ sobre
-los que se calcularon los estadísticos del Cuadro~\ref{tab:di-estadisticas}
-del §\ref{subsubsec:di-distribucion}. Columnas: $D_r$ = distancia en línea
-recta (Haversine, km); $D_\text{red}$ = distancia recorrida en red (km);
-$DI$ = Factor de Desviación; Saltos = saltos topológicos de la ruta óptima.
+Los 100 pares origen-destino generados con semilla reproducible $= 42$ sobre los
+que se calcularon los estadísticos del Cuadro~\ref{tab:di-estadisticas} del §
+\ref{subsubsec:di-distribucion}. Columnas: $D_r$ = distancia en línea recta
+(Haversine, km); $D_\text{red}$ = distancia recorrida en red (km); $DI$ = Factor
+de Desviación; Saltos = saltos topológicos de la ruta óptima.
 
 {\scriptsize
 \begin{longtable}{|r|p{5.0cm}|p{5.0cm}|r|r|r|r|}

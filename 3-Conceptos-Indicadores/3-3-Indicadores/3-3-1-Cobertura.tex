@@ -58,26 +58,31 @@ indicador $C$: polígono de la zona de estudio (Área Total), nodos de transport
 
 \subsubsection{Consideraciones de Implementación}
 
-Para una representación más precisa que la del \textit{buffer} circular
-estático, se implementará el concepto de \termino{isócronas}: áreas de
-influencia construidas a partir de la red vial real de OpenStreetMap, que
-delimitan todos los puntos alcanzables caminando desde una parada en exactamente
-15 minutos a la velocidad promedio peatonal (4.5 km/h en zonas densas). Las
-isócronas producen polígonos irregulares que respetan barreras físicas como vías
-rápidas, cuerpos de agua o pendientes pronunciadas, ofreciendo una medida de
-cobertura sustancialmente más realista que un círculo uniforme.
+La implementación vigente, cuyos resultados se reportan en el Capítulo~
+\ref{ch:analisis-red-actual}, emplea \termino{buffers} circulares de 800~m
+alrededor de cada parada. A una velocidad peatonal de 4.5~km/h, ese radio
+equivale a unos 10.7 minutos de caminata en línea recta; la distancia real
+recorrida sobre la traza urbana suele ser mayor, por lo que el \termino{buffer}
+sobrestima el área efectivamente alcanzable. El cálculo se limita al área
+cubierta y no cruza todavía la capa de población.
 
-El resultado de las isócronas se superpone al censo poblacional del INEGI para
-calcular no solo el área cubierta, sino la \termino{población cubierta}: la
-fracción de habitantes de la zona metropolitana que reside dentro del área de
-influencia de alguna parada de la red.
+Esta simplificación se declara como limitación del análisis. Una versión
+posterior de la herramienta podría sustituir el \termino{buffer} por
+\termino{isócronas}: polígonos construidos sobre la red vial de OpenStreetMap
+que delimitan los puntos alcanzables a pie desde una parada en un umbral de
+tiempo dado. Las isócronas respetan barreras físicas como vías rápidas, cuerpos
+de agua o pendientes pronunciadas, y al superponerse al censo del INEGI
+permitirían estimar la \termino{población cubierta}, es decir, la fracción de
+habitantes de la zona metropolitana que reside dentro del área de influencia de
+alguna parada de la red.
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
 
-\textbf{Datos de entrada:} Coordenadas georreferenciadas de todas las paradas de
+\textbf{Datos de entrada:} coordenadas georreferenciadas de todas las paradas de
 la red (Metro, Metrobús, RTP, Trolebús, Cablebús, Mexibús) en formato
-\geojson{} ; polígono del área urbana de la \zmvm{} $\approx 7{,}866$\,km²; capa
-de manzanas del INEGI con datos de población del Censo 2020.
+\geojson{} y el polígono del área urbana de la \zmvm{}, de $\approx 7{,}866$\,
+km². La población por manzana del Censo 2020 del INEGI no se usa por ahora; se
+incorporaría cuando se calcule la población cubierta.
 
 
 \begin{table}[H]

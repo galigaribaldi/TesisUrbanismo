@@ -78,19 +78,20 @@ El uso de horarios \gtfs{} estáticos para estimar $T_{\text{wait}}$ introduce u
 sesgo conocido: los datos estandarizados representan únicamente horarios
 planificados, no tiempos reales de operación. \citet{fortin2016innovative}
 reconocen esta limitación y señalan que los horarios inscritos pueden ser
-incorrectos debido a la congestión o a errores de codificación. Para mitigar
-este sesgo, la variante dinámica de la penalización se calibrará mediante
-peticiones automatizadas a la \textit{Google Maps Directions API} (modo
-\texttt{transit}, con variación del parámetro \texttt{departure\_time}), que
-utiliza datos de \textit{crowdsourcing} (GPS de teléfonos móviles) para devolver
-tiempos de espera y caminata ajustados a condiciones históricas reales en
-distintos cortes horarios.
+incorrectos debido a la congestión o a errores de codificación. En la
+implementación actual, la penalización se calcula de forma estática como la
+mitad del intervalo de paso de cada sistema, sin calibración con datos
+observados. Como trabajo futuro, esa estimación podría contrastarse con tiempos
+de espera y caminata obtenidos por consultas automatizadas a la
+\textit{Google Maps Directions API} (modo \texttt{transit}, variando el
+parámetro \texttt{departure\_time}), que incorpora registros GPS de teléfonos
+móviles y permite comparar distintos cortes horarios.
 
 \subsubsection{Proyección Geográfica al Grafo: el Concepto de \termino{Snapping}}
 \label{subsubsec:snapping}
 
 Los indicadores $T$ y $W_{s,h}$ se calculan sobre nodos del grafo, pero los
-datos de entrada ---paradas GTFS y puntos de transbordo--- son coordenadas
+datos de entrada ---paradas \gtfs{} y puntos de transbordo--- son coordenadas
 geográficas que rara vez coinciden con exactitud con algún nodo de la red OSM.
 El \termino{snapping} resuelve esa discrepancia: para cada punto $p$ con
 coordenadas $(lat, lon)$, la operación identifica el nodo más cercano
@@ -104,8 +105,8 @@ $v^* \in \mathcal{V}$ del grafo y lo adopta como representante:
 donde $d(p, v)$ es la distancia haversine entre el punto geográfico y el nodo
 del grafo. Sin este paso, el cálculo de $T_{\text{walk}}(s, h)$ sería
 indefinido: el algoritmo no sabría desde qué nodo computar la ruta peatonal
-hacia el andén de destino. El snapping constituye así el puente entre la
-representación matemática del grafo y la geografía urbana real de la red,
+hacia el andén de destino. El \termino{snapping} constituye así el puente entre
+la representación matemática del grafo y la geografía urbana real de la red,
 haciendo posible traducir coordenadas de campo en insumos del modelo
 \citep{fortin2016innovative}.
 

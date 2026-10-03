@@ -5,15 +5,14 @@
 \subsection{Factor de Desviación (\texorpdfstring{$DI$}{DI})}
 \label{subsec:factor-desviacion}
 
-Cuando alguien planea un viaje con el mapa en mano, la distancia en
-línea recta entre origen y destino parece razonable. Lo que la red de
-transporte impone en la práctica es otra cosa: rutas que obligan a
-converger hacia el centro antes de salir hacia la periferia opuesta,
-trayectos que multiplican el recorrido respecto al camino ideal. El
-\textbf{Factor de Desviación} ($DI$) cuantifica exactamente esa
-brecha: es la razón entre la distancia real recorrida sobre la
-infraestructura —incluyendo la primera y última milla peatonal— y la
-distancia teórica en línea recta entre el mismo par origen-destino.
+Cuando alguien planea un viaje con el mapa en mano, la distancia en línea recta
+entre origen y destino parece razonable. Lo que la red de transporte impone en
+la práctica es otra cosa: rutas que obligan a converger hacia el centro antes de
+salir hacia la periferia opuesta, trayectos que multiplican el recorrido
+respecto al camino ideal. El \textbf{Factor de Desviación} ($DI$) cuantifica
+exactamente esa brecha: es la razón entre la distancia real recorrida sobre la
+infraestructura —incluyendo la primera y última milla peatonal— y la distancia
+teórica en línea recta entre el mismo par origen-destino.
 
 \begin{equation}
     DI = \frac{D_{\text{red}} + D_{\text{caminata}}}
@@ -32,21 +31,20 @@ distancia teórica en línea recta entre el mismo par origen-destino.
           Haversine.
 \end{itemize}
 
-Un valor de $DI = 1.0$ indica una ruta perfectamente directa; valores
-superiores a $1.5$ revelan ineficiencias topológicas significativas en
-el par origen-destino analizado.
+Un valor de $DI = 1.0$ indica una ruta perfectamente directa; valores superiores
+a $1.5$ revelan ineficiencias topológicas significativas en el par
+origen-destino analizado.
 
 % ---------------------------------------------------------------
 \subsubsection{Distribución en la Red}
 \label{subsubsec:di-distribucion}
 % ---------------------------------------------------------------
 
-Sobre una muestra de \textbf{100 pares origen-destino} (semilla
-reproducible $= 42$), el modelo arrojó los estadísticos globales del
-Cuadro~\ref{tab:di-estadisticas}. La distribución resultante —con
-media de $1.545$ y valores extremos entre $0.97$ y $4.34$— confirma
-que el recorrido promedio en la red metropolitana supera en más del
-50\,\% la distancia ideal.
+Sobre una muestra de \textbf{100 pares origen-destino} (semilla reproducible
+$= 42$), el modelo arrojó los estadísticos globales del Cuadro~
+\ref{tab:di-estadisticas}. La distribución resultante —con media de $1.545$ y
+valores extremos entre $0.97$ y $4.34$— confirma que el recorrido promedio en la
+red metropolitana supera en más del 50\,\% la distancia ideal.
 
 \begin{table}[H]
     \centering
@@ -74,13 +72,13 @@ que el recorrido promedio en la red metropolitana supera en más del
 \end{table}
 
 El registro completo de los 100 pares analizados —con sus distancias
-individuales, valores de $DI$ y número de saltos— se incluye en el
-Cuadro~\ref{tab:anx-di-corrida-completa} del
-Anexo~\ref{anx:visualizaciones-analiticas}.
+individuales, valores de $DI$ y número de saltos— se incluye en el Cuadro~
+\ref{tab:anx-di-corrida-completa} del Anexo~\ref{anx:visualizaciones-analiticas}
+.
 
-La Figura~\ref{fig:mapa-di} sitúa esa distribución sobre el
-territorio, permitiendo leer la magnitud del rodeo como fenómeno
-espacial antes de desagregarla por alcaldía.
+La Figura~\ref{fig:mapa-di} sitúa esa distribución sobre el territorio,
+permitiendo leer la magnitud del rodeo como fenómeno espacial antes de
+desagregarla por alcaldía.
 
 \begin{figure}[H]
     \centering
@@ -95,12 +93,12 @@ espacial antes de desagregarla por alcaldía.
     \label{fig:mapa-di}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel},
-    GTFS \citep{adip_gtfs_2024} e INEGI 2023.}
+    \gtfs{} \citep{adip_gtfs_2024} e INEGI 2023.}
 \end{figure}
 
-La Figura~\ref{fig:grafica-di-alcaldia} desagrega esa imagen
-territorial mostrando el $DI$ promedio por alcaldía, evidenciando
-cuáles demarcaciones concentran la mayor ineficiencia de trayecto.
+La Figura~\ref{fig:grafica-di-alcaldia} desagrega esa imagen territorial
+mostrando el $DI$ promedio por alcaldía, evidenciando cuáles demarcaciones
+concentran la mayor ineficiencia de trayecto.
 
 \begin{figure}[H]
     \centering
@@ -120,20 +118,19 @@ cuáles demarcaciones concentran la mayor ineficiencia de trayecto.
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-El patrón es consistente con los indicadores anteriores: las
-demarcaciones que registran menor cobertura y menor densidad de
-nodos de alta Fuerza Capilar son también las que imponen los mayores
-rodeos a sus usuarios.
+El patrón es consistente con los indicadores anteriores: las demarcaciones que
+registran menor cobertura y menor densidad de nodos de alta Fuerza Capilar son
+también las que imponen los mayores rodeos a sus usuarios.
 
 % ---------------------------------------------------------------
 \subsubsection{Casos de Estudio}
 \label{subsubsec:di-casos}
 % ---------------------------------------------------------------
 
-Para anclar los estadísticos en viajes concretos, se seleccionaron
-doce pares origen-destino estratégicos concentrados en las periferias
-sur y oriente de la cuenca. El Cuadro~\ref{tab:di-casos} consolida
-los valores de $DI$ para cada caso.
+Para anclar los estadísticos en viajes concretos, se seleccionaron doce pares
+origen-destino estratégicos concentrados en las periferias sur y oriente de la
+cuenca. El Cuadro~\ref{tab:di-casos} consolida los valores de $DI$ para cada
+caso.
 
 \begin{table}[H]
     \centering
@@ -171,24 +168,22 @@ los valores de $DI$ para cada caso.
     \citep{cabrera2026VFTModel}. Corrida: 2026-04-27.}
 \end{table}
 
-Entre los doce casos, el Caso~9 registra el $DI$ más alto del
-conjunto seleccionado ($DI = 2.52$): para ir de Milpa Alta a Santa
-Catarina Yecahuizotl —dos puntos del sur-oriente separados por apenas
-14.8~km en línea recta— la red obliga a recorrer 37.2~km, más del
-doble de la distancia ideal. Ese valor no es un accidente de la
-muestra; es la expresión métrica de la ausencia de conectividad
-transversal en ese cuadrante de la cuenca.
+Entre los doce casos, el Caso~9 registra el $DI$ más alto del conjunto
+seleccionado ($DI = 2.52$): para ir de Milpa Alta a Santa Catarina Yecahuizotl
+—dos puntos del sur-oriente separados por apenas 14.8~km en línea recta— la red
+obliga a recorrer 37.2~km, más del doble de la distancia ideal. Ese valor no es
+un accidente de la muestra; es la expresión métrica de la ausencia de
+conectividad transversal en ese cuadrante de la cuenca.
 
 % ---------------------------------------------------------------
 \subsubsection{Vista Integral de la Red}
 \label{subsubsec:di-vista-integral}
 % ---------------------------------------------------------------
 
-¿Cómo se distribuye el costo del rodeo sobre el territorio? La
-Figura~\ref{fig:dashboard-di} responde esa pregunta articulando en
-un solo panel la magnitud del $DI$ por alcaldía, la dispersión
-estadística de la muestra y la huella geográfica de las rutas
-analizadas.
+¿Cómo se distribuye el costo del rodeo sobre el territorio? La Figura~
+\ref{fig:dashboard-di} responde esa pregunta articulando en un solo panel la
+magnitud del $DI$ por alcaldía, la dispersión estadística de la muestra y la
+huella geográfica de las rutas analizadas.
 
 \begin{figure}[H]
     \centering
@@ -198,7 +193,7 @@ analizadas.
     \caption[Dashboard del Factor de Desviación — red multimodal
     \zmvm{}]{%
     Vista integral del Factor de Desviación ($DI$) sobre la red de
-    transporte masivo de la \zmvm{}, generada con el
+    transporte público de la \zmvm{}, generada con el
     \termino{dashboard} analítico del \texttt{VFTModel}.
     Corrida: 2026-04-27.}
     \label{fig:dashboard-di}
@@ -206,16 +201,15 @@ analizadas.
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-El análisis del \texttt{VFTModel} identifica en Tláhuac la alcaldía
-donde ese costo estructural es más pronunciado. El Caso~7 lo
-cuantifica con precisión: de Santa Catarina Yecahuizotl a Ciudad
-Universitaria hay 23~km en línea recta, pero la red exige 42~km de
-recorrido real ($DI = 1.82$), porque ninguna ruta de los datos
-procesados por \texttt{Apímetro} conecta esos dos puntos del sur sin
-internar el trayecto hacia el centro de la ciudad. No es un caso
-límite ni un atípico estadístico: es la geometría de una red sin
-conectividad transversal en ese cuadrante, medida con los mismos
-instrumentos que describen el resto del capítulo.
+El análisis del \texttt{VFTModel} identifica en Tláhuac la alcaldía donde ese
+costo estructural es más pronunciado. El Caso~7 lo cuantifica con precisión: de
+Santa Catarina Yecahuizotl a Ciudad Universitaria hay 23~km en línea recta, pero
+la red exige 42~km de recorrido real ($DI = 1.82$), porque ninguna ruta de los
+datos procesados por \texttt{Apímetro} conecta esos dos puntos del sur sin
+internar el trayecto hacia el centro de la ciudad. No es un caso límite ni un
+atípico estadístico: es la geometría de una red sin conectividad transversal en
+ese cuadrante, medida con los mismos instrumentos que describen el resto del
+capítulo.
 
 \begin{figure}[H]
     \centering
@@ -233,13 +227,12 @@ instrumentos que describen el resto del capítulo.
     \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-Los cuatro indicadores de Fase~1 —impedancia, cobertura, Fuerza
-Capilar y Factor de Desviación— describen colectivamente una red
-metropolitana con capacidades desiguales: bien articulada en el
-centro, con déficit progresivo hacia la periferia sur y oriente, y
-sin conectividad transversal en ese cuadrante. Esa descripción es
-topológica: se basa en la estructura del grafo, sin considerar las
-condiciones reales de operación. La Fase~2 incorpora esas condiciones
-mediante dos parámetros de ponderación dinámica —el Coeficiente de
-Fricción Vial ($CF$) y la penalización por transferencia ($T_b$)—
-que ajustan el modelo a la experiencia de viaje efectiva.
+Los cuatro indicadores de Fase~1 —impedancia, cobertura, Fuerza Capilar y Factor
+de Desviación— describen colectivamente una red metropolitana con capacidades
+desiguales: bien articulada en el centro, con déficit progresivo hacia la
+periferia sur y oriente, y sin conectividad transversal en ese cuadrante. Esa
+descripción es topológica: se basa en la estructura del grafo, sin considerar
+las condiciones reales de operación. La Fase~2 incorpora esas condiciones
+mediante dos parámetros de ponderación dinámica —el Coeficiente de Fricción Vial
+($CF$) y la penalización por transferencia ($T_b$)— que ajustan el modelo a la
+experiencia de viaje efectiva.
