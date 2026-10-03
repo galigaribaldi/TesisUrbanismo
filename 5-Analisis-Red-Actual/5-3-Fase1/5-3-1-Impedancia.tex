@@ -8,21 +8,20 @@
 Para verificar la consistencia del motor de impedancia del \textbf{Modelo VFT},
 se calculó la velocidad efectiva implícita de cada sistema tras aplicar el
 Coeficiente de Fricción Vial ($CF$) y se contrastó con los rangos operativos
-nominales documentados por los organismos operadores de la \zmvm{}. La
-velocidad efectiva se obtiene a partir de la
-Ecuación~\eqref{eq:velocidad-efectiva}:
+nominales documentados por los organismos operadores de la \zmvm{}. La velocidad
+efectiva se obtiene a partir de la Ecuación~\eqref{eq:velocidad-efectiva}:
 
 \begin{equation}
     V_{\text{efectiva}} = \frac{V_{\text{fallback}}}{CF}
     \label{eq:velocidad-efectiva}
 \end{equation}
 
-donde $V_{\text{fallback}}$ representa la velocidad comercial de flujo libre
-del sistema y $CF$ es el coeficiente de fricción según el tipo de derecho
-de vía (véase §\ref{subsec:fase2-cf}).
+donde $V_{\text{fallback}}$ representa la velocidad comercial de flujo libre del
+sistema y $CF$ es el coeficiente de fricción según el tipo de derecho de vía
+(véase §\ref{subsec:fase2-cf}).
 
-El Cuadro~\ref{tab:validacion-impedancia} sintetiza los resultados de la
-corrida ejecutada sobre \textbf{25{,}197 segmentos de servicio real}.
+El Cuadro~\ref{tab:validacion-impedancia} sintetiza los resultados de la corrida
+ejecutada sobre \textbf{25{,}197 segmentos de servicio real}.
 
 \begin{table}[H]
     \centering
@@ -68,8 +67,8 @@ corrida ejecutada sobre \textbf{25{,}197 segmentos de servicio real}.
 \end{figure}
 
 Los resultados son coherentes con la metodología adoptada. El caso más sensible
-es el del \textbf{Trolebús}, cuya velocidad efectiva ($\approx$13.0~km/h con
-$CF = 1.380$) se sitúa ligeramente por debajo del límite inferior del rango
+es el del \textbf{Trolebús}, cuya velocidad efectiva ($\approx$13.0~km/h con $CF
+= 1.380$) se sitúa ligeramente por debajo del límite inferior del rango
 operativo documentado (14--22~km/h). Esta diferencia de aproximadamente 1~km/h
 (7\,\%) es atribuible a que el tipo de derecho de vía \termino{compartido} no
 captura la preferencia operativa parcial que el trolebús mantiene en ciertas

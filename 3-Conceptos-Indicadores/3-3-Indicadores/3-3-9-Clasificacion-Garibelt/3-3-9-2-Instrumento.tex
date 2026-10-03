@@ -5,18 +5,16 @@
 \label{subsubsec:garibelt-escala}
 % =====================================================================
 
-El resultado normalizado de cada dimensión cae en algún punto del
-intervalo $[0, 1]$. La Escala Garibelt divide ese intervalo en cuatro
-bandas que traducen el valor numérico a un diagnóstico territorial.
-Crítico $[0.00, 0.25)$ señala una deficiencia estructural severa: la
-dimensión requiere intervención antes que cualquier otra. Débil
-$[0.25, 0.50)$ indica rendimiento en la mitad inferior del rango de 
-referencia normalizada; no constituye una emergencia, pero requiere un plan de mejora. 
-Aceptable $[0.50, 0.75)$ describe una dimensión que cumple su función urbana sin
-destacar. Idóneo $[0.75, 1.00]$ reserva el extremo superior para redes
-con solidez estructural en ese aspecto. La
-Figura~\ref{fig:escala-garibelt-barra} muestra la distribución como
-espectro continuo.
+El resultado normalizado de cada dimensión cae en algún punto del intervalo
+$[0, 1]$. La Escala Garibelt divide ese intervalo en cuatro bandas que traducen
+el valor numérico a un diagnóstico territorial. Crítico $[0.00, 0.25)$ señala
+una deficiencia estructural severa: la dimensión requiere intervención antes que
+cualquier otra. Débil $[0.25, 0.50)$ indica rendimiento en la mitad inferior del
+rango de referencia normalizada; no constituye una emergencia, pero requiere un
+plan de mejora. Aceptable $[0.50, 0.75)$ describe una dimensión que cumple su
+función urbana sin destacar. Idóneo $[0.75, 1.00]$ reserva el extremo superior
+para redes con solidez estructural en ese aspecto. La Figura~
+\ref{fig:escala-garibelt-barra} muestra la distribución como espectro continuo.
 
 \begin{figure}[htbp]
 \centering
@@ -34,9 +32,8 @@ espectro continuo.
 \label{subsubsec:garibelt-preguntas}
 % =====================================================================
 
-Para leer el Espectro MJG sin necesidad de conocer los detalles
-computacionales, conviene tener presente qué pregunta urbana responde
-cada dimensión:
+Para leer el Espectro MJG sin necesidad de conocer los detalles computacionales,
+conviene tener presente qué pregunta urbana responde cada dimensión:
 \begin{itemize}
     \item Cobertura~$C$: ¿cuánto del área metropolitana queda dentro del
           radio de caminata de la red?
@@ -50,44 +47,41 @@ cada dimensión:
           pocos nodos críticos o está distribuido entre muchos?
 \end{itemize}
 Cada banda del Espectro se lee como la respuesta a esa pregunta: Crítico
-significa que la respuesta es desfavorable en grado severo; Idóneo,
-que la red cumple con solidez estructural en esa dimensión.
+significa que la respuesta es desfavorable en grado severo; Idóneo, que la red
+cumple con solidez estructural en esa dimensión.
 
 % =====================================================================
 \subsubsection{El procedimiento de normalización}
 \label{subsubsec:garibelt-procedimiento}
 % =====================================================================
 
-Llevar un valor bruto a la escala $[0, 1]$ de la Clasificación Garibelt
-requiere un rango de referencia. Para~$T$, ese rango lo entrega la
-\textsc{enoe}: los tiempos de traslado en la \cdmx{} oscilan en la
-práctica entre 85 y 180 minutos, de modo que 85 min normaliza a $1.0$
-(Idóneo) y 180 min a $0.0$ (Crítico). Para~$DI$, la teoría de grafos
-fija el piso en $1.0$ ---ruta directa perfecta--- y la práctica urbana
-establece el techo en $2.5$ ---desviación que ya resulta inaceptable
-para el usuario. Para~$C$, el estándar peatonal urbano de 80\,\% es la
-referencia. Para~$C_i$, el rango es el del propio dataset: los
-percentiles Q1 y Q3 de la distribución de grado nodal. Para~$B(v)$,
-se calcula el índice de Gini de la distribución completa de
-intermediación y se invierte: Gini~$= 0$ (distribución perfecta) da
-$1.0$; Gini cercano a $1$ (monopolio) da $0.0$. La
-la Tabla~\ref{tab:clasificacion-garibelt-dims} consolida estos rangos.
+Llevar un valor bruto a la escala $[0, 1]$ de la Clasificación Garibelt requiere
+un rango de referencia. Para~$T$, ese rango lo entrega la \textsc{enoe}: los
+tiempos de traslado en la \cdmx{} oscilan en la práctica entre 85 y 180 minutos,
+de modo que 85 min normaliza a $1.0$ (Idóneo) y 180 min a $0.0$ (Crítico).
+Para~$DI$, la teoría de grafos fija el piso en $1.0$ ---ruta directa perfecta---
+y la práctica urbana establece el techo en $2.5$ ---desviación que ya resulta
+inaceptable para el usuario. Para~$C$, el estándar peatonal urbano de 80\,\% es
+la referencia. Para~$C_i$, el rango es el del propio dataset: los percentiles Q1
+y Q3 de la distribución de grado nodal. Para~$B(v)$, se calcula el índice de
+Gini de la distribución completa de intermediación y se invierte: Gini~$= 0$
+(distribución perfecta) da $1.0$; Gini cercano a $1$ (monopolio) da $0.0$. La la
+Tabla~\ref{tab:clasificacion-garibelt-dims} consolida estos rangos.
 
 % =====================================================================
 \subsubsection{Un tablero, no un marcador}
 \label{subsubsec:garibelt-tablero}
 % =====================================================================
 
-Una ciudad puede cubrir la cuota legal de suministro de agua y tener,
-al mismo tiempo, colonias con presión insuficiente, cortes en horas punta
-y parámetros de saneamiento fuera de norma. Un clasificador escalar único
----«porcentaje de cobertura hídrica»--- tendería a ocultar esos puntos de
-falla detrás de un valor promedio que parece satisfactorio. El transporte
-metropolitano enfrenta el mismo problema de escala: la red puede mostrar
-tiempos de viaje razonables y, en paralelo, tener toda su carga
-concentrada en dos o tres nodos que la vuelven estructuralmente frágil.
-La Clasificación Garibelt mantiene las cinco dimensiones separadas
-precisamente para no perder esa información. \citet{deng2023} articulan
-el principio como \termino{Safe-to-Fail}: evaluar una red es localizar
-sus vulnerabilidades, no suavizarlas en un promedio. La subsección
-siguiente presenta el procedimiento con un ejemplo hipotético.
+Una ciudad puede cubrir la cuota legal de suministro de agua y tener, al mismo
+tiempo, colonias con presión insuficiente, cortes en horas punta y parámetros de
+saneamiento fuera de norma. Un clasificador escalar único ---«porcentaje de
+cobertura hídrica»--- tendería a ocultar esos puntos de falla detrás de un valor
+promedio que parece satisfactorio. El transporte metropolitano enfrenta el mismo
+problema de escala: la red puede mostrar tiempos de viaje razonables y, en
+paralelo, tener toda su carga concentrada en dos o tres nodos que la vuelven
+estructuralmente frágil. La Clasificación Garibelt mantiene las cinco
+dimensiones separadas precisamente para no perder esa información.
+\citet{deng2023} articulan el principio como \termino{Safe-to-Fail}: evaluar una
+red es localizar sus vulnerabilidades, no suavizarlas en un promedio. La
+subsección siguiente presenta el procedimiento con un ejemplo hipotético.

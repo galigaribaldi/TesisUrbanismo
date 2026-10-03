@@ -5,13 +5,12 @@
 \subsection{Centralidad de Intermediación (\texorpdfstring{$B(v)$}{B(v)})}
 \label{subsec:fase3-centralidad}
 
-No todos los nodos de la red tienen el mismo peso en la conectividad
-global. Algunos funcionan como puentes inevitables: la mayoría de las
-rutas mínimas entre cualquier par de la red pasan por ellos, y su
-ausencia fragmentaría la estructura o alargaría los tiempos de forma
-generalizada. La centralidad de intermediación $B(v)$ mide exactamente
-esa condición: la proporción de rutas mínimas del grafo que atraviesan
-cada nodo.
+No todos los nodos de la red tienen el mismo peso en la conectividad global.
+Algunos funcionan como puentes inevitables: la mayoría de las rutas mínimas
+entre cualquier par de la red pasan por ellos, y su ausencia fragmentaría la
+estructura o alargaría los tiempos de forma generalizada. La centralidad de
+intermediación $B(v)$ mide exactamente esa condición: la proporción de rutas
+mínimas del grafo que atraviesan cada nodo.
 
 Dado un grafo $\mathcal{G}$ con nodos $\mathcal{V}$, la centralidad de
 intermediación de un nodo $v$ se define como:
@@ -31,16 +30,15 @@ El modelo calcula $B(v)$ mediante el algoritmo de Brandes, que reduce la
 complejidad computacional a $\mathcal{O}(VE)$ sobre grafos ponderados; la
 corrida sobre el componente gigante (10,561~nodos) tomó 593.4~segundos.
 
-Dicho de otro modo: hay estaciones que sostienen la red desde adentro
-sin que los usuarios lo noten. No son necesariamente las más
-transitadas; son las que aparecen en la ruta cuando no hay otra
-opción. Quitarlas no molesta a unos cuantos pasajeros —desorganiza
-trayectos que atraviesan cuadrantes enteros de la metrópoli.
+Dicho de otro modo: hay estaciones que sostienen la red desde adentro sin que
+los usuarios lo noten. No son necesariamente las más transitadas; son las que
+aparecen en la ruta cuando no hay otra opción. Quitarlas no molesta a unos
+cuantos pasajeros —desorganiza trayectos que atraviesan cuadrantes enteros de la
+metrópoli.
 
-El Cuadro~\ref{tab:bv-top10} presenta los diez nodos con mayor $B(v)$
-calculados sobre el componente gigante. El resultado más llamativo:
-los diez son estaciones del Metro, y Tacubaya encabeza la lista con
-un valor de 0.2179.
+El Cuadro~\ref{tab:bv-top10} presenta los diez nodos con mayor $B(v)$ calculados
+sobre el componente gigante. El resultado más llamativo: los diez son estaciones
+del Metro, y Tacubaya encabeza la lista con un valor de 0.2179.
 
 \begin{table}[H]
     \centering
@@ -70,18 +68,17 @@ un valor de 0.2179.
     \citep{cabrera2026VFTModel}. Corrida: 2026-09-02.}
 \end{table}
 
-El Metro monopoliza los diez primeros puestos pese a concentrar
-el 2.1\,\% de las aristas de servicio real: su ventaja no es
-volumétrica sino posicional ---sus estaciones ocupan los puntos donde
-más rutas se cruzan.
+El Metro monopoliza los diez primeros puestos pese a concentrar el 2.1\,\% de
+las aristas de servicio real: su ventaja no es volumétrica sino posicional
+---sus estaciones ocupan los puntos donde más rutas se cruzan.
 
-La distribución geográfica del top~10 es igualmente estrecha: siete
-de los diez nodos quedan en Benito Juárez o Cuauhtémoc, lo que revela
-que la intermediación de la red está concentrada en un corredor
-reducido del centro-poniente de la cuenca.
+La distribución geográfica del top~10 es igualmente estrecha: siete de los diez
+nodos quedan en Benito Juárez o Cuauhtémoc, lo que revela que la intermediación
+de la red está concentrada en un corredor reducido del centro-poniente de la
+cuenca.
 
-La Figura~\ref{fig:grafica-bv-nodos} extiende ese ranking a los
-principales nodos de la red.
+La Figura~\ref{fig:grafica-bv-nodos} extiende ese ranking a los principales
+nodos de la red.
 
 \begin{figure}[H]
     \centering
@@ -97,11 +94,10 @@ principales nodos de la red.
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-La centralidad topológica no siempre coincide con la afluencia real.
-Para verificarlo, la Figura~\ref{fig:grafica-top10-estaciones} muestra
-las diez estaciones con mayor volumen de usuarios según los registros
-de Apímetro ---un contraste directo con el ranking de $B(v)$ del
-Cuadro~\ref{tab:bv-top10}.
+La centralidad topológica no siempre coincide con la afluencia real. Para
+verificarlo, la Figura~\ref{fig:grafica-top10-estaciones} muestra las diez
+estaciones con mayor volumen de usuarios según los registros de Apímetro ---un
+contraste directo con el ranking de $B(v)$ del Cuadro~\ref{tab:bv-top10}.
 
 \begin{figure}[H]
     \centering
@@ -118,8 +114,8 @@ Cuadro~\ref{tab:bv-top10}.
 \end{figure}
 
 La Figura~\ref{fig:grafica-bv-sistema} agrega esos valores por sistema,
-mostrando cuánto peso acumulado concentra cada modo en la intermediación
-global de la red.
+mostrando cuánto peso acumulado concentra cada modo en la intermediación global
+de la red.
 
 \begin{figure}[H]
     \centering
@@ -135,17 +131,17 @@ global de la red.
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-Para traducirlo al lenguaje urbano: imaginemos que cada par de colonias
-de la \zmvm{} traza su ruta más rápida hacia el destino. Las estaciones
-que aparecen con mayor frecuencia en ese ejercicio colectivo no son
-necesariamente las más concurridas en términos de afluencia, sino las
-más difíciles de sustituir: su ausencia obligaría a miles de trayectos
-a buscar desvíos más largos o, en el peor caso, a no encontrarlos.
-$B(v)$ mide exactamente esa indispensabilidad estructural.
+Para traducirlo al lenguaje urbano: imaginemos que cada par de colonias de la
+\zmvm{} traza su ruta más rápida hacia el destino. Las estaciones que aparecen
+con mayor frecuencia en ese ejercicio colectivo no son necesariamente las más
+concurridas en términos de afluencia, sino las más difíciles de sustituir: su
+ausencia obligaría a miles de trayectos a buscar desvíos más largos o, en el
+peor caso, a no encontrarlos. $B(v)$ mide exactamente esa indispensabilidad
+estructural.
 
 La Figura~\ref{fig:mapa-betweenness} traslada ese ranking al territorio,
-mostrando cómo la intermediación topológica se distribuye espacialmente
-sobre la cuenca metropolitana.
+mostrando cómo la intermediación topológica se distribuye espacialmente sobre la
+cuenca metropolitana.
 
 \begin{figure}[H]
     \centering
@@ -161,13 +157,13 @@ sobre la cuenca metropolitana.
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-La concentración que revelan los datos tabulares adquiere forma geográfica
-en el mapa: el corredor de alta intermediación no cubre la metrópoli de
-manera uniforme, sino que traza una banda relativamente estrecha sobre el
-centro-poniente, dejando amplias zonas periféricas con valores bajos o
-nulos. Esas zonas ---las mismas que registraron menor cobertura y mayor
-Factor de Desviación en Fase~1--- son también las que dependen de los
-nodos del corredor central para cualquier viaje de largo aliento.
+La concentración que revelan los datos tabulares adquiere forma geográfica en el
+mapa: el corredor de alta intermediación no cubre la metrópoli de manera
+uniforme, sino que traza una banda relativamente estrecha sobre el
+centro-poniente, dejando amplias zonas periféricas con valores bajos o nulos.
+Esas zonas ---las mismas que registraron menor cobertura y mayor Factor de
+Desviación en Fase~1--- son también las que dependen de los nodos del corredor
+central para cualquier viaje de largo aliento.
 
 La Figura~\ref{fig:dashboard-bv} consolida la visión integral del indicador
 sobre el conjunto de la red.
@@ -187,8 +183,8 @@ sobre el conjunto de la red.
 \end{figure}
 
 Los tres indicadores de Fase~3 ---tiempo de viaje, intermediación y
-vulnerabilidad preliminar--- apuntan en la misma dirección: la red
-concentra su capacidad de articulación en un corredor reducido del
-centro-poniente, mientras la periferia sur y oriente queda
-estructuralmente subordinada a él. La sección siguiente examina qué
-ocurre cuando alguno de esos nodos críticos desaparece de la red.
+vulnerabilidad preliminar--- apuntan en la misma dirección: la red concentra su
+capacidad de articulación en un corredor reducido del centro-poniente, mientras
+la periferia sur y oriente queda estructuralmente subordinada a él. La sección
+siguiente examina qué ocurre cuando alguno de esos nodos críticos desaparece de
+la red.
