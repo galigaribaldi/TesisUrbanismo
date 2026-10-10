@@ -81,11 +81,11 @@ reconocen esta limitación y señalan que los horarios inscritos pueden ser
 incorrectos debido a la congestión o a errores de codificación. En la
 implementación actual, la penalización se calcula de forma estática como la
 mitad del intervalo de paso de cada sistema, sin calibración con datos
-observados. Como trabajo futuro, esa estimación podría contrastarse con tiempos
-de espera y caminata obtenidos por consultas automatizadas a la
-\textit{Google Maps Directions API} (modo \texttt{transit}, variando el
-parámetro \texttt{departure\_time}), que incorpora registros GPS de teléfonos
-móviles y permite comparar distintos cortes horarios.
+observados. Como trabajo futuro, esa estimación podría contrastarse con los
+tiempos de espera y caminata que devuelve la Google Maps Directions API en modo
+\texttt{transit}. Repetir las consultas con distintos valores del parámetro
+\texttt{departure\_time} permitiría comparar la penalización entre horas pico y
+valle.
 
 \subsubsection{Proyección Geográfica al Grafo: el Concepto de \termino{Snapping}}
 \label{subsubsec:snapping}

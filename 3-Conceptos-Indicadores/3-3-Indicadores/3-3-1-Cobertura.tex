@@ -38,9 +38,8 @@ señalar con precisión los lugares donde deben ocurrir las mejoras.
 Donde:
 \begin{itemize}
     \item $C$ = Nivel de Cobertura de la Red (adimensional, rango $[0, 1]$).
-\item \textbf{Área Cubierta} = Unión de los polígonos de cobertura (isócronas o
-    \textit{buffers} circulares) generados alrededor de cada parada de la red,
-    medida en km².
+\item \textbf{Área Cubierta} = Unión de los \termino{buffers} circulares de 800\,m
+    generados alrededor de cada parada de la red, medida en km².
 \item \textbf{Área Total} = Superficie del polígono urbano delimitado de la zona
     de estudio, en km².
 \end{itemize}
@@ -68,13 +67,13 @@ cubierta y no cruza todavía la capa de población.
 
 Esta simplificación se declara como limitación del análisis. Una versión
 posterior de la herramienta podría sustituir el \termino{buffer} por
-\termino{isócronas}: polígonos construidos sobre la red vial de OpenStreetMap
-que delimitan los puntos alcanzables a pie desde una parada en un umbral de
-tiempo dado. Las isócronas respetan barreras físicas como vías rápidas, cuerpos
-de agua o pendientes pronunciadas, y al superponerse al censo del INEGI
-permitirían estimar la \termino{población cubierta}, es decir, la fracción de
-habitantes de la zona metropolitana que reside dentro del área de influencia de
-alguna parada de la red.
+\termino{isócronas}: polígonos trazados sobre la red vial de OpenStreetMap que
+marcan hasta dónde se llega a pie desde una parada en cierto tiempo. Como siguen
+las calles, dejan fuera lo que una vía rápida o un cuerpo de agua impide
+alcanzar. Si además se cruzan con la población por manzana del Censo de
+Población y Vivienda 2020 del \textsc{inegi}, se obtiene la \termino{población
+cubierta}: la fracción de habitantes de la zona metropolitana que vive dentro
+del área de influencia de alguna parada.
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
 

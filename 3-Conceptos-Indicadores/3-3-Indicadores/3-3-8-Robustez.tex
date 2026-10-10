@@ -65,12 +65,19 @@ de ese nodo produce una degradación severa del servicio.
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
 
+Los valores del Cuadro~\ref{tab:robustez} son suposiciones esperadas y
+especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el
+indicador; no son resultados. Se contrastan con los valores calculados en
+§\ref{subsec:vulnerabilidad-estructural} y con el escenario del
+Capítulo~\ref{ch:analisis-red-anillo}, y pueden no coincidir con ellos.
+
 \textbf{Experimento:} Remoción del nodo «Pantitlán» (nodo de mayor $B(v)$ en la
 red actual).
 
 \begin{table}[H]
     \centering
-    \caption{Impacto del indicador $\Delta E$ ante la remoción de Pantitlán.}
+    \caption{Impacto supuesto del indicador $\Delta E$ ante la remoción de
+    Pantitlán.}
     \label{tab:robustez}
     \begin{tabularx}{\textwidth}{X r r r}
         \toprule
@@ -85,22 +92,16 @@ red actual).
     \end{tabularx}
 \end{table}
 
-La diferencia entre $\Delta E = 36\%$ (red radial sin anillo) y
-$\Delta E = 17\% $ (red con anillo periférico) demuestra algorítmicamente que la
-propuesta reduce la vulnerabilidad del sistema ante la pérdida del nodo más
-crítico en casi un 53\%, dotando a la red metropolitana de redundancia
-estructural.
+Si se cumpliera la suposición, el anillo reduciría a cerca de la mitad la
+pérdida de eficiencia ante la remoción del nodo más crítico.
 
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-robustez}).
 Conforme a la nota aclaratoria de §\ref{sec:indicadores-formulas}, la validación
 empírica de $\Delta E$ queda propuesta como línea de investigación futura.
 
-El indicador $\Delta E$ articula los Objetivos Específicos 3 y 5 (§
-\ref{subsec:obj-especificos}): la comparación de $\Delta E_{\text{actual}}$ con
-$\Delta E_{\text{anillo}}$ ante la remoción de los nodos más críticos del
-sistema demuestra si el corredor anillar propuesto reduce efectivamente la
-fragilidad de la red, dotándola de rutas alternativas capaces de absorber la
-demanda desplazada. Es, en este sentido, el indicador que cierra el argumento de
-la investigación al ligar la hipótesis urbanística con la demostración
-algorítmica.
+El indicador $\Delta E$ articula los Objetivos Específicos 3 y 5
+(§\ref{subsec:obj-especificos}). Al comparar $\Delta E_{\text{actual}}$ con
+$\Delta E_{\text{anillo}}$ tras retirar los nodos más críticos se sabe si el
+corredor anillar da a la red rutas alternativas para la demanda desplazada y,
+con ello, la vuelve menos frágil.

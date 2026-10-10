@@ -33,7 +33,7 @@ consecuente vulnerabilidad a ataques dirigidos.
 \subsubsection{Fórmula}
 
 \begin{equation}
-    B(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}
+    B(v) = \frac{1}{(N-1)(N-2)} \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}
     \label{eq:betweenness}
 \end{equation}
 
@@ -45,6 +45,8 @@ Donde:
     origen $s$ hasta el destino $t$.
     \item $\sigma_{st}(v)$ = Número de esos caminos mínimos que pasan
     forzosamente por la estación $v$.
+    \item $N$ = Número de nodos del grafo. El factor $1/\bigl((N-1)(N-2)\bigr)$
+    normaliza el valor para un grafo dirigido, de modo que $B(v) \in [0, 1]$.
 \end{itemize}
 
 La versión ponderada del indicador, $B(v, w)$, utiliza el tiempo de viaje real
@@ -67,9 +69,16 @@ necesariamente las más cortas en distancia.
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
 
+Los valores del Cuadro~\ref{tab:betweenness} son suposiciones esperadas y
+especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el
+indicador; no son resultados. Se contrastan con los valores calculados en
+§\ref{subsec:fase3-centralidad} y con el escenario del
+Capítulo~\ref{ch:analisis-red-anillo}, y pueden no coincidir con ellos.
+
 \begin{table}[H]
     \centering
-    \caption{Variación del indicador $B(v)$ antes y después del Anillo Periférico.}
+    \caption{Variación supuesta del indicador $B(v)$ antes y después del Anillo
+    Periférico.}
     \label{tab:betweenness}
     \begin{tabularx}{\textwidth}{X r r r}
         \toprule
@@ -84,18 +93,14 @@ necesariamente las más cortas en distancia.
     \end{tabularx}
 \end{table}
 
-La caída en la centralidad de intermediación de los nodos del centro de la
-ciudad, combinada con el surgimiento de nuevos nodos de alta centralidad en el
-Anillo Periférico, constituye la demostración algorítmica de que la propuesta
-descongestiona el núcleo urbano y redistribuye los flujos hacia la periferia.
+Bajo esa suposición, la centralidad de los nodos del centro bajaría y surgirían
+nodos de alta intermediación sobre el anillo, lo que redistribuiría los flujos
+hacia la periferia. Si eso ocurre o no se comprueba en los capítulos citados.
 
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-betweenness}).
 
 La Centralidad de Intermediación es la métrica central del Objetivo Específico 3
-(§\ref{subsec:obj-especificos}): identificar los nodos cuya pérdida
-comprometería la conectividad global del sistema equivale a encontrar los nodos
-que maximizan $B(v)$ en la red actual. Los valores de la tabla anterior
-anticipan que Pantitlán, Pino Suárez y Tacubaya concentran desproporcionadamente
-los flujos de la red radial, vulnerabilidad que el corredor anillar mitiga al
-distribuir esa centralidad sobre nuevos nodos perimetrales.
+(§\ref{subsec:obj-especificos}): los nodos cuya pérdida comprometería la
+conectividad del sistema son los que tienen el $B(v)$ más alto en la red
+actual.

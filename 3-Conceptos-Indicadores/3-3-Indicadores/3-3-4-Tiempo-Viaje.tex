@@ -15,16 +15,13 @@ que el criterio de optimalidad en el diseño de redes de transporte consiste en
 minimizar el tiempo promedio de viaje entre pares de puntos elegidos
 independientemente según su distribución en el territorio.
 
-De manera particularmente relevante para la hipótesis central de este trabajo,
-\citet{aldous2019optimal} demuestran analíticamente que, a medida que la
-longitud total de la red aumenta, ocurre una transición brusca en un valor
-crítico $L_c$ en el que aparece un bucle o anillo en la topología óptima de la
-red. Esto implica que, para redes de transporte a escala metropolitana, la
-incorporación de un corredor perimetral ---como el Anillo Periférico
-propuesto--- no solo es viable, sino que constituye la forma
-\textit{óptima esperada} de expansión de la red una vez superado cierto umbral
-de longitud total. Este resultado teórico provee el sustento matemático directo
-para la hipótesis de investigación.
+Para la hipótesis de este trabajo interesa otro resultado de
+\citet{aldous2019optimal}. En su modelo, cuando la longitud total de la red
+rebasa un valor crítico $L_c$, la topología óptima cambia de golpe y pasa a
+incluir un bucle o anillo. El modelo es idealizado; por eso aquí se toma como
+motivación teórica y no como prueba de que un corredor perimetral, como el
+Anillo Periférico, sea la mejor forma de ampliar la red de la \zmvm{}. Esa
+pregunta se examina con datos en el Capítulo~\ref{ch:analisis-red-anillo}.
 
 \subsubsection{Fórmula}
 
@@ -61,9 +58,15 @@ cuantitativa principal de la viabilidad de la propuesta.
 
 \subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
 
+Los valores del Cuadro~\ref{tab:tiempo-promedio} son suposiciones esperadas y
+especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el
+indicador; no son resultados. Se contrastan con el valor calculado en
+§\ref{subsec:tiempo-viaje-promedio} y con el escenario del
+Capítulo~\ref{ch:analisis-red-anillo}, y pueden no coincidir con ellos.
+
 \begin{table}[H]
     \centering
-    \caption{Estimaciones del indicador $T$ por escenario.}
+    \caption{Valores supuestos del indicador $T$ por escenario.}
     \label{tab:tiempo-promedio}
     \begin{tabularx}{\textwidth}{X r}
         \toprule
@@ -82,10 +85,11 @@ proyección de paradas geográficas a nodos del grafo previa al cálculo de
 $t_{ij}$ se describe en §\ref{subsubsec:snapping}.
 
 El indicador $T$ es el criterio de optimización central de la investigación,
-referenciado explícitamente en los Objetivos Específicos 2 y 5 (§
-\ref{subsec:obj-especificos}). La diferencia
-$\Delta T = T_{\text{actual}} - T_{\text{propuesto}}$ es la cifra que cuantifica
-el beneficio global del escenario hipotético anillar; el resultado teórico de
-\citet{aldous2019optimal} sobre la transición brusca en $L_c$ provee el sustento
-matemático de por qué ese $\Delta T$ debe ser positivo para una red
-metropolitana del tamaño de la \zmvm{}.
+referenciado explícitamente en los Objetivos Específicos 2 y 5
+(§\ref{subsec:obj-especificos}). La diferencia
+$\Delta T = T_{\text{actual}} - T_{\text{propuesto}}$ cuantifica el beneficio
+global del escenario hipotético anillar. El resultado de
+\citet{aldous2019optimal} sobre la transición en $L_c$ sugiere que esa
+diferencia debería ser positiva en una red del tamaño de la \zmvm{}, pero su
+signo y su magnitud solo se conocen con los resultados del
+Capítulo~\ref{ch:analisis-red-anillo}.

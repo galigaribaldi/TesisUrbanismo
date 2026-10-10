@@ -50,10 +50,10 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Red_Esquematica}
   \caption[Grafo topológico multimodal de la \zmvm{} — red esquemática]{Representación
   esquemática del grafo dirigido construido por el Modelo VFT sobre la red multimodal
-  de la \zmvm{}. Cada nodo corresponde a una estación topológica tras el proceso de
-  \termino{snapping} con árbol \texttt{KDTree} (tolerancia 85~m);
-  cada arista representa un segmento de servicio real o un enlace de transbordo
-  peatonal generado algorítmicamente.}
+  de la \zmvm{}. Cada nodo corresponde a una estación o parada. Cada arista es un
+  segmento de servicio, trazado al ubicar las estaciones sobre cada ruta con un
+  árbol \texttt{KDTree} (tolerancia 50~m), o un transbordo peatonal entre
+  estaciones separadas por 85~m o menos.}
   \label{fig:anx-f-qgis-red}
   \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}

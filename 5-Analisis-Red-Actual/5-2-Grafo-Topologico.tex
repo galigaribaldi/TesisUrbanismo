@@ -9,24 +9,29 @@
 A partir de los datos geoespaciales procesados por el \textbf{Apímetro}, el
 \textbf{Modelo VFT} construyó un grafo dirigido y ponderado que representa la
 red de transporte público de la \zmvm{} como objeto de análisis estructural
-(véanse Capítulo~4 y Anexo~B para el detalle de implementación). El proceso de
-integración topológica —mediante un árbol \texttt{KDTree} con tolerancia de
-85~m, corrida del 18 de abril de 2026— redujo las 22{,}766 entidades espaciales
-del dataset de origen a \textbf{11{,}115 nodos canónicos} conectados por
-\textbf{45{,}679 aristas}, de las cuales 25{,}197 corresponden a segmentos de
-servicio real y 20{,}482 a aristas de transbordo peatonal generadas
-algorítmicamente \citep{cabrera2026VFTModel}.
+(véanse Capítulo~4 y Anexo~B para el detalle de implementación). El conjunto de
+origen de la corrida del 18 de abril de 2026 reúne 22{,}766 entidades
+espaciales, entre estaciones y trazos de ruta. Solo las estaciones y paradas se
+registran como nodos, identificados por sus coordenadas: \textbf{11{,}115 nodos}.
+Los trazos no se convierten en nodos; sirven para tender las aristas. Un árbol
+\texttt{KDTree} por sistema localiza, con una tolerancia de 50~m, las estaciones
+que quedan sobre cada trazo y une cada par consecutivo con una arista medida a
+lo largo del recorrido. Después se agregan transbordos peatonales entre
+estaciones separadas por 85~m o menos. El grafo queda con
+\textbf{45{,}679 aristas}: 25{,}197 segmentos de servicio y 20{,}482 transbordos
+\citep{cabrera2026VFTModel}.
 
 \begin{figure}[H]
     \centering
     \input{Figures/TiKz_Libraries/Diagramas/vft-pipeline-procesamiento}
     \caption[Pipeline de procesamiento del Modelo VFT]{Las cuatro etapas que
-    transforman los datos brutos de \textbf{Apímetro} en el grafo topológico
-    operativo. El \termino{Snapping Lógico Geográfico} mediante árbol
-    \texttt{KDTree} (tolerancia: 85~m) reduce las 22{,}766 entidades originales
-    a 11{,}115 nodos canónicos; la ponderación final asigna impedancias
-    temporales a las 45{,}679 aristas del grafo dirigido
-    $\mathcal{G}(\mathcal{V},\mathcal{E},w)$.}
+    transforman los datos de \textbf{Apímetro} en el grafo topológico
+    operativo. De las 22{,}766 entidades de origen, las estaciones dan lugar a
+    11{,}115 nodos; un árbol \texttt{KDTree} (tolerancia: 50~m) las ubica sobre
+    cada trazo para crear las aristas de servicio, y el \termino{Snapping
+    Lógico Geográfico} añade los transbordos peatonales a 85~m o menos. La
+    ponderación final asigna impedancias temporales a las 45{,}679 aristas del
+    grafo dirigido $\mathcal{G}(\mathcal{V},\mathcal{E},w)$.}
     \label{fig:arq-capas}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel}.}
@@ -116,8 +121,7 @@ de fricción vial correspondiente.
 
 El grafo resultante constituye la representación operativa sobre la que se
 calculan todos los indicadores presentados en las secciones siguientes. Su
-escala —11{,}115 nodos y 45{,}679 aristas distribuidos en once sistemas— hace de
-la \zmvm{} uno de los grafos de transporte público más densos documentados en la
-literatura latinoamericana \citep{lotero2014vulnerabilidad}, lo que confiere
-mayor relevancia a los resultados de los indicadores de cobertura, centralidad y
-vulnerabilidad que se exponen a continuación.
+escala —11{,}115 nodos y 45{,}679 aristas distribuidos en once sistemas—
+corresponde a una red metropolitana que reúne servicios confinados y de
+superficie, y es el punto de partida para leer los resultados de cobertura,
+centralidad y vulnerabilidad que se exponen a continuación.

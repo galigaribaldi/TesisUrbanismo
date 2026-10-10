@@ -16,7 +16,7 @@ Dado un grafo $\mathcal{G}$ con nodos $\mathcal{V}$, la centralidad de
 intermediación de un nodo $v$ se define como:
 
 \begin{equation*}
-    B(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}
+    B(v) = \frac{1}{(N-1)(N-2)} \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}
     \tag{\ref{eq:betweenness}}
 \end{equation*}
 
@@ -24,11 +24,14 @@ intermediación de un nodo $v$ se define como:
 \begin{itemize}
     \item $\sigma_{st}$: cantidad de rutas mínimas entre los nodos $s$ y $t$.
     \item $\sigma_{st}(v)$: subconjunto de esas rutas que pasan por $v$.
+    \item $N$: número de nodos del grafo. El factor $1/\bigl((N-1)(N-2)\bigr)$
+    normaliza el valor para un grafo dirigido, de modo que $B(v) \in [0, 1]$.
 \end{itemize}
 
-El modelo calcula $B(v)$ mediante el algoritmo de Brandes, que reduce la
-complejidad computacional a $\mathcal{O}(VE)$ sobre grafos ponderados; la
-corrida sobre el componente gigante (10,561~nodos) tomó 593.4~segundos.
+El modelo calcula $B(v)$ con el algoritmo de Brandes, en la implementación de
+NetworkX con la normalización activada. En grafos ponderados su complejidad es
+$\mathcal{O}(VE + V^2 \log V)$; la corrida sobre el componente gigante
+(10,561~nodos) tomó 593.4~segundos.
 
 Dicho de otro modo: hay estaciones que sostienen la red desde adentro sin que
 los usuarios lo noten. No son necesariamente las más transitadas; son las que

@@ -22,9 +22,9 @@
 ]
 
 %% — Etapas —
-\node[etapa] (ing) {Ingesta\\GTFS};
-\node[etapa, right=of ing]  (snap) {Snapping\\Lógico};
-\node[etapa, right=of snap] (grf)  {Construcción\\del Grafo};
+\node[etapa] (ing) {Ingesta\\GeoJSON};
+\node[etapa, right=of ing]  (snap) {Registro\\de Nodos};
+\node[etapa, right=of snap] (grf)  {Aristas y\\Transbordos};
 \node[etapa, right=of grf]  (imp)  {Ponderación\\Impedancia};
 
 %% — Cifras sobre cada etapa —
@@ -34,9 +34,9 @@
 \node[cifra, above=0.18cm of imp]  {grafo $G$ dirigido};
 
 %% — Detalles bajo cada etapa —
-\node[dato, below=0.18cm of ing]  {Apimetro REST\\GeoJSON};
-\node[dato, below=0.18cm of snap] {KDTree · $d \leq 50$~m\\eliminación duplicados};
-\node[dato, below=0.18cm of grf]  {NetworkX\\25{,}197 servicio\\20{,}482 transbordo};
+\node[dato, below=0.18cm of ing]  {Apímetro REST\\estaciones y trazos};
+\node[dato, below=0.18cm of snap] {solo estaciones\\y paradas};
+\node[dato, below=0.18cm of grf]  {25{,}197 servicio\\20{,}482 transbordo\\a $\leq 85$~m};
 \node[dato, below=0.18cm of imp]  {Motor VFT\\pesos en minutos};
 
 %% — Flechas —
@@ -46,7 +46,7 @@
 
 %% — Nota conceptual: abstracción Red Física → Grafo Matemático —
 \node[font=\scriptsize\color{gray!70}, anchor=north]
-    at ($(ing.south)!0.5!(imp.south) + (0,-1.15cm)$)
+    at ($(ing.south)!0.5!(imp.south) + (0,-1.6cm)$)
     {Red Física $\longrightarrow$ Grafo Matemático $\mathcal{G}(\mathcal{V},\,\mathcal{E},\,w)$};
 
 \end{tikzpicture}
