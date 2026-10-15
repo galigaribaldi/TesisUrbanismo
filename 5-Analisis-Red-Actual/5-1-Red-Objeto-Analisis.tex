@@ -7,7 +7,7 @@
 \label{sec:red-objeto-analisis}
 
 El diagnóstico del sistema de transporte público de la \zmvm{} enfrenta un
-problema de escala: la red integra once modalidades de transporte público
+problema de escala: la red integra doce modalidades de transporte público
 distribuidas sobre un territorio metropolitano que trasciende la \cdmx{} e
 incorpora municipios del Estado de México en una continuidad urbana funcional
 \citep{semovi2020diagnostico}. Los indicadores de movilidad son difíciles de
@@ -15,7 +15,7 @@ aplicar de forma homogénea a cada sistema de transporte, y este problema no
 radica en la falta de datos: el Gobierno de la \cdmx{} libera sistemáticamente
 la información de sus redes a través del Portal de Datos Abiertos
 \citep{adip_gtfs_2024}. La barrera real es la heterogeneidad estructural de esos
-datos: once sistemas con esquemas, frecuencias, geometrías y atributos distintos
+datos: doce sistemas con esquemas, frecuencias, geometrías y atributos distintos
 que, sin una herramienta capaz de integrarlos bajo un modelo común, no pueden
 analizarse como red sino solo como inventario.
 
@@ -23,7 +23,7 @@ Este es el problema que el \texttt{Apímetro} y \texttt{VFTModel},
 desarrollados y documentados en el Capítulo~4, están diseñados para resolver
 \citep{cabrera2025apimetro, cabrera2026VFTModel}. Al representar la red como un
 grafo dirigido y ponderado —donde cada estación es un nodo y cada segmento
-operativo una arista con peso temporal— los once sistemas quedan integrados bajo
+operativo una arista con peso temporal— los doce sistemas quedan integrados bajo
 un modelo matemático común \citep{newman2010networks}. Sobre esa representación
 es posible calcular propiedades estructurales independientes de la demanda: la
 cobertura territorial de la red, la concentración de flujos en los nodos de
