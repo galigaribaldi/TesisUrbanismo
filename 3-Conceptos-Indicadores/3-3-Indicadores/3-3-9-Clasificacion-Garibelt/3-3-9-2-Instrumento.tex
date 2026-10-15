@@ -83,6 +83,15 @@ invierte: Gini~$= 0$ (distribución perfecta) da $1.0$; Gini cercano a $1$
 (monopolio) da $0.0$. La Tabla~\ref{tab:clasificacion-garibelt-dims} consolida
 estos rangos.
 
+Esta regla hace que la dimensión $FC$ sea relativa por construcción. Como la
+mediana de cualquier red cae entre su propio Q1 y su propio Q3, el valor
+normalizado depende solo de la forma de la distribución de grado y no de un
+estándar externo: dos redes con conectividades muy distintas pueden recibir la
+misma banda. $FC$ describe, por tanto, cómo se reparte la conectividad capilar
+dentro de la \zmvm{}, sin compararla con otras redes. Sustituir los cuartiles
+propios por una referencia comparativa, como las 25 redes de \citet{kujala2018},
+queda como trabajo futuro.
+
 % =====================================================================
 \subsubsection{Un tablero, no un marcador}
 \label{subsubsec:garibelt-tablero}

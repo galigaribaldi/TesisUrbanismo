@@ -138,8 +138,8 @@ exportados por \texttt{VFTModel} y los \textit{feeds} \gtfs{} de \texttt{Apímet
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Betweenness}
   \caption[Centralidad de intermediación $B(v)$ — alta resolución]{Centralidad
-  de intermediación normalizada $B(v)$ calculada sobre el grafo completo de
-  10{,}561 nodos mediante el algoritmo de Brandes. Cada punto representa una
+  de intermediación normalizada $B(v)$ calculada sobre la componente gigante de
+  10{,}610 nodos mediante el algoritmo de Brandes. Cada punto representa una
   estación; su tamaño y color indican la proporción de caminos mínimos de la red
   que pasan por ese nodo. Los valores más altos (puntos grandes en rojo o naranja)
   señalan los nodos cuya remoción tendría el mayor impacto sobre la conectividad
@@ -293,7 +293,7 @@ exportados como \textit{GeoPackages} y servidos a Tableau Desktop a través del
   de análisis del indicador $B(v)$. Integra el mapa de centralidad georreferenciado,
   la jerarquía de las estaciones con mayor valor de intermediación y la distribución
   por sistema de transporte. Los resultados corresponden a la corrida del
-  2026-09-02 sobre los 10{,}561 nodos de la componente gigante del grafo.}
+  2026-10-04 sobre los 10{,}610 nodos de la componente gigante del grafo.}
   \label{fig:anx-f-tab-vft-dashboard-bv}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
     fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
@@ -608,7 +608,7 @@ Corrida: 2026-09-16.} \\
   \includegraphics[width=0.9\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/Grafica_VFTModel_2026_Centralidad_Intermediacion_Nodos}
   \caption[Top~20 nodos por centralidad de intermediación $B(v)$]{Los veinte nodos
   de la red con mayor valor de centralidad de intermediación normalizada $B(v)$,
-  calculado sobre la componente gigante de 10{,}561 nodos (corrida 2026-09-02).
+  calculado sobre la componente gigante de 10{,}610 nodos (corrida 2026-10-04).
   El valor de $B(v)$ indica la proporción de caminos mínimos de toda la red
   que atraviesan ese nodo.}
   \label{fig:anx-f-tab-vft-bv-nodos}
@@ -625,10 +625,12 @@ Corrida: 2026-09-16.} \\
   \includegraphics[width=0.9\textwidth]{%
     Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
     Grafica_VFTModel_2026_Tiempo_Promedio}
-  \caption[Tiempo de viaje promedio $T$ por alcaldía --- \zmvm{}]{%
-  Tiempo de viaje promedio ($T$) por alcaldía de la \zmvm{}, calculado
-  sobre el componente gigante del grafo (10,561~nodos) con el algoritmo
-  de \dijkstra{} ponderado por $CF$ y $T_b$. Corrida: 2026-09-02.}
+  \caption[Tiempo de viaje promedio del modelo frente al tiempo de referencia
+  --- \zmvm{}]{%
+  Tiempo de viaje promedio del modelo ($T = 113.91$~min) frente al tiempo de
+  referencia adoptado por el modelo (85~min), calculado sobre el componente
+  gigante del grafo (10{,}610~nodos) con el algoritmo de \dijkstra{} ponderado
+  por $CF$ y $T_b$. Corrida: 2026-10-04.}
   \label{fig:anx-f-tab-vft-t-promedio}
   \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}

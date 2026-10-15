@@ -20,12 +20,17 @@ $, cuyos valores son ilustrativos. El perfil muestra lo que el instrumento está
 \fuentefigura{Elaboración propia.}
 \end{figure}
 
-De los ocho indicadores del capítulo, dos quedan fuera de la versión~1 del
-instrumento. $W_{s,h}$ (Penalización por Transferencia) tiene implementación
-parcial en el motor \texttt{VFTModel}; su incorporación queda diferida a la
-versión~2. $\Delta E$ (Robustez Geométrica) requiere múltiples corridas del
-grafo con nodos removidos, operación que corresponde a la Fase~4 y está fuera
-del alcance del presente análisis. La aplicación del instrumento a la red de la
+De los ocho indicadores del capítulo, tres quedan fuera de la versión~1 del
+instrumento. $CF_h$ (Coeficiente de Fricción Vial) y $W_{s,h}$ (Penalización por
+Transferencia) no son dimensiones de diagnóstico sino parámetros de impedancia:
+ajustan el peso de las aristas antes de calcular $T$ y $B(v)$, de modo que su
+efecto ya está contenido en esas dos dimensiones. En \texttt{VFTModel},
+$W_{s,h}$ se aplica en su forma estática, $T_b = F/2$
+(§\ref{subsec:fase2-tb}). $\Delta E$ (Robustez Geométrica) requiere recalcular el
+grafo con nodos removidos; el Capítulo~\ref{ch:analisis-red-actual} solo
+presenta una corrida exploratoria sobre cinco nodos
+(\autoref{subsec:vulnerabilidad-estructural}), por lo que su incorporación queda
+diferida a la versión~2. La aplicación del instrumento a la red de la
 \zmvm{} ---incluyendo los valores normalizados y la lectura por dimensión--- se
 presenta en la \autoref{sec:diagnostico-garibelt} del
 \autoref{ch:analisis-red-actual}.

@@ -2,12 +2,12 @@
 
 % ============================================================
 %  §5.6.2 — El Espectro MJG: diagnóstico de la red actual
-%  Valores confirmados (Dashboards 2026-09-23):
-%    C   = 4.4 % cob. 800 m  → 0.055  Crítico
-%    C_i = mediana 7.0 (Q1=6, Q3=10) → 0.250  Débil
-%    DI  = mediana 1.43      → 0.713  Aceptable
-%    T   = 108.92 min        → 0.748  Aceptable
-%    B(v)= Gini 0.7891 → 1−Gini → 0.211  Crítico
+%  Valores vigentes (corrida 2026-10-04; dashboards exportados 2026-10-14):
+%    C   = 13.3 % cob. 800 m (ZMVM 76) → 0.166  Crítico
+%    FC  = mediana 7.0 (Q1=6, Q3=10)    → 0.250  Débil
+%    DI  = mediana 1.52 (500 pares)     → 0.653  Aceptable
+%    T   = 113.91 min                   → 0.696  Aceptable
+%    B(v)= Gini 0.8007 → 1−Gini         → 0.199  Crítico
 % ============================================================
 
 \subsection{El Espectro MJG: diagnóstico de la red actual de la \zmvm}
@@ -73,7 +73,7 @@ símbolo y expresión formal.
     Perfil de la Clasificación Garibelt aplicado a la red de transporte
     de la \zmvm{} al 2025. Barras horizontales sobre la Escala Garibelt
     $[0,\,1]$; valor bruto del indicador anotado sobre cada barra;
-    líneas punteadas en los umbrales de banda. Corrida: 2026-09-02.}
+    líneas punteadas en los umbrales de banda. Corrida: 2026-10-04.}
     \label{fig:espectro-mjg-barras}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
@@ -84,7 +84,7 @@ símbolo y expresión formal.
 \caption[Espectro MJG --- diagnóstico cuantitativo de la red actual]{%
     Espectro MJG: valor bruto, valor normalizado y banda de la Escala Garibelt
     para cada dimensión de la Clasificación Garibelt aplicada a la red de la
-    \zmvm{}. Corrida: 2026-09-02.}
+    \zmvm{}. Corrida: 2026-10-04.}
 \label{tab:espectro-mjg-diagnostico}
 \small
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X c >{\raggedright\arraybackslash}X c c}
@@ -99,14 +99,14 @@ símbolo y expresión formal.
         & $FC$   & mediana $= 7.0$\enspace (Q1\,=\,6;\enspace Q3\,=\,10)
         & 0.250 & \textbf{Débil} \\
     Eficiencia de ruta — Factor de Desviación
-        & $DI$   & mediana $= 1.43$
-        & 0.713 & Aceptable \\
+        & $DI$   & mediana $= 1.52$
+        & 0.653 & Aceptable \\
     Fluidez global — Tiempo de Viaje Promedio
-        & $T$    & 108.92\,min
-        & 0.748 & Aceptable \\
+        & $T$    & 113.91\,min
+        & 0.696 & Aceptable \\
     Centralidad crítica — Intermediación
-        & $B(v)$ & $\mathrm{Gini}(B) = 0.789$
-        & 0.211 & \textbf{Crítico} \\
+        & $B(v)$ & $\mathrm{Gini}(B) = 0.801$
+        & 0.199 & \textbf{Crítico} \\
     \bottomrule
 \end{tabularx}
 \smallskip
@@ -195,13 +195,13 @@ conectividad sobre la que descansa la mayor parte de la circulación periférica
 
 \paragraph{$DI$ --- Factor de Desviación}
 
-Una mediana de $DI = 1.43$ indica que el viaje en la red recorre, en promedio,
-un 43\,\% más de distancia que la línea recta entre el mismo par origen-destino:
+Una mediana de $DI = 1.52$ indica que el viaje en la red recorre, en promedio,
+un 52\,\% más de distancia que la línea recta entre el mismo par origen-destino:
 por cada kilómetro que separa al viajero de su destino, la red le exige
-trasladarse 1.43\,km sobre la infraestructura. El resultado queda en banda
+trasladarse 1.52\,km sobre la infraestructura. El resultado queda en banda
 Aceptable, lo que señala que la red no impone rodeos severos en la mayoría de
 los trayectos. Sin embargo, la distribución no es homogénea: el extremo superior
-de la muestra ---$DI_{\text{máx}} = 4.34$, \autoref{subsubsec:di-casos}---
+de la muestra ---$DI_{\text{máx}} = 4.42$, \autoref{subsubsec:di-casos}---
 corresponde a viajes entre periferias opuestas de la cuenca, donde la ausencia
 de conectividad transversal obliga a internar el recorrido hacia el centro antes
 de salir de nuevo hacia la periferia contraria.
@@ -223,12 +223,12 @@ concentración de carga podría reducir.
 
 \paragraph{$B(v)$ --- Centralidad de Intermediación}
 
-Un índice de Gini de $B(v) = 0.7891$ sobre los 10{,}561\,nodos del componente
+Un índice de Gini de $B(v) = 0.8007$ sobre los 10{,}610\,nodos del componente
 gigante indica que la capacidad de articulación de la red está concentrada de
 manera más desigual que el ingreso en la mayoría de los países de América
 Latina, donde el coeficiente típico oscila entre 0.40 y 0.55. La traducción
 directa: uno de cada cinco caminos mínimos de toda la red pasa por Tacubaya
-($B(v) = 0.2179$, \autoref{subsec:fase3-centralidad}). En una ciudad de diez
+($B(v) = 0.2232$, \autoref{subsec:fase3-centralidad}). En una ciudad de diez
 millones de viajes cotidianos, el equivalente sería que dos millones de esos
 viajes tuvieran que cruzar la misma estación sin importar su origen ni su
 destino. El resto del top-10 de intermediación está conformado exclusivamente
@@ -266,8 +266,8 @@ más alta del experimento.
     Nodos con mayor centralidad de intermediación en
     la red de la \zmvm{}, en orden descendente y desglosados por sistema de
     transporte.
-    Tacubaya encabeza la jerarquía con $B(v) = 0.2179$.
-    Corrida: 2026-09-02.}
+    Tacubaya encabeza la jerarquía con $B(v) = 0.2232$.
+    Corrida: 2026-10-04.}
     \label{fig:dashboard-betweenness-garibelt}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
@@ -288,7 +288,7 @@ esos valores brutos en un panel de indicadores.
     \caption[KPI de indicadores estructurales --- \zmvm{} 2026]{%
     Valores brutos de los cuatro indicadores síntesis de la red de
     transporte de la \zmvm{}; color por banda de la Escala Garibelt.
-    Corrida: 2026-09-02.}
+    Corrida: 2026-10-04.}
     \label{fig:kpi-red-actual}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
@@ -368,7 +368,7 @@ registra.
     Perfil de la Clasificación Garibelt aplicado a la red de la \zmvm{} al
     2026, junto con el orden de los nodos según su intermediación. El \termino{dashboard} combina
     los cinco valores normalizados sobre la Escala Garibelt con la
-    distribución de $B(v)$ por sistema de transporte. Corrida: 2026-09-02.}
+    distribución de $B(v)$ por sistema de transporte. Corrida: 2026-10-04.}
     \label{fig:espectro-mjg-clasificacion}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
