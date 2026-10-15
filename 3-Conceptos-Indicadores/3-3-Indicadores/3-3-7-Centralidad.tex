@@ -25,10 +25,10 @@ de viaje globales.
 grafo permite realizar un análisis de centralidad para evaluar la importancia de
 los nodos (estaciones), lo que sirve fundamentalmente para identificar los nodos
 críticos y las rutas más importantes del sistema. \citet{lee2008}, en su caso de
-estudio del metro de Seúl, aplican este principio empíricamente, demostrando que
-en un sistema metropolitano la distribución del grado nodal sigue una ley de
-potencias, confirmando la naturaleza de red libre de escala del sistema y su
-consecuente vulnerabilidad a ataques dirigidos.
+estudio del metro de Seúl, aplican este principio empíricamente: caracterizan
+cada estación por su grado y por el flujo de pasajeros que la atraviesa, y
+muestran que unas pocas estaciones concentran una parte desproporcionada de la
+articulación de la red.
 
 \subsubsection{Fórmula}
 
@@ -102,5 +102,4 @@ en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-betweenness}).
 
 La Centralidad de Intermediación es la métrica central del Objetivo Específico 3
 (§\ref{subsec:obj-especificos}): los nodos cuya pérdida comprometería la
-conectividad del sistema son los que tienen el $B(v)$ más alto en la red
-actual.
+conectividad del sistema son los que tienen el $B(v)$ más alto en la red actual.

@@ -6,22 +6,20 @@
 \label{subsec:tiempo-viaje-promedio}
 
 Ejecutado el algoritmo de \dijkstra{} ponderado sobre el componente gigante, el
-tiempo de viaje promedio de la red resulta en $T = 108.92$ minutos (corrida:
-2026-09-02, 10,561~nodos, tiempo de cómputo: 251.8~segundos). El valor sintetiza
-el costo temporal medio de todos los pares origen-destino posibles bajo las
-condiciones de ponderación de Fase~2.
+tiempo de viaje promedio de la red resulta en $T = 113.91$ minutos (corrida:
+2026-10-04, 10{,}610~nodos). El valor sintetiza el costo temporal medio de todos
+los pares origen-destino posibles bajo las condiciones de ponderación de Fase~2.
 
-La referencia de campo más cercana proviene de la Encuesta Nacional de Ocupación
-y Empleo (ENOE), que estima en aproximadamente 85~minutos el tiempo promedio de
-traslado en la \zmvm{}. Frente a los 108.92~minutos del modelo, la brecha de
-$\sim$24~minutos tiene origen metodológico, no en una sobreestimación del
-sistema. Mientras la ENOE construye su promedio a partir de desplazamientos
-observados —concentrados en los corredores de alta afluencia que conectan el
-centro con la periferia próxima— el modelo asigna el mismo peso a cada par del
-componente gigante. Los trayectos entre periferias opuestas, que la demanda
-cotidiana apenas realiza, quedan contabilizados en igualdad de condiciones que
-los recorridos más frecuentes, elevando el promedio topológico por encima del
-promedio ponderado por demanda.
+Para compararlo, el modelo fija un tiempo de referencia de 85~minutos; es el
+mismo valor con el que se normaliza $T$ en la Clasificación Garibelt
+(§\ref{subsubsec:garibelt-procedimiento}). Contra los 113.91~minutos del modelo
+quedan unos 29~minutos de diferencia, y su origen es metodológico, no una
+sobreestimación del sistema. Un promedio de traslados observados se concentraría
+en los corredores de alta afluencia entre el centro y la periferia próxima. El
+modelo, en cambio, da el mismo peso a cada par del componente gigante: los
+trayectos entre periferias opuestas, que la demanda cotidiana apenas realiza,
+cuentan igual que los recorridos más frecuentes y elevan el promedio topológico
+por encima de uno ponderado por demanda.
 
 La Figura~\ref{fig:grafica-t-promedio} compara ambos valores.
 
@@ -30,12 +28,13 @@ La Figura~\ref{fig:grafica-t-promedio} compara ambos valores.
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
         Grafica_VFTModel_2026_Tiempo_Promedio}
-    \caption[Tiempo de viaje promedio del modelo frente a la ENOE --- \zmvm{}]{%
-    Tiempo de viaje promedio del modelo ($T = 108.92$~min) frente al tiempo
-    promedio de traslado observado por la ENOE en la \zmvm{} (85~min). El
-    primero promedia todos los pares origen-destino del componente gigante
-    (10,561~nodos) con \dijkstra{} ponderado; el segundo, los desplazamientos
-    reportados por la encuesta. Corrida: 2026-09-02.}
+    \caption[Tiempo de viaje promedio del modelo frente al tiempo de referencia
+    --- \zmvm{}]{%
+    Tiempo de viaje promedio del modelo ($T = 113.91$~min) frente al tiempo de
+    referencia adoptado por el modelo (85~min). El primero promedia todos los
+    pares origen-destino del componente gigante (10{,}610~nodos) con
+    \dijkstra{} ponderado; el segundo es el valor que ancla la normalización
+    de $T$ en la Clasificación Garibelt. Corrida: 2026-10-04.}
     \label{fig:grafica-t-promedio}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}

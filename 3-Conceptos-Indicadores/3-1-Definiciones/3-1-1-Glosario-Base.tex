@@ -53,8 +53,8 @@ de fuentes oficiales ---el portal de datos abiertos de la \cdmx{} y el
 \textsc{inegi}---; OpenStreetMap (\textsc{osm}) opera como fuente secundaria
 para cubrir los vacíos donde la cobertura oficial es incompleta. Esa función
 será indispensable si se construyen grafos de acceso peatonal para sustituir los
-\termino{buffers} del Indicador de Cobertura $C$ por isócronas (§
-\ref{subsec:indicador-cobertura}).
+\termino{buffers} del Indicador de Cobertura $C$ por isócronas
+(§\ref{subsec:indicador-cobertura}).
 
 Su completitud supera el 80\,\% a escala global, con valores especialmente altos
 en ciudades latinoamericanas de la talla de la \zmvm{}; la precisión posicional
@@ -72,8 +72,8 @@ Portland, Oregón, hoy lo adoptan más de 10\,000 operadoras en todo el mundo. E
 esta investigación, los feeds \gtfs{} de todos los modos de la red de movilidad
 integrada de la \cdmx{} ---disponibles en el portal de datos abiertos de la
 ciudad \citep{adip_gtfs_2024}--- constituyen el insumo primario que el Apímetro
-descarga e integra para construir el grafo multimodal de análisis (§
-\ref{sec:apimetro-intro}).
+descarga e integra para construir el grafo multimodal de análisis
+(§\ref{sec:apimetro-intro}).
 
 \subsubsection{Normalización de datos de transporte}
 \label{subsubsec:glosario-normalizacion}
@@ -104,10 +104,10 @@ topológicas e implementación computacional, se desarrolla en la
 
 \subsubsection{Red de transporte multimodal de la \zmvm{}}
 \label{subsubsec:glosario-red-multimodal}
-La red de transporte multimodal de la \zmvm{} comprende once sistemas de
-transporte ---Metro, Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Cablebús,
-Mexicable, Mexibús, \textsc{rtp}, Corredores Concesionados y Pumabús---
-integrados bajo una estructura unificada de análisis
+La red de transporte multimodal de la \zmvm{} comprende doce sistemas de
+transporte ---Metro, Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Tren
+Interurbano, Cablebús, Mexicable, Mexibús, \textsc{rtp}, Corredores
+Concesionados y Pumabús--- integrados bajo una estructura unificada de análisis
 \citep{semovi2020diagnostico}. En términos de grafo, las aristas de trayecto
 representan los recorridos dentro de cada línea; las aristas de transferencia
 conectan modos distintos en el mismo punto físico, con un peso que refleja el
@@ -260,8 +260,8 @@ arquitectura técnica se documenta en el \autoref{ch:Capas-codigo}.
 \paragraph{Apímetro.}
 Motor de adquisición e integración de datos: descarga, normaliza y unifica feeds
 \gtfs{} de múltiples operadores en el esquema relacional de \textsc{postgresql},
-produciendo el archivo Geojson multimodal $\grafo$ que alimenta el análisis (§
-\ref{sec:apimetro-intro}).
+produciendo el archivo Geojson multimodal $\grafo$ que alimenta el análisis
+(§\ref{sec:apimetro-intro}).
 
 \paragraph{VFTModel.}
 Modelo de análisis urbano: recibe el grafo $\grafo$ y calcula los indicadores de

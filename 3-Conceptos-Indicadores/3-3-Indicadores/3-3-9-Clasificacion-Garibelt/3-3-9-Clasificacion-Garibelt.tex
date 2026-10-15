@@ -12,7 +12,7 @@ independiente: cada uno mide una dimensión específica del grafo $\grafo$ y
 produce un valor cuya unidad y escala le son propias. La
 \textbf{Clasificación Garibelt} opera en un nivel distinto: no es el noveno
 indicador sino un instrumento de síntesis que toma cinco de los ocho ---$C$,
-$C_i$, $DI$, $T$ y $B(v)$--- y los reúne en un tablero de diagnóstico topológico
+$FC$, $DI$, $T$ y $B(v)$--- y los reúne en un tablero de diagnóstico topológico
 sin colapsar sus diferencias en un escalar único.
 
 \begin{table}[htbp]
@@ -33,14 +33,14 @@ sin colapsar sus diferencias en un escalar único.
       & $C$ & Estándar bibliográfico
       & 0\,\%–80\,\% (peatonal urbano) & 80\,\% & 0\,\% \\
     Conectividad capilar — Fuerza Capilar
-      & $C_i$ & Percentil empírico
+      & $FC$ & Percentil empírico
       & Q1–Q3 del dataset & Q3 & Q1 \\
     Eficiencia de ruta — Índice de Ruta Directa
       & $DI$ & Límites teóricos
       & $[1.0,\;2.5]$ & 1.0 & 2.5 \\
     Fluidez global — Tiempo de Viaje Promedio
-      & $T$ & Por referencia externa
-      & 85–180\,min (\textsc{enoe}/\cdmx{}) & 85\,min & 180\,min \\
+      & $T$ & Rango fijo (supuesto del autor)
+      & 85–180\,min & 85\,min & 180\,min \\
     Centralidad crítica — Intermediación
       & $B(v)$ & $1 - \mathrm{Gini}(B)$
       & Rango $[0,1]$, Gini invertido & 1.0 & 0.0 \\

@@ -7,46 +7,57 @@
 
 Para verificar la consistencia del motor de impedancia del \textbf{Modelo VFT},
 se calculó la velocidad efectiva implícita de cada sistema tras aplicar el
-Coeficiente de Fricción Vial ($CF$) y se contrastó con los rangos operativos
-nominales documentados por los organismos operadores de la \zmvm{}. La velocidad
-efectiva se obtiene a partir de la Ecuación~\eqref{eq:velocidad-efectiva}:
+Coeficiente de Fricción Vial ($CF$) y se contrastó con rangos operativos de
+referencia por sistema. La velocidad efectiva se obtiene a partir de la
+Ecuación~\eqref{eq:velocidad-efectiva}:
 
 \begin{equation}
-    V_{\text{efectiva}} = \frac{V_{\text{fallback}}}{CF}
+    V_{\text{efectiva}} = \frac{V_{\text{base}}}{CF}
     \label{eq:velocidad-efectiva}
 \end{equation}
 
-donde $V_{\text{fallback}}$ representa la velocidad comercial de flujo libre del
-sistema y $CF$ es el coeficiente de fricción según el tipo de derecho de vía
-(véase §\ref{subsec:fase2-cf}).
+\noindent donde:
+\begin{itemize}
+    \item $V_{\text{base}}$: velocidad promedio de operación del sistema, en
+          km/h, registrada por el \textbf{Apímetro} para cada ruta.
+    \item $CF$: coeficiente de fricción según el tipo de derecho de vía
+          (véase §\ref{subsec:fase2-cf}).
+\end{itemize}
 
-El Cuadro~\ref{tab:validacion-impedancia} sintetiza los resultados de la corrida
-ejecutada sobre \textbf{25{,}197 segmentos de servicio real}.
+En el cuadro, la velocidad efectiva de cada sistema es el promedio de la
+relación distancia/tiempo de sus segmentos; en los sistemas con un solo tipo de
+derecho de vía ese promedio coincide con la
+Ecuación~\eqref{eq:velocidad-efectiva}. El Cuadro~\ref{tab:validacion-impedancia}
+sintetiza los resultados de la corrida ejecutada sobre
+\textbf{25{,}025 segmentos de servicio real}. El Trolebús se presenta en dos
+filas porque su Línea~10, elevada, opera en vía confinada.
 
 \begin{table}[H]
     \centering
     \caption[Validación de velocidades efectivas por sistema de transporte]{
     Contraste entre la velocidad implícita post-fricción calculada por el
     motor VFT y los rangos operativos nominales de cada sistema.
-    Corrida: 2026-04-18.}
+    Corrida: 2026-10-04.}
     \label{tab:validacion-impedancia}
     \begin{tabular}{|l|r|r|c|c|}
         \hline
-        \textbf{Sistema} & \textbf{$V$ modelo (km/h)} &
+        \textbf{Sistema} & \textbf{$V_{\text{base}}$ (km/h)} &
         \textbf{$V$ efectiva (km/h)} &
         \textbf{Rango esperado} & \textbf{Estado} \\
         \hline
-        Tren Suburbano   & 65.0 & 65.0 & {[}55--75{]}  & \checkmark\ OK \\
-        Metro (STC)      & 36.0 & 36.0 & {[}30--42{]}  & \checkmark\ OK \\
-        Tren Ligero      & 22.0 & 22.0 & {[}18--26{]}  & \checkmark\ OK \\
-        Trolebús         & 18.0 & 13.0 & {[}14--22{]}  & $\approx$ Límite \\
-        Cablebús         & 20.0 & 17.4 & {[}16--24{]}  & \checkmark\ OK \\
-        Mexicable        & 20.0 & 17.4 & {[}16--24{]}  & \checkmark\ OK \\
-        Metrobús         & 16.3 & 14.1 & {[}13--20{]}  & \checkmark\ OK \\
-        Mexibús          & 16.3 & 14.1 & {[}13--20{]}  & \checkmark\ OK \\
-        \textsc{rtp}     & 14.0 &  8.0 & {[}10--18{]}  & $\approx$ Revisar \\
-        Corredores Conc. & 11.0 &  8.0 & {[}8--14{]}   & \checkmark\ OK \\
-        Pumabús          & 11.0 &  8.0 & {[}8--14{]}   & \checkmark\ OK \\
+        Tren Interurbano       & 70.0 & 70.0 & ---           & Sin rango \\
+        Tren Suburbano         & 65.0 & 65.0 & {[}55--75{]}  & \checkmark\ OK \\
+        Metro (STC)            & 36.0 & 36.0 & {[}30--42{]}  & \checkmark\ OK \\
+        Tren Ligero            & 22.0 & 22.0 & {[}18--26{]}  & \checkmark\ OK \\
+        Trolebús (Línea 10)    & 25.0 & 21.7 & {[}14--22{]}  & \checkmark\ OK \\
+        Cablebús               & 20.0 & 20.0 & {[}16--24{]}  & \checkmark\ OK \\
+        Mexicable              & 20.0 & 20.0 & {[}16--24{]}  & \checkmark\ OK \\
+        Metrobús               & 16.3 & 16.3 & {[}13--20{]}  & \checkmark\ OK \\
+        Mexibús                & 16.3 & 14.2 & {[}13--20{]}  & \checkmark\ OK \\
+        Trolebús (compartido)  & 18.0 & 13.0 & {[}14--22{]}  & $\approx$ Límite \\
+        Pumabús                & 14.0 & 10.1 & {[}8--14{]}   & \checkmark\ OK \\
+        \textsc{rtp}           & 11.0 &  8.0 & {[}10--18{]}  & Bajo rango \\
+        Corredores Conc.       & 11.0 &  8.0 & {[}8--14{]}   & $\approx$ Límite \\
         \hline
     \end{tabular}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
@@ -60,17 +71,24 @@ ejecutada sobre \textbf{25{,}197 segmentos de servicio real}.
     \caption[Caracterización de la impedancia temporal por sistema]{(a)~Velocidad
     efectiva post-fricción por sistema, coloreada según el tipo de derecho de
     vía. (b)~Distribución de tiempos de viaje por segmento interestación
-    (segmentos menores a 5~min, sin valores atípicos). Corrida: 2026-04-18.}
+    (segmentos menores a 5~min, sin valores atípicos); el Tren Interurbano no
+    aparece en este panel porque sus cuatro segmentos superan ese umbral.
+    Corrida: 2026-10-04.}
     \label{fig:impedancia-sistemas}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-Los resultados son coherentes con la metodología adoptada. El caso más sensible
-es el del \textbf{Trolebús}, cuya velocidad efectiva ($\approx$13.0~km/h con $CF
-= 1.380$) se sitúa ligeramente por debajo del límite inferior del rango
-operativo documentado (14--22~km/h). Esta diferencia de aproximadamente 1~km/h
-(7\,\%) es atribuible a que el tipo de derecho de vía \termino{compartido} no
-captura la preferencia operativa parcial que el trolebús mantiene en ciertas
-vialidades de la \cdmx{}. Para fines de análisis estructural de red, esta
-desviación se encuentra dentro de los márgenes de calibración aceptables.
+Los resultados son coherentes con la metodología adoptada en los sistemas de vía
+exclusiva y confinada, que quedan dentro de sus rangos. Las desviaciones se
+concentran en el transporte de superficie. El \textbf{Trolebús} en vía
+compartida alcanza $\approx$13.0~km/h con $CF = 1.380$, alrededor de 1~km/h (7\,
+\%) por debajo del límite inferior de su rango (14--22~km/h); el tipo de derecho
+de vía \termino{compartido} no captura la preferencia operativa parcial que el
+trolebús mantiene en ciertas vialidades de la \cdmx{}. La \textsc{rtp} y los
+Corredores Concesionados parten de una velocidad base de 11~km/h y, con el mismo
+$CF$, llegan a 8.0~km/h: los Corredores quedan en el límite inferior de su rango
+y la \textsc{rtp} unos 2~km/h por debajo del suyo. Para el análisis estructural
+de la red estas velocidades representan un escenario conservador del transporte
+de superficie; contrastarlas con velocidades observadas por ruta queda como
+trabajo futuro.

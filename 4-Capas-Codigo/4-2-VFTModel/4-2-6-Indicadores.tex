@@ -11,8 +11,8 @@ dependencia estricta: los ocho indicadores no son intercambiables ni pueden
 calcularse en cualquier orden. Las Fases~III y IV exigen un grafo completamente
 ponderado —construido en las Fases~I y II— para ejecutar los algoritmos de
 caminos mínimos. El Cuadro~\ref{tab:vft-indicadores-estado} presenta el mapa
-completo; las definiciones formales de cada indicador están en el §
-\ref{sec:indicadores-formulas}, y las implementaciones de referencia en el
+completo; las definiciones formales de cada indicador están en el
+§\ref{sec:indicadores-formulas}, y las implementaciones de referencia en el
 Anexo~D.
 
 \begin{table}[H]
@@ -30,7 +30,7 @@ Anexo~D.
         \hline
         \multirow{3}{*}{\textbf{I}}
           & 1 & Cobertura Espacial             & $C$        & Implementado \\
-          & 2 & Alimentación Capilar           & $C_i$      & Implementado \\
+          & 2 & Fuerza Capilar                 & $FC$       & Implementado \\
           & 3 & Índice de Ruta Directa         & $DI$       & Implementado \\
         \hline
         \multirow{2}{*}{\textbf{II}}
@@ -62,11 +62,12 @@ tan directas resultan sus rutas?
     evaluar la pertinencia de un corredor anillar perimetral
     (§\ref{subsec:indicador-cobertura}; §\ref{anx:impl-cobertura}).
 
-    \item \textbf{Alimentación Capilar ($C_i$):} para cada nodo de tránsito
-    masivo, suma las rutas de superficie que convergen en él. Los \textsc{cetram}s
-    y estaciones con mayor $C_i$ concentran la mayor presión de demanda capilar
-    y son los candidatos más urgentes para una expansión en red
-    (§\ref{subsec:alimentacion-capilar}; §\ref{anx:impl-capilar}).
+    \item \textbf{Fuerza Capilar ($FC$):} para cada nodo del grafo, cuenta las
+    aristas que llegan a él o salen de él (caso $w_{ij} = 1$ de la definición
+    general); la versión $FC_H$ agrupa los nodos a 100~m o menos en
+    Macro-Hubs. Los nodos y complejos con mayor $FC$ concentran la mayor
+    presión de demanda capilar y son los candidatos más urgentes para una
+    expansión en red (§\ref{subsec:alimentacion-capilar}; §\ref{anx:impl-capilar}).
 
     \item \textbf{Índice de Ruta Directa ($DI$):} cociente entre la longitud
     real del recorrido en red y la distancia en línea recta entre dos puntos.

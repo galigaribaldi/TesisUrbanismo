@@ -15,10 +15,15 @@ de traslado:
     \tag{\ref{eq:vft-cf}}
 \end{equation*}
 
-Con $\beta_{\text{ZMVM}} = 0.759$ \citep{tomtom2024} y cuatro valores de
-$\alpha$ calibrados según el grado de segregación física de la infraestructura
-\citep{sedatu2019manual}, los coeficientes resultantes para cada categoría son
-los del Cuadro~\ref{tab:cf-derecho-via}.
+Para $\beta_{\text{ZMVM}}$ se usa 0.759, el nivel de congestión promedio de la
+Ciudad de México en 2025 (75.9\,\%) expresado como fracción, según la edición~15
+del TomTom Traffic Index \citep{tomtom_traffic_index_2025}. Los cuatro valores
+de $\alpha$, en cambio, los fija el autor: van de 0 en la vía exclusiva a 1 en
+la mixta y ordenan cuánto se expone cada derecho de vía al tráfico general. El
+orden sigue las categorías de vía del Manual de Calles \citep{sedatu2019manual},
+que describe esos tipos de vía sin asignarles un coeficiente. El
+Cuadro~\ref{tab:cf-derecho-via} reúne los coeficientes que resultan para cada
+categoría.
 
 \begin{table}[H]
     \centering
@@ -26,30 +31,36 @@ los del Cuadro~\ref{tab:cf-derecho-via}.
     Coeficiente de Fricción Vial ($CF$) por categoría de derecho de vía
     y sistemas de transporte asignados en la red de la \zmvm{}.
     Un $CF = 1.000$ indica operación sin interferencia del tráfico.
-    Corrida: 2026-04-18.}
+    Corrida: 2026-10-04.}
     \label{tab:cf-derecho-via}
     \small
-    \begin{tabular}{|l|c|r|l|}
+    \begin{tabular}{|l|c|r|p{7.6cm}|}
         \hline
         \textbf{Derecho de vía} & \textbf{$\alpha$} &
         \textbf{$CF$} & \textbf{Sistemas} \\
         \hline
-        Exclusivo  & 0.0 & 1.000 & Metro, Metrobús, Tren Ligero, Tren Suburbano \\
-        Confinado  & 0.2 & 1.152 & Cablebús, Mexibús, Mexicable \\
-        Compartido & 0.5 & 1.380 & Trolebús \\
-        Mixto      & 1.0 & 1.759 & RTP, Corredores Concesionados, Pumabús \\
+        Exclusivo  & 0.0 & 1.000 & Metro, Metrobús, Tren Ligero, Tren Suburbano,
+                                   Tren Interurbano, Cablebús, Mexicable \\
+        Confinado  & 0.2 & 1.152 & Mexibús, Trolebús (Línea 10) \\
+        Compartido & 0.5 & 1.380 & Trolebús, RTP, Corredores Concesionados, Pumabús \\
+        Mixto      & 1.0 & 1.759 & Ninguno; valor por defecto si la ruta no
+                                   declara derecho de vía \\
         \hline
     \end{tabular}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel};
-    $\beta$: \citep{tomtom2024};
-    $\alpha$: \citep{sedatu2019manual}.}
+    $\beta$: \citep{tomtom_traffic_index_2025};
+    $\alpha$: supuestos del autor con base en las categorías de vía de
+    \citet{sedatu2019manual}.}
 \end{table}
 
 La brecha entre extremos es considerable: los sistemas con derecho de vía
 exclusivo operan a su velocidad de diseño sin penalización, mientras que RTP y
 los Corredores Concesionados —que concentran más del 85\,\% de las aristas de
-servicio real de la red— absorben el índice de congestión completo de la ciudad.
-Dado que esas líneas son también las que conectan las periferias con el centro,
-el $CF$ amplifica las asimetrías de cobertura y capilaridad ya documentadas en
-la Fase~1.
+servicio real de la red— absorben la mitad del índice de congestión de la ciudad
+($\alpha = 0.5$). Dado que esas líneas son también las que conectan las
+periferias con el centro, el $CF$ amplifica las asimetrías de cobertura y
+capilaridad ya documentadas en la Fase~1. Como $\alpha$ y $\beta$ son supuestos,
+los valores de $T$ y de $B(v)$ dependen de ellos; el análisis de sensibilidad de
+ambos indicadores ante variaciones de $\alpha$ y $\beta$ queda como trabajo
+futuro.

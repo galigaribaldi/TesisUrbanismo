@@ -30,8 +30,8 @@ intermediación de un nodo $v$ se define como:
 
 El modelo calcula $B(v)$ con el algoritmo de Brandes, en la implementación de
 NetworkX con la normalización activada. En grafos ponderados su complejidad es
-$\mathcal{O}(VE + V^2 \log V)$; la corrida sobre el componente gigante
-(10,561~nodos) tomó 593.4~segundos.
+$\mathcal{O}(VE + V^2 \log V)$; el cálculo se ejecuta sobre el componente
+gigante (10{,}610~nodos).
 
 Dicho de otro modo: hay estaciones que sostienen la red desde adentro sin que
 los usuarios lo noten. No son necesariamente las más transitadas; son las que
@@ -41,13 +41,13 @@ metrópoli.
 
 El Cuadro~\ref{tab:bv-top10} presenta los diez nodos con mayor $B(v)$ calculados
 sobre el componente gigante. El resultado más llamativo: los diez son estaciones
-del Metro, y Tacubaya encabeza la lista con un valor de 0.2179.
+del Metro, y Tacubaya encabeza la lista con un valor de 0.2232.
 
 \begin{table}[H]
     \centering
     \caption[Top 10 nodos por centralidad de intermediación $B(v)$]{%
     Diez nodos con mayor centralidad de intermediación ($B(v)$) en la
-    red de transporte de la \zmvm{}. Corrida: 2026-09-02.}
+    red de transporte de la \zmvm{}. Corrida: 2026-10-04.}
     \label{tab:bv-top10}
     \small
     \begin{tabular}{|r|l|l|l|r|}
@@ -55,43 +55,93 @@ del Metro, y Tacubaya encabeza la lista con un valor de 0.2179.
         \textbf{\#} & \textbf{Estación} & \textbf{Sistema} &
         \textbf{Alcaldía} & \textbf{$B(v)$} \\
         \hline
-         1 & Tacubaya        & Metro & Miguel Hidalgo & 0.2179 \\
-         2 & Mixcoac         & Metro & Benito Juárez  & 0.1725 \\
-         3 & Hidalgo         & Metro & Cuauhtémoc     & 0.1595 \\
-         4 & Balderas        & Metro & Cuauhtémoc     & 0.1433 \\
-         5 & Lázaro Cárdenas & Metro & Cuauhtémoc     & 0.1376 \\
-         6 & Chilpancingo    & Metro & Cuauhtémoc     & 0.1366 \\
-         7 & Viaducto        & Metro & Benito Juárez  & 0.1346 \\
-         8 & Villa de Cortés & Metro & Benito Juárez  & 0.1341 \\
-         9 & Nativitas       & Metro & Benito Juárez  & 0.1299 \\
-        10 & Zapata          & Metro & Benito Juárez  & 0.1283 \\
+         1 & Tacubaya                  & Metro & Miguel Hidalgo & 0.2232 \\
+         2 & Mixcoac                   & Metro & Benito Juárez  & 0.1923 \\
+         3 & Hidalgo                   & Metro & Cuauhtémoc     & 0.1515 \\
+         4 & Balderas                  & Metro & Cuauhtémoc     & 0.1430 \\
+         5 & Lázaro Cárdenas           & Metro & Cuauhtémoc     & 0.1365 \\
+         6 & Zapata\textsuperscript{a} & Metro & Benito Juárez  & 0.1357 \\
+         7 & Chilpancingo              & Metro & Cuauhtémoc     & 0.1348 \\
+         8 & Zapata\textsuperscript{a} & Metro & Benito Juárez  & 0.1346 \\
+         9 & Barranca del Muerto       & Metro & Álvaro Obregón & 0.1313 \\
+        10 & Garibaldi y Lagunilla     & Metro & Cuauhtémoc     & 0.1303 \\
         \hline
     \end{tabular}
+    \vspace{0.4em}
+
+    \noindent\textsuperscript{a}\,Zapata aparece dos veces porque la
+    estación se registra como dos nodos con coordenadas distintas.
+
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
-    \citep{cabrera2026VFTModel}. Corrida: 2026-09-02.}
+    \citep{cabrera2026VFTModel}. Corrida: 2026-10-04.}
 \end{table}
 
 El Metro monopoliza los diez primeros puestos pese a concentrar el 2.1\,\% de
 las aristas de servicio real: su ventaja no es volumétrica sino posicional
 ---sus estaciones ocupan los puntos donde más rutas se cruzan.
 
-La distribución geográfica del top~10 es igualmente estrecha: siete de los diez
+La distribución geográfica del top~10 es igualmente estrecha: ocho de los diez
 nodos quedan en Benito Juárez o Cuauhtémoc, lo que revela que la intermediación
 de la red está concentrada en un corredor reducido del centro-poniente de la
 cuenca.
 
-La Figura~\ref{fig:grafica-bv-nodos} extiende ese ranking a los principales
-nodos de la red.
+El cuadro lee cada nodo por separado, pero una estación de correspondencia se
+registra en el grafo como varios nodos, uno por línea o por sistema. La
+Figura~\ref{fig:grafica-bv-nodos} ofrece la lectura complementaria: suma la $B(v)$ de
+todos los nodos que comparten el nombre de la estación y apila la contribución
+de cada sistema. El Cuadro~\ref{tab:bv-top10-agregado} resume los diez primeros
+nombres. Con esta regla Tacubaya llega a 0.3279 y Chabacano, que no figura en el
+cuadro por nodo, aparece en quinto lugar, porque sus nodos del Metro suman
+0.2445. La agregación tiene dos límites que conviene declarar. Es por nombre
+exacto y sin radio, de modo que también reúne paradas homónimas alejadas entre
+sí: «Hidalgo» incluye paradas separadas hasta 17.6~km y «Chabacano», una parada
+de la \textsc{rtp} a 15.5~km. Además, la fuente de la figura se limita a los
+2{,}000 nodos con mayor $B(v)$; con los 10{,}610 nodos del componente gigante,
+Hidalgo pasaría al primer lugar (0.3342). Por ello la figura se lee como un
+indicador de la importancia de cada complejo de correspondencia y no sustituye
+al ranking por nodo.
+
+\begin{table}[H]
+    \centering
+    \caption[Top 10 estaciones por suma de $B(v)$ por nombre]{%
+    Diez nombres de estación con mayor suma de $B(v)$, con su desglose por
+    sistema. Misma regla de agregación de la
+    Figura~\ref{fig:grafica-bv-nodos}. Corrida: 2026-10-04.}
+    \label{tab:bv-top10-agregado}
+    \small
+    \begin{tabular}{|r|l|r|l|}
+        \hline
+        \textbf{\#} & \textbf{Estación} & \textbf{Suma $B(v)$} &
+        \textbf{Desglose por sistema} \\
+        \hline
+         1 & Tacubaya              & 0.3279 & Metro 0.3242; MB 0.0037 \\
+         2 & Hidalgo               & 0.3265 & Metro 0.2710; Trolebús 0.0451; \textsc{rtp} 0.0105 \\
+         3 & Mixcoac               & 0.2837 & Metro 0.2787; \textsc{rtp} 0.0051 \\
+         4 & Zapata                & 0.2704 & Metro \\
+         5 & Chabacano             & 0.2478 & Metro 0.2445; \textsc{rtp} 0.0033 \\
+         6 & Barranca del Muerto   & 0.2431 & Metro 0.1313; \textsc{rtp} 0.0964; CC 0.0154 \\
+         7 & Garibaldi y Lagunilla & 0.2364 & Metro \\
+         8 & Balderas              & 0.2340 & Metro \\
+         9 & Lázaro Cárdenas       & 0.1911 & Metro 0.1365; Trolebús 0.0546 \\
+        10 & Bellas Artes          & 0.1812 & Metro 0.1503; MB 0.0171; Trolebús 0.0138 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{table}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
         Grafica_VFTModel_2026_Centralidad_Intermediacion_Nodos}
-    \caption[Centralidad de intermediación $B(v)$ --- top nodos de la red]{%
-    Ranking de los nodos con mayor centralidad de intermediación
-    ($B(v)$) en la red de transporte de la \zmvm{}.
-    Corrida: 2026-09-02.}
+    \caption[Centralidad de intermediación $B(v)$ --- suma por nombre de
+    estación]{%
+    Veinte nombres de estación con mayor suma de centralidad de intermediación
+    ($B(v)$) en la red de transporte de la \zmvm{}. Cada barra suma la $B(v)$
+    de los nodos que comparten el nombre exacto de la estación, apilada por
+    sistema, a partir de los 2{,}000 nodos con mayor $B(v)$; por eso sus
+    valores superan a los del Cuadro~\ref{tab:bv-top10}. Corrida: 2026-10-04.}
     \label{fig:grafica-bv-nodos}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
@@ -128,7 +178,7 @@ de la red.
     \caption[Centralidad de intermediación $B(v)$ acumulada por sistema]{%
     Suma acumulada de $B(v)$ agrupada por sistema de transporte.
     El Metro concentra la mayor proporción de intermediación global
-    de la red. Corrida: 2026-09-02.}
+    de la red. Corrida: 2026-10-04.}
     \label{fig:grafica-bv-sistema}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
@@ -154,7 +204,7 @@ cuenca metropolitana.
     Distribución espacial de la centralidad de intermediación ($B(v)$)
     en la red de transporte de la \zmvm{}. El corredor de alta
     intermediación traza una banda en el centro-poniente de la cuenca.
-    Corrida: 2026-09-02.}
+    Corrida: 2026-10-04.}
     \label{fig:mapa-betweenness}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
@@ -178,8 +228,9 @@ sobre el conjunto de la red.
         Dashboard_VFTModel_2026_Centralidad_intermediacion}
     \caption[Dashboard integral de centralidad de intermediación $B(v)$ --- \zmvm{}]{%
     Vista integral del indicador de centralidad de intermediación ($B(v)$)
-    sobre la red de transporte de la \zmvm{}.
-    Corrida: 2026-09-02.}
+    sobre la red de transporte de la \zmvm{}. El ranking usa la misma suma
+    por nombre de estación de la Figura~\ref{fig:grafica-bv-nodos}.
+    Corrida: 2026-10-04.}
     \label{fig:dashboard-bv}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}

@@ -13,8 +13,21 @@ cualquier otra. Débil $[0.25, 0.50)$ indica rendimiento en la mitad inferior de
 rango de referencia normalizada; no constituye una emergencia, pero requiere un
 plan de mejora. Aceptable $[0.50, 0.75)$ describe una dimensión que cumple su
 función urbana sin destacar. Idóneo $[0.75, 1.00]$ reserva el extremo superior
-para redes con solidez estructural en ese aspecto. La Figura~
-\ref{fig:escala-garibelt-barra} muestra la distribución como espectro continuo.
+para redes con solidez estructural en ese aspecto. La
+Figura~\ref{fig:escala-garibelt-barra} muestra la distribución como espectro continuo.
+
+Los cortes en 0.25, 0.50 y 0.75 son un supuesto del autor: dividen el rango
+normalizado en cuatro bandas de igual ancho, sin dar más peso a ninguna, para
+que la lectura sea la misma en las cinco dimensiones. Esa simplicidad tiene un
+costo. Como la normalización depende de las cotas de referencia de cada
+dimensión (§\ref{subsubsec:garibelt-procedimiento}), moverlas puede cambiar la
+banda aunque el valor bruto sea el mismo. Con los valores de la red actual
+(§\ref{subsec:espectro-mjg}), bajar el techo de $T$ de 180 a 150~min llevaría su
+valor normalizado de 0.70 a 0.56, todavía en Aceptable; en cambio, bajar la cota
+de $DI$ de 2.5 a 2.0 llevaría la mediana de 1.52 de 0.65 a 0.48 y la haría pasar
+de Aceptable a Débil. Por ello, en el Capítulo~5 cada banda se reporta junto con
+su valor normalizado, y un análisis de sensibilidad sistemático de cortes y
+cotas queda como trabajo futuro.
 
 \begin{figure}[htbp]
 \centering
@@ -37,7 +50,7 @@ conviene tener presente qué pregunta urbana responde cada dimensión:
 \begin{itemize}
     \item Cobertura~$C$: ¿cuánto del área metropolitana queda dentro del
           radio de caminata de la red?
-    \item Fuerza capilar~$C_i$: ¿qué tan variadas son las opciones de
+    \item Fuerza capilar~$FC$: ¿qué tan variadas son las opciones de
           conexión disponibles en cada nodo?
     \item Índice de ruta directa~$DI$: ¿obliga la red a recorrer
           trayectos muy alejados de la distancia mínima?
@@ -56,17 +69,19 @@ cumple con solidez estructural en esa dimensión.
 % =====================================================================
 
 Llevar un valor bruto a la escala $[0, 1]$ de la Clasificación Garibelt requiere
-un rango de referencia. Para~$T$, ese rango lo entrega la \textsc{enoe}: los
-tiempos de traslado en la \cdmx{} oscilan en la práctica entre 85 y 180 minutos,
-de modo que 85 min normaliza a $1.0$ (Idóneo) y 180 min a $0.0$ (Crítico).
-Para~$DI$, la teoría de grafos fija el piso en $1.0$ ---ruta directa perfecta---
-y la práctica urbana establece el techo en $2.5$ ---desviación que ya resulta
-inaceptable para el usuario. Para~$C$, el estándar peatonal urbano de 80\,\% es
-la referencia. Para~$C_i$, el rango es el del propio dataset: los percentiles Q1
-y Q3 de la distribución de grado nodal. Para~$B(v)$, se calcula el índice de
-Gini de la distribución completa de intermediación y se invierte: Gini~$= 0$
-(distribución perfecta) da $1.0$; Gini cercano a $1$ (monopolio) da $0.0$. La la
-Tabla~\ref{tab:clasificacion-garibelt-dims} consolida estos rangos.
+un rango de referencia. Para~$T$, el rango es un supuesto del autor: 85 min es
+el tiempo de referencia del modelo y 180 min la cota a partir de la cual un
+traslado se considera inaceptable, de modo que 85 min normaliza a $1.0$ (Idóneo)
+y 180 min a $0.0$ (Crítico); la sensibilidad de la banda de $T$ a ambos valores
+queda como trabajo futuro. Para~$DI$, la teoría de grafos fija el piso en $1.0$
+---ruta directa perfecta--- y la práctica urbana establece el techo en $2.5$
+---desviación que ya resulta inaceptable para el usuario. Para~$C$, el estándar
+peatonal urbano de 80\,\% es la referencia. Para~$FC$, el rango es el del propio
+dataset: los percentiles Q1 y Q3 de la distribución de grado nodal. Para~$B(v)$,
+se calcula el índice de Gini de la distribución completa de intermediación y se
+invierte: Gini~$= 0$ (distribución perfecta) da $1.0$; Gini cercano a $1$
+(monopolio) da $0.0$. La Tabla~\ref{tab:clasificacion-garibelt-dims} consolida
+estos rangos.
 
 % =====================================================================
 \subsubsection{Un tablero, no un marcador}

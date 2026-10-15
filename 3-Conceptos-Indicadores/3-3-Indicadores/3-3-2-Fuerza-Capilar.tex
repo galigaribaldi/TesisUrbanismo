@@ -1,7 +1,7 @@
 % !TeX root = ../../tesis.tex
 
 % -----------------------------------------------------------------------
-\subsection{Nivel de Alimentación Capilar --- Fuerza Nodal \texorpdfstring{($C_i$)}{(Ci)}}
+\subsection{Fuerza Capilar \texorpdfstring{($FC$)}{(FC)}}
 \label{subsec:alimentacion-capilar}
 % -----------------------------------------------------------------------
 
@@ -18,12 +18,10 @@ de conexiones (aristas) que entran o salen del nodo, y su \termino{fuerza}
 ($s$), definida como la suma de los pesos (flujos de pasajeros) de todos los
 enlaces conectados a esa estación.
 
-Los autores demuestran que la distribución de la fuerza de los nodos en la red
-de metro de Seúl sigue un comportamiento log-normal con un pico característico,
-lo que indica que la mayoría de las estaciones atienden un volumen similar de
-pasajeros, pero un pequeño número de nodos ---los grandes concentradores o
-\textit{hubs}--- acumula flujos desproporcionadamente elevados. Este patrón es
-directamente relevante para la red de la \cdmx{}, donde los macro-CETRAMs
+Los autores muestran que la fuerza se reparte de forma desigual: un pequeño
+número de estaciones ---los grandes concentradores o \textit{hubs}--- acumula
+flujos de pasajeros desproporcionadamente elevados frente al resto. Este patrón
+es directamente relevante para la red de la \cdmx{}, donde los macro-CETRAMs
 (Pantitlán, Indios Verdes, Cuatro Caminos, Taxqueña) operan como \textit{hubs}
 nodales que concentran la articulación entre las redes capilares de superficie y
 las arterias masivas.
@@ -31,13 +29,13 @@ las arterias masivas.
 \subsubsection{Fórmula}
 
 \begin{equation}
-    C_i = \sum_{j \in S} A_{ij} \cdot \peso{i}{j}
+    FC_i = \sum_{j \in S} A_{ij} \cdot \peso{i}{j}
     \label{eq:fuerza-nodal}
 \end{equation}
 
 Donde:
 \begin{itemize}
-    \item $C_i$ = Nivel de Alimentación Capilar (Fuerza Nodal) de la estación
+    \item $FC_i$ = Fuerza Capilar de la estación
     masiva $i$.
     \item $S$ = Subconjunto de rutas pertenecientes exclusivamente a la red de
     superficie (RTP, microbús, trolebús, concesionados).
@@ -51,15 +49,20 @@ flujo
 
 \citet{lee2008} establecen que el peso $\peso{i}{j}$ de un enlace representa el
 flujo de pasajeros que transita por él, y que la fuerza $s_i$ de una estación
-corresponde al número de pasajeros que llegan y parten de ella. En el modelo
-propuesto, $\peso{i}{j}$ se inicializa con la capacidad operativa declarada de
-cada ruta y se refinará en fases posteriores con el Coeficiente de Fricción
-Vial.
+corresponde al número de pasajeros que llegan y parten de ella. La
+Ecuación~\eqref{eq:fuerza-nodal} es la definición general del indicador. El
+\texttt{VFTModel} implementa el caso particular $\peso{i}{j} = 1$: sin pesos,
+$FC_i$ se reduce al grado del nodo, es decir, al número de conexiones que llegan
+a la estación o salen de ella, y se calcula para todos los nodos del grafo, no
+solo para las estaciones de los sistemas masivos. Ponderar cada conexión por la
+capacidad o por el flujo observado de la ruta requiere datos de demanda por ruta
+que el modelo todavía no integra, y queda como trabajo futuro. La versión
+agregada por Macro-Hub, $FC_H$, se presenta en §\ref{subsec:fuerza-capilar}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.70\textwidth]{Figures/Cap3/NiveldeAlimentacionCapilar.png}
-    \caption[Diagrama del indicador de Alimentación Capilar $C_i$]{Esquema de
+    \caption[Diagrama del indicador de Fuerza Capilar $FC$]{Esquema de
     fuerza nodal: rutas de superficie $F_1 \ldots F_n$ convergiendo en una
     estación masiva de alta conectividad de entrada.}
     \label{fig:indicador-Ci}
@@ -71,13 +74,13 @@ Vial.
 
 \begin{table}[H]
     \centering
-    \caption{Estimaciones del indicador $C_i$ en nodos representativos.}
+    \caption{Estimaciones del indicador $FC$ en nodos representativos.}
     \label{tab:capilar-nodos}
     \begin{tabularx}{\textwidth}{X r r}
         \toprule
         \textbf{Estación masiva} &
         \textbf{$k_{in}$ (rutas capilares)} &
-        \textbf{$C_i$ estimado (pax/h)} \\
+        \textbf{$FC$ estimado (pax/h)} \\
         \midrule
         Pantitlán (Hub CETRAM)          & $\approx 120$ rutas & Alto \\
         Indios Verdes (CETRAM)          & $\approx 90$ rutas  & Alto \\
@@ -89,9 +92,9 @@ Vial.
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-capilar}).
 
-La fuerza nodal $C_i$ complementa al indicador $C$ en la consecución del
+La Fuerza Capilar $FC$ complementa al indicador $C$ en la consecución del
 Objetivo Específico 4 (§\ref{subsec:obj-especificos}): mientras $C$ mide el
-alcance territorial de la red, $C_i$ cuantifica la intensidad de la articulación
+alcance territorial de la red, $FC$ cuantifica la intensidad de la articulación
 capilar en cada nodo masivo, identificando cuáles de ellos concentran mayor
 presión de demanda y constituyen, por tanto, los candidatos prioritarios para la
 ampliación de la red con corredores perimetrales.

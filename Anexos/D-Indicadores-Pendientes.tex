@@ -16,8 +16,8 @@ investigaciones posteriores o en la fase de cierre del presente trabajo.
 \label{anx:impl-cobertura}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $C$ definido en §
-\ref{subsec:indicador-cobertura}, utilizando \textbf{GeoPandas} y
+Implementación de referencia del indicador $C$ definido en
+§\ref{subsec:indicador-cobertura}, utilizando \textbf{GeoPandas} y
 \textbf{Shapely} sobre los datos \gtfs{} de la red metropolitana.
 
 \begin{lstlisting}[style=estiloPython,
@@ -32,17 +32,19 @@ C = covered_area.intersection(city_polygon).area / city_polygon.area
 \end{lstlisting}
 
 % -----------------------------------------------------------------------
-\section{Alimentación Capilar --- Fuerza Nodal \texorpdfstring{($C_i$)}{(Ci)}}
+\section{Fuerza Capilar \texorpdfstring{($FC$)}{(FC)}}
 \label{anx:impl-capilar}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $C_i$ definido en §
-\ref{subsec:alimentacion-capilar}, utilizando \textbf{NetworkX}. El código
+Implementación de referencia de la definición general del indicador $FC$
+(§\ref{subsec:alimentacion-capilar}), utilizando \textbf{NetworkX}. El código
 calcula la fuerza nodal como suma de pesos de aristas de superficie, conforme a
-la fórmula $C_i = \sum_{j \in S} A_{ij} \cdot w_{ij}$.
+la fórmula $FC_i = \sum_{j \in S} A_{ij} \cdot w_{ij}$. Es un prototipo: el
+\texttt{VFTModel} implementa el caso $w_{ij} = 1$, equivalente al grado del nodo
+(§\ref{subsec:fuerza-capilar}).
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Cálculo del indicador $C_i$ con NetworkX (prototipo).},
+  caption={Cálculo del indicador $FC$ con NetworkX (prototipo).},
   label={lst:fuerza-nodal}]
 # NetworkX - Fuerza nodal C_i: suma de pesos de aristas de superficie
 capilar_strength = {
@@ -58,8 +60,8 @@ capilar_strength = {
 \label{anx:impl-detour}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $DI$ definido en §
-\ref{subsec:ruta-directa}. Usa \textbf{geopy} para la distancia haversine y
+Implementación de referencia del indicador $DI$ definido en
+§\ref{subsec:ruta-directa}. Usa \textbf{geopy} para la distancia haversine y
 \textbf{NetworkX} para el camino mínimo ponderado por distancia en km.
 
 \begin{lstlisting}[style=estiloPython,
@@ -79,8 +81,8 @@ DI = d_red / d_euclidiana
 \label{anx:impl-betweenness}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $B(v)$ definido en §
-\ref{subsec:centralidad-intermediacion}, utilizando \textbf{NetworkX} con peso
+Implementación de referencia del indicador $B(v)$ definido en
+§\ref{subsec:centralidad-intermediacion}, utilizando \textbf{NetworkX} con peso
 por tiempo de viaje real y normalización en $[0, 1]$.
 
 \begin{lstlisting}[style=estiloPython,
@@ -97,8 +99,8 @@ top_nodes = sorted(centrality.items(), key=lambda x: x[1], reverse=True)[:10]
 \label{anx:impl-tiempo}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $T$ definido en §
-\ref{subsec:tiempo-viaje}, utilizando \textbf{NetworkX}. Para redes de gran
+Implementación de referencia del indicador $T$ definido en
+§\ref{subsec:tiempo-viaje}, utilizando \textbf{NetworkX}. Para redes de gran
 escala se recomienda sustituir el cómputo exhaustivo por una muestra
 representativa de pares O--D.
 
@@ -115,8 +117,8 @@ T = nx.average_shortest_path_length(G, weight='tiempo_minutos')
 \label{anx:impl-robustez}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $\Delta E$ definido en §
-\ref{subsec:robustez-geometrica}. Pendiente de validación empírica sobre la red
+Implementación de referencia del indicador $\Delta E$ definido en
+§\ref{subsec:robustez-geometrica}. Pendiente de validación empírica sobre la red
 real de la \zmvm{} (véase nota aclaratoria en §\ref{sec:indicadores-formulas}).
 
 \begin{lstlisting}[style=estiloPython,
@@ -144,8 +146,8 @@ print(f"Caida de eficiencia: {delta_E:.2%}")
 \label{anx:impl-transferencia}
 % -----------------------------------------------------------------------
 
-Implementación de referencia del indicador $W_{s,h}$ definido en §
-\ref{subsec:penalizacion-transferencia}. El costo de transbordo suma el tiempo
+Implementación de referencia del indicador $W_{s,h}$ definido en
+§\ref{subsec:penalizacion-transferencia}. El costo de transbordo suma el tiempo
 de caminata entre estaciones más la espera promedio hasta el siguiente servicio.
 La implementación de producción está integrada en \texttt{graph\_builder.py}; el
 prototipo aquí presentado es de referencia.

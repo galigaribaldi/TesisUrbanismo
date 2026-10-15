@@ -13,12 +13,20 @@ verificados contra la representación completa del sistema. Se presentan como
 primer acercamiento al indicador $\Delta E$, con la intención de enmarcar el
 método y señalar las líneas de trabajo futuro.
 
-A partir del valor de referencia $T = 108.92$~min (§
-\ref{subsec:tiempo-viaje-promedio}), el experimento calcula la caída relativa de
-eficiencia $\Delta E$ cuando se retira cada uno de los cinco nodos de mayor
-$B(v)$ (§\ref{subsec:robustez-geometrica}). La eficiencia base es
+El experimento se ejecutó en la corrida exploratoria del 2026-09-02, anterior a
+la corrección de distancias que incorpora la corrida 2026-10-04 de
+§\ref{subsec:tiempo-viaje-promedio}; por eso parte de $T = 108.92$~min y no de
+los 113.91~min vigentes. Sobre esa base, calcula la caída relativa de eficiencia
+$\Delta E$ cuando se retira cada uno de los cinco nodos de mayor $B(v)$
+(§\ref{subsec:robustez-geometrica}). La eficiencia base se aproxima como
 $E_0 = 1/108.92$; tras remover el nodo $v$, se recalcula el tiempo promedio
-$T_f$ y se obtiene $\Delta E = (E_0 - E_f)/E_0$.
+$T_f$ y se obtiene $\Delta E = (E_0 - E_f)/E_0$. La aproximación tiene un
+límite: $T_f$ se recalcula sobre la nueva componente gigante, de modo que un par
+que quedara desconectado se excluiría en lugar de contarse con eficiencia nula.
+En estas cinco remociones ningún par adicional quedó desconectado. La eficiencia
+global en sentido estricto, como promedio de $1/d_{ij}$
+\citep{latora2001efficient}, la remoción de un macro-hub completo y el recálculo
+con la corrida vigente quedan como trabajo futuro.
 
 El Cuadro~\ref{tab:delta-e-top5} registra los resultados del experimento sobre
 los cinco nodos seleccionados.
@@ -27,8 +35,9 @@ los cinco nodos seleccionados.
     \centering
     \caption[Impacto de remoción de nodos críticos --- $\Delta E$ exploratorio]{%
     Caída relativa de eficiencia $\Delta E$ al remover cada nodo del
-    componente gigante. $E_0 = 1/108.92$; $E_f = 1/T_f$. Corrida
-    exploratoria: 2026-09-02.}
+    componente gigante. $E_0 = 1/108.92$; $E_f = 1/T_f$. Valores de la
+    corrida exploratoria 2026-09-02, sin recalcular con la corrida
+    2026-10-04; los valores de $B(v)$ corresponden a esa misma corrida.}
     \label{tab:delta-e-top5}
     \small
     \begin{tabular}{|r|l|r|r|r|}
@@ -39,7 +48,7 @@ los cinco nodos seleccionados.
         1 & Tacubaya        & 0.2179 & 111.80 & 2.58\,\% \\
         2 & Mixcoac         & 0.1725 & 110.19 & 1.15\,\% \\
         3 & Hidalgo         & 0.1595 & 109.90 & 0.89\,\% \\
-        4 & Balderas        & 0.1433 & 109.57 & 0.59\,\% \\
+        4 & Balderas        & 0.1433 & 109.56 & 0.58\,\% \\
         5 & Lázaro Cárdenas & 0.1376 & 110.13 & 1.10\,\% \\
         \hline
     \end{tabular}
@@ -47,25 +56,37 @@ los cinco nodos seleccionados.
     \citep{cabrera2026VFTModel}. Corrida exploratoria: 2026-09-02.}
 \end{table}
 
-Tacubaya encabeza tanto el ranking de $B(v)$ como el de $\Delta E$: su remoción
-eleva el tiempo promedio de la red en 2.88~min, traducido en una caída de
-eficiencia del 2.58\,\%. El dato es coherente con la posición estructural del
-nodo ---cruce de las Líneas 1, 7 y 9 del Metro--- y su papel de puente entre el
-corredor poniente y el centro. Los cuatro nodos restantes producen caídas entre
-0.59\,\% y 1.15\,\%, lo que confirma que ningún nodo individual colapsa la red,
-pero la pérdida acumulada de varios podría alcanzar umbrales críticos.
+En la corrida exploratoria, Tacubaya encabeza tanto el ranking de $B(v)$ como el
+de $\Delta E$: su remoción eleva el tiempo promedio de la red en 2.88~min,
+traducido en una caída de eficiencia del 2.58\,\%. El dato es coherente con la
+posición estructural del nodo ---cruce de las Líneas 1, 7 y 9 del Metro--- y su
+papel de puente entre el corredor poniente y el centro. Los cuatro nodos
+restantes producen caídas entre 0.58\,\% y 1.15\,\%: ningún nodo individual
+colapsa la red. El efecto de retirar varios nodos a la vez no se simuló y queda
+fuera de este análisis.
+
+El orden de esas caídas, sin embargo, no sigue el de $B(v)$. Lázaro Cárdenas,
+quinto en intermediación, produce una caída de 1.10\,\%, mayor que la de Hidalgo
+(0.89\,\%) y la de Balderas (0.58\,\%), que lo superan en $B(v)$. La
+intermediación cuenta cuántas rutas mínimas pasan por un nodo, pero no cuánto se
+alargan cuando ese nodo falta: si hay rutas alternativas casi igual de cortas,
+retirarlo cuesta poco. El desajuste es en sí un hallazgo. $B(v)$ sirve para
+señalar candidatos a la vulnerabilidad, pero no basta para ordenarlos; la caída
+de eficiencia tiene que medirse directamente, nodo por nodo.
 
 Los tres indicadores de Fase~3 convergen en un mismo diagnóstico estructural.
-$T = 108.92$~min revela que el tiempo de viaje promedio entre cualquier par de
-la \zmvm{} supera con amplitud los umbrales de movilidad cotidiana. $B(v)$
-identifica el corredor que hace posible ese tiempo: un conjunto reducido de
-estaciones del Metro en el eje centro-poniente concentra la mayor parte de los
-caminos mínimos de la red. Y la simulación exploratoria de $\Delta E$ confirma
-que la remoción de esos nodos, aunque no colapsa la red, la degrada de forma
-mensurable ---con Tacubaya produciendo el mayor impacto individual registrado.
+$T = 113.91$~min supera en unos 29~minutos el tiempo de referencia del modelo
+(§\ref{subsec:tiempo-viaje-promedio}). $B(v)$ identifica el corredor que sostiene
+ese tiempo: un conjunto reducido de estaciones del Metro en el eje
+centro-poniente concentra la mayor parte de los caminos mínimos de la red. La
+simulación exploratoria de $\Delta E$ muestra que retirar esos nodos no colapsa
+la red, pero la degrada de forma mensurable, con Tacubaya como el mayor impacto
+individual registrado, aunque el orden del daño no coincide del todo con el de
+la intermediación.
 
-El patrón es consistente con el hallazgo de Fase~1: las zonas que registraron
-menor cobertura y mayor Factor de Desviación son también las que más dependen
-del corredor central para cualquier trayecto de largo aliento. La siguiente
-sección integra estos indicadores en un diagnóstico territorial que localiza las
-zonas de déficit estructural de la red.
+El patrón es coherente con lo observado en Fase~1. Las zonas con menor cobertura
+y mayor Factor de Desviación están en la periferia, y sus trayectos largos
+cruzan el corredor central donde se concentra la intermediación, como ilustra el
+Caso~7 de §\ref{subsubsec:di-casos}. La siguiente sección integra estos
+indicadores en un diagnóstico territorial que localiza las zonas de déficit
+estructural de la red.

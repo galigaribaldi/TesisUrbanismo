@@ -10,15 +10,17 @@ A partir de los datos geoespaciales procesados por el \textbf{Apímetro}, el
 \textbf{Modelo VFT} construyó un grafo dirigido y ponderado que representa la
 red de transporte público de la \zmvm{} como objeto de análisis estructural
 (véanse Capítulo~4 y Anexo~B para el detalle de implementación). El conjunto de
-origen de la corrida del 18 de abril de 2026 reúne 22{,}766 entidades
-espaciales, entre estaciones y trazos de ruta. Solo las estaciones y paradas se
-registran como nodos, identificados por sus coordenadas: \textbf{11{,}115 nodos}.
-Los trazos no se convierten en nodos; sirven para tender las aristas. Un árbol
-\texttt{KDTree} por sistema localiza, con una tolerancia de 50~m, las estaciones
-que quedan sobre cada trazo y une cada par consecutivo con una arista medida a
-lo largo del recorrido. Después se agregan transbordos peatonales entre
-estaciones separadas por 85~m o menos. El grafo queda con
-\textbf{45{,}679 aristas}: 25{,}197 segmentos de servicio y 20{,}482 transbordos
+origen de la corrida del 4 de octubre de 2026 reúne 23{,}550 entidades
+espaciales: 22{,}872 estaciones y paradas y 678 trazos de ruta. Solo las
+estaciones y paradas se registran como nodos, identificados por sus coordenadas;
+las que comparten ubicación se funden en uno solo, de modo que el grafo cuenta
+con \textbf{11{,}115 nodos}. Los trazos no se convierten en nodos; sirven para
+tender las aristas. Un árbol \texttt{KDTree} por sistema localiza, con una
+tolerancia de 50~m, las estaciones que quedan sobre cada trazo y une cada par
+consecutivo con una arista medida a lo largo del recorrido. Después se agregan
+transbordos peatonales entre estaciones separadas por 85~m o menos, más los
+cinco transbordos oficiales del Tren Suburbano. El grafo queda con
+\textbf{45{,}517 aristas}: 25{,}025 segmentos de servicio y 20{,}492 transbordos
 \citep{cabrera2026VFTModel}.
 
 \begin{figure}[H]
@@ -26,11 +28,11 @@ estaciones separadas por 85~m o menos. El grafo queda con
     \input{Figures/TiKz_Libraries/Diagramas/vft-pipeline-procesamiento}
     \caption[Pipeline de procesamiento del Modelo VFT]{Las cuatro etapas que
     transforman los datos de \textbf{Apímetro} en el grafo topológico
-    operativo. De las 22{,}766 entidades de origen, las estaciones dan lugar a
+    operativo. De las 23{,}550 entidades de origen, las estaciones dan lugar a
     11{,}115 nodos; un árbol \texttt{KDTree} (tolerancia: 50~m) las ubica sobre
     cada trazo para crear las aristas de servicio, y el \termino{Snapping
     Lógico Geográfico} añade los transbordos peatonales a 85~m o menos. La
-    ponderación final asigna impedancias temporales a las 45{,}679 aristas del
+    ponderación final asigna impedancias temporales a las 45{,}517 aristas del
     grafo dirigido $\mathcal{G}(\mathcal{V},\mathcal{E},w)$.}
     \label{fig:arq-capas}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
@@ -38,21 +40,26 @@ estaciones separadas por 85~m o menos. El grafo queda con
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{11{,}115 nodos topológicos} — estaciones operativas tras
-    eliminar nodos fantasma y redundancias geométricas.
-    \item \textbf{45{,}679 aristas}: 25{,}197 segmentos de servicio real y
-    20{,}482 aristas de transbordo peatonal generadas por el
-    \termino{Snapping Lógico Geográfico}.
-    \item \textbf{11 sistemas de transporte} representados: \textsc{Metro},
-    Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Cablebús, Mexicable,
-    Mexibús, \textsc{rtp}, Corredores Concesionados y Pumabús.
-    \item Distribución modal: \textbf{7\,\% infraestructura estructurada} con
-    derecho de vía exclusivo o confinado (\textsc{Metro}, Metrobús, Tren Ligero,
-    Cablebús, Tren Suburbano, Mexibús y Mexicable) y \textbf{93\,\% transporte
-    de superficie} en vía compartida o mixta (\textsc{rtp}, Corredores
-    Concesionados, Trolebús y Pumabús).
-    \item \textbf{Componente gigante}: 10{,}561 nodos (95\,\% del total),
-    sobre la cual se ejecutan los algoritmos de Fase~3.
+    \item \textbf{11{,}115 nodos topológicos} — coordenadas únicas de las
+    22{,}872 estaciones y paradas; las paradas que comparten ubicación se
+    registran como un solo nodo.
+    \item \textbf{45{,}517 aristas}: 25{,}025 segmentos de servicio real y
+    20{,}492 aristas de transbordo peatonal generadas por el
+    \termino{Snapping Lógico Geográfico} y por los transbordos oficiales del
+    Tren Suburbano.
+    \item \textbf{12 sistemas de transporte} representados: \textsc{Metro},
+    Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Tren Interurbano,
+    Cablebús, Mexicable, Mexibús, \textsc{rtp}, Corredores Concesionados y
+    Pumabús.
+    \item Distribución modal: \textbf{7.3\,\% infraestructura estructurada}
+    con derecho de vía exclusivo o confinado (\textsc{Metro}, Metrobús, Tren
+    Ligero, Cablebús, Tren Suburbano, Tren Interurbano, Mexibús y Mexicable) y
+    \textbf{92.7\,\% transporte de superficie} en vía compartida
+    (\textsc{rtp}, Corredores Concesionados, Trolebús y Pumabús). La Línea~10
+    del Trolebús, elevada, es la única de ese sistema con vía confinada.
+    \item \textbf{Componente gigante}: 10{,}610 nodos (95.5\,\% del total),
+    sobre la cual se ejecutan los algoritmos de Fase~3. Las cinco estaciones
+    del Tren Interurbano quedan fuera de ella.
 \end{itemize}
 
 El Cuadro~\ref{tab:aristas-por-sistema} detalla la distribución de aristas de
@@ -64,41 +71,45 @@ de fricción vial correspondiente.
     \caption[Distribución de aristas de servicio por sistema de transporte]{
     Distribución de aristas de servicio real por sistema de transporte en el
     grafo de la \zmvm{}. El coeficiente $CF$ refleja el tipo de derecho de vía.
-    Corrida: 2026-04-18.}
+    Corrida: 2026-10-04.}
     \label{tab:aristas-por-sistema}
     \begin{tabular}{|l|r|l|c|}
         \hline
         \textbf{Sistema} & \textbf{Aristas} & \textbf{Derecho de vía} &
         \textbf{$CF$} \\
         \hline
-        \textsc{rtp}                  & 11{,}041 & Mixto       & 1.759 \\
-        Corredores Concesionados (CC) & 10{,}603 & Mixto       & 1.759 \\
-        Trolebús\textsuperscript{†}   &  1{,}506 & Compartido  & 1.380 \\
-        Metrobús (MB)                 &    792   & Exclusivo   & 1.000 \\
+        \textsc{rtp}                  & 10{,}904 & Compartido  & 1.380 \\
+        Corredores Concesionados (CC) & 10{,}573 & Compartido  & 1.380 \\
+        Trolebús\textsuperscript{†§}  &  1{,}489 & Compartido  & 1.380 \\
+        Metrobús (MB)                 &    789   & Exclusivo   & 1.000 \\
         \textsc{Metro} (STC)          &    528   & Exclusivo   & 1.000 \\
-        Mexibús\textsuperscript{†}    &    391   & Confinado   & 1.152 \\
-        Pumabús                       &    234   & Mixto       & 1.759 \\
+        Mexibús\textsuperscript{†}    &    393   & Confinado   & 1.152 \\
+        Pumabús                       &    234   & Compartido  & 1.380 \\
         Tren Ligero (TL)              &     52   & Exclusivo   & 1.000 \\
-        Cablebús (CBB)\textsuperscript{‡} &  30  & Confinado   & 1.152 \\
-        Mexicable\textsuperscript{†}  &     17   & Confinado   & 1.152 \\
-        Tren Suburbano (SUB)\textsuperscript{‡} &  3 & Exclusivo   & 1.000 \\
+        Cablebús (CBB)\textsuperscript{‡} &  30  & Exclusivo   & 1.000 \\
+        Mexicable\textsuperscript{†}  &     17   & Exclusivo   & 1.000 \\
+        Tren Suburbano (SUB)          &     12   & Exclusivo   & 1.000 \\
+        Tren Interurbano              &      4   & Exclusivo   & 1.000 \\
         \hline
-        \textbf{Total}                & \textbf{25{,}197} & & \\
+        \textbf{Total}                & \textbf{25{,}025} & & \\
         \hline
     \end{tabular}
     \vspace{0.5em}
 
-    \noindent\textsuperscript{†}\,A la fecha de ingesta (2026-04-18), la
-    Línea 13 del Trolebús, el Mexicable y el Mexibús no contaban con registros
-    publicados en el Portal de Datos Abiertos de la \cdmx{}. Su geometría y
-    paradas fueron integradas a partir de datos de
-    \termino{OpenStreetMap} \citep{osm2012}.
+    \noindent\textsuperscript{†}\,A la fecha de ingesta, el Portal de Datos
+    Abiertos de la \cdmx{} publicaba información incompleta de la Línea 13 del
+    Trolebús y no contaba con registros del Mexicable ni del Mexibús. En ambos
+    casos, la geometría y las paradas faltantes se integraron a partir de
+    datos de \termino{OpenStreetMap} \citep{osm2012}.
 
-    \noindent\textsuperscript{‡}\,El Cablebús registra únicamente 30 aristas
-    para sus tres líneas operativas; el Tren Suburbano registra solo 3 aristas
-    para sus siete estaciones activas. Ambos casos reflejan subrepresentación
-    en el dataset de origen a la fecha de corrida (2026-04-18) y no afectan
-    los indicadores de los demás sistemas.
+    \noindent\textsuperscript{‡}\,El Cablebús registra 30 aristas para sus
+    tres líneas operativas. La Línea~3 solo tiene aristas en un sentido y 5 de
+    sus 19 estaciones quedan fuera de la componente gigante. El dato refleja
+    la calidad del dataset de origen y no afecta los indicadores de los demás
+    sistemas.
+
+    \noindent\textsuperscript{§}\,Incluye las 29 aristas de la Línea~10
+    (elevada), con derecho de vía confinado y $CF = 1.152$.
 
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel}; datos: \citep{adip_gtfs_2024, osm2012}.}
@@ -121,7 +132,7 @@ de fricción vial correspondiente.
 
 El grafo resultante constituye la representación operativa sobre la que se
 calculan todos los indicadores presentados en las secciones siguientes. Su
-escala —11{,}115 nodos y 45{,}679 aristas distribuidos en once sistemas—
+escala —11{,}115 nodos y 45{,}517 aristas distribuidos en doce sistemas—
 corresponde a una red metropolitana que reúne servicios confinados y de
 superficie, y es el punto de partida para leer los resultados de cobertura,
 centralidad y vulnerabilidad que se exponen a continuación.

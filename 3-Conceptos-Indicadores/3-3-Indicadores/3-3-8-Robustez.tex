@@ -38,13 +38,23 @@ Donde:
 \begin{itemize}
 \item $\Delta E$ = Caída relativa de eficiencia de la red tras la remoción de un
     nodo o conjunto de nodos (adimensional, rango $[0, 1]$).
-\item $E_0$ = Eficiencia global de la red en el estado completo, expresada como
-    el inverso del Tiempo de Viaje Promedio:
-    $E_0 = 1 / T_{\text{completa}}$.
+\item $E_0$ = Eficiencia global de la red en el estado completo. En su
+    definición estándar \citep{latora2001efficient}, es el promedio del inverso
+    de las distancias mínimas entre todos los pares de nodos,
+    $E = \frac{1}{N(N-1)} \sum_{i \neq j} 1/d_{ij}$, donde $d_{ij}$ es el
+    tiempo de viaje mínimo entre $i$ y $j$ y $N$ el número de nodos; un par
+    desconectado aporta cero. En este trabajo se aproxima como el inverso del
+    Tiempo de Viaje Promedio, $E_0 \approx 1 / T_{\text{completa}}$.
 \item $E_f$ = Eficiencia global de la red en el estado fallido (tras la remoción
-    del nodo o nodos críticos):
-    $E_f = 1 / T_{\text{fallida}}$.
+    del nodo o nodos críticos), aproximada del mismo modo:
+    $E_f \approx 1 / T_{\text{fallida}}$.
 \end{itemize}
+
+Las dos medidas no son equivalentes. El inverso de un promedio no es el promedio
+de los inversos, y la aproximación tampoco puede registrar los pares que una
+remoción deja desconectados, porque $T$ solo se calcula entre pares conectados.
+El cálculo con la definición estándar queda como trabajo futuro
+(§\ref{subsec:vulnerabilidad-estructural}).
 
 Un valor $\Delta E \approx 0$ indica que la red es robusta: la pérdida del nodo
 no afecta significativamente el desempeño global (existen rutas alternativas

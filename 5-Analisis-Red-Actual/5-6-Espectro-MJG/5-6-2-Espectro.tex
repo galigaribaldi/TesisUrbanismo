@@ -15,10 +15,10 @@
 
 Los valores obtenidos en las Fases~1 a~3 ---calculados sobre el grafo de la
 \zmvm{} al 2025--- constituyen la entrada directa de la Clasificación Garibelt.
-La aplicación del instrumento a esos resultados produce el \textbf{Espectro MJG}
-: el perfil de cinco bandas que describe, sin colapsar dimensiones
-inconmensurables en un escalar, la condición estructural actual de la red de
-transporte colectivo de la metrópoli.
+La aplicación del instrumento a esos resultados produce el
+\textbf{Espectro MJG} : el perfil de cinco bandas que describe, sin colapsar
+dimensiones inconmensurables en un escalar, la condición estructural actual de
+la red de transporte colectivo de la metrópoli.
 
 % =====================================================================
 \subsubsection{El perfil de cinco bandas}
@@ -49,8 +49,8 @@ símbolo y expresión formal.
         \hline
         Nivel de Cobertura Espacial   & $C$    &
             $C = A_{\text{cubierta}} / A_{\text{total}} \times 100$ \\
-        Alimentación Capilar          & $C_i$  &
-            $C_i(v) = k_{\text{in}}(v) + k_{\text{out}}(v)$ \\
+        Fuerza Capilar                & $FC$   &
+            $FC(v) = k_{\text{in}}(v) + k_{\text{out}}(v)$ \\
         Factor de Desviación          & $DI$   &
             $DI = (D_{\text{red}} + D_{\text{cam}}) / D_{\text{hav}}(O,D)$ \\
         Tiempo de Viaje Promedio      & $T$    &
@@ -67,7 +67,7 @@ símbolo y expresión formal.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{%
-        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/Red_Actual/%
         Dashboard_Espectro_Red_Actual}
     \caption[Espectro MJG --- perfil Garibelt de la \zmvm{} 2026]{%
     Perfil de la Clasificación Garibelt aplicado a la red de transporte
@@ -93,10 +93,10 @@ símbolo y expresión formal.
     \textbf{Valor $[0,1]$} & \textbf{Banda} \\
     \midrule
     Accesibilidad — Cobertura Espacial
-        & $C$    & 4.4\,\% (área cubierta 800\,m / área total)
-        & 0.055 & \textbf{Crítico} \\
+        & $C$    & 13.3\,\% (área cubierta 800\,m / área total, \zmvm{} de 76 demarcaciones)
+        & 0.166 & \textbf{Crítico} \\
     Conectividad capilar — Fuerza Capilar
-        & $C_i$  & mediana $= 7.0$\enspace (Q1\,=\,6;\enspace Q3\,=\,10)
+        & $FC$   & mediana $= 7.0$\enspace (Q1\,=\,6;\enspace Q3\,=\,10)
         & 0.250 & \textbf{Débil} \\
     Eficiencia de ruta — Factor de Desviación
         & $DI$   & mediana $= 1.43$
@@ -117,7 +117,7 @@ véase \autoref{tab:clasificacion-garibelt-dims}.}
 \end{table}
 
 Ninguna dimensión alcanza la banda Idóneo. Dos quedan en Crítico ---$C$ y $B(v)$
----, una en Débil ---$C_i$--- y dos en Aceptable ---$T$ y $DI$. No se trata de
+---, una en Débil ---$FC$--- y dos en Aceptable ---$T$ y $DI$. No se trata de
 una red inoperante: las dimensiones de servicio directo al usuario funcionan en
 rango aceptable. Lo que el espectro expone es una red que sirve razonablemente
 bien al pasajero que ya está dentro de ella, pero que no llega al territorio de
@@ -134,18 +134,18 @@ abstractos: describe condiciones concretas de la ciudad y de quienes la habitan.
 
 \paragraph{$C$ --- Nivel de Cobertura Espacial}
 
-El territorio de la \zmvm{} analizada comprende 141 demarcaciones: las 16
-alcaldías de la \cdmx{} y los 125 municipios conurbados de los estados de
-México, Hidalgo, Puebla y Tlaxcala incluidos en el dataset del \texttt{Apímetro}
-~\citep{cabrera2025apimetro}. Sobre ese conjunto, la cobertura peatonal de 800\,
-m alcanza el 4.4\,\%: 95 de cada 100 metros cuadrados del suelo metropolitano
-quedan fuera del radio caminable de cualquier parada. Una red de agua potable
-con esa misma distribución dejaría a nueve de cada diez colonias dependientes de
-pipas o pozos para abastecerse. Que el viajero habitual de las alcaldías
-centrales no perciba ese déficit se explica por la polarización del propio dato:
-Cuauhtémoc registra hasta 99\,\% de cobertura bajo Corredores Concesionados (
-\autoref{subsubsec:cobertura-estructurados}), mientras 102 de las 141
-demarcaciones reportan cobertura cero en el escenario actual (
+El territorio de la \zmvm{} comprende 76 demarcaciones: las 16 alcaldías de la
+\cdmx{}, 59 municipios del Estado de México y Tizayuca, en Hidalgo (
+\autoref{subsec:cobertura-espacial}). Sobre ese conjunto, la cobertura peatonal
+de 800\,m alcanza el 13.3\,\%: 87 de cada 100 metros cuadrados del suelo
+metropolitano quedan fuera del radio caminable de cualquier parada. Una red de
+agua potable con esa misma distribución dejaría a casi nueve de cada diez
+colonias dependientes de pipas o pozos para abastecerse. Que el viajero habitual
+de las alcaldías centrales no perciba ese déficit se explica por la polarización
+del propio dato: la \cdmx{} alcanza el 53.5\,\% y Cuauhtémoc registra hasta 99\,
+\% de cobertura bajo Corredores Concesionados (
+\autoref{subsubsec:cobertura-estructurados}), mientras 42 de los 60 municipios
+conurbados reportan cobertura cero en el escenario actual (
 \autoref{subsubsec:cobertura-deficit}).
 
 \begin{figure}[H]
@@ -155,7 +155,7 @@ demarcaciones reportan cobertura cero en el escenario actual (
         Clasificacion_Garibelt_Mapa_Cobertura}
     \caption[Clasificación Garibelt --- cobertura peatonal 800\,m sobre la \zmvm{}]{%
     Distribución territorial de la cobertura peatonal (800\,m) sobre
-    las 141 demarcaciones de la \zmvm{}, coloreada por banda de la
+    las 141 demarcaciones del dataset del \texttt{Apímetro}, coloreada por banda de la
     Escala Garibelt. Las zonas sin cobertura se concentran en la
     corona periférica sur y oriente de la cuenca.
     Corrida: 2026-09-24.}
@@ -165,7 +165,7 @@ demarcaciones reportan cobertura cero en el escenario actual (
     \gtfs{}~\citep{adip_gtfs_2024} e INEGI 2023.}
 \end{figure}
 
-\paragraph{$C_i$ --- Alimentación Capilar}
+\paragraph{$FC$ --- Fuerza Capilar}
 
 Una mediana de 7.0 conexiones por nodo significa que la mitad de los nodos de la
 red tienen siete o menos aristas disponibles para distribuir o recibir flujo. En
@@ -181,8 +181,8 @@ conectividad sobre la que descansa la mayor parte de la circulación periférica
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/%
         Clasificacion_Garibelt_Fuerza_Capilar}
-    \caption[Clasificación Garibelt --- alimentación capilar $C_i$ sobre la \zmvm{}]{%
-    Distribución territorial del grado nodal ($C_i$) sobre la \zmvm{},
+    \caption[Clasificación Garibelt --- Fuerza Capilar $FC$ sobre la \zmvm{}]{%
+    Distribución territorial del grado nodal ($FC$) sobre la \zmvm{},
     coloreada por banda de la Escala Garibelt. Los nodos en banda
     Crítico dominan la periferia; los nodos en bandas superiores se
     concentran en el corredor central de la cuenca.
@@ -208,19 +208,18 @@ de salir de nuevo hacia la periferia contraria.
 
 \paragraph{$T$ --- Tiempo de Viaje Promedio}
 
-Un tiempo promedio de $T = 108.92$\,min refleja el costo temporal de conectar,
+Un tiempo promedio de $T = 113.91$\,min refleja el costo temporal de conectar,
 sin preferencia de demanda, cualquier par de nodos del componente gigante de la
-red. La referencia comparativa proviene de la Encuesta Nacional de Ocupación y
-Empleo, que estima en 85\,min el desplazamiento promedio en la \zmvm{}; la
-diferencia de aproximadamente 24\,min tiene origen metodológico, no implica
-sobrestimación del sistema (\autoref{subsec:tiempo-viaje-promedio}). Para situar
-ese valor en términos cotidianos: un trabajador que tardara 109\,min en llegar a
-su destino y otros tantos en regresar destinaría más de tres horas y media
-diarias al traslado ---casi la mitad de una jornada de ocho horas solo en
-desplazarse. Que este indicador alcance la banda Aceptable refleja que la red
-cumple su función de conectar nodos en tiempos razonables para la cuenca; que no
-alcance Idóneo señala el margen estructural que una red de mayor capilaridad y
-menor concentración de carga podría reducir.
+red. Frente al tiempo de referencia del modelo, de 85\,min, la diferencia de
+aproximadamente 29\,min tiene origen metodológico y no implica sobrestimación
+del sistema (\autoref{subsec:tiempo-viaje-promedio}). Para situar ese valor en
+términos cotidianos: un trabajador que tardara 114\,min en llegar a su destino y
+otros tantos en regresar destinaría más de tres horas y media diarias al
+traslado ---casi la mitad de una jornada de ocho horas solo en desplazarse. Que
+este indicador alcance la banda Aceptable refleja que la red cumple su función
+de conectar nodos en tiempos razonables para la cuenca; que no alcance Idóneo
+señala el margen estructural que una red de mayor capilaridad y menor
+concentración de carga podría reducir.
 
 \paragraph{$B(v)$ --- Centralidad de Intermediación}
 
@@ -261,7 +260,7 @@ más alta del experimento.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{%
-        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/Red_Actual/%
         Dashboard_Betweenness_Red_Actual}
     \caption[Ranking de centralidad de intermediación $B(v)$ --- \zmvm{}]{%
     Ranking de los nodos con mayor centralidad de intermediación en
@@ -283,7 +282,7 @@ esos valores brutos en un panel de indicadores.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{%
-        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/Red_Actual/%
         Dashboard_KPI_Red_Actual}
     \caption[KPI de indicadores estructurales --- \zmvm{} 2026]{%
     Valores brutos de los cuatro indicadores síntesis de la red de
@@ -362,7 +361,7 @@ registra.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{%
-        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/%
+        Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/Red_Actual/%
         Dashboard_Clasificacion_Red_Actual}
     \caption[Clasificación Garibelt --- perfil y ranking de la \zmvm{} 2026]{%
     Perfil de la Clasificación Garibelt aplicado a la red de la \zmvm{} al

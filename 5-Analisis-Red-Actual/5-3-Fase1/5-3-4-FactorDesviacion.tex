@@ -41,40 +41,51 @@ origen-destino analizado.
 % ---------------------------------------------------------------
 
 Sobre una muestra de \textbf{100 pares origen-destino} (semilla reproducible
-$= 42$), el modelo arrojó los estadísticos globales del Cuadro~
-\ref{tab:di-estadisticas}. La distribución resultante —con media de $1.545$ y
-valores extremos entre $0.97$ y $4.34$— confirma que el recorrido promedio en la
-red metropolitana supera en más del 50\,\% la distancia ideal.
+$= 42$), el modelo arrojó los estadísticos globales del
+Cuadro~\ref{tab:di-estadisticas}. La distribución resultante —con media de $1.701$ y
+valores extremos entre $1.03$ y $4.42$— confirma que el recorrido promedio en la
+red metropolitana supera en cerca del 70\,\% la distancia ideal.
 
 \begin{table}[H]
     \centering
     \caption[Estadísticos globales del Factor de Desviación]{%
     Estadísticos descriptivos del $DI$ sobre 100 pares
     origen-destino de la red de la \zmvm{}.
-    Corrida: 2026-04-27.}
+    Corrida: 2026-10-04.}
     \label{tab:di-estadisticas}
     \begin{tabular}{|l|r|}
         \hline
         \textbf{Estadístico} & \textbf{Valor} \\
         \hline
         $n$ (rutas calculadas)     & 100   \\
-        Media ($\bar{DI}$)         & 1.545 \\
-        Desviación estándar        & 0.517 \\
-        Mínimo                     & 0.97  \\
-        Percentil 25               & 1.27  \\
-        Mediana                    & 1.40  \\
-        Percentil 75               & 1.67  \\
-        Máximo                     & 4.34  \\
+        Media ($\bar{DI}$)         & 1.701 \\
+        Desviación estándar        & 0.566 \\
+        Mínimo                     & 1.03  \\
+        Percentil 25               & 1.34  \\
+        Mediana                    & 1.54  \\
+        Percentil 75               & 1.90  \\
+        Máximo                     & 4.42  \\
         \hline
     \end{tabular}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
-    \citep{cabrera2026VFTModel}. Corrida: 2026-04-27.}
+    \citep{cabrera2026VFTModel}. Corrida: 2026-10-04.}
 \end{table}
 
+Estos valores incorporan la corrección del cálculo de distancias del
+\texttt{VFTModel}. En versiones anteriores, la distancia acumulada a lo largo
+del trazo se reiniciaba en cada vértice que caía dentro del radio de captura de
+una estación; parte de las aristas medía entonces menos que la línea recta entre
+sus extremos y la muestra llegaba a registrar valores de $DI$ menores que 1,
+geométricamente imposibles. Ahora la distancia se acumula sobre todo el trazo y
+cada estación se proyecta sobre él, de modo que ninguna arista mide menos que la
+distancia en línea recta y el mínimo de la muestra es $1.03$. El Espectro MJG de
+§\ref{subsec:espectro-mjg} usa una muestra mayor, de 500 pares con la misma
+semilla, cuya mediana es $1.52$.
+
 El registro completo de los 100 pares analizados —con sus distancias
-individuales, valores de $DI$ y número de saltos— se incluye en el Cuadro~
-\ref{tab:anx-di-corrida-completa} del Anexo~\ref{anx:visualizaciones-analiticas}
-.
+individuales, valores de $DI$ y número de saltos— se incluye en el
+Cuadro~\ref{tab:anx-di-corrida-completa} del
+Anexo~\ref{anx:visualizaciones-analiticas}.
 
 La Figura~\ref{fig:mapa-di} sitúa esa distribución sobre el territorio,
 permitiendo leer la magnitud del rodeo como fenómeno espacial antes de
@@ -85,38 +96,76 @@ desagregarla por alcaldía.
     \includegraphics[width=0.90\textwidth]{%
         Figures/Mapas/Qgis_Resources/RedActual/Mapa_DF}
     \caption[Distribución espacial del Factor de Desviación ($DI$)
-    por nodo]{%
-    Factor de Desviación ($DI$) por nodo en la red de transporte
-    masivo de la \zmvm{}. El gradiente verde-a-rojo señala las
-    zonas donde la infraestructura impone mayores rodeos respecto
-    a la distancia lineal ideal. Corrida: 2026-04-27.}
+    por demarcación]{%
+    Factor de Desviación ($DI$) promedio por demarcación de la \zmvm{},
+    calculado sobre la muestra de 100 pares origen-destino y asignado según
+    la demarcación de origen; entre paréntesis, el número de rutas de cada
+    una. El gradiente verde-a-rojo señala las zonas donde la red impone
+    mayores rodeos respecto a la distancia lineal. Las demarcaciones con una
+    o dos rutas tienen valores solo indicativos. Corrida: 2026-10-04.}
     \label{fig:mapa-di}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel},
     \gtfs{} \citep{adip_gtfs_2024} e INEGI 2023.}
 \end{figure}
 
-La Figura~\ref{fig:grafica-di-alcaldia} desagrega esa imagen territorial
-mostrando el $DI$ promedio por alcaldía, evidenciando cuáles demarcaciones
-concentran la mayor ineficiencia de trayecto.
+La Figura~\ref{fig:grafica-di-alcaldia} muestra la misma muestra par por par:
+compara la distancia recorrida en la red con la distancia en línea recta, de
+modo que la separación de cada punto respecto de la diagonal expresa la magnitud
+del rodeo.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
         Grafica_VFTModel_2026_Factor_desviacion}
-    \caption[Factor de Desviación promedio por alcaldía de la
-    \zmvm{}]{%
-    Factor de Desviación ($DI$) promedio por alcaldía de la
-    \zmvm{}, calculado sobre la muestra de 100 pares
-    origen-destino. Las alcaldías periféricas del oriente y sur
-    presentan los valores más altos, reflejando la ausencia de
-    conectividad transversal en esos cuadrantes.
-    Corrida: 2026-04-27.}
+    \caption[Factor de Desviación --- dispersión de los 100 pares
+    origen-destino]{%
+    Distancia en la red frente a distancia en línea recta para los 100 pares
+    origen-destino de la muestra, clasificados en cuatro categorías de
+    desviación. La diagonal corresponde a $DI = 1$; cuanto más se aleja un
+    punto de ella, mayor es el rodeo que impone la red.
+    Corrida: 2026-10-04.}
     \label{fig:grafica-di-alcaldia}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
+
+El Cuadro~\ref{tab:di-alcaldia} resume esa lectura por demarcación. Cada par se
+asigna a la demarcación de su origen, de modo que la muestra de 100 pares se
+reparte entre 20 demarcaciones y varias quedan representadas por una o dos
+rutas; en esos casos el promedio es solo indicativo.
+
+\begin{table}[H]
+    \centering
+    \caption[Factor de Desviación promedio por demarcación]{%
+    Demarcaciones con mayor $DI$ promedio en la muestra de 100 pares
+    origen-destino, asignados según la demarcación de origen. $n$: número de
+    rutas. Corrida: 2026-10-04.}
+    \label{tab:di-alcaldia}
+    \small
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        \textbf{Demarcación} & \textbf{$n$} & \textbf{$DI$ medio} &
+        \textbf{DE} \\
+        \hline
+        Chimalhuacán   & 1 & 3.73 & ---  \\
+        Tláhuac        & 2 & 3.26 & 1.65 \\
+        Milpa Alta     & 2 & 3.13 & 0.80 \\
+        Naucalpan      & 1 & 2.63 & ---  \\
+        Nezahualcóyotl & 1 & 1.98 & ---  \\
+        Coyoacán       & 6 & 1.84 & 0.51 \\
+        Iztapalapa     & 9 & 1.80 & 0.46 \\
+        \hline
+    \end{tabular}
+    \vspace{0.4em}
+
+    \noindent Las 13 demarcaciones restantes registran un $DI$ medio entre
+    1.37 y 1.68. Sin desviación estándar cuando $n = 1$.
+
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{table}
 
 El patrón es consistente con los indicadores anteriores: las demarcaciones que
 registran menor cobertura y menor densidad de nodos de alta Fuerza Capilar son
@@ -127,17 +176,23 @@ también las que imponen los mayores rodeos a sus usuarios.
 \label{subsubsec:di-casos}
 % ---------------------------------------------------------------
 
-Para anclar los estadísticos en viajes concretos, se seleccionaron doce pares
-origen-destino estratégicos concentrados en las periferias sur y oriente de la
-cuenca. El Cuadro~\ref{tab:di-casos} consolida los valores de $DI$ para cada
-caso.
+Para anclar los estadísticos en viajes concretos, se eligieron doce pares
+origen-destino ilustrativos. Ocho de ellos parten de Milpa Alta, la alcaldía con
+menor cobertura de la \cdmx{} ($C = 11.75$\,\%) y la más alejada de la red de
+transporte estructurado; los demás tienen origen en otros puntos de la periferia
+sur y oriente. Los destinos son puntos de referencia conocidos, entre ellos
+polos de empleo y educación como Paseo de la Reforma, Santa Fe, Ciudad
+Universitaria o la FES Acatlán. Los casos no forman una muestra representativa;
+sirven para mostrar trayectos concretos, mientras que la lectura estadística
+corresponde a la muestra aleatoria de 100 pares. El Cuadro~\ref{tab:di-casos}
+consolida los valores de $DI$ para cada caso.
 
 \begin{table}[H]
     \centering
     \caption[Factor de Desviación — doce casos de estudio]{%
     Factor de Desviación ($DI$) para doce pares origen-destino
-    estratégicos de la \zmvm{}, seleccionados en las periferias
-    sur y oriente. Corrida: 2026-04-27.}
+    ilustrativos de la \zmvm{}, con origen en las periferias sur y
+    oriente; no constituyen una muestra representativa. Corrida: 2026-10-04.}
     \label{tab:di-casos}
     \small
     \begin{tabularx}{\textwidth}{|l|X|X|r|r|r|}
@@ -147,41 +202,46 @@ caso.
         \textbf{$D_{\text{Hav.}}$ (km)} &
         \textbf{$DI$} \\
         \hline
-         1 & Milpa Alta        & Autódromo / Centro-Oriente   & 29.18 & 22.59 & 1.29 \\
-         2 & Milpa Alta        & Paseo de la Reforma (CBD)    & 37.73 & 27.50 & 1.37 \\
-         3 & Milpa Alta        & Santa Fe (CBD)               & 36.42 & 28.62 & 1.27 \\
-         4 & Milpa Alta        & FES Acatlán                  & 48.34 & 35.73 & 1.35 \\
-         5 & Milpa Alta        & Ciudad Universitaria         & 26.25 & 19.96 & 1.32 \\
-         6 & Milpa Alta        & Coyoacán                     & 25.24 & 18.86 & 1.34 \\
-         7 & Santa Catarina    & Ciudad Universitaria         & 42.06 & 23.10 & 1.82 \\
-         8 & Santa Catarina    & FES Acatlán                  & 45.64 & 32.16 & 1.42 \\
-         9 & Milpa Alta        & Santa Catarina (Sur-Oriente) & 37.22 & 14.79 & 2.52 \\
-        10 & Milpa Alta        & Ajusco                       & 29.19 & 20.56 & 1.42 \\
-        11 & Ajusco            & Preparatoria 1               & 15.91 & 11.16 & 1.43 \\
-        12 & Parque Los Olivos & Centro de Tláhuac            &  2.20 &  2.08 & 1.06 \\
+         1 & Milpa Alta        & Autódromo / Centro-Oriente   & 32.03 & 22.59 & 1.42 \\
+         2 & Milpa Alta        & Paseo de la Reforma (CBD)    & 40.94 & 27.50 & 1.49 \\
+         3 & Milpa Alta        & Santa Fe (CBD)               & 41.28 & 28.62 & 1.44 \\
+         4 & Milpa Alta        & FES Acatlán                  & 52.40 & 35.73 & 1.47 \\
+         5 & Milpa Alta        & Ciudad Universitaria         & 29.30 & 19.96 & 1.47 \\
+         6 & Milpa Alta        & Coyoacán                     & 28.40 & 18.86 & 1.51 \\
+         7 & Santa Catarina    & Ciudad Universitaria         & 43.13 & 23.10 & 1.87 \\
+         8 & Santa Catarina    & FES Acatlán                  & 47.34 & 32.16 & 1.47 \\
+         9 & Milpa Alta        & Santa Catarina (Sur-Oriente) & 44.30 & 14.79 & 2.99 \\
+        10 & Milpa Alta        & Ajusco                       & 33.01 & 20.56 & 1.61 \\
+        11 & Ajusco            & Preparatoria 1               & 16.96 & 11.16 & 1.52 \\
+        12 & Parque Los Olivos & Centro de Tláhuac            &  2.21 &  2.08 & 1.06 \\
         \hline
-        \multicolumn{5}{|l|}{\textbf{Mejor caso (muestra aleatoria):} Plutarco Elías Calles $\to$ Fuente de Loreto} & \textbf{0.97} \\
-        \multicolumn{5}{|l|}{\textbf{Peor caso (muestra aleatoria):} Carlos A. Vidal $\to$ 20 de Noviembre} & \textbf{4.34} \\
+        \multicolumn{5}{|l|}{\textbf{Mejor caso de la muestra\textsuperscript{b}:} Plutarco Elías Calles $\to$ Fuente de Loreto} & \textbf{1.03} \\
+        \multicolumn{5}{|l|}{\textbf{Peor caso de la muestra:} Av. Sur del Comercio $\to$ C. Violeta y Nezahualcóyotl} & \textbf{4.42} \\
         \hline
     \end{tabularx}
+    \vspace{0.4em}
+
+    \noindent\textsuperscript{b}\,Empata en $DI = 1.03$ con el par
+    Guadalupe Inclán Ramírez - Periférico $\to$ Periférico - Tec de Monterrey,
+    de los Corredores Concesionados.
+
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
-    \citep{cabrera2026VFTModel}. Corrida: 2026-04-27.}
+    \citep{cabrera2026VFTModel}. Corrida: 2026-10-04.}
 \end{table}
 
-Entre los doce casos, el Caso~9 registra el $DI$ más alto del conjunto
-seleccionado ($DI = 2.52$): para ir de Milpa Alta a Santa Catarina Yecahuizotl
-—dos puntos del sur-oriente separados por apenas 14.8~km en línea recta— la red
-obliga a recorrer 37.2~km, más del doble de la distancia ideal. Ese valor no es
-un accidente de la muestra; es la expresión métrica de la ausencia de
-conectividad transversal en ese cuadrante de la cuenca.
+Entre los doce casos, el Caso~9 tiene el $DI$ más alto ($DI = 2.99$). Milpa Alta
+y Santa Catarina Yecahuizotl, ambos en el sur-oriente, están a 14.8~km en línea
+recta, pero la red obliga a recorrer 44.3~km entre ellos: casi el triple. No es
+un accidente de la muestra, sino la medida de la falta de conectividad
+transversal en ese cuadrante de la cuenca.
 
 % ---------------------------------------------------------------
 \subsubsection{Vista Integral de la Red}
 \label{subsubsec:di-vista-integral}
 % ---------------------------------------------------------------
 
-¿Cómo se distribuye el costo del rodeo sobre el territorio? La Figura~
-\ref{fig:dashboard-di} responde esa pregunta articulando en un solo panel la
+¿Cómo se distribuye el costo del rodeo sobre el territorio? La
+Figura~\ref{fig:dashboard-di} responde esa pregunta articulando en un solo panel la
 magnitud del $DI$ por alcaldía, la dispersión estadística de la muestra y la
 huella geográfica de las rutas analizadas.
 
@@ -195,16 +255,17 @@ huella geográfica de las rutas analizadas.
     Vista integral del Factor de Desviación ($DI$) sobre la red de
     transporte público de la \zmvm{}, generada con el
     \termino{dashboard} analítico del \texttt{VFTModel}.
-    Corrida: 2026-04-27.}
+    Corrida: 2026-10-04.}
     \label{fig:dashboard-di}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
 \end{figure}
 
-El análisis del \texttt{VFTModel} identifica en Tláhuac la alcaldía donde ese
-costo estructural es más pronunciado. El Caso~7 lo cuantifica con precisión: de
-Santa Catarina Yecahuizotl a Ciudad Universitaria hay 23~km en línea recta, pero
-la red exige 42~km de recorrido real ($DI = 1.82$), porque ninguna ruta de los
+Entre las alcaldías de la \cdmx{}, Tláhuac registra el $DI$ medio más alto del
+Cuadro~\ref{tab:di-alcaldia} (3.26), aunque sobre solo dos rutas, por lo que el
+valor es indicativo. El Caso~7 lo ilustra con un trayecto concreto: de Santa
+Catarina Yecahuizotl a Ciudad Universitaria hay 23~km en línea recta, pero la
+red exige 43~km de recorrido real ($DI = 1.87$), porque ninguna ruta de los
 datos procesados por \texttt{Apímetro} conecta esos dos puntos del sur sin
 internar el trayecto hacia el centro de la ciudad. No es un caso límite ni un
 atípico estadístico: es la geometría de una red sin conectividad transversal en
@@ -216,12 +277,14 @@ capítulo.
     \includegraphics[width=0.85\textwidth]{%
         Figures/Cap5/FactorDesviacion/Mapa/NB04_mapa10_caso07.png}
     \caption[Caso~7: Santa Catarina Yecahuizotl → Ciudad
-    Universitaria ($DI = 1.82$)]{%
+    Universitaria ($DI = 1.87$)]{%
     Caso~7: ruta óptima de Santa Catarina Yecahuizotl a Ciudad
-    Universitaria. La red obliga a un recorrido de 42.06~km para
-    cubrir una distancia lineal de 23.10~km ($DI = 1.82$), al no
+    Universitaria. La red obliga a un recorrido de 43.13~km para
+    cubrir una distancia lineal de 23.10~km ($DI = 1.87$), al no
     existir conectividad transversal directa en el cuadrante
-    sur-oriente de la \zmvm{}. Corrida: 2026-04-27.}
+    sur-oriente de la \zmvm{}. El trazo es ilustrativo y proviene de la
+    corrida 2026-04-27; las distancias corresponden a la corrida
+    2026-10-04.}
     \label{fig:di-caso07}
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel}.}

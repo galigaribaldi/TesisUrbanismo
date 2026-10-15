@@ -13,11 +13,15 @@ periféricas. La \textbf{Fuerza Capilar} ($FC$) es el indicador que formaliza es
 intuición urbana: cuantifica el nivel de convergencia de flujos en cada nodo o
 agrupación de nodos del grafo, identificando los puntos donde la red concentra y
 redistribuye la mayor cantidad de conexiones. El indicador se evalúa en dos
-perspectivas complementarias: la \textbf{Fuerza Capilar de Macro-Hub} ($FC_H$),
-que agrupa estaciones físicamente colindantes en un radio de 100~m para
-representar los grandes nodos de transbordo, y la
-\textbf{Fuerza Capilar individual} ($FC$), que mide la convergencia topológica
-estricta en cada nodo sin tolerancia espacial.
+perspectivas complementarias. La \textbf{Fuerza Capilar individual} ($FC$)
+corresponde al caso $\peso{i}{j} = 1$ de la Ecuación~\eqref{eq:fuerza-nodal}: el
+grado de cada nodo, o número de aristas que llegan a él o salen de él. Antes del
+conteo, los nodos que quedarían aislados se unen al trazo más cercano con una
+tolerancia de 25~m (50~m en la capa cartográfica). La
+\textbf{Fuerza Capilar de Macro-Hub} ($FC_H$) agrupa las estaciones separadas
+por 100~m o menos para representar los grandes nodos de transbordo; la
+agrupación es encadenada, de modo que un Macro-Hub puede reunir decenas de
+paradas.
 
 La expresión formal de la perspectiva de Macro-Hub es:
 
@@ -30,8 +34,8 @@ La expresión formal de la perspectiva de Macro-Hub es:
 
 \noindent donde:
 \begin{itemize}
-    \item $H$: conjunto de nodos del Macro-Hub (estaciones agrupadas
-          en un radio de tolerancia de 100~m).
+    \item $H$: conjunto de nodos del Macro-Hub (estaciones agrupadas de forma
+          encadenada a 100~m o menos entre sí).
     \item $k_{\text{in}}(j)$: número de aristas entrantes del nodo $j$
           dentro del grafo de servicios.
     \item $k_{\text{out}}(j)$: número de aristas salientes del nodo $j$.
@@ -59,7 +63,7 @@ concentración de conexiones.
     Distribución de la Fuerza Capilar ($FC$ y $FC_H$) en los
     principales nodos y Macro-Hubs de transferencia de la \zmvm{}.
     Los valores más altos corresponden a los complejos donde mayor
-    número de rutas y sistemas se superponen. Corrida: 2026-04-18.}
+    número de rutas y sistemas se superponen. Corrida: 2026-10-04.}
     \label{fig:grafica-fc-nodos}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
@@ -94,7 +98,7 @@ densidad capilar a escala territorial.
     de transporte público de la \zmvm{}. Los nodos de mayor
     concentración de conexiones se ubican en el corredor sur de la
     cuenca, sobre los ejes Insurgentes--Tlalpan y el entorno del
-    Anillo Periférico. Corrida: 2026-04-18.}
+    Anillo Periférico. Corrida: 2026-10-04.}
     \label{fig:mapa-fuerza-capilar}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel},
@@ -119,7 +123,7 @@ el conjunto de la red.
     Vista integral de la Fuerza Capilar ($FC$ y $FC_H$) sobre la red
     de transporte público de la \zmvm{}, generada con el
     \termino{dashboard} analítico del \texttt{VFTModel}.
-    Corrida: 2026-04-18.}
+    Corrida: 2026-10-04.}
     \label{fig:dashboard-fuerza-capilar}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}

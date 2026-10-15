@@ -18,10 +18,17 @@ respecto a alguna estación. Se define como:
 donde $A_{\text{cubierta}}$ es el área resultante de la unión de los
 \termino{buffers} peatonales circulares de 800~m de todas las estaciones del
 sistema sobre la demarcación, y $A_{\text{total}}$ es la superficie geodésica
-total de la demarcación analizada. El análisis abarca las 16~alcaldías de la
-\cdmx{} y los 125 municipios de la \zmvm{} incluidos en el dataset del
-\textbf{Apímetro} \citep{cabrera2025apimetro}, para un total de 141
-demarcaciones.
+total de la demarcación analizada. El análisis se restringe a la \zmvm{} según
+la delimitación metropolitana que adopta la SEDATU \citep{SEDATU2023}, que suma
+76 demarcaciones: las 16 alcaldías de la \cdmx{}, 59 municipios del Estado de
+México y Tizayuca, en Hidalgo. En ese dominio la cobertura integrada llega al
+13.29\,\%, con 53.52\,\% en la \cdmx{} y apenas 3.92\,\% en los 60 municipios
+conurbados. El dataset del \textbf{Apímetro} \citep{cabrera2025apimetro} es más
+amplio: reúne 141 demarcaciones (las 16 alcaldías y 125 municipios mexiquenses),
+varias fuera de la delimitación. Si se toma ese conjunto, la cobertura cae a
+4.41\,\%, porque el denominador incorpora superficie que no forma parte del área
+metropolitana. Algunas figuras de la sección se generaron sobre el dataset
+completo y por eso muestran también esos municipios.
 
 Este indicador tiene dos limitaciones. Un \termino{buffer} circular no es una
 isócrona: mide el radio en línea recta y no descuenta vías rápidas, barrancas ni
@@ -48,7 +55,7 @@ uno, mientras que ningún otro sistema rebasa las quinientas.
     Número de estaciones y paradas por sistema de transporte que contribuyen a
     la cobertura territorial de la \zmvm{}, con \termino{buffers} peatonales de
     800~m. La gráfica no representa el área cubierta, que se reporta en los
-    cuadros siguientes. Corrida: 2026-04-18.}
+    cuadros siguientes. Corrida: 2026-10-04.}
     \label{fig:grafica-cobertura-sistema}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
@@ -202,9 +209,10 @@ consolidada, ubicadas en las periferias sur y oriente de la cuenca.
 \begin{table}[H]
     \centering
     \caption[Demarcaciones con menor cobertura de transporte público]{
-    Cinco demarcaciones de la \cdmx{} y del Estado de México con menor
-    cobertura territorial integrada del sistema multimodal. \termino{Buffer}: 800~m.
-    Corrida: 2026-04-18.}
+    Cinco alcaldías de la \cdmx{} y cinco municipios de la \zmvm{} con menor
+    cobertura territorial integrada del sistema multimodal; en los municipios
+    se listan los de menor cobertura entre los que tienen cobertura mayor que
+    cero. \termino{Buffer}: 800~m. Corrida: 2026-10-04.}
     \label{tab:cobertura-deficit}
     \begin{tabular}{|l|l|r|r|r|}
         \hline
@@ -219,14 +227,21 @@ consolidada, ubicadas en las periferias sur y oriente de la cuenca.
             & Tláhuac                 &  85.78 &  43.85 & 51.12 \\
             & Cuajimalpa de Morelos   &  71.10 &  37.12 & 52.20 \\
         \hline
-        \multirow{5}{*}{Estado de México}
-            & Tonanitla    &   8.52 & 0.00 & 0.00 \\
-            & Capulhuac    &  21.50 & 0.00 & 0.00 \\
-            & Calimaya     & 104.26 & 0.00 & 0.00 \\
-            & Donato Guerra & 181.36 & 0.00 & 0.00 \\
-            & Ayapango     &  50.83 & 0.00 & 0.00 \\
+        \multirow{5}{*}{\shortstack[l]{Municipios\\conurbados\textsuperscript{a}}}
+            & Ixtapaluca         & 318.27 & 0.11 & 0.03 \\
+            & Atenco             &  92.35 & 0.10 & 0.11 \\
+            & Chalco             & 229.64 & 0.60 & 0.26 \\
+            & Cuautitlán Izcalli & 103.89 & 1.90 & 1.83 \\
+            & Zumpango           & 244.75 & 6.88 & 2.81 \\
         \hline
     \end{tabular}
+    \vspace{0.4em}
+
+    \noindent\textsuperscript{a}\,Otros 42 de los 60 municipios conurbados,
+    entre ellos Texcoco, Villa del Carbón, Axapusco, Hueypoxtla, Nicolás
+    Romero y Tizayuca, registran una cobertura de 0.00\,\% al redondear a dos
+    decimales. Ninguna alcaldía de la \cdmx{} queda en cero.
+
     \fuentefigura{Elaboración propia con \texttt{VFTModel}
     \citep{cabrera2026VFTModel}.}
 \end{table}
@@ -241,11 +256,13 @@ metropolitana.
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/%
         Grafica_VFTModel_2026_Cobertura_alcaldia}
-    \caption[Cobertura territorial integrada por alcaldía de la \cdmx{}]{
-    Cobertura territorial integrada de la red multimodal por alcaldía de la
-    \cdmx{}, expresada como porcentaje del área cubierta por \termino{buffers}
-    peatonales de 800~m. El gradiente centro-periferia es el patrón
-    dominante.}
+    \caption[Cobertura territorial integrada por demarcación]{
+    Cobertura territorial integrada de la red multimodal por demarcación,
+    expresada como porcentaje del área cubierta por \termino{buffers}
+    peatonales de 800~m. Incluye las alcaldías de la \cdmx{} y los municipios
+    del dataset con cobertura mayor que cero, algunos fuera de la delimitación
+    de la \zmvm{}. El gradiente centro-periferia es el patrón dominante.
+    Corrida: 2026-10-04.}
     \label{fig:grafica-cobertura-alcaldia}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
@@ -303,6 +320,6 @@ expresa una diferencia operativa sino una acumulación histórica de trazados e
 inversiones que reproduce, dentro del campo de la movilidad urbana, la
 estratificación descrita por \citet{rendon2009ciudadanos}: ciudadanos con acceso
 pleno a la red de oportunidades de la ciudad frente a quienes lo tienen de forma
-parcial o ninguna. Sobre esta base territorial, la Sección~
-\ref{subsec:fuerza-capilar} examina cómo esa escasez periférica se concentra en
+parcial o ninguna. Sobre esta base territorial, la
+Sección~\ref{subsec:fuerza-capilar} examina cómo esa escasez periférica se concentra en
 un puñado de nodos que conectan la periferia con la red troncal.
