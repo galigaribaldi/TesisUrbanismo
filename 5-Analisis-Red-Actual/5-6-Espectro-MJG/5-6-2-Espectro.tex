@@ -155,7 +155,7 @@ conurbados reportan cobertura cero en el escenario actual (
         Clasificacion_Garibelt_Mapa_Cobertura}
     \caption[Clasificación Garibelt --- cobertura peatonal 800\,m sobre la \zmvm{}]{%
     Distribución territorial de la cobertura peatonal (800\,m) sobre
-    las 141 demarcaciones del dataset del \texttt{Apímetro}, coloreada por banda de la
+    las 141 demarcaciones del conjunto de datos del \texttt{Apímetro}, coloreada por banda de la
     Escala Garibelt. Las zonas sin cobertura se concentran en la
     corona periférica sur y oriente de la cuenca.
     Corrida: 2026-09-24.}
@@ -262,9 +262,10 @@ más alta del experimento.
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/Red_Actual/%
         Dashboard_Betweenness_Red_Actual}
-    \caption[Ranking de centralidad de intermediación $B(v)$ --- \zmvm{}]{%
-    Ranking de los nodos con mayor centralidad de intermediación en
-    la red de la \zmvm{}, desglosado por sistema de transporte.
+    \caption[Nodos con mayor centralidad de intermediación $B(v)$ --- \zmvm{}]{%
+    Nodos con mayor centralidad de intermediación en
+    la red de la \zmvm{}, en orden descendente y desglosados por sistema de
+    transporte.
     Tacubaya encabeza la jerarquía con $B(v) = 0.2179$.
     Corrida: 2026-09-02.}
     \label{fig:dashboard-betweenness-garibelt}
@@ -363,9 +364,9 @@ registra.
     \includegraphics[width=0.92\textwidth]{%
         Figures/Mapas/Tableau_Resources/RedActual/Clasificacion_Garibelt/Red_Actual/%
         Dashboard_Clasificacion_Red_Actual}
-    \caption[Clasificación Garibelt --- perfil y ranking de la \zmvm{} 2026]{%
+    \caption[Clasificación Garibelt --- perfil y orden de intermediación de la \zmvm{} 2026]{%
     Perfil de la Clasificación Garibelt aplicado a la red de la \zmvm{} al
-    2026, junto con el ranking de intermediación por nodo. El tablero combina
+    2026, junto con el orden de los nodos según su intermediación. El \termino{dashboard} combina
     los cinco valores normalizados sobre la Escala Garibelt con la
     distribución de $B(v)$ por sistema de transporte. Corrida: 2026-09-02.}
     \label{fig:espectro-mjg-clasificacion}
@@ -374,7 +375,7 @@ registra.
 \end{figure}
 
 La Figura~\ref{fig:espectro-mjg-clasificacion} presenta el perfil Garibelt
-completo junto con el ranking de intermediación. La combinación de ambas vistas
+completo junto con los nodos ordenados por intermediación. La combinación de ambas vistas
 permite leer, al mismo tiempo, cuánto logra la red y desde qué nodos lo logra.
 Este perfil se convierte en la \textbf{línea base de referencia} del trabajo
 comparativo del Capítulo~6, donde los mismos cinco indicadores se calculan sobre

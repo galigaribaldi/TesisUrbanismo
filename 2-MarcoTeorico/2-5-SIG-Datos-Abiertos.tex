@@ -9,7 +9,7 @@ La viabilidad de una metodología replicable para el diagnóstico topológico de
 redes de transporte metropolitano descansa, en gran medida, en la disponibilidad
 de datos geoespaciales abiertos y estandarizados. La presente investigación
 utiliza dos tipos de fuentes complementarias: los feeds \gtfs{} oficiales de los
-sistemas de transporte masivo de la \zmvm{} y
+sistemas de transporte público de la \zmvm{} y
 \textbf{la cartografía de base derivada de iniciativas de información geográfica voluntaria (\textsc{vgi}}
 , por sus siglas en inglés). Esta sección establece el sustento teórico que
 justifica la pertinencia y suficiencia de ambas fuentes para el análisis a
@@ -26,7 +26,7 @@ La validez del análisis topológico propuesto descansa, en parte, en la calidad
 completitud de los datos geoespaciales de base. \citet{haklay2010good} demostró,
 mediante una comparación sistemática entre datos de OpenStreetMap y los del
 \textit{Ordnance Survey} del Reino Unido, que la información \textsc{vgi}
-alcanza niveles de precisión posicional superiores al 80\% en áreas urbanas
+alcanza niveles de precisión posicional superiores al 80\,\% en áreas urbanas
 densas, resultado atribuible a la alta concentración de contribuidores activos
 en dichos entornos. Este umbral de calidad es comparable al de fuentes
 cartográficas institucionales, lo que posiciona a los datos colaborativos como
@@ -34,7 +34,7 @@ una alternativa técnicamente válida para el modelado de redes en ciudades con
 cobertura de contribuidores suficiente.
 
 Complementariamente, \citet{barrington2017world} evidenciaron que la red vial de
-OpenStreetMap supera el 80\% de completitud a escala global, con niveles aún más
+OpenStreetMap supera el 80\,\% de completitud a escala global, con niveles aún más
 elevados en las zonas metropolitanas de países de ingresos medios y altos. Su
 análisis también demostró que las ciudades latinoamericanas de escala comparable
 a la \zmvm{} presentan coberturas superiores al promedio global, resultado del
@@ -75,9 +75,9 @@ en programación o análisis de redes complejas.
 \label{subsec:datos-herramienta-replicable}
 % -----------------------------------------------------------------------
 
-La cadena metodológica propuesta en esta investigación ---\textit{Apimetro} para
-la adquisición y normalización de feeds \gtfs{}, \textit{VFTModel} para el
-cálculo de indicadores topológicos y \textit{Transport-gis} para la
+La cadena metodológica propuesta en esta investigación ---\texttt{Apímetro} para
+la adquisición y normalización de feeds \gtfs{}, \texttt{VFTModel} para el
+cálculo de indicadores topológicos y \texttt{Transport-gis-zmvm-mjg} para la
 visualización cartográfica de resultados--- representa una respuesta concreta a
 la brecha identificada por \citet{gurstein2011open}: tres motores de código
 abierto que transforman datos estandarizados en diagnósticos cuantitativos
@@ -92,7 +92,7 @@ El argumento de replicabilidad no es secundario, sino central al objetivo
 general de la investigación: demostrar que un planificador urbano con acceso a
 datos abiertos puede, mediante esta metodología, obtener un diagnóstico
 topológico riguroso de su red de transporte y evaluar escenarios alternativos de
-intervención sin depender de software propietario ni de equipos técnicos
+intervención sin depender de \termino{software} propietario ni de equipos técnicos
 especializados. Los referentes de calidad de datos
 \citep{haklay2010good, barrington2017world} y los principios de equidad en el
 acceso al conocimiento \citep{gurstein2011open, neis2012street} constituyen, en

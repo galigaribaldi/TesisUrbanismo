@@ -7,7 +7,7 @@ El \termino{Web Data Connector} (\textsc{wdc}) es el mecanismo nativo de
 \termino{Tableau Desktop} para ingestar datos desde servicios \textsc{http}
 arbitrarios mediante una página \textsc{html} alojada localmente. El archivo
 \texttt{connectors/apimetro\_wdc.html} implementa la versión~2.3 de la interfaz
-\texttt{tableauwdc}: el usuario introduce la \textsc{url} de \textbf{Apimetro}
+\texttt{tableauwdc}: el usuario introduce la \textsc{url} de \texttt{Apímetro}
 en el formulario de conexión, el conector realiza una llamada de verificación al
 endpoint de afluencia y, si la respuesta es satisfactoria, entrega las
 credenciales de sesión a Tableau para iniciar la extracción completa.
@@ -18,13 +18,13 @@ resume la estructura de cada tabla.
 
 \begin{table}[htbp]
     \centering
-    \caption[Tablas del \termino{WDC} de Apimetro para Tableau]{Tablas
+    \caption[Tablas del \termino{WDC} de \texttt{Apímetro} para Tableau]{Tablas
     expuestas por el conector \textsc{wdc}, con su identificador interno
-    y el endpoint de \textbf{Apimetro} que las alimenta.}
+    y el endpoint de \texttt{Apímetro} que las alimenta.}
     \label{tab:tg-wdc-tablas}
     \begin{tabularx}{\textwidth}{|l|l|r|X|}
         \hline
-        \textbf{ID tabla} & \textbf{Endpoint Apimetro} & \textbf{Registros} & \textbf{Descripción} \\
+        \textbf{ID tabla} & \textbf{Endpoint \texttt{Apímetro}} & \textbf{Registros} & \textbf{Descripción} \\
         \hline
         \texttt{afluencia\_linea}    & \texttt{/movilidad/analitico/afluencia-linea}    & 1\,197  & Afluencia mensual por línea (CBB, MB, METRO, TL, TROLE) \\
         \texttt{afluencia\_estacion} & \texttt{/movilidad/analitico/afluencia-estacion} & 38\,219 & Afluencia mensual por estación Metro~\cdmx{} 2010--2026 \\
@@ -32,7 +32,7 @@ resume la estructura de cada tabla.
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en \texttt{apimetro\_wdc.html}
-    (Transport-gis-zmvm-mjg, 2026).}
+    (\texttt{Transport-gis-zmvm-mjg}, 2026).}
 \end{table}
 
 El Código~\ref{lst:tg-wdc-schema} muestra \texttt{getSchema}, donde cada tabla

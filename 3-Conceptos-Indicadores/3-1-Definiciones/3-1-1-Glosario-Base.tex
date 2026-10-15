@@ -71,7 +71,7 @@ publican rutas, paradas, frecuencias y horarios de forma interoperable
 Portland, Oregón, hoy lo adoptan más de 10\,000 operadoras en todo el mundo. En
 esta investigación, los feeds \gtfs{} de todos los modos de la red de movilidad
 integrada de la \cdmx{} ---disponibles en el portal de datos abiertos de la
-ciudad \citep{adip_gtfs_2024}--- constituyen el insumo primario que el Apímetro
+ciudad \citep{adip_gtfs_2024}--- constituyen el insumo primario que el \texttt{Apímetro}
 descarga e integra para construir el grafo multimodal de análisis
 (§\ref{sec:apimetro-intro}).
 
@@ -83,7 +83,7 @@ y anomalías de actualización \citep{ramakrishnan2003}. En el contexto de esta
 investigación, cada sistema de transporte de la \zmvm{} opera bajo un orden de
 gobierno diferente ---federal, estatal o municipal--- y genera sus propios feeds
 \gtfs{} con convenciones de nomenclatura, codificación y granularidad temporal
-distintas. El Apímetro aplica este proceso sobre \textsc{postgresql}
+distintas. El \texttt{Apímetro} aplica este proceso sobre \textsc{postgresql}
 \citep{postgresql2024}, lo que transforma esos feeds heterogéneos en un esquema
 unificado; condición indispensable para construir el grafo multimodal $\grafo$
 descrito en el \autoref{ch:Capas-codigo}.
@@ -125,7 +125,7 @@ capilares de superficie y las arterias masivas en términos de afluencia de
 pasajeros \citep{semovi2020diagnostico}. Sin embargo, la alta afluencia de un
 nodo no implica necesariamente una alta centralidad topológica: el análisis de
 intermediación $B(v)$ presentado en la \autoref{subsec:fase3-centralidad}
-muestra que Tacubaya encabeza el ranking de intermediación de la red, mientras
+muestra que Tacubaya encabeza la jerarquía de intermediación de la red, mientras
 que los \textsc{cetram} formales quedan lejos de los primeros lugares: el mejor
 ubicado, Pantitlán, ocupa el lugar 100. Esta
 disociación entre volumen de pasajeros y posición topológica es un hallazgo
@@ -163,7 +163,7 @@ Caso~1 (red actual) permite estimar el impacto diferencial de cada modo.
 \subsubsection{Clasificación Garibelt y Escala Garibelt}
 \label{subsubsec:glosario-clasificacion-garibelt}
 La Clasificación Garibelt es un instrumento de síntesis diagnóstica que compila
-los cinco indicadores topológicos calculados por \textit{VFTModel} sobre el
+los cinco indicadores topológicos calculados por \texttt{VFTModel} sobre el
 grafo multimodal de la \zmvm{}. Su propósito es revelar las fortalezas y
 debilidades estructurales de la red en cada dimensión de análisis de forma
 independiente; la normalización que emplea no agrega los indicadores en un
@@ -174,7 +174,7 @@ permitir su clasificación. Esta distinción es central: siguiendo a
 ocultar una vulnerabilidad estructural severa en la centralidad. El instrumento
 adopta, en cambio, el enfoque de perfil multidimensional empleado por
 \citet{kujala2018} para redes \gtfs{} de 25 ciudades: un espectro de
-diagnóstico, no un ranking.
+diagnóstico, no una jerarquía.
 
 La clasificación utiliza la \textbf{Escala Garibelt}, una escala de cuatro
 bandas que traduce el valor normalizado $[0,\,1]$ a una categoría de diagnóstico
@@ -206,11 +206,11 @@ normalizado correspondiente. La definición formal, sus cinco dimensiones y los
 criterios de normalización de cada una se desarrollan en la
 \autoref{sec:indicadores-formulas}.
 
-\subsubsection{Términos de arquitectura de software}
+\subsubsection{Términos de arquitectura de \texorpdfstring{\termino{software}}{software}}
 \label{subsubsec:glosario-software}
 
 Los siguientes términos corresponden a estándares y patrones de ingeniería de
-software empleados en la implementación del Apímetro. Se definen aquí para que
+\termino{software} empleados en la implementación del \texttt{Apímetro}. Se definen aquí para que
 el lector no especializado pueda seguir la descripción técnica del
 \autoref{ch:Capas-codigo} sin ambigüedad.
 
@@ -222,11 +222,11 @@ representación estándar para la comunicación entre servicios web modernos.
 \paragraph{GeoJSON.}
 Extensión del formato JSON para la codificación de objetos geográficos
 ---puntos, líneas y polígonos--- con sus atributos espaciales y temáticos
-\citep{butler2016geojson}. El Apímetro entrega todos sus resultados en este
+\citep{butler2016geojson}. El \texttt{Apímetro} entrega todos sus resultados en este
 formato.
 
 \paragraph{\api{} \textsc{rest}.}
-Estilo arquitectónico para sistemas de software distribuidos que define seis
+Estilo arquitectónico para sistemas de \termino{software} distribuidos que define seis
 restricciones ---entre ellas la interfaz uniforme y la ausencia de estado---
 que, aplicadas a servicios web sobre \textsc{http}, producen interfaces
 predecibles e interoperables \citep{fielding2000rest}.
@@ -235,43 +235,43 @@ predecibles e interoperables \citep{fielding2000rest}.
 Patrón de diseño que aísla la lógica central de la aplicación ---el
 \textit{dominio}--- de cualquier tecnología de entrada/salida mediante puertos
 abstractos e implementaciones intercambiables \citep{cockburn2005hexagonal}.
-Adoptado en el Apímetro para separar las reglas de procesamiento de grafos de
+Adoptado en el \texttt{Apímetro} para separar las reglas de procesamiento de grafos de
 sus adaptadores de persistencia y exposición de datos.
 
 \paragraph{Go (lenguaje de programación).}
 Lenguaje compilado y tipado estáticamente desarrollado en Google, diseñado para
 la concurrencia estructurada y la compilación rápida \citep{go2024spec}. El
-Apímetro está implementado en Go por su rendimiento en operaciones de
+\texttt{Apímetro} está implementado en Go por su rendimiento en operaciones de
 entrada/salida intensiva y su soporte nativo para concurrencia mediante
 \textit{goroutines}.
 
 \paragraph{Pipeline (cadena metodológica).}
 Secuencia ordenada de etapas de procesamiento en la que la salida de cada fase
 es la entrada de la siguiente \citep{ramakrishnan2003}. En este trabajo, el
-término designa la cadena Apímetro $\to$ VFTModel $\to$ motor de indicadores que
+término designa la cadena \texttt{Apímetro} $\to$ \texttt{VFTModel} $\to$ motor de indicadores que
 transforma feeds \gtfs{} crudos en resultados de análisis urbano.
 
-\subsubsection{Herramientas de software de la investigación}
+\subsubsection{Herramientas de \texorpdfstring{\termino{software}}{software} de la investigación}
 \label{subsubsec:glosario-herramientas}
 
 Esta investigación desarrolló tres herramientas de código abierto que articulan
 la cadena metodológica completa. Se presentan aquí en una línea cada una; su
 arquitectura técnica se documenta en el \autoref{ch:Capas-codigo}.
 
-\paragraph{Apímetro.}
+\paragraph{\texorpdfstring{\texttt{Apímetro}}{Apímetro}.}
 Motor de adquisición e integración de datos: descarga, normaliza y unifica feeds
 \gtfs{} de múltiples operadores en el esquema relacional de \textsc{postgresql},
 produciendo el archivo Geojson multimodal $\grafo$ que alimenta el análisis
 (§\ref{sec:apimetro-intro}).
 
-\paragraph{VFTModel.}
+\paragraph{\texorpdfstring{\texttt{VFTModel}}{VFTModel}.}
 Modelo de análisis urbano: recibe el grafo $\grafo$ y calcula los indicadores de
 cobertura, eficiencia, centralidad y robustez definidos en la
 \autoref{sec:indicadores-formulas}; implementado con arquitectura hexagonal para
 separar la lógica analítica de sus adaptadores de datos.
 
-\paragraph{Transport-\gis{}.}
-Capa de visualización geoespacial: transforma los resultados del VFTModel en
+\paragraph{\texorpdfstring{\texttt{Transport-gis-zmvm-mjg}}{Transport-gis-zmvm-mjg}.}
+Capa de visualización geoespacial: transforma los resultados del \texttt{VFTModel} en
 capas cartográficas comparables entre escenarios base e hipotéticos, exportadas
 en formato GeoJSON para su publicación en el portal de datos abiertos.
 

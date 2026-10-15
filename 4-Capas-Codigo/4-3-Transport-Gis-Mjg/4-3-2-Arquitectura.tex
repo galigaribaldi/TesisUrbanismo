@@ -1,9 +1,9 @@
 % !TeX root = ../../tesis.tex
 
-\subsection{Transport-gis: Su arquitectura y funcionamiento}
+\subsection{\texorpdfstring{\texttt{Transport-gis-zmvm-mjg}}{Transport-gis-zmvm-mjg}: Su arquitectura y funcionamiento}
 \label{subsec:transport-gis-arquitectura-funcionamiento}
 
-\textbf{Transport-gis} se organiza en cinco módulos funcionales
+\texttt{Transport-gis-zmvm-mjg} se organiza en cinco módulos funcionales
 interdependientes: un módulo de \textbf{análisis} (\texttt{analysis/}), que
 gestiona la consulta a los servicios externos y el procesamiento de indicadores;
 un módulo de \textbf{datos} (\texttt{data/processed/}), que almacena las capas
@@ -28,14 +28,14 @@ los \textit{feeds} \gtfs{} de la \textsc{semovi} (2024), que contienen los
 horarios, rutas y paradas de los sistemas de transporte de la \cdmx{}; y la
 cartografía base del \textsc{inegi} (2023), que provee los límites
 político-administrativos y la infraestructura vial de la \zmvm{}. Estas fuentes
-alimentan a \textbf{Apimetro} —que las transforma en una \api{} \textsc{rest}
-consumible con la topología del grafo de la red— y a \textbf{VFTModel}, que las
+alimentan a \texttt{Apímetro} —que las transforma en una \api{} \textsc{rest}
+consumible con la topología del grafo de la red— y a \texttt{VFTModel}, que las
 procesa para calcular los indicadores de eficiencia nodal.
 
-Dentro del repositorio de \textbf{Transport-gis}, el script
-\texttt{apimetro\_client.py} consulta la \api{} de \textbf{Apimetro} para
+Dentro del repositorio de \texttt{Transport-gis-zmvm-mjg}, el script
+\texttt{apimetro\_client.py} consulta la \api{} de \texttt{Apímetro} para
 recuperar la topología del grafo y los atributos de cada modo de transporte,
-mientras que \texttt{vft\_runner.py} ejecuta las rutinas del \textbf{VFTModel}
+mientras que \texttt{vft\_runner.py} ejecuta las rutinas del \texttt{VFTModel}
 para producir los indicadores por nodo en formato \texttt{.csv}. El orquestador
 \texttt{pipeline/run\_pipeline.py} gestiona la secuencia completa de
 transformaciones hasta exportar las capas procesadas al directorio
@@ -45,9 +45,9 @@ documentan en el Anexo~\ref{anx:transportgis-tecnico}.
 \begin{figure}[htbp]
 \centering
 \input{Figures/TiKz_Libraries/Diagramas/tg-pipeline-cartografico}
-\caption[Pipeline de producción cartográfica de Transport-gis]%
-  {Flujo de datos del sistema \textbf{Transport-gis-zmvm-mjg}.
-Los componentes externos \textbf{Apimetro} y \textbf{VFTModel} proveen la
+\caption[Pipeline de producción cartográfica de \texttt{Transport-gis-zmvm-mjg}]%
+  {Flujo de datos del sistema \texttt{Transport-gis-zmvm-mjg}.
+Los componentes externos \texttt{Apímetro} y \texttt{VFTModel} proveen la
 información primaria;
 dentro del repositorio, los \textit{scripts} de análisis consolidan los datos en
 capas \texttt{.gpkg}
@@ -60,8 +60,8 @@ capas \texttt{.gpkg}
 \label{subsubsec:tg-tableau}
 % =============================================================================
 
-Junto al flujo cartográfico de \textsc{qgis}, \textbf{Transport-gis} cuenta con
-herramientas para alimentar tableros en \termino{Tableau Desktop}. La distinción
+Junto al flujo cartográfico de \textsc{qgis}, \texttt{Transport-gis-zmvm-mjg} cuenta con
+herramientas para alimentar \termino{dashboards} en \termino{Tableau Desktop}. La distinción
 entre ambas salidas responde a necesidades distintas: \textsc{qgis} produce
 representaciones estáticas de alta resolución para la tesis impresa; Tableau
 habilita la exploración temporal por sistema, alcaldía y período sin requerir
@@ -71,14 +71,14 @@ El módulo de conectividad analítica articula dos mecanismos según la naturale
 del dato. La afluencia mensual y el catálogo de estaciones son estructuras
 tabulares; para ellas se emplea un \termino{Web Data Connector} (\textsc{wdc}):
 una página \textsc{html} con JavaScript que invoca los endpoints analíticos de
-\textbf{Apimetro} y mapea las respuestas \textsc{json} a columnas tipadas
+\texttt{Apímetro} y mapea las respuestas \textsc{json} a columnas tipadas
 directamente en Tableau. Los trazados y polígonos de cobertura, en cambio, son
 geometrías complejas (\texttt{MultiLineString}, \texttt{MultiPolygon}) que el
 \textsc{wdc} no puede transmitir; para estas capas se utiliza el conector
 \termino{Spatial File} de Tableau, que acepta \textsc{url}s \textsc{http} que
 sirvan \geojson{}. El servidor \textbf{GeoProxy} (FastAPI, puerto~\texttt{5050})
-cubre ese rol: re-expone como rutas locales lo que \textbf{Apimetro} y
-\textbf{VFTModel} ya sirven en sus propios puertos, sin transformar el
+cubre ese rol: re-expone como rutas locales lo que \texttt{Apímetro} y
+\texttt{VFTModel} ya sirven en sus propios puertos, sin transformar el
 contenido.
 
 La implementación completa de ambos mecanismos —código \textsc{wdc}, servidor

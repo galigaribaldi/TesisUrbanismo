@@ -3,7 +3,7 @@
 \section{Infraestructura: Contenedores y Automatización}
 \label{anx:apimetro-infra}
 
-El despliegue de \texttt{Apimetro} se basa en tres archivos de configuración que
+El despliegue de \texttt{Apímetro} se basa en tres archivos de configuración que
 trabajan en conjunto: el \texttt{Dockerfile} produce la imagen del servicio, el
 \texttt{docker-compose.yml} orquesta los contenedores por entorno, y el
 \texttt{Makefile} expone los comandos de uso cotidiano. Los fragmentos
@@ -16,7 +16,7 @@ compila el binario estáticamente con \texttt{CGO\_ENABLED=0}; la etapa
 \texttt{runner} arranca desde \texttt{alpine} y copia solo ese binario, dejando
 fuera el código fuente y las dependencias de compilación.
 
-\lstinputlisting[language=bash, caption={\texttt{Dockerfile} de \texttt{Apimetro}: construcción multi-stage Builder → Runner.}, label=lst:dockerfile, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/Infraestructura/Dockerfile.txt}
+\lstinputlisting[language=bash, caption={\texttt{Dockerfile} de \texttt{Apímetro}: construcción multi-stage Builder → Runner.}, label=lst:dockerfile, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/Infraestructura/Dockerfile.txt}
 
 \subsection*{Orquestación del entorno DEV
 (\texttt{docker-compose.yml}, extracto)}

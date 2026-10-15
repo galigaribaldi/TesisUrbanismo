@@ -8,7 +8,7 @@ geometrías complejas como \texttt{MultiLineString} o \texttt{MultiPolygon}. Par
 esas capas, Tableau Desktop dispone de un conector de \termino{Spatial File} que
 apunta a un archivo \geojson{} accesible por \textsc{http}. El servidor
 \textbf{GeoProxy} (\texttt{geo\_proxy/main.py}) opera como puente: re-expone los
-endpoints geoespaciales de \textbf{Apimetro} y \textbf{VFTModel} como
+endpoints geoespaciales de \texttt{Apímetro} y \texttt{VFTModel} como
 \textsc{url}s locales que Tableau reconoce como fuentes espaciales sin necesidad
 de guardar archivos en disco.
 
@@ -38,7 +38,7 @@ Cuadro~ \ref{tab:tg-geoproxy-endpoints} lista todos los endpoints disponibles.
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en \texttt{geo\_proxy/main.py}
-    (Transport-gis-zmvm-mjg, 2026).}
+    (\texttt{Transport-gis-zmvm-mjg}, 2026).}
 \end{table}
 
 La configuración del servidor se gestiona mediante dos variables de entorno

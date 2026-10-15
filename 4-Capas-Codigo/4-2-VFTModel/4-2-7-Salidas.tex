@@ -7,7 +7,7 @@
 \label{sec:vft-salidas}
 
 Una vez calculados los ocho indicadores topológicos descritos en la sección
-anterior, VFTModel los entrega en dos formatos complementarios. La elección no
+anterior, \texttt{VFTModel} los entrega en dos formatos complementarios. La elección no
 es arbitraria: cada formato responde al tipo de herramienta que lo consumirá en
 la cadena de procesamiento.
 
@@ -24,7 +24,7 @@ la cadena de procesamiento.
     que implican recorridos en red, la respuesta incluye la trayectoria real
     sobre la red y la línea recta teórica entre origen y destino. Al mantener
     el estándar \geojson{}, estas geometrías son compatibles de forma directa
-    con la capa de visualización Transport-\textsc{gis}
+    con la capa de visualización \texttt{Transport-gis-zmvm-mjg}
     (§\ref{sec:transport-gis}), que las traduce en cartografía interpretable.
     La lógica de serialización de cada capa —incluyendo los clasificadores
     cualitativos de cobertura, capilaridad y desviación— se detalla en el
@@ -37,9 +37,9 @@ Anexo~\ref{anx:vft-api}. Ejemplos con valores de referencia para cada indicador
 implementado se presentan a partir del §\ref{anx:vft-out-cobertura} del mismo
 anexo.
 
-Con esta entrega, VFTModel cumple su papel dentro de la herramienta: es la capa
-de cálculo. Apímetro produce la información de base ---afluencia, rutas y
-estaciones--- y Transport-\textsc{gis} produce los mapas; entre ambas, VFTModel
+Con esta entrega, \texttt{VFTModel} cumple su papel dentro de la herramienta: es la capa
+de cálculo. \texttt{Apímetro} produce la información de base ---afluencia, rutas y
+estaciones--- y \texttt{Transport-gis-zmvm-mjg} produce los mapas; entre ambas, \texttt{VFTModel}
 convierte el grafo de transporte en valores numéricos: impedancias, factores de
 desviación, Fuerza Capilar, tiempos de viaje e intermediación. Esos valores
 todavía no son un diagnóstico urbano. El Capítulo~\ref{ch:analisis-red-actual}
@@ -48,5 +48,5 @@ Capítulo~\ref{ch:analisis-red-anillo} los interpreta al comparar esa red con el
 escenario del anillo periférico. Para la planeación, su utilidad está en esa
 comparación: con los mismos cálculos se pueden contrastar corredores entre sí y
 estimar el efecto de una ruta nueva antes de construirla. El siguiente paso de
-la cadena es Transport-\textsc{gis}, que recibe las geometrías de VFTModel y
+la cadena es \texttt{Transport-gis-zmvm-mjg}, que recibe las geometrías de \texttt{VFTModel} y
 las convierte en cartografía para el análisis urbano de la red metropolitana.

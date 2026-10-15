@@ -16,9 +16,9 @@ está vinculada a uno o más indicadores del
 Capítulo~\ref{ch:analisis-red-actual}.
 
 Los mapas cartográficos provienen de \textbf{QGIS~3.x} con proyección
-\textsc{epsg}:32614 (UTM zona~14N). Los tableros y gráficas fueron producidos
+\textsc{epsg}:32614 (UTM zona~14N). Los \termino{dashboards} y gráficas fueron producidos
 con \textbf{Tableau Desktop 2026.1} a partir de los \textit{GeoPackages}
-exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
+exportados por \texttt{VFTModel} y los \textit{feeds} \gtfs{} de \texttt{Apímetro}.
 
 % =============================================================================
 \section{Cartografía \textsc{QGIS} — Red Actual}
@@ -37,7 +37,7 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   por color de modo. Sirve como referencia geográfica de los indicadores del
   Capítulo~\ref{ch:analisis-red-actual}.}
   \label{fig:anx-f-qgis-transporte}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
@@ -49,13 +49,13 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Red_Esquematica}
   \caption[Grafo topológico multimodal de la \zmvm{} — red esquemática]{Representación
-  esquemática del grafo dirigido construido por el Modelo VFT sobre la red multimodal
+  esquemática del grafo dirigido construido por \texttt{VFTModel} sobre la red multimodal
   de la \zmvm{}. Cada nodo corresponde a una estación o parada. Cada arista es un
   segmento de servicio, trazado al ubicar las estaciones sobre cada ruta con un
   árbol \texttt{KDTree} (tolerancia 50~m), o un transbordo peatonal entre
   estaciones separadas por 85~m o menos.}
   \label{fig:anx-f-qgis-red}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
@@ -67,13 +67,13 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Cobertura_Red_Total}
   \caption[Cobertura espacial de la red — \termino{buffers} de 800~m, alta resolución]{Cobertura
-  espacial del indicador $C$ calculado por el Modelo VFT. El área sombreada representa
+  espacial del indicador $C$ calculado por \texttt{VFTModel}. El área sombreada representa
   la zona situada en un radio de 800~m desde cualquier parada o estación
   (unos 10.7~min de caminata en línea recta a 4.5~km/h). Las zonas sin cobertura
   revelan los municipios y alcaldías con mayor déficit de acceso estructurado al
   transporte público.}
   \label{fig:anx-f-qgis-cobertura-total}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
@@ -90,25 +90,25 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   temperatura corresponden a zonas con acceso simultáneo a tres o más modos de
   transporte, mientras que las áreas frías indican escasa o nula cobertura multimodal.}
   \label{fig:anx-f-qgis-cobertura-calor}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
 % --- F.1.5 -------------------------------------------------------------------
-\subsection{Fuerza Capilar — Macrohubs Principales}
+\subsection{Fuerza Capilar — Macro-Hubs Principales}
 \label{anx:f-qgis-fuerza-capilar}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Fuerza_Capilar}
-  \caption[Fuerza capilar $FC_h$ — concentración de macrohubs, alta resolución]{Distribución
+  \caption[Fuerza capilar $FC_h$ — concentración de Macro-Hubs, alta resolución]{Distribución
   espacial del indicador de Fuerza Capilar $FC_h$ sobre la red de la \zmvm{}.
   El tamaño y color de cada punto reflejan el valor de $FC_h$: los nodos con mayor
   puntuación agrupan el mayor número de paradas de distintos sistemas en un radio
   de 100~m, constituyendo los puntos de mayor redistribución de flujos en la red
   multimodal.}
   \label{fig:anx-f-qgis-fuerza-capilar}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
@@ -126,7 +126,7 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   a zonas donde las rutas disponibles obligan a desvíos significativos respecto
   al trayecto más directo posible.}
   \label{fig:anx-f-qgis-df}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
@@ -145,50 +145,50 @@ exportados por el Modelo VFT y los \textit{feeds} \gtfs{} de \textbf{Apimetro}.
   señalan los nodos cuya remoción tendría el mayor impacto sobre la conectividad
   global del sistema.}
   \label{fig:anx-f-qgis-betweenness}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \gtfs{} \textsc{semovi} 2024 e \textsc{inegi} 2023.}
 \end{figure}
 
 % =============================================================================
-\section{Tableros Apimetro — Tableau Desktop}
+\section{\texorpdfstring{\termino{Dashboards}}{Dashboards} \texorpdfstring{\texttt{Apímetro}}{Apímetro} — Tableau Desktop}
 \label{anx:f-tableau-apimetro}
 % =============================================================================
 
-Los tableros de esta sección provienen del conector \textbf{WDC} de
-\textbf{Transport-gis-zmvm-mjg}, que alimenta Tableau Desktop con los datos de
-afluencia e infraestructura procesados por \textbf{Apimetro}.
+Los \termino{dashboards} de esta sección provienen del conector \textbf{WDC} de
+\texttt{Transport-gis-zmvm-mjg}, que alimenta Tableau Desktop con los datos de
+afluencia e infraestructura procesados por \texttt{Apímetro}.
 
 % --- F.2.1 -------------------------------------------------------------------
-\subsection{Dashboard: Red Metropolitana}
+\subsection{\texorpdfstring{\termino{Dashboard}}{Dashboard}: Red Metropolitana}
 \label{anx:f-tab-api-dashboard}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/Apimetro/Dashboards/Dashboard_Apimetro_2026}
-  \caption[Dashboard Apimetro 2026 — red metropolitana completa]{Tablero de análisis
-  de la red metropolitana construido sobre los datos de \textbf{Apimetro}. Integra
+  \caption[\termino{Dashboard} \texttt{Apímetro} 2026 — red metropolitana completa]{\termino{Dashboard} de análisis
+  de la red metropolitana construido sobre los datos de \texttt{Apímetro}. Integra
   en una sola vista: mapa georreferenciado de la red, distribución de afluencia por
   sistema y métricas de cobertura operativa de los doce sistemas de transporte de la
   \zmvm{}.}
   \label{fig:anx-f-tab-api-dashboard}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{Apimetro} vía \textsc{wdc} Transport-gis.}
+    fuente de datos: \texttt{Apímetro} vía \textsc{wdc} \texttt{Transport-gis-zmvm-mjg}.}
 \end{figure}
 
 % --- F.2.2 -------------------------------------------------------------------
-\subsection{Dashboard: Red \zmvm{} — Vista Geográfica}
+\subsection{\texorpdfstring{\termino{Dashboard}}{Dashboard}: Red \zmvm{} — Vista Geográfica}
 \label{anx:f-tab-api-red-zmvm}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/Apimetro/Dashboards/Dashboard_Apimetro_2026_Red_ZMVM}
-  \caption[Dashboard Apimetro 2026 — vista geográfica de la red]{Vista geográfica
+  \caption[\termino{Dashboard} \texttt{Apímetro} 2026 — vista geográfica de la red]{Vista geográfica
   interactiva de la red de transporte de la \zmvm{} producida por Tableau Desktop
-  a partir de los \textit{feeds} \gtfs{} normalizados por \textbf{Apimetro}.
+  a partir de los \textit{feeds} \gtfs{} normalizados por \texttt{Apímetro}.
   Cada línea representa una ruta operativa con su trazado espacial real.}
   \label{fig:anx-f-tab-api-red-zmvm}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{Apimetro} vía \textsc{wdc} Transport-gis.}
+    fuente de datos: \texttt{Apímetro} vía \textsc{wdc} \texttt{Transport-gis-zmvm-mjg}.}
 \end{figure}
 
 % --- F.2.3 -------------------------------------------------------------------
@@ -201,11 +201,11 @@ afluencia e infraestructura procesados por \textbf{Apimetro}.
   \caption[Top~10 estaciones de la \zmvm{} por afluencia registrada]{Las diez
   estaciones con mayor afluencia anual registrada en los sistemas de transporte
   masivo de la \zmvm{}, según los datos operativos integrados por
-  \textbf{Apimetro}. El indicador de afluencia sirve como proxy de demanda real
-  para contextualizar los resultados de centralidad del Modelo VFT.}
+  \texttt{Apímetro}. El indicador de afluencia sirve como proxy de demanda real
+  para contextualizar los resultados de centralidad de \texttt{VFTModel}.}
   \label{fig:anx-f-tab-api-top10}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{Apimetro} vía \textsc{wdc} Transport-gis.}
+    fuente de datos: \texttt{Apímetro} vía \textsc{wdc} \texttt{Transport-gis-zmvm-mjg}.}
 \end{figure}
 
 % --- F.2.4 -------------------------------------------------------------------
@@ -217,12 +217,12 @@ afluencia e infraestructura procesados por \textbf{Apimetro}.
   \includegraphics[width=0.9\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/Apimetro/UniGrafica/Grafica_Apimetro_2026_Afluencia_Metro_Anual}
   \caption[Afluencia anual del Sistema de Transporte Colectivo Metro]{Serie
   histórica de afluencia anual del Sistema de Transporte Colectivo Metro de la
-  \cdmx{}, según los registros integrados en \textbf{Apimetro}. Referencia de
+  \cdmx{}, según los registros integrados en \texttt{Apímetro}. Referencia de
   contexto para interpretar la centralidad de las estaciones del Metro en los
   resultados del indicador $B(v)$.}
   \label{fig:anx-f-tab-api-afluencia}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{Apimetro} vía \textsc{wdc} Transport-gis.}
+    fuente de datos: \texttt{Apímetro} vía \textsc{wdc} \texttt{Transport-gis-zmvm-mjg}.}
 \end{figure}
 
 % --- F.2.5 -------------------------------------------------------------------
@@ -235,68 +235,68 @@ afluencia e infraestructura procesados por \textbf{Apimetro}.
   \caption[Indicadores de calidad del servicio por sistema de transporte]{Comparación
   de indicadores de calidad del servicio (frecuencia, velocidad comercial, cobertura
   horaria) entre los doce sistemas de transporte de la \zmvm{}, según los atributos
-  operativos registrados en \textbf{Apimetro}.}
+  operativos registrados en \texttt{Apímetro}.}
   \label{fig:anx-f-tab-api-calidad}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{Apimetro} vía \textsc{wdc} Transport-gis.}
+    fuente de datos: \texttt{Apímetro} vía \textsc{wdc} \texttt{Transport-gis-zmvm-mjg}.}
 \end{figure}
 
 % =============================================================================
-\section{Tableros Modelo VFT — Tableau Desktop}
+\section{\texorpdfstring{\termino{Dashboards}}{Dashboards} \texorpdfstring{\texttt{VFTModel}}{VFTModel} — Tableau Desktop}
 \label{anx:f-tableau-vftmodel}
 % =============================================================================
 
-Los tableros de esta sección consumen los resultados del \textbf{Modelo VFT}
+Los \termino{dashboards} de esta sección consumen los resultados de \texttt{VFTModel}
 exportados como \textit{GeoPackages} y servidos a Tableau Desktop a través del
-\textsc{api} \textbf{GeoProxy} de Transport-gis-zmvm-mjg.
+\textsc{api} \textbf{GeoProxy} de \texttt{Transport-gis-zmvm-mjg}.
 
 % --- F.3.1 -------------------------------------------------------------------
-\subsection{Dashboard: Fuerza Capilar}
+\subsection{\texorpdfstring{\termino{Dashboard}}{Dashboard}: Fuerza Capilar}
 \label{anx:f-tab-vft-dashboard-fc}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/VFTModel/Dashboards/Dashboard_VFTModel_2026_Fuerza_Capilar}
-  \caption[Dashboard Modelo VFT 2026 — Fuerza Capilar $FC_h$]{Tablero de análisis
+  \caption[\termino{Dashboard} \texttt{VFTModel} 2026 — Fuerza Capilar $FC_h$]{\termino{Dashboard} de análisis
   del indicador de Fuerza Capilar $FC_h$. Combina la distribución espacial de los
-  macrohubs (mapa), el histograma de la distribución del indicador y el ranking de
+  Macro-Hubs (mapa), el histograma de la distribución del indicador y la jerarquía de
   los veinte nodos con mayor valor de $FC_h$ en la red de la \zmvm{}.}
   \label{fig:anx-f-tab-vft-dashboard-fc}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.2 -------------------------------------------------------------------
-\subsection{Dashboard: Factor de Desviación}
+\subsection{\texorpdfstring{\termino{Dashboard}}{Dashboard}: Factor de Desviación}
 \label{anx:f-tab-vft-dashboard-df}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/VFTModel/Dashboards/Dashboard_VFTModel_2026_Factor_desviacion}
-  \caption[Dashboard Modelo VFT 2026 — Factor de desviación $DI$]{Tablero de análisis
+  \caption[\termino{Dashboard} \texttt{VFTModel} 2026 — Factor de desviación $DI$]{\termino{Dashboard} de análisis
   del indicador de Factor de Desviación $DI$. Presenta la distribución espacial de
   los valores de $DI$ sobre la muestra de 100 rutas, el mapa de las zonas con mayor
   ineficiencia de trazado y la comparación por alcaldía y municipio.}
   \label{fig:anx-f-tab-vft-dashboard-df}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.3 -------------------------------------------------------------------
-\subsection{Dashboard: Centralidad de Intermediación}
+\subsection{\texorpdfstring{\termino{Dashboard}}{Dashboard}: Centralidad de Intermediación}
 \label{anx:f-tab-vft-dashboard-bv}
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/VFTModel/Dashboards/Dashboard_VFTModel_2026_Centralidad_intermediacion}
-  \caption[Dashboard Modelo VFT 2026 — Centralidad de intermediación $B(v)$]{Tablero
+  \caption[\termino{Dashboard} \texttt{VFTModel} 2026 — Centralidad de intermediación $B(v)$]{\termino{Dashboard}
   de análisis del indicador $B(v)$. Integra el mapa de centralidad georreferenciado,
-  el ranking de las estaciones con mayor valor de intermediación y la distribución
+  la jerarquía de las estaciones con mayor valor de intermediación y la distribución
   por sistema de transporte. Los resultados corresponden a la corrida del
   2026-09-02 sobre los 10{,}561 nodos de la componente gigante del grafo.}
   \label{fig:anx-f-tab-vft-dashboard-bv}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.4 -------------------------------------------------------------------
@@ -312,7 +312,7 @@ exportados como \textit{GeoPackages} y servidos a Tableau Desktop a través del
   desde las paradas de cada sistema.}
   \label{fig:anx-f-tab-vft-cobertura-sistema}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.5 -------------------------------------------------------------------
@@ -322,29 +322,28 @@ exportados como \textit{GeoPackages} y servidos a Tableau Desktop a través del
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/Grafica_VFTModel_2026_Cobertura_alcaldia}
-  \caption[Nivel de cobertura $C$ por alcaldía y municipio de la \zmvm{}]{Ranking
-  de las 141~demarcaciones de la \zmvm{} ordenadas por nivel de cobertura espacial
+  \caption[Nivel de cobertura $C$ por alcaldía y municipio de la \zmvm{}]{LasL1~demarcaciones de la \zmvm{} ordenadas por nivel de cobertura espacial
   $C$. Identifica las alcaldías y municipios con mayor déficit de acceso estructurado
   al transporte público.}
   \label{fig:anx-f-tab-vft-cobertura-alcaldia}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.6 -------------------------------------------------------------------
-\subsection{Gráfica: Fuerza Capilar — Ranking de Nodos}
+\subsection{Gráfica: Fuerza Capilar — Jerarquía de Nodos}
 \label{anx:f-tab-vft-fc-ranking}
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\textwidth]{Figures/Mapas/Tableau_Resources/RedActual/VFTModel/UniGrafica/Grafica_VFTModel_2026_Fuerza_capilar}
-  \caption[Ranking de nodos por Fuerza Capilar $FC_h$]{Los veinte macrohubs con
+  \caption[Jerarquía de nodos por Fuerza Capilar $FC_h$]{Los veinte Macro-Hubs con
   mayor valor de Fuerza Capilar $FC_h$ en la red de la \zmvm{}, con indicación del
   sistema de transporte predominante en cada hub. Muestra la concentración de la
   conectividad modal en puntos geográficos específicos de la red.}
   \label{fig:anx-f-tab-vft-fc-ranking}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.7 -------------------------------------------------------------------
@@ -361,7 +360,7 @@ exportados como \textit{GeoPackages} y servidos a Tableau Desktop a través del
   de la distancia euclidiana.}
   \label{fig:anx-f-tab-vft-df-dist}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.8 -------------------------------------------------------------------
@@ -614,7 +613,7 @@ Corrida: 2026-09-16.} \\
   que atraviesan ese nodo.}
   \label{fig:anx-f-tab-vft-bv-nodos}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}
 
 % --- F.3.9 -------------------------------------------------------------------
@@ -649,5 +648,5 @@ Corrida: 2026-09-16.} \\
   topología del grafo.}
   \label{fig:anx-f-tab-vft-bv-sistema}
   \fuentefigura{Elaboración propia con \textbf{Tableau Desktop 2026.1};
-    fuente de datos: \textbf{VFTModel} vía \textsc{api} GeoProxy.}
+    fuente de datos: \texttt{VFTModel} vía \textsc{api} GeoProxy.}
 \end{figure}

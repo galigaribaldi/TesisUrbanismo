@@ -3,11 +3,11 @@
 % =============================================================================
 %  B.7 — GEOLAYERS: SERIALIZACIÓN PARA TRANSPORT-GIS
 % =============================================================================
-\section{GeoLayers: Serialización para Transport-\textsc{gis}}
+\section{GeoLayers: Serialización para \texorpdfstring{\texttt{Transport-gis-zmvm-mjg}}{Transport-gis-zmvm-mjg}}
 \label{anx:vft-geolayers}
 
 El módulo \path{src/api/routes/geo_layers.py} es la capa de salida geoespacial
-de VFTModel. No contiene lógica analítica: recibe los \texttt{DataFrame} de los
+de \texttt{VFTModel}. No contiene lógica analítica: recibe los \texttt{DataFrame} de los
 algoritmos topológicos y los serializa como \texttt{FeatureCollection} en
 \textsc{crs} \textsc{epsg:4326} (WGS84), consumibles directamente por Transport-
 \textsc{gis}-\textsc{zmvm} y \textsc{qgis}.
@@ -37,7 +37,7 @@ def _build_feature_collection(indicador, layer, features, parametros):
 
 \subsection*{Clasificadores de umbrales cualitativos}
 
-Para facilitar la visualización en Transport-\textsc{gis}, cada entidad lleva un
+Para facilitar la visualización en \texttt{Transport-gis-zmvm-mjg}, cada entidad lleva un
 campo categórico derivado de su valor numérico:
 
 \begin{lstlisting}[style=estiloPython,

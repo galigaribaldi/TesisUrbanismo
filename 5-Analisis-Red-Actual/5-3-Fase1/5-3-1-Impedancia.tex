@@ -5,7 +5,7 @@
 \subsection{Validación del Motor de Impedancia Temporal}
 \label{subsec:validacion-impedancia}
 
-Para verificar la consistencia del motor de impedancia del \textbf{Modelo VFT},
+Para verificar la consistencia del motor de impedancia de \texttt{VFTModel},
 se calculó la velocidad efectiva implícita de cada sistema tras aplicar el
 Coeficiente de Fricción Vial ($CF$) y se contrastó con rangos operativos de
 referencia por sistema. La velocidad efectiva se obtiene a partir de la
@@ -19,7 +19,7 @@ Ecuación~\eqref{eq:velocidad-efectiva}:
 \noindent donde:
 \begin{itemize}
     \item $V_{\text{base}}$: velocidad promedio de operación del sistema, en
-          km/h, registrada por el \textbf{Apímetro} para cada ruta.
+          km/h, registrada por el \texttt{Apímetro} para cada ruta.
     \item $CF$: coeficiente de fricción según el tipo de derecho de vía
           (véase §\ref{subsec:fase2-cf}).
 \end{itemize}
@@ -35,8 +35,8 @@ filas porque su Línea~10, elevada, opera en vía confinada.
 \begin{table}[H]
     \centering
     \caption[Validación de velocidades efectivas por sistema de transporte]{
-    Contraste entre la velocidad implícita post-fricción calculada por el
-    motor VFT y los rangos operativos nominales de cada sistema.
+    Contraste entre la velocidad implícita post-fricción calculada por
+    \texttt{VFTModel} y los rangos operativos nominales de cada sistema.
     Corrida: 2026-10-04.}
     \label{tab:validacion-impedancia}
     \begin{tabular}{|l|r|r|c|c|}

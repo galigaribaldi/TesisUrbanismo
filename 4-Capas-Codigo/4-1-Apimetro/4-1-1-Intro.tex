@@ -1,9 +1,9 @@
 % !TeX root = ../../tesis.tex
 
-\section{Apimetro: El motor de Datos metropolitano (Ingesta y ETL)}
+\section{\texorpdfstring{\texttt{Apímetro}}{Apímetro}: El motor de Datos metropolitano (Ingesta y ETL)}
 \label{sec:apimetro-intro}
 
-El proyecto \texttt{Apimetro} tiene su génesis entre los años 2023 y 2024,
+El proyecto \texttt{Apímetro} tiene su génesis entre los años 2023 y 2024,
 derivado de una necesidad cartográfica y de modelación espacial para el universo
 narrativo de \textbf{"La Saga de la Catacumba"}, obra del autor de la presente
 investigación. El primer volumen de esta serie, titulado
@@ -23,7 +23,7 @@ primordialmente en la \textbf{Red de Transporte de Pasajeros (RTP)}, cuya baja
 frecuencia y velocidades comerciales limitadas generaban, a nivel narrativo,
 «tiempos muertos» que dificultaban la fluidez de la trama. Esta problemática
 orilló a una convergencia multidisciplinaria que dio origen a cuatro proyectos
-paralelos: \textit{Apimetro}, \textit{La Catacumba}, \textit{VFTModel} y
+paralelos: \texttt{Apímetro}, \textit{La Catacumba}, \texttt{VFTModel} y
 \textit{Diarios}.
 
 La primera aproximación técnica para sistematizar la geografía metropolitana fue
@@ -67,7 +67,7 @@ condición que hace posible el cálculo topológico posterior.
 \label{subsec:apimetro-flujo}
 
 Una vez establecida la necesidad de normalizar, el funcionamiento de
-\texttt{Apimetro} puede describirse en tres etapas sucesivas:
+\texttt{Apímetro} puede describirse en tres etapas sucesivas:
 
 \begin{itemize}
     \item \textbf{Entrada:} las tres fuentes heterogéneas ingresan en sus
@@ -86,7 +86,7 @@ Una vez establecida la necesidad de normalizar, el funcionamiento de
 
     \item \textbf{Salida:} una \api{} REST expone los datos normalizados en
     formato \textbf{GeoJSON}, listos para ser consumidos directamente por
-    \textit{VFTModel} o por cualquier visor cartográfico. La elección de
+    \texttt{VFTModel} o por cualquier visor cartográfico. La elección de
     GeoJSON sobre el formato \textit{GeoPackage} —el contenedor binario que
     emplea \textsc{qgis} en escritorio— obedece a su menor peso en disco y a su
     compatibilidad nativa con herramientas web; las implicaciones prácticas se
@@ -97,5 +97,5 @@ El resultado final es una base de datos de \textbf{38~MB} reproducible en
 cualquier sistema operativo (Linux, Windows, macOS o nube) mediante un único
 archivo de inicialización (\texttt{seed.sql}) y \textbf{Docker Compose}.
 \textbf{Replicabilidad}, usabilidad para perfiles sin formación en desarrollo de
-software y accesibilidad abierta del modelo de datos son, en conjunto, el eje
+\termino{software} y accesibilidad abierta del modelo de datos son, en conjunto, el eje
 transversal de las tres capas tecnológicas de la investigación.

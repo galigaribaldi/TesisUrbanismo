@@ -6,8 +6,8 @@
 \section{Construcción del Grafo Topológico}
 \label{sec:grafo-topologico}
 
-A partir de los datos geoespaciales procesados por el \textbf{Apímetro}, el
-\textbf{Modelo VFT} construyó un grafo dirigido y ponderado que representa la
+A partir de los datos geoespaciales procesados por el \texttt{Apímetro},
+\texttt{VFTModel} construyó un grafo dirigido y ponderado que representa la
 red de transporte público de la \zmvm{} como objeto de análisis estructural
 (véanse Capítulo~4 y Anexo~B para el detalle de implementación). El conjunto de
 origen de la corrida del 4 de octubre de 2026 reúne 23{,}550 entidades
@@ -26,8 +26,8 @@ cinco transbordos oficiales del Tren Suburbano. El grafo queda con
 \begin{figure}[H]
     \centering
     \input{Figures/TiKz_Libraries/Diagramas/vft-pipeline-procesamiento}
-    \caption[Pipeline de procesamiento del Modelo VFT]{Las cuatro etapas que
-    transforman los datos de \textbf{Apímetro} en el grafo topológico
+    \caption[Pipeline de procesamiento de \texttt{VFTModel}]{Las cuatro etapas que
+    transforman los datos de \texttt{Apímetro} en el grafo topológico
     operativo. De las 23{,}550 entidades de origen, las estaciones dan lugar a
     11{,}115 nodos; un árbol \texttt{KDTree} (tolerancia: 50~m) las ubica sobre
     cada trazo para crear las aristas de servicio, y el \termino{Snapping
@@ -105,7 +105,7 @@ de fricción vial correspondiente.
     \noindent\textsuperscript{‡}\,El Cablebús registra 30 aristas para sus
     tres líneas operativas. La Línea~3 solo tiene aristas en un sentido y 5 de
     sus 19 estaciones quedan fuera de la componente gigante. El dato refleja
-    la calidad del dataset de origen y no afecta los indicadores de los demás
+    la calidad del conjunto de datos de origen y no afecta los indicadores de los demás
     sistemas.
 
     \noindent\textsuperscript{§}\,Incluye las 29 aristas de la Línea~10
@@ -122,7 +122,7 @@ de fricción vial correspondiente.
     \caption[Red multimodal de la \zmvm{} por sistema de transporte]{Red
     multimodal de la \zmvm{} organizada por tipo de sistema de transporte,
     elaborada con \textbf{QGIS} a partir de los datos procesados por el
-    \textbf{Apímetro}. La versión cartográfica extendida de la red esquemática
+    \texttt{Apímetro}. La versión cartográfica extendida de la red esquemática
     se presenta en la Figura~\ref{fig:anx-mapa-red} del
     Anexo~\ref{anx:cartografia-presentacion}.}
     \label{fig:mapa-transporte-publico}

@@ -13,9 +13,9 @@ manera objetiva y reproducible \citep{allauca2023, owais2020}.
 
 La elección de este método responde a tres condiciones estructurales de la
 investigación: (1)~la disponibilidad de datos abiertos estandarizados en formato
-\gtfs{} para la totalidad de los sistemas de transporte masivo de la \cdmx{};
+\gtfs{} para la totalidad de los sistemas de transporte público de la \cdmx{};
 (2)~la existencia de motores computacionales de autoría propia ---
-\textit{Apimetro} \citep{cabrera2025apimetro} y \textit{VFTModel}
+\texttt{Apímetro} \citep{cabrera2025apimetro} y \texttt{VFTModel}
 \citep{cabrera2026VFTModel}--- que permiten procesar dichos datos a escala
 metropolitana; y (3)~la naturaleza cuantificable de las preguntas de
 investigación, centradas en la reducción de tiempos de traslado, la distribución
@@ -33,17 +33,17 @@ Las herramientas y fuentes de datos que articulan el proceso metodológico son:
 \item \textbf{Feeds \gtfs{}} de la red de Movilidad Integrada de la \cdmx{} y
     los sistemas del Estado de México (Mexibús, Mexicable), como fuente primaria
     de datos estructurados de la red de transporte.
-\item \textit{Apimetro} \citep{cabrera2025apimetro}: motor de adquisición,
+\item \texttt{Apímetro} \citep{cabrera2025apimetro}: motor de adquisición,
 normalización y construcción del grafo multimodal georreferenciado a partir de
     datos \gtfs{}.
-\item \textit{VFTModel} \citep{cabrera2026VFTModel}: motor analítico para el
+\item \texttt{VFTModel} \citep{cabrera2026VFTModel}: motor analítico para el
     cálculo de indicadores de eficiencia urbana ($DI$, $T$), centralidad de
     intermediación ($B(v)$) y robustez geométrica ($\Delta E$) sobre el grafo
     construido.
-\item \textit{Transport-gis} \citep{cabrera2026transportgis}: motor de
+\item \texttt{Transport-gis-zmvm-mjg} \citep{cabrera2026transportgis}: motor de
     visualización cartográfica para la generación de mapas temáticos
     georreferenciados a partir de los indicadores calculados por
-    \textit{VFTModel}, empleando capas \gis{} en formato GeoPackage,
+    \texttt{VFTModel}, empleando capas \gis{} en formato GeoPackage,
     QGIS y Tableau como plataformas de representación territorial.
 \item \textbf{Python y Go (Golang)}: lenguajes de programación empleados en el
     procesamiento de datos, análisis espacial y desarrollo de los motores
@@ -67,18 +67,18 @@ diagnóstico es el referente contra el que se mide el escenario hipotético
 \subsection{Fase 1: Adquisición y construcción del grafo multimodal}
 \label{subsec:fase1}
 
-Esta fase tiene una ponderación del 25\% sobre el total de la investigación y
+Esta fase tiene una ponderación del 25\,\% sobre el total de la investigación y
 cubre el \textbf{Objetivo Específico~1}.
 
 \begin{description}
 \item[Objetivo de la Fase:] Construir el grafo multimodal georreferenciado de
     la \zmvm{} a partir del procesamiento sistemático de los feeds \gtfs{} de la
-    totalidad de los sistemas de transporte masivo de la región.
+    totalidad de los sistemas de transporte público de la región.
 
     \item[Actividades a
     Desarrollar:]~\begin{itemize}
         \item \textit{Adquisición y normalización de datos \gtfs{}}: Descarga y
-        limpieza de los feeds oficiales mediante el motor \textit{Apimetro}
+        limpieza de los feeds oficiales mediante el motor \texttt{Apímetro}
 \citep{cabrera2025apimetro}. Este proceso incluye la validación de la
         integridad estructural de los archivos (\texttt{stops.txt},
 \texttt{routes.txt}, \texttt{trips.txt}, \texttt{stop\_times.txt}) conforme
@@ -94,10 +94,10 @@ coordenadas geográficas a cada nodo y verificación de la topología resultante
     \end{itemize}
 \end{description}
 
-\subsection{Fase 2: Análisis de la topología actual con \textit{VFTModel}}
+\subsection{Fase 2: Análisis de la topología actual con \texorpdfstring{\texttt{VFTModel}}{VFTModel}}
 \label{subsec:fase2}
 
-Esta fase tiene una ponderación del 30\% y cubre los
+Esta fase tiene una ponderación del 30\,\% y cubre los
 \textbf{Objetivos Específicos~2 y~3}.
 
 \begin{description}
@@ -108,7 +108,7 @@ Esta fase tiene una ponderación del 30\% y cubre los
     \item[Actividades a
     Desarrollar:]~\begin{itemize}
 \item \textit{Cálculo del Índice de Ruta Directa ($DI$) y Tiempo de Viaje
-        Promedio ($T$)}: Aplicación del motor \textit{VFTModel}
+        Promedio ($T$)}: Aplicación del motor \texttt{VFTModel}
         \citep{cabrera2026VFTModel} para obtener los indicadores base de
 eficiencia en la configuración topológica actual. El $DI$ mide la desviación
 de los trayectos reales respecto a la distancia euclidiana óptima; valores
@@ -127,7 +127,7 @@ centralidad, cuantificando la degradación de la eficiencia global de la red
 \subsection{Fase 3: Diagnóstico de cobertura y simulación de escenarios}
 \label{subsec:fase3}
 
-Esta fase tiene una ponderación del 35\% y cubre los
+Esta fase tiene una ponderación del 35\,\% y cubre los
 \textbf{Objetivos Específicos~4 y~5}.
 
 \begin{description}
@@ -149,7 +149,7 @@ los indicadores calculados para identificar zonas con déficit de conectividad
         Caso~3 toma como referencia el Metrobús: 22~km/h y paradas cada
         600~m. En ambos, los pesos $\peso{i}{j}$ se calculan igual que en
         el grafo base y las penalizaciones de transbordo no cambian.
-\item \textit{Simulación comparativa}: Se corre \textit{VFTModel} por
+\item \textit{Simulación comparativa}: Se corre \texttt{VFTModel} por
         separado sobre el Caso~2 y el Caso~3; los valores de $DI$, $T$ y
         $B(v)$ se comparan contra el Caso~1 para establecer qué
         configuración anillar produce mayor beneficio topológico en la
@@ -160,7 +160,7 @@ los indicadores calculados para identificar zonas con déficit de conectividad
 \subsection{Fase 4: Síntesis e interpretación de resultados}
 \label{subsec:fase4}
 
-Esta fase tiene una ponderación del 10\% y complementa el
+Esta fase tiene una ponderación del 10\,\% y complementa el
 \textbf{Objetivo Específico~5}.
 
 \begin{description}

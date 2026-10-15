@@ -9,7 +9,7 @@
 \subsubsection{De la Geometría GeoJSON a NetworkX}
 \label{subsec:vft-geom-networkx}
 
-El módulo central de VFTModel es la clase \texttt{VFTGraphBuilder}, responsable
+El módulo central de \texttt{VFTModel} es la clase \texttt{VFTGraphBuilder}, responsable
 de transformar las geometrías \geojson{} en un \textbf{dígrafo} representado
 mediante la biblioteca \textbf{NetworkX} de Python \citep{hagberg2008networkx}.
 La construcción opera en dos fases internas:
@@ -71,7 +71,7 @@ estación a otra aunque no estén formalmente conectadas en los datos oficiales.
     cercanas de distintos sistemas se conectan mediante aristas de transbordo
     si cumplen con la tolerancia de distancia establecida.}
     \label{fig:proceso-snapping}
-    \fuentefigura{Elaboración propia (VFTModel, 2026).}
+    \fuentefigura{Elaboración propia (\texttt{VFTModel}, 2026).}
 \end{figure}
 % --------------------------------------------------
 
@@ -82,7 +82,7 @@ Cuadro~\ref{tab:vft-umbrales}.
 
 \begin{table}[H]
     \centering
-    \caption[Umbrales estadísticos de transbordo peatonal en VFTModel]{Umbrales
+    \caption[Umbrales estadísticos de transbordo peatonal en \texttt{VFTModel}]{Umbrales
     estadísticos de tolerancia para el \termino{Snapping Lógico Geográfico}.
 El umbral \texttt{Q1} (85~m) es el recomendado para integración conservadora;
     \texttt{Q2} (180~m) integra la mayoría de los \textsc{cetram}s formales.}
@@ -100,7 +100,7 @@ El umbral \texttt{Q1} (85~m) es el recomendado para integración conservadora;
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en \texttt{graph\_builder.py}
-    (VFTModel, 2026).}
+    (\texttt{VFTModel}, 2026).}
 \end{table}
 
 El grafo de la \zmvm{} en configuración

@@ -3,22 +3,22 @@
 % =============================================================================
 %  B.6 — API REST: ENDPOINTS FASTAPI
 % =============================================================================
-\section{\api{} REST de VFTModel: Endpoints Disponibles}
+\section{\api{} REST de \texorpdfstring{\texttt{VFTModel}}{VFTModel}: Endpoints Disponibles}
 \label{anx:vft-api}
 
-El Cuadro~\ref{tab:vft-endpoints} lista los ocho endpoints de VFTModel,
+El Cuadro~\ref{tab:vft-endpoints} lista los ocho endpoints de \texttt{VFTModel},
 agrupados por su función. Los de la capa \textit{network} calculan indicadores
 topológicos escalares o tabulares; los de la capa \textit{geolayers}
 (§\ref{anx:vft-geolayers}) serializan los mismos resultados como
-\texttt{FeatureCollection} consumibles directamente por Transport-\textsc{gis}.
+\texttt{FeatureCollection} consumibles directamente por \texttt{Transport-gis-zmvm-mjg}.
 
 \begin{table}[H]
     \centering
     \small
-    \caption[\api{} REST de VFTModel: endpoints disponibles]{Endpoints de la
-    \api{} \textsc{rest} de VFTModel y el indicador o acción que producen.
+    \caption[\api{} REST de \texttt{VFTModel}: endpoints disponibles]{Endpoints de la
+    \api{} \textsc{rest} de \texttt{VFTModel} y el indicador o acción que producen.
     \fuentefigura{\texttt{src/api/main.py} y \texttt{src/api/routes/geo\_layers.py}
-    (VFTModel, 2026).}}
+    (\texttt{VFTModel}, 2026).}}
     \label{tab:vft-endpoints}
     \begin{tabularx}{\textwidth}{|l|l|X|}
         \hline
@@ -31,9 +31,9 @@ topológicos escalares o tabulares; los de la capa \textit{geolayers}
         \texttt{/spatial-coverage}
             & GET  & Cobertura (\%) por alcaldía o municipio \\
         \texttt{/topological/capillary-strength}
-            & GET  & Ranking de fuerza capilar por nodo \\
+            & GET  & Nodos ordenados por Fuerza Capilar \\
         \texttt{/topological/geo-capillary}
-            & GET  & Detección de macro-\termino{hubs} por proximidad espacial \\
+            & GET  & Detección de Macro-Hubs por proximidad espacial \\
         \texttt{/topological/detour-factor}
             & GET  & Factor de desviación general o por par O-D \\
         \texttt{/topological/average-travel-time}

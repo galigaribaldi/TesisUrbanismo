@@ -51,7 +51,7 @@ El \textit{Shapefile} continúa presente en entregas de datos institucionales en
 México —archivos de \textsc{inegi}, \textsc{adip} y \textsc{semovi} llegan con
 frecuencia en este formato—, por lo que su lectura sigue siendo parte del
 repertorio cotidiano del urbanista. Sin embargo, para un servicio de datos en
-red como \texttt{Apimetro}, el \textit{GeoJSON} ofrece dos ventajas
+red como \texttt{Apímetro}, el \textit{GeoJSON} ofrece dos ventajas
 estructurales sobre sus alternativas: es texto plano —cualquier corrupción se
 manifiesta como un error de parseo inmediato, mientras que un archivo binario
 dañado puede aparentar ser válido hasta que se intenta abrir en el \textsc{sig}—
@@ -61,7 +61,7 @@ escritorio, la conversión de \textit{GeoJSON} a \textit{GeoPackage} es una
 operación de una sola línea en Python con la biblioteca \textit{GeoPandas}
 \citep{tycgis2025}, lo que preserva la interoperabilidad con \textsc{qgis} sin
 sacrificar las ventajas del formato de intercambio. Las métricas operativas
-necesarias para el motor \textit{VFTModel} —velocidad promedio, frecuencia y
+necesarias para el motor \texttt{VFTModel} —velocidad promedio, frecuencia y
 capacidad del vehículo— viajan integradas en las \textit{properties} de cada
 objeto GeoJSON, eliminando el procesamiento adicional de cruce entre archivos
 \citep{cabrera2026VFTModel}.
@@ -72,14 +72,14 @@ objeto GeoJSON, eliminando el procesamiento adicional de cruce entre archivos
 \begin{figure}[H]
     \centering
     \input{Figures/TiKz_Libraries/Diagramas/apimetro-salidas-tipos}
-    \caption[Tipos de salida de Apimetro]{Los dos tipos de respuesta de
+    \caption[Tipos de salida de \texttt{Apímetro}]{Los dos tipos de respuesta de
     la \api{}: JSON descriptivo (atributos alfanuméricos) y GeoJSON
     geográfico (geometría con métricas operativas).}
     \label{fig:apimetro-salidas-tipos}
     \fuentefigura{Elaboración propia.}
 \end{figure}
 
-\texttt{Apimetro} ofrece dos tipos de respuesta según lo que el investigador o
+\texttt{Apímetro} ofrece dos tipos de respuesta según lo que el investigador o
 la herramienta necesite, como ilustra la
 Figura~\ref{fig:apimetro-salidas-tipos} . La primera —el JSON descriptivo— devuelve
 únicamente atributos alfanuméricos: nombre comercial de cada línea, sistema,
@@ -90,7 +90,7 @@ coordenadas.
 
 El campo \texttt{clasificacion} —que distingue infraestructura existente, futura
 o eliminada según los datos de la \textsc{adip} \citep{adip_gtfs_2024}— es el
-insumo que habilita a \textit{VFTModel} para comparar la red actual con
+insumo que habilita a \texttt{VFTModel} para comparar la red actual con
 escenarios de expansión \citep{cabrera2026VFTModel}. Los ejemplos completos de
 ambas salidas se presentan en el Anexo~\ref{anx:apimetro-salidas}.
 

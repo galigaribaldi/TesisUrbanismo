@@ -3,12 +3,12 @@
 % =============================================================================
 %  B.5 — CLIENTE HTTP: PUENTE CON APIMETRO
 % =============================================================================
-\section{Cliente HTTP: Puente con el Servidor Apimetro}
+\section{Cliente HTTP: Puente con el Servidor \texorpdfstring{\texttt{Apímetro}}{Apímetro}}
 \label{anx:vft-goclient}
 
-La capa de infraestructura de VFTModel incluye un cliente asíncrono (
+La capa de infraestructura de \texttt{VFTModel} incluye un cliente asíncrono (
 \path{src/infrastructure/go_client/client.py}) que consume los endpoints
-espaciales del servidor Go de Apimetro. La URL base se configura mediante la
+espaciales del servidor Go de \texttt{Apímetro}. La URL base se configura mediante la
 variable de entorno \texttt{APIMETRO\_URL}, definida en
 \path{src/infrastructure/go_client/settings.py}, de modo que el mismo código
 funciona tanto en desarrollo local como apuntando al servidor remoto.
@@ -29,7 +29,7 @@ APIMETRO_URL = os.getenv("APIMETRO_URL", "http://localhost:8080/movilidad")
 La función \texttt{fetch\_full\_network} descarga estaciones y líneas en
 concurrencia con \texttt{asyncio.gather} y las unifica en un único
 \texttt{FeatureCollection} listo para el validador Pydantic. Si ambas peticiones
-fallan ---por ejemplo, cuando Apimetro no está disponible--- el código activa un
+fallan ---por ejemplo, cuando \texttt{Apímetro} no está disponible--- el código activa un
 protocolo de \termino{fallback} que lee el archivo \texttt{map.geojson}
 almacenado localmente.
 

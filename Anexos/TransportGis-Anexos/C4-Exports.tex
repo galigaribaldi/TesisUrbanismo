@@ -6,7 +6,7 @@
 El script \texttt{utils/generate\_exports.py} genera los archivos \geojson{}
 estáticos que Tableau carga como fuentes espaciales cuando el \textbf{GeoProxy}
 no está activo —por ejemplo, al abrir el libro de trabajo en una máquina sin
-acceso a la \textsc{api}. Su ejecución requiere que \textbf{VFTModel} esté
+acceso a la \textsc{api}. Su ejecución requiere que \texttt{VFTModel} esté
 corriendo en \texttt{localhost:8000}.
 
 El Cuadro~\ref{tab:tg-exports} describe los cinco archivos que produce el
@@ -14,7 +14,7 @@ script.
 
 \begin{table}[htbp]
     \centering
-    \caption[Exportaciones \geojson{} de Transport-gis para Tableau]{Archivos
+    \caption[Exportaciones \geojson{} de \texttt{Transport-gis-zmvm-mjg} para Tableau]{Archivos
     \geojson{} estáticos generados por \texttt{generate\_exports.py} y
     el indicador que representan.}
     \label{tab:tg-exports}
@@ -30,11 +30,11 @@ script.
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en \texttt{generate\_exports.py}
-    (Transport-gis-zmvm-mjg, 2026).}
+    (\texttt{Transport-gis-zmvm-mjg}, 2026).}
 \end{table}
 
 El Camino~A (\textsc{rest}) genera los primeros cuatro archivos directamente
-desde los endpoints de \textbf{VFTModel}:
+desde los endpoints de \texttt{VFTModel}:
 
 \begin{lstlisting}[style=estiloBase, language=bash,
   caption={Ejecución de \texttt{generate\_exports.py} — Camino~A.},
@@ -46,7 +46,7 @@ python utils/generate_exports.py
 
 Para el quinto archivo (\texttt{df\_rutas\_lineas.geojson}), que requiere
 trayectorias completas como \texttt{LineString}, se utiliza el Camino~B:
-exportar \texttt{routes\_raw.json} desde el cuaderno de VFTModel y pasarlo como
+exportar \texttt{routes\_raw.json} desde el cuaderno de \texttt{VFTModel} y pasarlo como
 argumento:
 
 \begin{lstlisting}[style=estiloBase, language=bash,

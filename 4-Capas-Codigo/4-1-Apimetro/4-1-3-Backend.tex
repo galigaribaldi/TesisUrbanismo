@@ -3,28 +3,28 @@
 \subsection{Tecnología del servicio de datos}
 \label{subsec:backend}
 
-El servicio de \texttt{Apimetro} está construido en \textbf{Go}, lenguaje
+El servicio de \texttt{Apímetro} está construido en \textbf{Go}, lenguaje
 compilado con el rendimiento necesario para atender consultas concurrentes sobre
 el grafo metropolitano. La arquitectura interna —framework web, patrón de diseño
 y configuración de entorno Docker— se documenta en el
 Anexo~\ref{anx:apimetro-backend}.
 
-\subsubsection{El modelo SaaS: por qué Apimetro no procesa dos veces}
+\subsubsection{El modelo SaaS: por qué \texorpdfstring{\texttt{Apímetro}}{Apímetro} no procesa dos veces}
 \label{subsubsec:estructuraEndpoints}
 
-La decisión de arquitectura más relevante de \texttt{Apimetro} no es tecnológica
+La decisión de arquitectura más relevante de \texttt{Apímetro} no es tecnológica
 sino metodológica: ¿debe cada herramienta que necesita datos de la red
 procesarlos desde cero, o conviene que exista un servicio centralizado que los
 prepare una sola vez?
 
 El modelo adoptado es el del
-\textbf{\termino{Software as a Service} (\textsc{saas})}: \texttt{Apimetro}
+\textbf{\termino{Software as a Service} (\textsc{saas})}: \texttt{Apímetro}
 ingesta los archivos \gtfs{} oficiales, aplica el proceso de normalización y
 almacena el resultado. A partir de ese punto, cualquier cliente —
-\textit{VFTModel}, un visor web, un script de análisis— consulta la \api{} REST
+\texttt{VFTModel}, un visor web, un script de análisis— consulta la \api{} REST
 y recibe geometrías con atributos operativos ya integrados
 \citep{cabrera2026VFTModel}. Sin este principio, cada ejecución de
-\textit{VFTModel} requeriría releer los mismos archivos de la \textsc{adip},
+\texttt{VFTModel} requeriría releer los mismos archivos de la \textsc{adip},
 multiplicando el tiempo de cómputo y abriendo margen a inconsistencias entre
 corridas.
 

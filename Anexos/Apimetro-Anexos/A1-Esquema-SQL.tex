@@ -3,7 +3,7 @@
 \section{Esquema Relacional Completo (DDL)}
 \label{anx:apimetro-sql}
 
-El esquema de \texttt{Apimetro} define siete tablas en el esquema
+El esquema de \texttt{Apímetro} define siete tablas en el esquema
 \texttt{public} de PostgreSQL, junto con un segundo esquema \texttt{plutarco}
 reservado para datos territoriales del \textsc{inegi}. Las tablas principales
 son \texttt{lineas}, \texttt{ramals}, \texttt{estacions} y
@@ -12,7 +12,7 @@ son \texttt{lineas}, \texttt{ramals}, \texttt{estacions} y
 \texttt{historico\_operacion}) almacenan metadatos históricos y métricas
 operativas que se enriquecen fuera del flujo \textsc{etl} automático.
 
-\lstinputlisting[language=SQL, caption={DDL completo de \texttt{Apimetro}: tablas, restricciones e índices espaciales GiST.}, label=lst:sql-init-completo, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/SQL/ejemplo_init.txt}
+\lstinputlisting[language=SQL, caption={DDL completo de \texttt{Apímetro}: tablas, restricciones e índices espaciales GiST.}, label=lst:sql-init-completo, breaklines=true, basicstyle=\small\ttfamily] {Anexos/Apimetro-Anexos/SQL/ejemplo_init.txt}
 
 El archivo \texttt{seed.sql} contiene los datos de producción (\textasciitilde
 37~MB). El fragmento siguiente muestra la estructura de las filas de

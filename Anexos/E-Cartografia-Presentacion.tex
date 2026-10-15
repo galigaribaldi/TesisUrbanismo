@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Este anexo reúne las versiones cartográficas de alta resolución producidas por
-el sistema \textbf{Transport-gis-zmvm-mjg}, generadas con QGIS~3.x a partir de
+el sistema \texttt{Transport-gis-zmvm-mjg}, generadas con QGIS~3.x a partir de
 las plantillas institucionales de la \textsc{unam}. Los mapas utilizan la
 proyección \textsc{epsg}:32614 (UTM zona~14N) y tienen como fuente base los
 \textit{feeds} \gtfs{} de la \textsc{semovi} (2024) y la cartografía del
@@ -21,11 +21,11 @@ contextual.
   \centering
   \includegraphics[width=\textwidth]{Figures/Mapas/Qgis_Resources/RedActual/Mapa_Red_Esquematica}
   \caption[Red esquemática multimodal de la ZMVM (alta resolución)]{Red esquemática multimodal de la \zmvm{}.
-Muestra los doce sistemas de transporte reconocidos por el modelo VFT sobre los
+Muestra los doce sistemas de transporte reconocidos por \texttt{VFTModel} sobre los
 límites político-administrativos
     de la \cdmx{} y el Estado de México.}
   \label{fig:anx-mapa-red}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
 \end{figure}
 
@@ -40,10 +40,10 @@ límites político-administrativos
   \caption[Cobertura de la red por \termino{buffers} de 800~m (alta resolución)]{Cobertura espacial de la red multimodal de transporte
 de la \zmvm{}, calculada como el área situada en un radio de 800~m desde
 cualquier parada o estación
-(indicador $C$ del modelo VFT). Las alcaldías del sur presentan las coberturas
+(indicador $C$ de \texttt{VFTModel}). Las alcaldías del sur presentan las coberturas
 más bajas.}
   \label{fig:anx-mapa-cobertura-total}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
 \end{figure}
 
@@ -60,7 +60,7 @@ representada como mapa de calor. La intensidad del color refleja la
 concentración de \termino{buffers} superpuestos,
 revelando los núcleos de mayor accesibilidad modal en la región metropolitana.}
   \label{fig:anx-mapa-cobertura-calor}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
 \end{figure}
 
@@ -78,7 +78,7 @@ centralidad de intermediación ponderada,
 que corresponden a los puntos de mayor influencia redistributiva de flujos en la
 red multimodal.}
   \label{fig:anx-mapa-fuerza-capilar}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
 \end{figure}
 
@@ -97,6 +97,6 @@ y la distancia euclidiana óptima: valores altos (rojo) señalan nodos donde las
 rutas disponibles desvían significativamente
 del trayecto directo, lo que penaliza la eficiencia de la red en esas zonas.}
   \label{fig:anx-mapa-factor-desviacion}
-  \fuentefigura{Elaboración propia con \textbf{Transport-gis-zmvm-mjg};
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: GTFS SEMOVI 2024 e INEGI 2023.}
 \end{figure}

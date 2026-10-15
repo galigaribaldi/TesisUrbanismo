@@ -10,7 +10,7 @@
 \label{subsec:vft-capas}
 
 
-VFTModel está organizado bajo el patrón de \termino{arquitectura hexagonal} (
+\texttt{VFTModel} está organizado bajo el patrón de \termino{arquitectura hexagonal} (
 \termino{Ports and Adapters}). La idea central es que el núcleo matemático del
 sistema —los algoritmos que calculan los indicadores topológicos— no debe
 depender de cómo lleguen los datos ni de cómo se presenten los resultados. Esta
@@ -28,7 +28,7 @@ independencia se logra separando el código en tres capas concéntricas:
     modelo. No depende de cómo lleguen los datos ni de cómo se muestren.
 
     \item[\textbf{Capa de Infraestructura} (\texttt{src/infrastructure/})]
-    Gestiona los clientes \textsc{http} para comunicarse con Apimetro, el acceso
+    Gestiona los clientes \textsc{http} para comunicarse con \texttt{Apímetro}, el acceso
     a archivos \geojson{} locales de respaldo y las colas de procesamiento
     asíncrono. Se encarga de obtener los datos, no de analizarlos. El cliente
     HTTP y la lógica de \termino{fallback} local se documentan en el
@@ -43,14 +43,14 @@ sentido de las dependencias entre ellas.
     \centering
     \resizebox{\linewidth}{!}{%
         \input{Figures/TiKz_Libraries/Diagramas/vft-arquitectura-unificada}}%
-    \caption[Arquitectura hexagonal de VFTModel]{Arquitectura hexagonal de
-    VFTModel: el hexágono central es el \textbf{Dominio} (\texttt{src/core/}),
+    \caption[Arquitectura hexagonal de \texttt{VFTModel}]{Arquitectura hexagonal de
+    \texttt{VFTModel}: el hexágono central es el \textbf{Dominio} (\texttt{src/core/}),
     núcleo analítico aislado de cualquier tecnología externa. El
     \textbf{adaptador primario} (izquierda) expone los algoritmos vía \api{}
     \textsc{rest}; los \textbf{adaptadores secundarios} (derecha) conectan el
-    núcleo con Apimetro, los archivos locales de respaldo y la capa de caché. La
+    núcleo con \texttt{Apímetro}, los archivos locales de respaldo y la capa de caché. La
     zona inferior —fuera del contenedor Docker— representa los
-    \textbf{Conectores de Visualización}: \termino{Transport-GIS-MJG}, Tableau y
+    \textbf{Conectores de Visualización}: \texttt{Transport-gis-zmvm-mjg}, Tableau y
     \textsc{qgis} consumen los resultados topológicos a través de los siete
     \termino{geo-layers} que expone la \api{}. El nombre \termino{hexagonal}
     proviene de esta disposición en puertos alrededor del núcleo, siguiendo el
@@ -60,7 +60,7 @@ sentido de las dependencias entre ellas.
 \end{figure}
 
 El beneficio práctico de esta separación es la reproducibilidad: si el formato
-de datos de Apimetro cambia, o si los resultados se requieren en un visor
+de datos de \texttt{Apímetro} cambia, o si los resultados se requieren en un visor
 cartográfico distinto, solo se modifica la capa correspondiente sin alterar el
 núcleo matemático.
 
@@ -76,8 +76,8 @@ Figura~\ref{fig:vft-flujo}.
     \centering
     \resizebox{\linewidth}{!}{%
     \input{Figures/TiKz_Libraries/Diagramas/vft-flujo-procesamiento}}%
-    \caption[Flujo de procesamiento de VFTModel]{Cadena de transformación de
-    VFTModel: desde los datos geográficos crudos de Apimetro hasta los
+    \caption[Flujo de procesamiento de \texttt{VFTModel}]{Cadena de transformación de
+    \texttt{VFTModel}: desde los datos geográficos crudos de \texttt{Apímetro} hasta los
     indicadores topológicos publicados vía \api{} \textsc{rest}.}
     \label{fig:vft-flujo}
     \fuentefigura{Elaboración propia.}

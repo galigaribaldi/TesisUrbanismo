@@ -9,7 +9,7 @@
 \subsubsection{Formato de Ingesta: GeoJSON}
 \label{subsec:vft-geojson}
 
-VFTModel recibe los datos geográficos producidos por Apimetro en formato
+\texttt{VFTModel} recibe los datos geográficos producidos por \texttt{Apímetro} en formato
 \geojson{} \citep{butler2016geojson} —primera transferencia del flujo de
 procesamiento ilustrado en la Figura~\ref{fig:vft-flujo}—. Cada respuesta
 entrega una \texttt{FeatureCollection} con dos tipos de geometrías:
@@ -25,7 +25,7 @@ entrega una \texttt{FeatureCollection} con dos tipos de geometrías:
     de vía y sentido de circulación.
 \end{itemize}
 
-Antes de incorporar cualquier elemento al grafo, VFTModel somete cada
+Antes de incorporar cualquier elemento al grafo, \texttt{VFTModel} somete cada
 \texttt{Feature} a una validación estricta descrita en la
 Sección~\ref{subsec:vft-pydantic}.
 
@@ -44,10 +44,10 @@ indicadores topológicos (Figura~\ref{fig:vft-pydantic}).
     \resizebox{0.82\linewidth}{!}{%
         \input{Figures/TiKz_Libraries/Diagramas/vft-pydantic-filtro}}%
     \caption[Lógica de compuerta del filtro de validación Pydantic]{Lógica de
-    compuerta del filtro Pydantic en VFTModel. Todo dato que no supere la
+    compuerta del filtro Pydantic en \texttt{VFTModel}. Todo dato que no supere la
     verificación es descartado antes de ingresar al grafo topológico.}
     \label{fig:vft-pydantic}
-    \fuentefigura{Elaboración propia (VFTModel, 2026).}
+    \fuentefigura{Elaboración propia (\texttt{VFTModel}, 2026).}
 \end{figure}
 
 El contrato abarca ocho campos críticos; su especificación completa se presenta
@@ -56,8 +56,8 @@ en el Cuadro~\ref{tab:vft-campos-validados} del Anexo~\ref{anx:vft-validacion}.
 \subsubsection{Catálogo de Sistemas de Transporte}
 \label{subsec:vft-sistemas}
 
-VFTModel reconoce exactamente doce sistemas de transporte metropolitano. Cuando
-los datos de velocidad o frecuencia no llegan desde Apimetro, el modelo recurre
+\texttt{VFTModel} reconoce exactamente doce sistemas de transporte metropolitano. Cuando
+los datos de velocidad o frecuencia no llegan desde \texttt{Apímetro}, el modelo recurre
 a valores de \termino{fallback} calibrados a la operación real de cada sistema.
 Los cinco de mayor peso estructural en el análisis son:
 

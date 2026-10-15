@@ -3,13 +3,13 @@
 % =============================================================================
 %  4.2 — VISIÓN GENERAL
 % =============================================================================
-\section{VFTModel: El Motor Analítico de la Red}
+\section{\texorpdfstring{\texttt{VFTModel}}{VFTModel}: El Motor Analítico de la Red}
 \label{sec:vftmodel-intro}
 
-\textbf{VFTModel} (\termino{Vanishing Fig-Tree Model}) es el segundo componente
-de la arquitectura de código de esta investigación. Si \textbf{Apimetro} cumple
+\texttt{VFTModel} (\termino{Vanishing Fig-Tree Model}) es el segundo componente
+de la arquitectura de código de esta investigación. Si \texttt{Apímetro} cumple
 la función de fuente de datos —exponiendo la geometría de la red de transporte
-mediante una \api{} \textsc{rest}—, VFTModel es el \textbf{motor analítico} que
+mediante una \api{} \textsc{rest}—, \texttt{VFTModel} es el \textbf{motor analítico} que
 consume esos datos, los transforma en una estructura matemática de grafos y
 ejecuta los algoritmos que producen los indicadores topológicos presentados en
 el Capítulo~\ref{ch:analisis-red-actual}.
@@ -17,7 +17,7 @@ el Capítulo~\ref{ch:analisis-red-actual}.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.2\textwidth]{Figures/Cap4/VFTLogo1.png}
-  \caption[Ícono Personal de VFTModel]{Ícono Creado para el proyecto VFTModel}
+  \caption[Ícono Personal de \texttt{VFTModel}]{Ícono Creado para el proyecto \texttt{VFTModel}}
   \label{fig:VFTModel-icon}
   \fuentefigura{Elaboración propia.}
 \end{figure}
@@ -37,7 +37,7 @@ aun así obligar a sus usuarios a recorrer trayectos tortuosos, o concentrar tod
 la conectividad en grandes nodos de transbordo mientras las zonas periféricas
 quedan sin alimentación capilar adecuada.
 
-VFTModel nace como respuesta a esta necesidad: un motor analítico de código
+\texttt{VFTModel} nace como respuesta a esta necesidad: un motor analítico de código
 abierto y matemáticamente fundamentado, capaz de cuantificar la eficiencia
 estructural de la red mediante indicadores topológicos derivados de la teoría de
 grafos \citep{newman2010networks}. Su diseño prioriza la reproducibilidad:
