@@ -1,0 +1,51 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ANEXO G — Recursos Visuales: Escenarios con el Anillo Periférico
+%           Interior (API-I)
+% Issue #25. Paralelo al Anexo F (red actual).
+%
+% Regla del autor (2026-10-18): aquí solo entran los recursos de las
+% secciones ya redactadas del Cap. 6; los demás se agregan al
+% terminar cada sección o subsección. Mapas a página completa
+% (girados 90°, [p]).
+%
+% Estado:
+%   G.1  Cartografía QGIS — Propuesta del API-I
+%        · Propuesta_Base_Anillar_Metro (§6.1.2, fig:propuesta-anillo)
+%   Pendientes (al redactar §6.3–§6.4):
+%        · Propuesta_Base_Anillar_MB, Propuesta_Anillar_Extendido_MB,
+%          Propuesta_Anillar_Extendido_Metro (§6.3.1)
+%        · Clasificación Garibelt por escenario (QGIS)
+%        · Dashboards por escenario y comparativos (Tableau)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Este anexo reúne los recursos visuales de los dos escenarios del
+\textsc{api-i}: el Caso~2 (Anillo MB) y el Caso~3 (Anillo Metro). Cumple para
+el Capítulo~\ref{ch:analisis-red-anillo} la función que el Anexo~F cumple para
+la red actual: guarda a página completa los mapas que el capítulo presenta en
+tamaño reducido. Los mapas se produjeron con \textbf{QGIS~3.x} en la
+proyección \textsc{epsg}:32614 (UTM zona~14N), con los datos de la corrida
+2026-10-04.
+
+% =============================================================================
+\section{Cartografía \textsc{QGIS} — Propuesta del \textsc{api-i}}
+\label{anx:g-qgis-propuesta}
+% =============================================================================
+
+% --- G.1.1 -------------------------------------------------------------------
+\subsection{Trazo del \textsc{api-i}}
+\label{anx:g-propuesta-base}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Base/Propuesta_Base_Anillar_Metro}
+  \caption[Trazo del \textsc{api-i} sobre la red de la \zmvm{} (página
+  completa)]{Trazo del \textsc{api-i} sobre la red de transporte de la
+  \zmvm{}. Los Casos~2 (Anillo MB) y~3 (Anillo Metro) comparten el trazo y
+  las 94 estaciones. Versión reducida en la
+  Figura~\ref{fig:propuesta-anillo}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-propuesta-base}
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
