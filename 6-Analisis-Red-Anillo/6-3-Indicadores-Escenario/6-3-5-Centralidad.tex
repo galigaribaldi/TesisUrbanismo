@@ -1,0 +1,23 @@
+% !TeX root = ../../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% §6.3.5 — CENTRALIDAD DE INTERMEDIACIÓN B(v) EN LOS CASOS CON ANILLO
+%
+% Datos (corrida 2026-10-04; bv_comparativo.csv):
+%   Tacubaya 0.2232 → 0.2163 (Caso 2, −3.1 %) → 0.1569 (Caso 3, −29.7 %)
+%   Caso 2: ninguna estación del anillo en el top 50; MB conserva los
+%     10 nodos de la red actual (Periférico Oriente/Tláhuac 0.061, #69)
+%   Caso 3: 9/10 y 40/50 del top son del anillo; top 5 = Tacubaya,
+%     Periférico Oriente/Tláhuac 0.1550, Rómulo O'Farril 0.1310,
+%     Barranca del Muerto/Periférico 0.1284, Constitución de
+%     1917/Periférico 0.1274; 208 nodos pierden centralidad.
+%   Gini 0.8007 → 0.8012 → 0.8134 (0.199 · 0.199 · 0.187, Crítico).
+% Criterio de las figuras (decisión C6-5):
+%   comparativos = orden por nodo; Dashboard_Betweenness_* = 10
+%   nombres con mayor suma de B(v) (como tab:bv-top10-agregado).
+% Estructura: entrada · Caso 2 · Caso 3 · lectura comparativa.
+% Figuras candidatas:
+%   .../Clasificacion_Garibelt_Betweenness_Centrality_MB / _Metro
+%   Tableau_Resources/RedConAnillo/Escenario_MB|Metro/Dashboard_Betweenness_*
+%   Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Betweenness
+%   Tableau_Resources/Comparativo_CG/Dashboard_Comparativo_Intermediacion_Bv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

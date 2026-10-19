@@ -1,0 +1,273 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 6.1 — EL CORREDOR ANILLAR COMO PROPUESTA
+% Issue #25 (absorbe #14: definición formal del corredor anillar)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{El Corredor Anillar como Propuesta}
+\label{sec:corredor-anillar}
+
+El Capítulo~\ref{ch:analisis-red-actual} terminó con el Espectro MJG de la red
+actual (§\ref{sec:diagnostico-garibelt}); ese perfil es la línea base de este
+capítulo. Aquí se usa otra vez la cadena \texttt{Apímetro},
+\texttt{VFTModel} y \texttt{Transport-gis-zmvm-mjg}, ahora sobre una red a la
+que se le agrega un corredor anillar en el Anillo Periférico, y sus
+indicadores se comparan con los de la red actual. Los casos son los del
+glosario (§\ref{subsubsec:glosario-corredor-anillar}). El Caso~1 es la red
+actual. El Caso~2, que en las figuras aparece como Anillo MB, suma el
+corredor con la operación del Metrobús; el Caso~3, o Anillo Metro, lo suma con
+la del Metro. Interesa saber si el método se puede repetir sobre una red
+modificada y si sus indicadores captan la diferencia. La demanda, el costo y la
+operación del corredor quedan fuera; lo que se reporta es cómo cambia la
+estructura de la red con el anillo, bajo los supuestos de
+§\ref{sec:anillo-escenarios}.
+
+El capítulo avanza en cinco pasos. Esta sección define qué se entiende por
+corredor anillar en la tesis, explica por qué se propone sobre el Anillo
+Periférico y describe sus cuatro segmentos. La sección~\ref{sec:anillo-escenarios}
+fija los parámetros de los Casos~2 y~3 y resume cómo se procesaron. Después,
+la sección~\ref{sec:anillo-indicadores} revisa la cobertura, la Fuerza Capilar,
+el tiempo de viaje y la intermediación de la red con anillo, siempre frente al
+Caso~1. Con esos resultados, la sección~\ref{sec:anillo-espectro} arma el
+Espectro MJG de los tres casos, y la sección~\ref{sec:anillo-interpretacion}
+los lee desde el urbanismo.
+
+\subsection{Definición Operativa del Corredor Anillar}
+\label{subsec:corredor-anillar-definicion}
+
+El glosario describe el corredor de alta capacidad anillar como una línea de
+transporte público con infraestructura propia cuyo trazo rodea el área central
+en lugar de converger hacia ella (§\ref{subsubsec:glosario-corredor-anillar}).
+Para llevar esa idea al grafo hay que precisarla. En esta tesis se le llama
+corredor anillar a una línea que cumple cuatro condiciones:
+
+\begin{itemize}
+    \item Su trazo forma un circuito cerrado alrededor del área central y no la
+    atraviesa.
+    \item Opera sobre vía exclusiva o confinada, de modo que el tráfico general
+    la afecta poco o nada ($CF$ de 1.000 o 1.152,
+    Cuadro~\ref{tab:cf-derecho-via}).
+    \item Una parte de sus estaciones coincide con los cruces de las líneas
+    radiales existentes, y ahí se generan los transbordos con el resto de la
+    red.
+    \item Su función es unir zonas periféricas entre sí, no llevar viajes al
+    centro.
+\end{itemize}
+
+La diferencia con el corredor radial ya se planteó en el Capítulo~1 con los
+esquemas de las Figuras~\ref{fig:transporte-radial}
+y~\ref{fig:transporte-circular}. Aquí interesa en términos del grafo. En una
+red radial, un viaje entre dos puntos de la periferia tiene que entrar hacia el
+centro, cambiar de línea en alguno de los pocos nodos donde se cruzan las
+radiales y volver a salir; por eso esos nodos acumulan intermediación. El
+corredor anillar abre otra ruta posible: el viaje puede tomar el anillo en el
+cruce más cercano y rodear el centro sin pasar por él. El
+Cuadro~\ref{tab:radial-anillar} resume los rasgos que separan a los dos tipos de
+corredor y el indicador de la tesis en el que cada rasgo debería notarse.
+Rodear el centro tiene un costo que conviene reconocer desde ahora. Visto con
+el Factor de Desviación ($DI$, §\ref{subsec:ruta-directa}), el anillo puede
+alargar el recorrido sobre la red en viajes cuyo origen y destino están cerca
+en línea recta, y en esos casos la red resulta menos eficiente en términos
+geométricos. Lo que se busca con el anillo es otra cosa: descargar las rutas y
+los nodos centrales por los que hoy pasa la mayor parte de los recorridos, y
+dar alternativas de conexión entre las distintas zonas de la \zmvm{}.
+
+\begin{table}[H]
+    \centering
+    \caption[Corredor radial y corredor anillar]{%
+    Rasgos del corredor radial y del corredor anillar e indicador de la
+    tesis que los registra.}
+    \label{tab:radial-anillar}
+    \small
+    \begin{tabular}{|p{3.2cm}|p{4.2cm}|p{4.2cm}|p{2.4cm}|}
+        \hline
+        \textbf{Rasgo} & \textbf{Corredor radial} &
+        \textbf{Corredor anillar} & \textbf{Indicador} \\
+        \hline
+        Geometría & Converge en el área central & Rodea el área central
+            sin cruzarla & --- \\
+        \hline
+        Transbordos & Se concentran en pocos nodos centrales & Se reparten
+            en los cruces con las radiales & $FC$, $B(v)$ \\
+        \hline
+        Viaje entre periferias & Pasa por el centro & Puede seguir el anillo &
+            $T$ \\
+        \hline
+        Carga de los nodos centrales & Alta & Menor, si el anillo capta
+            parte de los recorridos & $B(v)$ \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia.}
+\end{table}
+
+\subsection{Pertinencia en la \texorpdfstring{\zmvm{}}{ZMVM} y Localización sobre el Anillo Periférico}
+\label{subsec:corredor-anillar-pertinencia}
+
+La estructura que rodea la ciudad ya existe. El Anillo Periférico se construyó
+como vía rápida para el automóvil (§\ref{subsec:sesgo-vial}) y hasta hoy no
+tiene un carril confinado ni exclusivo para el transporte público
+(§\ref{sec:justificacion}). Eso no significa que el transporte público no lo
+use. Rutas de \textsc{rtp} y de Corredores Concesionados circulan por el
+Periférico o lo recorren en parte de su trayecto; las rutas 57-A y 57-C de
+\textsc{rtp}, entre Toreo y Metro Constitución de 1917, suman unos 83~km y
+tienen un ramal sobre el Boulevard Manuel Ávila Camacho. Lo hacen, sin embargo,
+en vía compartida con el tráfico general. El Coeficiente de Fricción Vial
+recoge ese efecto (§\ref{subsec:friccion-vial}): con $CF = 1.380$, la
+velocidad base de 11~km/h de ambos sistemas baja a unos 8.0~km/h
+(§\ref{subsec:fase2-cf} y §\ref{subsec:validacion-impedancia}). Sobre el
+Periférico, entonces, el transporte público avanza a la velocidad del
+tráfico. Por esa razón la propuesta no consiste en sumar más rutas de
+superficie, sino en un corredor de transporte masivo con vía propia, como el
+Metro o el Metrobús, cuya velocidad dependa poco o nada de la congestión.
+
+La pertinencia del anillo sale del diagnóstico de la red actual. En el
+Capítulo~\ref{ch:analisis-red-actual} la intermediación aparece concentrada en
+unos pocos nodos del eje Tacubaya--Mixcoac y del centro: Tacubaya
+($B(v) = 0.2232$) y Mixcoac (0.1923) encabezan la jerarquía, y ocho de los
+diez nodos con mayor $B(v)$ están en Benito Juárez o Cuauhtémoc
+(§\ref{subsec:fase3-centralidad}). La Fuerza Capilar queda en banda Débil
+(§\ref{subsec:fuerza-capilar}) y la cobertura cae al salir de la \cdmx{}: es de
+53.52\,\% en la ciudad y de 3.92\,\% en los 60 municipios conurbados, 42 de los
+cuales no tienen cobertura (§\ref{subsec:cobertura-espacial}). El Espectro MJG
+resume ese cuadro con la Centralidad y la Accesibilidad en banda Crítica
+(Cuadro~\ref{tab:espectro-mjg-diagnostico}). Es el patrón que el
+Cuadro~\ref{tab:radial-anillar} atribuye a una red radial: los viajes entre
+periferias pasan por el centro y los nodos centrales cargan con ellos. El
+anillo se propone para abrir rutas que no dependan de esos nodos, sobre todo en
+los contornos donde la red estructurada es más escasa.
+
+El trazo propuesto sigue el Periférico en todo su recorrido y, por eso, no se
+limita a la \cdmx{}. Como se observa en la Figura~\ref{fig:propuesta-anillo},
+el anillo corresponde a lo que el glosario describe como un arco concéntrico
+entre el área central y la primera corona periférica: rodea las alcaldías
+centrales sin entrar en ellas y, en el norte y el oriente, sale de la ciudad.
+De sus 94 estaciones, 66 quedan en trece alcaldías y 28 en cuatro municipios
+del Estado de México: Naucalpan de Juárez, Tlalnepantla de Baz, Ecatepec de
+Morelos y Nezahualcóyotl. Es, entonces, una propuesta de escala metropolitana,
+que toca justo la franja donde la cobertura del transporte estructurado se
+interrumpe. Los Casos~2 y~3 comparten ese trazo y esas estaciones; difieren
+solo en la operación, que se detalla en §\ref{sec:anillo-escenarios}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Base/Propuesta_Base_Anillar_Metro}
+    \caption[Trazo del corredor anillar sobre el Anillo Periférico]{%
+    Trazo del corredor anillar propuesto sobre el Anillo Periférico y red
+    de transporte de la \zmvm{}. Los Casos~2 (Anillo MB) y~3 (Anillo Metro)
+    comparten el trazo y las 94 estaciones. Corrida: 2026-10-04.}
+    \label{fig:propuesta-anillo}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+\subsection{Segmentos y Cuadrantes del Anillo}
+\label{subsec:corredor-anillar-cuadrantes}
+
+El anillo se divide en cuatro segmentos, que en \texttt{Apímetro} se registran
+como cuatro líneas: Periférico Interior Norte, Oriente, Sur y Poniente. Cada
+una opera en los dos sentidos, de modo que la propuesta suma ocho ramales. Los
+segmentos se unen en cuatro estaciones compartidas ---Parque Naucalli,
+Colonias de Aragón, Periférico Oriente/Tláhuac y Luis Cabrera--- y así forman
+un circuito cerrado. De las 94 estaciones, 20 se diseñaron como estaciones de
+transbordo, contando las cuatro de unión; las demás son intermedias. El
+Cuadro~\ref{tab:segmentos-anillo} resume cada segmento.
+
+\begin{table}[H]
+    \centering
+    \caption[Segmentos del corredor anillar]{%
+    Segmentos del corredor anillar propuesto: extremos, número de
+    estaciones y demarcaciones que recorren.}
+    \label{tab:segmentos-anillo}
+    \small
+    \begin{tabular}{|l|p{4.4cm}|c|p{5.4cm}|}
+        \hline
+        \textbf{Segmento} & \textbf{Extremos} & \textbf{Estaciones} &
+        \textbf{Demarcaciones} \\
+        \hline
+        Norte & Parque Naucalli -- Colonias de Aragón & 24 &
+            Naucalpan de Juárez, Tlalnepantla de Baz, Azcapotzalco,
+            Gustavo A. Madero, Ecatepec de Morelos, Nezahualcóyotl \\
+        \hline
+        Oriente & Colonias de Aragón -- Periférico Oriente/Tláhuac & 18 &
+            Nezahualcóyotl, Venustiano Carranza, Iztacalco, Iztapalapa \\
+        \hline
+        Sur & Periférico Oriente/Tláhuac -- Luis Cabrera & 25 &
+            Iztapalapa, Tláhuac, Xochimilco, Tlalpan, Coyoacán,
+            Álvaro Obregón, La Magdalena Contreras \\
+        \hline
+        Poniente & Luis Cabrera -- Parque Naucalli & 31 &
+            La Magdalena Contreras, Álvaro Obregón, Benito Juárez,
+            Miguel Hidalgo, Naucalpan de Juárez \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con datos de
+    \texttt{Apímetro}~\citep{cabrera2025apimetro}. Las estaciones de unión
+    se cuentan en los dos segmentos que enlazan; sin repetirlas, el anillo
+    tiene 94.}
+\end{table}
+
+Para leer el anillo por zonas conviene dividirlo en cuatro cuadrantes, como se
+observa en la Figura~\ref{fig:propuesta-anillo-cuadrantes}. En el
+\textbf{norponiente}, el trazo pasa por Naucalpan de Juárez y Tlalnepantla de
+Baz, una franja que hoy atienden casi solo rutas de \textsc{rtp} y de
+Corredores Concesionados; ahí el transbordo previsto con la red estructurada
+es Cuatro Caminos, terminal de la Línea~2 del Metro. En el \textbf{nororiente}
+cruza Gustavo A. Madero, Ecatepec de Morelos y Nezahualcóyotl, y en Río de los
+Remedios se encuentra con la Línea~B del Metro y con el Metrobús. El
+\textbf{suroriente}, en Iztapalapa y Tláhuac, concentra los cruces con la
+Línea~12 en Periférico Oriente, con la Línea~8 y el Cablebús en Constitución
+de 1917 y con la Línea~A en Canal de San Juan. En el \textbf{surponiente}, el
+anillo toca el Metrobús en Periférico Sur y la Línea~7 en Barranca del Muerto
+y San Pedro de los Pinos, y une Coyoacán, Tlalpan, Álvaro Obregón y La
+Magdalena Contreras sin pasar por el centro. Lo que cada cuadrante gana o
+pierde con el anillo se revisa en §\ref{sec:anillo-indicadores}.
+% La Figura fig:propuesta-anillo-cuadrantes se trasladó a §6.3.1
+% (6-3-Indicadores-Escenario/6-3-1-Escenarios.tex, Caso 3) el 2026-10-18. Al redactar §6.3.1,
+% revisar la frase «como se observa en la Figura…» de este párrafo
+% (ahora es una referencia hacia adelante).
+
+\subsection{Limitaciones del Modelo}
+\label{subsec:corredor-anillar-limitaciones}
+
+Con la definición, la justificación y el trazo, la propuesta ya se puede
+llevar al grafo. Antes de hacerlo conviene dejar claro qué representa el modelo
+y qué deja fuera. Las principales limitaciones de la propuesta son cuatro:
+
+\begin{enumerate}
+    \item \textbf{No incluye las condiciones físicas del trazo.} Los escenarios
+    no consideran la pendiente del terreno, el ancho de las vialidades ni el
+    tipo de calle o avenida que cruza cada segmento, y tampoco si el corredor
+    iría elevado, bajo tierra o en un carril confinado del Periférico. Al grafo
+    le basta saber dónde están las estaciones, con qué se conectan y a qué
+    velocidad opera cada caso. Se trata, por lo tanto, de un modelo
+    teórico-urbano-computacional que sirve de apoyo a la toma de decisiones,
+    no de un proyecto ejecutivo.
+
+    \item \textbf{No incluye la dimensión social.} La propuesta no incorpora
+    datos de población, ingreso o demanda de viajes; la extensión del estudio
+    no permitió llegar a ese análisis. Es una dimensión necesaria para evaluar
+    cualquier corredor, y su estudio queda como trabajo futuro
+    (Capítulo~\ref{ch:conclusiones}).
+
+    \item \textbf{La división en cuatro segmentos es una decisión del autor.}
+    En los dos casos el anillo se divide en Norte, Oriente, Sur y Poniente
+    porque cada zona tiene condiciones geográficas, sociales y económicas
+    distintas y plantea preguntas de análisis diferentes. Por la misma razón,
+    la propuesta se denomina \textbf{Anillo Periférico Interior}
+    (\textsc{api-i}) y sus segmentos, Periférico Interior Norte, Oriente, Sur y
+    Poniente. Cuando se trazó el Periférico, durante la regencia de Uruchurtu
+    (§\ref{sec:anillo-periferico}), rodeaba la ciudad de esa época; desde
+    entonces la \zmvm{} creció de forma dispersa, con el patrón saltón
+    descrito en la Figura~\ref{fig:sprawl}, y hoy el anillo ya no coincide
+    con la periferia metropolitana. Lo que sí delimita es el borde exterior
+    del Primer y el Segundo Contorno (Figura~\ref{fig:semovi-contornos}).
+
+    \item \textbf{No aborda un anillo exterior.} De lo anterior se desprende la
+    necesidad de estudiar un Anillo Periférico Exterior, que atienda la
+    periferia actual de la \zmvm{}. Ese caso no se desarrolla en este
+    documento: por la metodología que exige, la extensión del territorio y el
+    tiempo disponible, requiere un estudio propio.
+\end{enumerate}
+
+Con estas limitaciones a la vista, §\ref{sec:anillo-escenarios} describe cómo
+se incorporan los dos casos al grafo y con qué parámetros.

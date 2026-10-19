@@ -1,0 +1,155 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 6.2 — ESCENARIOS Y PROCESAMIENTO
+% Issue #25. Pocas figuras: los datos van en cuadros; los mapas de
+% los escenarios se usan en §6.3 (indicadores).
+%
+% PENDIENTE (decisión del autor, 2026-10-18): falta una sección
+% específica que defina los dos escenarios (Caso 2 = Anillo MB,
+% Caso 3 = Anillo Metro) y los explique con sus mapas. Se desarrolla
+% al terminar este archivo; no antes.
+%
+% PENDIENTE para la revisión final (#32): Cap. 3 (3-3-5) y Cap. 5
+% (5-4-2) dicen que T_b depende del intervalo de paso de cada
+% sistema; VFTModel usa un valor fijo (FALLBACK_FRECUENCIA/2). Por
+% eso aquí no se dan los intervalos de los anillos (3 y 5 min).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Escenarios y Procesamiento}
+\label{sec:anillo-escenarios}
+
+Los tres casos se calculan con el mismo procedimiento del
+Capítulo~\ref{ch:analisis-red-actual}. Lo único que cambia de uno a otro es el
+\textsc{api-i} y la forma en que opera: el Caso~1 no lo tiene, el Caso~2 lo
+incorpora con la operación del Metrobús y el Caso~3 con la del Metro. El código,
+la corrida y las reglas con las que se arma el grafo son las mismas en los tres;
+en particular, los transbordos peatonales se generan entre estaciones a 85~m o
+menos (§\ref{sec:grafo-topologico}) y la penalización por transbordo se aplica
+como en §\ref{subsec:fase2-tb}. Así, cualquier diferencia en los indicadores se
+puede atribuir al anillo y no a un cambio de método. Esta sección reúne los
+parámetros de cada caso, resume cómo se procesaron con la cadena de
+herramientas y describe el tamaño del grafo que resulta.
+
+\subsection{Parámetros de los Casos}
+\label{subsec:anillo-parametros}
+
+Cada caso toma los parámetros de un sistema que ya opera en la red, para que
+el anillo se calcule con las mismas reglas que el resto del grafo. El Caso~3
+replica al Metro: 36~km/h sobre vía exclusiva, sin fricción, igual que las
+líneas del Metro en el Cuadro~\ref{tab:validacion-impedancia}. El Caso~2 parte
+de los 16.3~km/h del Metrobús, pero en \texttt{Apímetro} se registró con
+derecho de vía confinado, la categoría del Mexibús, y no exclusivo como las
+líneas de Metrobús de la red actual; con $CF = 1.152$ su velocidad efectiva
+baja a unos 14.2~km/h, la misma que alcanza el Mexibús. Fuera de la operación,
+los dos casos son idénticos: comparten el trazo, las 94 estaciones y los ocho
+ramales descritos en §\ref{subsec:corredor-anillar-cuadrantes}. El
+Cuadro~\ref{tab:anillo-parametros} reúne estos valores.
+
+\begin{table}[H]
+    \centering
+    \caption[Parámetros de los casos con anillo]{%
+    Parámetros de operación del \textsc{api-i} en los Casos~2 y~3.
+    Corrida: 2026-10-04.}
+    \label{tab:anillo-parametros}
+    \small
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Parámetro} & \textbf{Caso~2 (Anillo MB)} &
+        \textbf{Caso~3 (Anillo Metro)} \\
+        \hline
+        Sistema que replica       & Metrobús   & Metro \\
+        Derecho de vía            & Confinado  & Exclusivo \\
+        $\alpha$                  & 0.2        & 0.0 \\
+        $CF$                      & 1.152      & 1.000 \\
+        $V_{\text{base}}$ (km/h)  & 16.3       & 36.0 \\
+        $V$ efectiva (km/h)       & 14.2       & 36.0 \\
+        Estaciones                & 94         & 94 \\
+        Líneas / ramales          & 4 / 8      & 4 / 8 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{Apímetro} y
+    \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel};
+    $\alpha$ y $CF$ según el Cuadro~\ref{tab:cf-derecho-via}.}
+\end{table}
+
+\subsection{Procesamiento con la Cadena de Herramientas}
+\label{subsec:anillo-procesamiento}
+
+Las tres herramientas del Capítulo~\ref{ch:Capas-codigo} se usaron con el mismo
+código en los tres casos; lo que cambió fue la información que reciben. Cada
+escenario corrió en sus propios contenedores Docker, una instancia de
+\texttt{Apímetro} y otra de \texttt{VFTModel} con sus datos aislados, de modo
+que la red actual y los dos casos con anillo se calcularon por separado, con la
+misma versión del modelo y sin que los datos de uno alteraran los de otro.
+\texttt{Transport-gis-zmvm-mjg} conserva esa separación al exportar los
+resultados de cada caso en carpetas distintas. Esto importa para quien planea:
+un urbanista, un arquitecto o un ingeniero puede comparar escenarios sabiendo
+que cada uno es independiente y que agregar uno nuevo no compromete la
+integridad de los que ya existen. El Cuadro~\ref{tab:anillo-procesamiento}
+resume qué hizo cada herramienta en este capítulo y qué entregó.
+
+\begin{table}[H]
+    \centering
+    \caption[Procesamiento de los casos con anillo]{%
+    Papel de cada herramienta en el procesamiento de los Casos~2 y~3.}
+    \label{tab:anillo-procesamiento}
+    \small
+    \begin{tabular}{|p{3.3cm}|p{5.6cm}|p{4.6cm}|}
+        \hline
+        \textbf{Herramienta} & \textbf{Qué se hizo} & \textbf{Qué entrega} \\
+        \hline
+        \texttt{Apímetro} (§\ref{sec:apimetro-intro}) &
+            Registra las cuatro líneas Periférico Interior y sus estaciones
+            como un sistema más de la red &
+            Red con anillo para cada caso \\
+        \hline
+        \texttt{VFTModel} (§\ref{sec:vftmodel-intro}) &
+            Construye el grafo de cada caso y calcula los indicadores con la
+            corrida 2026-10-04 &
+            Indicadores y perfil Garibelt por caso \\
+        \hline
+        \texttt{Transport-gis-zmvm-mjg} (§\ref{sec:transport-gis}) &
+            Cruza los resultados de los tres casos y los lleva a
+            \textbf{QGIS} y \textbf{Tableau} &
+            Mapas y \termino{dashboards} de cada caso y comparativos \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia.}
+\end{table}
+
+\subsection{El Grafo con Anillo}
+\label{subsec:anillo-grafo}
+
+Al incorporar el \textsc{api-i}, el grafo crece poco en tamaño. Como se observa
+en el Cuadro~\ref{tab:anillo-grafo}, los Casos~2 y~3 suman las mismas 94
+estaciones a los 11,115 nodos de la red actual y alrededor de 480 aristas a las
+45,517 que ya tenía. Las 94 estaciones quedan dentro de la componente gigante,
+que pasa de 10,610 a 10,707 nodos. Los tres nodos restantes de esa diferencia
+ya existían: son tres nodos del Metrobús en el norte de la ciudad, entre ellos
+Río de los Remedios, que en la red actual estaban desconectados del resto y que
+el anillo integra. El anillo, en otras palabras, no cambia la escala del grafo;
+lo que puede cambiar es por dónde pasan los caminos más cortos, y eso es lo que
+revisan los indicadores de §\ref{sec:anillo-indicadores}.
+
+\begin{table}[H]
+    \centering
+    \caption[Tamaño del grafo en los tres casos]{%
+    Tamaño del grafo multimodal en los tres casos. Corrida: 2026-10-04.}
+    \label{tab:anillo-grafo}
+    \small
+    \begin{tabular}{|l|r|r|r|}
+        \hline
+        & \textbf{Caso~1} & \textbf{Caso~2} & \textbf{Caso~3} \\
+        & \textbf{(red actual)} & \textbf{(Anillo MB)} &
+          \textbf{(Anillo Metro)} \\
+        \hline
+        Nodos                         & 11,115 & 11,209 & 11,209 \\
+        Aristas                       & 45,517 & 46,002 & 45,993 \\
+        Nodos de la componente gigante & 10,610 & 10,707 & 10,707 \\
+        Proporción en la componente gigante & 95.46\,\% & 95.52\,\% &
+            95.52\,\% \\
+        Aristas de la componente gigante & 44,377 & 44,870 & 44,861 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{table}
