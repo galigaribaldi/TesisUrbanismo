@@ -14,10 +14,363 @@
 % Criterio de las figuras (decisión C6-5):
 %   comparativos = orden por nodo; Dashboard_Betweenness_* = 10
 %   nombres con mayor suma de B(v) (como tab:bv-top10-agregado).
-% Estructura: entrada · Caso 2 · Caso 3 · lectura comparativa.
-% Figuras candidatas:
-%   .../Clasificacion_Garibelt_Betweenness_Centrality_MB / _Metro
-%   Tableau_Resources/RedConAnillo/Escenario_MB|Metro/Dashboard_Betweenness_*
-%   Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Betweenness
-%   Tableau_Resources/Comparativo_CG/Dashboard_Comparativo_Intermediacion_Bv
+% Estructura (plan 2026-10-24):
+%   C.1 entrada (qué mide · por qué cambia · tab:anillo-bv) ✅
+%   C.2 Caso 2: mapa QGIS _MB + Dashboard_Betweenness_MB ✅
+%   C.3 Caso 3: mapa QGIS _Metro + Dashboard_Betweenness_Metro ✅
+%   C.4 Redistribución: Unigrafica_Comparativo_Top_10_bv,
+%       Comparativo_Garibelt_Betweenness, G6 (alcaldías), G5 (Lorenz) ✅
+%   C.5 contraste con tab:betweenness (Cap. 3) y límites ✅
+%   C.6 interpretación por caso ✅ (completa 2026-10-24)
+% Anexo G.5: fig:anx-g-bv-mb, fig:anx-g-bv-metro, fig:anx-g-bv-comparativo.
+% El reacomodo de caminos es una lectura (especulativa), apoyada en la
+%   velocidad, el desplazamiento al sur/oriente y el Gini.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Centralidad de Intermediación (\texorpdfstring{$B(v)$}{B(v)})}
+\label{subsec:anillo-centralidad}
+
+La intermediación indica qué tanto depende la red de unos cuantos nodos para
+unir al resto. $B(v)$ es la proporción de los caminos mínimos entre pares de
+nodos que pasan por cada nodo $v$ (§\ref{subsec:centralidad-intermediacion}).
+En el Caso~1 esa dependencia es alta y se concentra en el centro. Tacubaya es
+el nodo con más intermediación (0.2232), los diez primeros son estaciones del
+Metro y ocho de ellos están en Benito Juárez o en Cuauhtémoc
+(§\ref{subsec:fase3-centralidad}). Para el Espectro MJG no se usa el valor de
+un nodo, sino el índice de Gini de todos, que mide qué tan concentrada está la
+intermediación. En la red actual vale 0.8007; invertido, el indicador queda en
+0.199, dentro del intervalo 0--0.25 (Cuadro~\ref{tab:espectro-mjg-diagnostico}).
+
+El anillo no pasa por el centro, pero puede cambiar la intermediación de sus
+nodos, porque cambia los caminos que los cruzan. Se puede pensar que algunos
+pares que hoy van de un lado a otro de la ciudad por Tacubaya o por Mixcoac
+pasarán a rodearla por el Periférico, siempre que eso les tome menos tiempo.
+De ser así, el resultado depende de la velocidad de cada caso, igual que el
+tiempo de viaje (§\ref{subsec:anillo-tiempo-viaje}), y tiene dos caras: el
+centro se descarga, pero los caminos que salen de él se juntan en un solo
+corredor. Por eso, en este indicador, una caída de Tacubaya puede venir junto
+con un Gini más alto.
+
+El Cuadro~\ref{tab:anillo-bv} reúne los resultados de los tres casos. Además del
+Gini y del valor de Tacubaya, el cuadro indica cuántas estaciones del anillo
+entran entre los nodos con más intermediación, qué parte de la $B(v)$ total
+queda en ellas y cuántos nodos existentes ganan o pierden más de 0.01.
+
+\begin{table}[H]
+    \centering
+    \caption[Intermediación en los tres casos]{%
+    Resultados principales de la centralidad de intermediación ($B(v)$) en
+    los tres casos, sobre la componente gigante de cada uno.
+    Corrida: 2026-10-04.}
+    \label{tab:anillo-bv}
+    \small
+    \begin{tabular}{|p{6.4cm}|r|r|r|}
+        \hline
+        & \textbf{Caso~1} & \textbf{Caso~2} & \textbf{Caso~3} \\
+        & \textbf{(red actual)} & \textbf{(Anillo MB)} &
+          \textbf{(Anillo Metro)} \\
+        \hline
+        Índice de Gini de $B(v)$                 & 0.8007 & 0.8012 & 0.8134 \\
+        Valor normalizado ($1-\mathrm{Gini}$)    & 0.199  & 0.199  & 0.187 \\
+        $B(v)$ de Tacubaya (lugar~1)             & 0.2232 & 0.2163 & 0.1569 \\
+        Cambio de Tacubaya frente al Caso~1      & ---    & $-3.1$\,\% & $-29.7$\,\% \\
+        \hline
+        Estación del anillo con mayor $B(v)$ (lugar)
+            & ---  & 0.0613 (69) & 0.1550 (2) \\
+        $B(v)$ promedio de las estaciones del anillo
+            & ---  & 0.020 & 0.075 \\
+        Estaciones del anillo entre los 10 / 50 / 100 primeros
+            & ---  & 0 / 0 / 5 & 9 / 40 / 58 \\
+        Parte de la $B(v)$ total en el anillo    & ---    & 5.9\,\% & 21.2\,\% \\
+        \hline
+        Nodos existentes que pierden más de 0.01 & ---    & 50 & 208 \\
+        Nodos existentes que ganan más de 0.01   & ---    & 14 & 39 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}; comparativo por nodo de
+    \texttt{Transport-gis-zmvm-mjg}.}
+\end{table}
+
+\subsubsection{Caso~2: Anillo MB}
+
+En el Caso~2 la jerarquía de la red casi no cambia. Como se observa en la
+Figura~\ref{fig:anillo-bv-mb}, los diez nodos con más intermediación son los
+mismos del Caso~1, todos estaciones del Metro en el centro, y Tacubaya sigue en
+el primer lugar con 0.2163, un 3.1\,\% menos. Ninguna estación del anillo entra
+entre los 50 primeros nodos. La mejor colocada, Periférico Oriente/Tláhuac, en
+Iztapalapa, ocupa el lugar 69, y entre las 94 estaciones reúnen el 5.9\,\% de la
+$B(v)$ total.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/Clasificacion_Garibelt_Betweenness_Centrality_MB}
+    \caption[Centralidad de intermediación en el Caso~2]{%
+    Centralidad de intermediación ($B(v)$) en el Caso~2 (Anillo MB). El mapa
+    muestra los 50 nodos con mayor valor en tres niveles: los cinco primeros,
+    del 6 al 15 y del 16 al 50. Versión a página completa en la
+    Figura~\ref{fig:anx-g-bv-mb}. Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-mb}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+Lo que sí cambia está sobre el Periférico. De los 50 nodos existentes que
+pierden más de 0.01, 26 son paradas de la \textsc{rtp}, casi todas sobre el
+Periférico Sur, entre Álvaro Obregón, La Magdalena Contreras y Tlalpan, como
+Altavista, Las Flores o San Jerónimo. Esa \textsc{rtp} circula hoy en vía
+compartida a unos 8~km/h (§\ref{subsec:corredor-anillar-pertinencia}), y el
+Anillo MB, a unos 14~km/h, le gana en el mismo trazo. Se puede pensar, por eso,
+que los caminos que pasaban por esas paradas pasan ahora por las estaciones del
+anillo. Frente al Metro del centro, que corre a 36~km/h, el Anillo MB no es más
+rápido, y los caminos que cruzan la ciudad por Tacubaya o por Mixcoac casi no
+se mueven. La intermediación cambia de sistema dentro del mismo corredor, pero
+no cambia de lugar en la ciudad.
+
+Los 14 nodos que ganan más de 0.01 quedan en los extremos del trazo. Siete son
+estaciones del Metro en el oriente y el norte, como Periférico Oriente,
+Nezahualcóyotl, Bosque de Aragón o Río de los Remedios, donde el anillo se une
+con las Líneas~12 y~B; otros dos son paradas de Corredores Concesionados del
+\textsc{cetram} Barranca del Muerto, en el poniente. La
+Figura~\ref{fig:anillo-bv-dashboard-mb} lee la red por complejo de estaciones,
+es decir, suma la $B(v)$ de los nodos que comparten nombre, igual que el
+Cuadro~\ref{tab:bv-top10-agregado}. Los diez complejos son casi los mismos que
+en el Caso~1. Sale Barranca del Muerto, porque sus paradas de la \textsc{rtp}
+pierden intermediación, y entra La Raza.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_MB/Dashboard_Betweenness_MB}
+    \caption[\termino{Dashboard} de intermediación por estación en el Caso~2]{%
+    Diez estaciones con mayor suma de $B(v)$ por nombre en el Caso~2 (Anillo
+    MB). Cada barra es el valor más alto de un sistema en esa estación. Por
+    la regla de suma, el orden difiere del de la
+    Figura~\ref{fig:anillo-bv-mb}, que ordena por nodo. Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-dashboard-mb}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Caso~3: Anillo Metro}
+
+En el Caso~3 la jerarquía sí cambia. Tacubaya conserva el primer lugar, pero
+con 0.1569, un 29.7\,\% menos, y los otros nueve de los diez primeros nodos son
+estaciones del anillo, como se observa en la Figura~\ref{fig:anillo-bv-metro}.
+Las encabezan Periférico Oriente/Tláhuac (0.1550), casi empatada con Tacubaya,
+y Rómulo O'Farril (0.1310), en Álvaro Obregón. Entre los 50 primeros nodos hay
+40 estaciones del anillo, todas al sur de Tacubaya, sobre todo en Álvaro
+Obregón, Iztapalapa y Tlalpan; ninguna del norte entra en ese grupo. Las 94
+estaciones reúnen el 21.2\,\% de la $B(v)$ total, casi cuatro veces lo que
+tenían en el Caso~2.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Clasificacion_Garibelt/Clasificacion_Garibelt_Betweenness_Centrality_Metro}
+    \caption[Centralidad de intermediación en el Caso~3]{%
+    Centralidad de intermediación ($B(v)$) en el Caso~3 (Anillo Metro). El
+    mapa muestra los 50 nodos con mayor valor en tres niveles: los cinco
+    primeros, del 6 al 15 y del 16 al 50. Versión a página completa en la
+    Figura~\ref{fig:anx-g-bv-metro}. Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-metro}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+La diferencia con el Caso~2 viene de la velocidad. A 36~km/h el anillo corre
+como el Metro del centro, y se puede pensar que por eso muchos caminos que hoy
+suben al centro para cruzar la ciudad pasan a rodearla por el sur. Los datos
+van en esa dirección. Los 208 nodos existentes que pierden más de 0.01 se
+concentran en Coyoacán, Cuauhtémoc y Benito Juárez, y los que más pierden
+forman una cadena: el Tren Ligero de Xochimilco, con Las Torres y Ciudad
+Jardín; la Línea~2 sobre la Calzada de Tlalpan, con Portales, Villa de Cortés y
+Viaducto, y Mixcoac, que baja del segundo al decimonoveno lugar. Es el camino
+que hoy une el sur con el centro y el poniente, y el anillo ofrece una
+alternativa por fuera de él.
+
+Los 39 nodos que ganan más de 0.01 están junto al trazo. La mayoría son paradas
+de la \textsc{rtp} y de Corredores Concesionados, sobre todo en Xochimilco y
+Tlalpan, muchas al lado de una estación del anillo, como Calzada Ermita
+Iztapalapa--Metro Constitución de 1917 o Canal de Garay--Cafetales. Ganan
+también, y más que en el Caso~2, las estaciones de las Líneas~12 y~B que se unen
+con él, como Periférico Oriente y Río de los Remedios. Por complejo de
+estaciones (Figura~\ref{fig:anillo-bv-dashboard-metro}), Tacubaya y Periférico
+Oriente/Tláhuac quedan casi empatadas en los dos primeros lugares, seguidas de
+Iztapalapa. Periférico Oriente/Tláhuac e Iztapalapa son las dos únicas
+estaciones del anillo entre los diez complejos, porque casi todas las del
+anillo son un solo nodo con nombre propio, mientras que Hidalgo o Balderas
+suman varios. Por eso la figura no contradice al mapa, donde nueve de los diez
+primeros nodos son del anillo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_Metro/Dashboard_Betweenness_Metro}
+    \caption[\termino{Dashboard} de intermediación por estación en el Caso~3]{%
+    Diez estaciones con mayor suma de $B(v)$ por nombre en el Caso~3 (Anillo
+    Metro). Cada barra es el valor más alto de un sistema en esa estación.
+    Por la regla de suma, el orden difiere del de la
+    Figura~\ref{fig:anillo-bv-metro}, que ordena por nodo. Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-dashboard-metro}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Redistribución de la Intermediación}
+
+La Figura~\ref{fig:anillo-bv-top10} compara los diez nodos con más
+intermediación de cada caso y la alcaldía donde está cada uno. Entre la red
+actual y el Anillo MB no hay diferencia: son los mismos nodos, repartidos entre
+Miguel Hidalgo, Benito Juárez, Cuauhtémoc y Álvaro Obregón. Con el Anillo Metro
+solo queda Tacubaya. Los otros nueve son estaciones del anillo en Iztapalapa,
+Álvaro Obregón, Xochimilco y La Magdalena Contreras.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/Comparativo_CG/Unigrafica_Comparativo_Top_10_bv}
+    \caption[Diez nodos con mayor intermediación en los tres casos]{%
+    Diez nodos con mayor centralidad de intermediación ($B(v)$) en cada caso,
+    ordenados por nodo. Dentro de cada barra se indica la alcaldía y fuera,
+    la estación y su valor; el rombo marca una estación del \textsc{api-i}.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-top10}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La Figura~\ref{fig:anillo-bv-comparativo} lleva ese cambio al territorio. Los
+paneles A, B y C ubican los 50 nodos con más intermediación de cada caso. En la
+red actual y con el Anillo MB forman una banda en el centro-poniente, de
+Garibaldi a Barranca del Muerto; con el Anillo Metro la banda se abre hacia el
+sur siguiendo el trazo. El panel D compara el Caso~3 con el Caso~1 nodo por
+nodo. Los que pierden más de 0.01 se juntan en el eje Mixcoac--Tacubaya y en la
+Calzada de Tlalpan, y los que ganan quedan sobre el anillo, en el sur y el
+oriente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Betweenness}
+    \caption[Comparativo de intermediación en los tres casos]{%
+    Los 50 nodos con mayor $B(v)$ en el Caso~1 (panel~A), el Caso~3
+    (panel~B) y el Caso~2 (panel~C), y cambio de $B(v)$ entre el Caso~3 y
+    el Caso~1 (panel~D), con un umbral de $\pm 0.01$. Versión a página
+    completa en la Figura~\ref{fig:anx-g-bv-comparativo}.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-comparativo}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+Por demarcación, el cambio va en la misma dirección
+(Figura~\ref{fig:anillo-bv-alcaldias}). Con el Anillo Metro, Cuauhtémoc,
+Coyoacán y Benito Juárez son las que más intermediación pierden. Iztapalapa,
+en cambio, pasa de 1.90 a 3.10 y Tlalpan de 1.27 a 2.07; Xochimilco, Álvaro
+Obregón y La Magdalena Contreras también suben, igual que los municipios del
+Estado de México por donde pasa el anillo, como Nezahualcóyotl, Naucalpan y
+Ecatepec. Con el Anillo MB se ve el mismo patrón en Iztapalapa, Tlalpan y
+Xochimilco, aunque con cambios mucho menores. Así, la intermediación se
+reparte hacia el sur y el oriente, zonas que en la red actual dependen del
+centro para casi cualquier viaje largo (§\ref{subsec:fase3-centralidad}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{%
+        Figures/Cap6/TiempoViajePromedio/Grafica_BV_Alcaldias}
+    \caption[Intermediación por demarcación en los tres casos]{%
+    Suma de $B(v)$ por alcaldía o municipio en los tres casos, para los
+    nodos que están entre los 2,000 de mayor $B(v)$ en algún caso (del 84 al
+    85\,\% de la $B(v)$ total). Se muestran las 20 demarcaciones con mayor
+    suma; las sombreadas son las alcaldías del sur, según la división del
+    autor, que toma a Iztapalapa como parte del oriente. Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-alcaldias}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Que la intermediación se mueva al sur no quiere decir que quede mejor
+repartida. La Figura~\ref{fig:anillo-bv-lorenz} muestra la curva de Lorenz de
+$B(v)$ en los tres casos. En la escala completa las tres casi se enciman: en
+todos, la mitad de los nodos con menos intermediación junta apenas el 3\,\% del
+total. La diferencia está en el 10\,\% de nodos con más $B(v)$, ampliado a la
+derecha, que reúne el 69.9\,\% en la red actual y el 72.2\,\% con el Anillo
+Metro. Por eso la curva del Caso~3 queda por debajo de las otras y el Gini sube
+de 0.8007 a 0.8134. Los caminos que dejan el centro no se dispersan por la red;
+pasan por las 94 estaciones del anillo, menos del 1\,\% de los nodos, que
+reúnen una quinta parte de la $B(v)$ total. El centro se descarga, pero la red
+sigue dependiendo de pocos nodos, y ahora estos están sobre el Periférico.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Cap6/TiempoViajePromedio/Grafica_BV_Lorenz}
+    \caption[Curva de Lorenz de la intermediación en los tres casos]{%
+    Curva de Lorenz de la centralidad de intermediación ($B(v)$) en los
+    tres casos. La diagonal punteada representa una distribución igual entre
+    todos los nodos; el panel derecho amplía el 10\,\% de nodos con mayor
+    $B(v)$. Gini: 0.8007 (Caso~1), 0.8012 (Caso~2) y 0.8134 (Caso~3).
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-bv-lorenz}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Contraste con lo Supuesto y Límites del Resultado}
+
+El Capítulo~\ref{ch:definiciones} supuso que, con el anillo, la intermediación
+de Pantitlán, Pino Suárez y Tacubaya bajaría casi a la mitad y que las
+estaciones del anillo tendrían en promedio un valor cercano a 0.18
+(Cuadro~\ref{tab:betweenness}). Con el Anillo Metro se cumple la dirección,
+pero no el tamaño. Los tres nodos bajan, Tacubaya un 29.7\,\%, Pantitlán un
+38\,\% y Pino Suárez un 25\,\%, y las estaciones del anillo quedan en 0.075 en
+promedio. Tampoco coinciden los niveles de partida: la suposición le daba a
+Pantitlán 0.40, y en la red actual su nodo principal tiene 0.056, muy por debajo
+de Tacubaya. Con el Anillo MB los cambios son todavía menores. La suposición
+acertó en que la intermediación se movería hacia el anillo, pero no en que se
+repartiría mejor, porque el Gini sube.
+
+Los cambios descritos en esta sección muestran por dónde pasan los caminos más
+cortos de la red con el anillo, no por dónde pasaría la gente ni cómo se
+tomaría cada decisión de viaje. Antes de interpretarlos por caso, conviene
+tener presentes cinco límites de su lectura:
+
+\begin{itemize}
+    \item \textbf{Sin demanda.} $B(v)$ cuenta caminos y no pasajeros; que un
+    nodo gane intermediación no dice cuánta gente pasaría por él.
+    \item \textbf{Misma penalización por transbordo.} Se aplica en los tres
+    casos igual que en la red actual (§\ref{subsec:fase2-tb}), así que la
+    diferencia entre el Anillo MB y el Anillo Metro sale de la velocidad.
+    \item \textbf{Escala de la red.} La componente gigante de los Casos~2 y~3
+    tiene 97 nodos más, lo que mueve un poco los valores de muchos nodos
+    aunque sus caminos casi no cambien; por eso solo se cuentan los cambios
+    mayores de 0.01.
+    \item \textbf{Cobertura de la suma por demarcación.} La
+    Figura~\ref{fig:anillo-bv-alcaldias} incluye solo los nodos con
+    demarcación asignada, que reúnen del 84 al 85\,\% de la $B(v)$ total.
+    \item \textbf{Caminos no trazados.} La explicación de por qué los caminos
+    se desvían hacia el anillo es una lectura de los cambios por nodo, no
+    una medición directa de cada camino.
+\end{itemize}
+
+\subsubsection{Interpretación por Caso}
+
+\textbf{Caso~2 (Anillo MB).} Con el anillo a la velocidad del Mexibús, la
+intermediación casi no se mueve de lugar. Tacubaya baja un 3.1\,\% y los diez
+nodos con más intermediación siguen en el centro. Los cambios se quedan en el
+Periférico Sur, donde el anillo hace lo que hoy hace la \textsc{rtp}, y en las
+estaciones de las Líneas~12 y~B del oriente. Con un Gini de 0.8012, el valor
+normalizado sigue en 0.199, como en la red actual, y la red depende del centro
+igual que antes.
+
+\textbf{Caso~3 (Anillo Metro).} A la velocidad del Metro, el anillo se vuelve
+un segundo eje de la red. Tacubaya pierde casi un tercio de su intermediación,
+Mixcoac, la Línea~2 y el Tren Ligero se descargan, y nueve de los diez nodos
+con más intermediación pasan al anillo, en Iztapalapa, Álvaro Obregón,
+Xochimilco y La Magdalena Contreras. Para el sur y el oriente esto significa
+dejar de depender solo del centro para unirse con el resto de la ciudad. La
+intermediación, sin embargo, no se reparte: se concentra en las 94 estaciones,
+el Gini sube a 0.8134 y el valor normalizado baja a 0.187. Estaciones como
+Periférico Oriente/Tláhuac, Rómulo O'Farril o Constitución de 1917 quedan con
+una intermediación cercana a la de Tacubaya.
