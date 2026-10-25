@@ -86,8 +86,10 @@ entrada B; 6.5.1 A/A/A; 6.5.2 A/B/A; 6.5.3 A/A; 6.5.4 A/A; síntesis A. `make ch
   `fig:anx-g-pm-1982-1983` (PlanMaestro10, otra toma de E-5/E-6) + renglón en el índice.
   Las fotos `PlanMaestro2010/` son el horizonte 2010 del mismo documento (pp. 63–66).
   Opcional sin decidir: E-12 y E-13 (`PlanMaestro2010-2/-3`) en el anexo.
-- Pendiente: 6.5.2 P1 en 0.235 en el archivo; variante con «…solo eje, porque Tacubaya…» da 0.122.
-- **Mapa de síntesis** `fig:anillo-sintesis` (`\graficapendiente`), especificación para Transport-gis:
+- 6.5.2 P1 resuelto con «…solo eje, porque Tacubaya…» (0.122). Ningún párrafo de §6.5 ≥ 0.20.
+- **Mapa de síntesis — DESCARTADO para la versión Alfa (2026-10-25):** requeriría otro dashboard;
+  §6.5.5 remite ahora a `fig:anillo-t-demarcacion`, `fig:anillo-bv-comparativo` y
+  `fig:anillo-banda-cambio`. Especificación conservada por si se retoma:
   QGIS, dos paneles a la misma escala (A = Caso 2, B = Caso 3); salida
   `Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Sintesis` (PDF vectorial + PNG).
   Coropleta: media de `delta_mb_min` / `delta_metro_min` por demarcación de
