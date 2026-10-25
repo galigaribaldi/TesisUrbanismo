@@ -92,6 +92,17 @@ dentro de la \zmvm{}, sin compararla con otras redes. Sustituir los cuartiles
 propios por una referencia comparativa, como las 25 redes de \citet{kujala2018},
 queda como trabajo futuro.
 
+Además del perfil de la red, el instrumento clasifica cada nodo. Para hacerlo,
+normaliza la Fuerza Capilar y la intermediación del nodo con el mínimo y el
+máximo del caso analizado, de modo que el nodo con más conexiones y el de más
+intermediación valen 1, y toma el menor de los dos valores. El intervalo en que
+cae ese valor es la banda dominante del nodo e indica cuál de las dos
+dimensiones lo limita más. Los nodos que quedan fuera de la componente gigante
+no tienen intermediación y se clasifican solo por su Fuerza Capilar. Como la
+escala es relativa al máximo de cada caso, la banda dominante sirve para
+comparar nodos dentro de una misma red; entre casos distintos, un cambio de
+banda puede deberse a que cambió el máximo y no el nodo.
+
 % =====================================================================
 \subsubsection{Un tablero, no un marcador}
 \label{subsubsec:garibelt-tablero}
