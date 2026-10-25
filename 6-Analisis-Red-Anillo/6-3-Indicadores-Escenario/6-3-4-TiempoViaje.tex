@@ -1,12 +1,234 @@
 % !TeX root = ../../tesis.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% §6.3.4 — TIEMPO DE VIAJE PROMEDIO (T) EN LOS CASOS CON ANILLO
+% §6.3.3 — TIEMPO DE VIAJE PROMEDIO (T) EN LOS CASOS CON ANILLO
+% (archivo 6-3-4 por la numeración anterior). En redacción por partes
+% desde 2026-10-23.
 %
-% Datos (corrida 2026-10-04): T = 113.91 (Caso 1, 0.6957 Aceptable)
-%   → 108.99 (Caso 2, −4.92 min, −4.3 %, 0.7475 Aceptable, a 0.0025
-%   de Idóneo) → 101.92 (Caso 3, −11.99 min, −10.5 %, 0.8219 Idóneo).
-%   Tabla 3.5 del Cap. 3 anticipaba −24 % (suposición).
-%   Referencia: «tiempo de referencia del modelo» (85 min, D7).
-% Estructura: entrada · Caso 2 · Caso 3 · lectura comparativa.
-% Figuras: no hay mapa de T; cuadro LaTeX.
+% Datos (corrida 2026-10-04; tableau/connectors/VFTModel/exports/
+%   {,scenario_mb/,scenario_metro/}wdc_t_escalar.csv y
+%   garibelt/escenario-*/garibelt_perfil_*.csv):
+%   T = 113.9087 / 108.9857 / 101.921 min; componente gigante 10,610 /
+%   10,707 / 10,707 nodos; T_norm = 0.6957 / 0.7475 / 0.8219.
+%   VFTModel solo entrega el escalar; la distribución por par y por nodo
+%   sale de VFTModel/notebooks/08_Distribucion_T (ASSETS/t_distribucion/).
+%
+% Estructura (6 partes): 1 entrada ✅ · 2 cuadro de los tres casos ✅ ·
+%   3 G3 y G4 ✅ · 4 Caso 2 y Caso 3 con G8 ✅ · 5 contraste con la
+%   suposición del Cap. 3 y límites ✅ · 6 interpretación ✅ (2026-10-24).
+% Figuras: Figures/Cap6/TiempoViajePromedio/ (Transport-gis-zmvm-mjg).
+% No dar los intervalos de paso de los anillos (3 y 5 min), #32.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tiempo de Viaje Promedio (\texorpdfstring{$T$}{T})}
+\label{subsec:anillo-tiempo-viaje}
+
+El tiempo de viaje promedio indica cuánto se tarda, en promedio, en ir de un
+punto a otro de la red. Para obtenerlo, \dijkstra{} busca el tiempo mínimo entre
+cada par de nodos de la componente gigante sobre el grafo ponderado de la
+Fase~2, con la fricción vial y la penalización por transbordo ya incluidas, y
+después se promedian todos esos tiempos (Ecuación~\eqref{eq:tiempo-promedio},
+§\ref{subsec:tiempo-viaje}). Ese promedio no distingue cuánta gente hace cada
+viaje: un trayecto entre periferias opuestas pesa lo mismo que uno muy
+frecuente. Así, el valor del modelo queda por encima de uno ponderado por
+demanda (§\ref{subsec:tiempo-viaje-promedio}).
+
+Para el Espectro MJG, $T$ se lleva a la escala de 0 a 1 con un rango fijo de
+85 a 180~minutos, que es un supuesto del autor
+(§\ref{subsubsec:garibelt-procedimiento}). La
+Ecuación~\eqref{eq:anillo-t-norm} expresa ese paso:
+
+\begin{equation}
+    T_{\text{norm}} = \frac{T_{\text{máx}} - T}{T_{\text{máx}} - T_{\text{ref}}}
+    \label{eq:anillo-t-norm}
+\end{equation}
+
+\begin{itemize}
+    \item $T_{\text{norm}}$: valor de la dimensión en la escala de 0 a 1.
+    \item $T$: tiempo de viaje promedio de la red, en minutos.
+    \item $T_{\text{ref}}$: tiempo de referencia del modelo, 85~minutos, que
+          normaliza a 1.
+    \item $T_{\text{máx}}$: cota de un traslado inaceptable, 180~minutos, que
+          normaliza a 0.
+\end{itemize}
+
+El \texttt{VFTModel} entrega $T$ como un único valor para toda la red. Para ver
+cómo se reparte, se calculó además, con el mismo grafo y los mismos pesos, el
+tiempo mínimo de cada par de nodos y el tiempo medio desde cada nodo hacia
+todos los demás, que en esta sección se llama tiempo medio del nodo. El cálculo
+se hizo con el cuaderno \texttt{08\_Distribucion\_T} del \texttt{VFTModel}
+\citep{cabrera2026VFTModel}, y el promedio de todos los pares reproduce el $T$
+oficial de cada caso.
+
+El Cuadro~\ref{tab:anillo-t} muestra los resultados principales, y el
+Cuadro~\ref{tab:anx-g-t-extendido} del Anexo~\ref{anx:visualizaciones-anillo}
+completa la distribución de los tiempos. Hay dos valores de $T$. El oficial
+promedia todos los pares de cada componente gigante; el común, solo los pares
+entre los 10,610 nodos que están en las tres. Hace falta el segundo porque el
+anillo suma 97 nodos a la componente gigante (§\ref{subsec:anillo-grafo}), y
+con ello el $T$ oficial de los Casos~2 y~3 no se calcula sobre los mismos nodos
+que el del Caso~1.
+
+\begin{table}[H]
+    \centering
+    \caption[Tiempo de viaje en los tres casos]{%
+    Resultados principales del tiempo de viaje en los tres casos. El $T$ común
+    promedia solo los pares entre los 10,610 nodos presentes en las tres
+    componentes gigantes. Corrida: 2026-10-04.}
+    \label{tab:anillo-t}
+    \small
+    \begin{tabular}{|p{6.4cm}|r|r|r|}
+        \hline
+        & \textbf{Caso~1} & \textbf{Caso~2} & \textbf{Caso~3} \\
+        & \textbf{(red actual)} & \textbf{(Anillo MB)} &
+          \textbf{(Anillo Metro)} \\
+        \hline
+        $T$ oficial (min)                       & 113.91 & 108.99 & 101.92 \\
+        $T_{\text{norm}}$                       & 0.696  & 0.748  & 0.822 \\
+        $T$ común (min)                         & 113.91 & 109.21 & 102.40 \\
+        Cambio del $T$ común frente al Caso~1   & ---    & $-4.70$ ($-4.1$\,\%) &
+            $-11.50$ ($-10.1$\,\%) \\
+        Pares de más de 180~min                 & 14.3\,\% & 11.9\,\% & 9.4\,\% \\
+        Nodos comunes que reducen su tiempo medio & ---  & 10,610 & 10,610 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}; distribución de los tiempos por par calculada
+    con el cuaderno \texttt{08\_Distribucion\_T}.}
+\end{table}
+
+En términos urbanos, con el anillo el viaje promedio se acorta en los dos casos,
+y no por los nodos nuevos: entre los mismos nodos, el tiempo baja 4.7~minutos
+con el Anillo MB y 11.5 con el Anillo Metro. Donde más se nota es en los viajes
+largos. Mientras la mediana baja 3.4 y 9.9~minutos, el percentil 90 lo hace en
+12.9 y 25.9 (Cuadro~\ref{tab:anx-g-t-extendido}). También se reduce la parte de
+los pares que tarda más de 180~minutos, la cota que el Espectro MJG toma como
+traslado inaceptable: era el 14.3\,\% y queda en 11.9\,\% con el Anillo MB y en
+9.4\,\% con el Anillo Metro. Ningún nodo pierde; los 10,610 nodos comunes tardan
+menos, en promedio, en llegar al resto de la red.
+
+La Figura~\ref{fig:anillo-t-casos} pone el $T$ oficial de cada caso entre el
+tiempo de referencia del modelo y la cota de 180~minutos. En ningún caso se
+llega a los 85~minutos. Lo que sí baja es la distancia hasta esa referencia,
+que en la red actual es de casi 29~minutos, con el Anillo MB queda en 24 y con
+el Anillo Metro en 17. El Espectro MJG lee justo esa distancia cuando lleva $T$
+a la escala de 0 a 1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Cap6/TiempoViajePromedio/Grafica_T_Casos}
+    \caption[Tiempo de viaje promedio en los tres casos]{%
+    Tiempo de viaje promedio ($T$ oficial) en los tres casos. La línea
+    discontinua marca el tiempo de referencia del modelo (85~min) y la
+    punteada, la cota de normalización (180~min). Corrida: 2026-10-04.}
+    \label{fig:anillo-t-casos}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+El promedio no dice cómo se reparten los viajes. La
+Figura~\ref{fig:anillo-t-distribucion} muestra, para cada caso, qué parte de
+los pares de nodos cae en cada intervalo de cinco minutos. Los viajes cortos
+casi no cambian: el 10\,\% más rápido de los pares tarda hasta unos 47~minutos
+en los tres casos. El cambio está en el lado derecho de la curva, donde la cola
+de los viajes de más de 180~minutos se adelgaza y los tiempos se corren hacia
+la izquierda. Con el Anillo Metro, los pares de 85~minutos o menos pasan del
+38.5 al 45.6\,\%.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Cap6/TiempoViajePromedio/Grafica_T_Distribucion}
+    \caption[Distribución de los tiempos entre pares de nodos]{%
+    Distribución de los tiempos mínimos entre pares de nodos en los tres
+    casos, en intervalos de cinco minutos. Las líneas marcan el tiempo de
+    referencia del modelo (85~min) y la cota de normalización (180~min).
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-t-distribucion}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}, cuaderno \texttt{08\_Distribucion\_T}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Caso~2: Anillo MB}
+
+Con el Anillo MB, la mejora típica de un nodo, es decir, la mediana, es de unos
+tres minutos en su tiempo medio. Pero el cambio no se reparte igual en el
+territorio. Como se observa en la Figura~\ref{fig:anillo-t-demarcacion}, las
+mayores mejoras están en el oriente metropolitano, en tres municipios del
+Estado de México que en la red actual tienen algunos de los tiempos más altos:
+Nezahualcóyotl (79 nodos), con 44~minutos menos en promedio; Chimalhuacán
+(11 nodos), con 32, y Ecatepec (110 nodos), con 31. En las demás
+demarcaciones la mejora va de dos a siete minutos, y en las alcaldías
+centrales, como Cuauhtémoc (957 nodos), no llega a tres.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figures/Cap6/TiempoViajePromedio/Grafica_T_Demarcacion}
+    \caption[Cambio del tiempo medio del nodo por demarcación]{%
+    Cambio del tiempo medio del nodo por alcaldía o municipio en los Casos~2
+    y~3 frente al Caso~1, sobre los 10,610 nodos comunes. Junto a cada
+    demarcación se indica su número de nodos; las que tienen 17 o menos se
+    marcan aparte porque su promedio descansa en pocos puntos.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-t-demarcacion}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}, cuaderno \texttt{08\_Distribucion\_T}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Caso~3: Anillo Metro}
+
+Con el Anillo Metro, la mejora típica de un nodo sube a casi ocho minutos y
+alcanza más zonas. El oriente sigue al frente: Nezahualcóyotl gana 60~minutos,
+Chimalhuacán 45 y Ecatepec 38. Ahora también cambian el sur y el poniente, que
+con el Anillo MB casi no se movían. En La Magdalena Contreras (78 nodos) la
+mejora pasa de 7 a 27~minutos; en Naucalpan (84), de 7 a 24, y en Tlalpan
+(797), de 7 a 20. El centro vuelve a ser donde menos se gana, unos cinco
+minutos en Cuauhtémoc y en Azcapotzalco.
+
+La diferencia entre los dos casos está sobre todo en el sur y el poniente. Por
+ahí pasan los segmentos con más estaciones, 25 y 31
+(Cuadro~\ref{tab:segmentos-anillo}). Se puede pensar que en esa zona cuenta más
+la velocidad. A unos 14~km/h el Anillo MB no ofrece mucho frente a los caminos
+que ya hay, y a 36~km/h el Anillo Metro sí los supera. En el oriente ganan los
+dos, quizá porque la red actual deja ahí tan pocas opciones que cualquier
+enlace sobre el Periférico acorta el viaje.
+
+\subsubsection{Contraste con lo Supuesto y Límites del Resultado}
+
+Antes de procesar la red, el Capítulo~\ref{ch:definiciones} planteó como
+suposición un $T$ cercano a 85~minutos para la red actual y de unos 65 con el
+anillo, es decir, una reducción de alrededor del 24\,\%
+(Cuadro~\ref{tab:tiempo-promedio}). Los resultados confirman el signo de esa
+diferencia, pero no su tamaño. La red actual tarda casi 29~minutos más de lo
+supuesto, y el $T$ común baja un 4.1\,\% con el Anillo MB y un 10.1\,\% con el
+Anillo Metro, menos de la mitad de lo esperado. La suposición partía de una red
+más rápida que la que resultó y le daba al anillo un peso mayor del que tiene:
+es un solo corredor dentro de una red de más de diez mil nodos.
+
+Estos resultados tienen tres límites. Ni $T$ ni el tiempo medio de cada nodo
+toman en cuenta la demanda, así que los 44 o 60~minutos que gana
+Nezahualcóyotl dicen cuánto se acortan los caminos desde sus nodos y no cuántas
+personas ahorran ese tiempo. Además, la penalización por transbordo se aplica
+en los tres casos igual que en la red actual (§\ref{subsec:fase2-tb}); la
+diferencia entre el Anillo MB y el Anillo Metro sale, por eso, de la velocidad
+de cada uno. Por último, el modelo trata a la red como si siempre operara en
+condiciones normales. Fallas, cierres de estaciones, manifestaciones o lluvias
+alargan los viajes en la práctica, y no hay manera de saber aquí si afectarían
+igual a los dos casos.
+
+\subsubsection{Interpretación por Caso}
+
+\textbf{Caso~2 (Anillo MB).} Con el anillo a la velocidad del Mexibús, la red
+mejora, pero de forma desigual. Entre los mismos nodos, el tiempo promedio baja
+casi cinco minutos y ningún nodo tarda más que antes. Los municipios del
+oriente metropolitano, como Nezahualcóyotl y Ecatepec, que hoy son de los más
+apartados del resto de la red, ganan media hora o más; en el sur, el poniente
+y el centro, el anillo solo recorta unos minutos a los caminos que ya existían.
+El $T_{\text{norm}}$ sube a 0.748 y se queda a 0.0025 del corte de 0.75.
+
+\textbf{Caso~3 (Anillo Metro).} A la velocidad del Metro, el mismo trazo acorta
+más los viajes y en más zonas. El tiempo promedio baja once minutos y medio. El
+oriente gana todavía más que en el Caso~2, y el sur y el poniente, con La
+Magdalena Contreras, Tlalpan y Naucalpan, se suman a la mejora. Los viajes de
+más de tres horas bajan a menos de uno de cada diez. El $T_{\text{norm}}$
+llega a 0.822 y rebasa el corte de 0.75, aunque el viaje promedio sigue unos
+17~minutos por encima del tiempo de referencia del modelo. Como el trazo y las
+estaciones son los mismos que en el Caso~2, toda la diferencia sale de la
+velocidad.
