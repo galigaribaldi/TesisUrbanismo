@@ -3,7 +3,7 @@
 \section{Backend Go: del Modelo a la Respuesta GeoJSON}
 \label{anx:apimetro-backend}
 
-El servicio web sigue el patrón \textsc{mvc}: los \textit{structs} del paquete
+El servicio web sigue el patrón \textsc{mvc} \citep{gamma1994}: los \textit{structs} del paquete
 \texttt{models} definen el mapeo entre columnas de PostGIS y objetos Go; los
 controladores en \texttt{geojson/} y \texttt{transporte/} ejecutan las consultas
 y construyen las respuestas; y el router de Gin expone las rutas. Los tres
