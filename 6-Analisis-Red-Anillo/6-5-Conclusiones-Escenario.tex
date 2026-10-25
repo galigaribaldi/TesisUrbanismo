@@ -1,0 +1,457 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 6.5 — CONCLUSIONES DEL ESCENARIO
+% Issue #25: conclusiones del Cap. 6 y caso más favorable (tarea del
+% asesor). Lectura urbana de §6.3–§6.4; solo citas ya presentes en la
+% tesis. No usa el hallazgo especulativo de transbordos (CONTEXTO_CAP6).
+%
+% Estructura:
+%   Entrada
+%   §6.5.1  Acercar no es conectar: el anillo en los contornos
+%   §6.5.2  De red radial a red anillo-radial
+%           (+ Programa Maestro del Metro: Década de 1980 y
+%              Horizonte 2010; ddf1985programa)
+%   §6.5.3  Los nodos de transbordo como CETRAM de nueva generación
+%   §6.5.4  Modo y derecho de vía: el caso más favorable
+%   §6.5.5  Síntesis (tab:anillo-sintesis, fig:anillo-sintesis)
+% Corrida: 2026-10-04. T por demarcación sobre los 10,610 nodos comunes
+%   (VFTModel/notebooks/ASSETS/t_distribucion/t_comparativo_origen.csv).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusiones del Escenario}
+\label{sec:anillo-conclusiones}
+
+Con el Espectro MJG de los tres casos termina la parte cuantitativa del
+capítulo. Queda decir qué significan esos números para la ciudad, y a eso se
+dedica esta sección. Primero se revisa a qué contornos de la metrópoli llega el
+anillo; luego, cómo cambia la dependencia de la red respecto de sus nodos
+centrales; después, qué función tendrían las estaciones de transbordo del
+anillo, y al final, cuál de los dos casos resulta más favorable y por qué. Un
+cuadro de síntesis cierra la sección. Conviene recordar que la lectura es
+estructural: el modelo dice por dónde pasan los caminos más cortos y cuánto
+duran, no cuántas personas los usarían ni cuánto costaría construir el corredor.
+
+\subsection{Acercar no es Conectar: el Anillo en los Contornos}
+\label{subsec:anillo-conclusiones-contornos}
+
+La primera conclusión es que el anillo casi no acerca la red a territorio nuevo.
+La cobertura pasa de 13.29 a 13.43\,\% de la \zmvm{} en los dos casos
+(§\ref{subsec:anillo-cobertura}), porque el Periférico corre por la parte de la
+ciudad que ya tiene más estaciones. Los 41 municipios que hoy no tienen ninguna
+parada a distancia caminable siguen igual; están en la periferia más alejada
+del centro, lejos del trazo (Figura~\ref{fig:semovi-contornos}). Nada cambia
+para ellos. Un corredor sobre el Periférico atiende a quien
+ya vive cerca de la red, no a quien vive lejos de ella.
+
+Lo que el anillo sí cambia es la conexión de quienes ya tienen estaciones cerca.
+Como se observa en la Figura~\ref{fig:anillo-t-demarcacion}, los municipios del
+oriente metropolitano, Nezahualcóyotl, Chimalhuacán y Ecatepec, ganan entre
+media hora y una hora en el tiempo medio de sus nodos, tanto con el Anillo MB
+como con el Anillo Metro. En la red actual son de los más apartados del resto de
+la ciudad, y el anillo les da un camino lateral que antes no tenían. Con el
+Anillo Metro se suma el sur. Tlalpan, Xochimilco, Tláhuac y La Magdalena
+Contreras, que con el Anillo MB ganan seis o siete minutos, pasan a ganar entre
+15 y 27.
+
+Este resultado responde en parte a la segunda pregunta secundaria, que
+vinculaba la falta de conexión lateral en el Tercer Contorno con los tiempos de
+traslado de quienes vienen del Cuarto (§\ref{subsec:pregunta}). En el modelo,
+esa falta sí alarga los viajes de la periferia: cuando el anillo ofrece un
+enlace lateral, los tiempos bajan más donde la red actual ofrecía menos
+caminos. La mejora depende del modo. A la velocidad del Mexibús llega sobre todo
+al oriente; solo a la del Metro alcanza también a las alcaldías del sur que el
+Capítulo~1 identifica con el Tercer Contorno (§\ref{subsec:beneficiarios-contornos}).
+Queda sin responder cuántas personas viven cerca de esos nodos, porque $T$ no
+pondera por población.
+
+\subsection{De Red Radial a Red Anillo-Radial}
+\label{subsec:anillo-conclusiones-centralidad}
+
+La primera pregunta secundaria se refería a la dependencia de la red respecto de
+unos cuantos nodos centrales (§\ref{subsec:pregunta}). En la red actual esa
+dependencia tiene nombre: Tacubaya concentra la mayor intermediación, seguida de
+Mixcoac e Hidalgo, y los nodos con la banda dominante más alta dibujan un
+corredor de Garibaldi a Barranca del Muerto (§\ref{subsec:anillo-espectro-nodo}).
+El Anillo MB no cambia ese cuadro: Tacubaya pierde un 3.1\,\% y los diez
+primeros nodos siguen en el centro. Con el Anillo Metro es otra cosa. La red
+deja de tener un solo eje, porque Tacubaya pierde casi un tercio de su
+intermediación y nueve de los diez primeros nodos pasan al Periférico, en
+Iztapalapa, Álvaro Obregón, Xochimilco y La Magdalena Contreras
+(Figura~\ref{fig:anillo-bv-alcaldias}).
+
+Que la intermediación salga del centro no significa que se reparta. El Gini sube
+de 0.8007 a 0.8134 con el Anillo Metro, ya que los caminos que antes pasaban por
+Tacubaya o Mixcoac pasan ahora por unas cuantas estaciones del Periférico. La
+red deja de ser solo radial. Se vuelve anillo-radial, con un eje central y otro
+sobre el arco sur y oriente del anillo, y tener dos ejes en lugar de uno podría
+hacerla menos frágil ante una falla en el centro. Pero el modelo no simula
+cierres ni contingencias; esa ventaja es por ahora una hipótesis.
+
+Los dos referentes revisados en la sección~\ref{sec:casos-similares} ayudan a
+leer esta diferencia. La Gran Línea Circular de Moscú se pensó para descargar
+las líneas radiales del centro \citep{efe2023}, y es lo que el Anillo Metro hace
+en el modelo con Tacubaya, Mixcoac y la Línea~2. El \termino{Suburban Rail Loop}
+de Melbourne busca unir entre sí las zonas del \termino{Middle-Ring} sin pasar
+por el centro \citep{suburbanrailloop2021}, y en la \zmvm{} son el sur y el
+oriente los que ganan intermediación. Los dos proyectos son ferroviarios. Que
+aquí solo el caso con la velocidad del Metro reproduzca su efecto es coherente
+con esa elección, aunque se trata de un resultado del modelo y no de una
+evaluación de esos sistemas.
+
+% Programa Maestro del Metro, segunda revisión, versión 1985
+% (DDF / COVITUR). Fotografías en Figures/Cap6/Planes-Maestros-Previos/.
+% Las fotos de PlanMaestro2010/ son el horizonte 2010 del mismo documento
+% (pp. 63--66), no un plan de la década de 2010.
+\subsubsection{El Programa Maestro del Metro: Década de 1980}
+\label{subsubsec:anillo-pm-1980}
+
+La idea de un transporte masivo sobre el Periférico tiene un antecedente en la
+propia ciudad. El Programa Maestro del Metro, elaborado en la década de 1980 por
+el \textsc{ddf} a través de la Comisión de Vialidad y Transporte Urbano
+(\textsc{covitur}), con una segunda revisión de 1985 \citep{ddf1985programa},
+dibujó redes de 444~km en 1982 y de 416~km en 1983. En las dos aparecen líneas
+sobre el Periférico en el sur y el oriente
+(Figura~\ref{fig:anillo-pm-1982-1983}). El \textsc{api-i} retoma, así, un trazo
+que la planeación del Metro ya había considerado sobre la vialidad que dejó la
+regencia de Uruchurtu (§\ref{sec:anillo-periferico}). Aquí el programa sirve
+como antecedente y no como fuente de datos del modelo.
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[angle=90,height=0.82\textheight]{%
+        Figures/Cap6/Planes-Maestros-Previos/PlanMaestro1983-1986/PlanMaestro1}
+    \caption[Planes Maestros del Metro de 1982 y 1983]{%
+    Redes del Metro de los Planes Maestros de 1982 (444~km, esquema E-5) y de
+    1983 (416~km, esquema E-6). Fotografía del documento original. Otra toma
+    en la Figura~\ref{fig:anx-g-pm-1982-1983}.}
+    \label{fig:anillo-pm-1982-1983}
+    \fuentefigura{\citet[p.~23]{ddf1985programa}; fotografía del autor.}
+\end{figure}
+
+Para estimar la demanda, el programa usó la encuesta Origen-Destino de 1983 y un
+modelo en cuatro pasos (generación, atracción, distribución y asignación de
+viajes), con la ciudad dividida en tres regiones
+\citep[pp.~54--58]{ddf1985programa}. La Región Centro quedaba dentro del
+Circuito Interior; la Corona, entre el Circuito Interior y el Periférico, y la
+Exterior, del Periférico hacia afuera. Es decir, en 1983 el Periférico marcaba
+el paso de la ciudad central a su periferia. De la asignación salieron 34
+corredores de movimiento, que después se jerarquizaron con un modelo de
+evaluación. En ese orden, el corredor de la Vía Tapo al Periférico Sur quedó en
+el lugar 17 y el de la Calzada de las Armas por el Periférico Norte, Centro y
+Sur, en el 33 (Cuadro~\ref{tab:anillo-pm-corredores}).
+
+\begin{table}[H]
+    \centering
+    \caption[Corredores de movimiento del Programa Maestro del Metro]{%
+    Jerarquización de los 34 corredores de movimiento del Programa Maestro del
+    Metro (Tabla T-5 del original). En negritas, los dos corredores sobre el
+    Periférico. Transcripción con ortografía actualizada.}
+    \label{tab:anillo-pm-corredores}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{|r|X|r|X|}
+        \hline
+        \textbf{Lugar} & \textbf{Corredor} & \textbf{Lugar} & \textbf{Corredor} \\
+        \hline
+        1  & Av. Chapultepec -- Ignacio Zaragoza &
+        18 & Río de la Magdalena -- Sta. Ana -- Calz. Tulyehualco \\
+        2  & México-Tacuba -- Tlalpan &
+        19 & Laguna de Términos -- Rep. de Uruguay \\
+        3  & Insurgentes Nte. -- Cuauhtémoc -- Universidad &
+        20 & Av. Gran Canal -- Río Churubusco -- Cafetales \\
+        4  & Inguarán -- Fco. Morazán -- La Viga &
+        21 & Miguel Á. de Quevedo -- Calz. Tasqueña \\
+        5  & Lázaro Cárdenas -- Río Consulado -- Hangares &
+        22 & Félix Cuevas -- Municipio Libre -- A. de Circunvalación \\
+        6  & Calz. Guadalupe -- Calz. Azcapotzalco-La Villa -- San Juan de Aragón &
+        23 & Gral. Emiliano Zapata -- Ote. 172 \\
+        7  & Aquiles Serdán -- Av. Revolución &
+        24 & Ángel Urraza -- Trabajadoras Sociales \\
+        8  & Calz. Guadalupe -- Brasil -- Amp. Plutarco E. Calles &
+        25 & Benjamín Franklin -- Plutarco E. Calles \\
+        9  & Baja California -- Chabacano -- Av. Río de la Piedad &
+        26 & Dr. Río de la Loza -- Fray Servando T. de Mier -- Av. 8 \\
+        10 & Blvd. Miguel C. Saavedra -- Mosqueta -- Oceanía &
+        27 & Av. Cuitláhuac -- Alfredo Robles D. \\
+        11 & Calz. Vallejo -- Lázaro Cárdenas -- Div. del Norte -- San Benjamín &
+        28 & Deportivo Reynosa -- Montevideo \\
+        12 & Popocatépetl -- Ermita Iztapalapa &
+        29 & Calle 4 -- Ote. 253 -- Calle 10 -- San Fco. de Jesús \\
+        13 & Eugenia -- M. Buendía &
+        30 & Eduardo Molina -- Fco. del Paso -- Av. 5 -- Cafetales \\
+        14 & Rojo Gómez -- Calz. San Lorenzo &
+        31 & Centenario -- Calz. de la Viga -- Circunvalación -- Miramontes \\
+        15 & Heliópolis -- Manuel González -- Transvaal &
+        32 & Mariano Escobedo -- Div. del Norte \\
+        16 & Av. Ceylán -- Insurgentes Norte, Centro, Sur &
+        \textbf{33} & \textbf{Calz. Las Armas -- Periférico Norte, Centro, Sur} \\
+        \textbf{17} & \textbf{Vía Tapo (Proy. Anillo Periférico) -- Periférico Sur} &
+        34 & Ignacio Zaragoza \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en \citet{ddf1985programa},
+    Tabla T-5.}
+\end{table}
+
+El modelo de evaluación combinó nueve parámetros, cada uno con un peso fijado
+por consenso de un grupo de personas de distintas actividades y estratos
+socioeconómicos (Cuadro~\ref{tab:anillo-pm-parametros}). La captación de
+pasajeros, global y por kilómetro de ampliación, suma casi la cuarta parte del
+peso. Los demás parámetros también salen de la demanda de 1983 asignada a la
+red: las horas-hombre de viaje, la congestión del Metro y de los autobuses, el
+equilibrio de las cargas o la población beneficiada. Ninguno mide qué tanto
+depende la red de unos cuantos nodos ni qué tan unidas quedan entre sí las
+zonas de la periferia. El más cercano a esa idea, el aumento de la redundancia,
+pesa 9.33\,\%.
+
+\begin{table}[H]
+    \centering
+    \caption[Parámetros de evaluación del Programa Maestro del Metro]{%
+    Parámetros de evaluación de los corredores del Programa Maestro del Metro
+    y su peso relativo (Tabla T-4 del original). Transcripción con ortografía
+    actualizada.}
+    \label{tab:anillo-pm-parametros}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{|p{4.6cm}|X|r|}
+        \hline
+        \textbf{Parámetro} & \textbf{Descripción} & \textbf{Peso (\%)} \\
+        \hline
+        Captación global del Metro & Suma de las captaciones de todas las
+            líneas del sistema & 11.43 \\
+        \hline
+        Captación específica de la ampliación & Nuevos pasajeros por cada
+            kilómetro de ampliación & 12.54 \\
+        \hline
+        Horas-hombre en el sistema & Tiempo empleado en transportarse por toda
+            la población & 14.57 \\
+        \hline
+        Nivel de congestión del sistema de superficie & Nivel de ocupación de la
+            red de autobuses & 11.53 \\
+        \hline
+        Congestión del sistema & Congestionamiento en las estaciones del Metro
+            & 11.66 \\
+        \hline
+        Equilibrio de las cargas & Estado de la carga por tramos con relación a
+            la capacidad de las líneas del sistema & 9.90 \\
+        \hline
+        Congruencia con el Programa de Desarrollo Urbano del D.F. &
+            Conectabilidad de las líneas con los centros urbanos del Programa de
+            Desarrollo Urbano del D.F. & 8.72 \\
+        \hline
+        Población beneficiada & Población beneficiada directamente por las
+            ampliaciones & 10.32 \\
+        \hline
+        Incremento en el nivel de redundancia & Diversificación de los
+            recorridos realizables por Metro & 9.33 \\
+        \hline
+        \multicolumn{2}{|r|}{\textbf{Total}} & \textbf{100.00} \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en
+    \citet[p.~60]{ddf1985programa}, Tabla T-4.}
+\end{table}
+
+\subsubsection{El Programa Maestro del Metro: Horizonte 2010}
+\label{subsubsec:anillo-pm-2010}
+
+Con esos corredores, el programa definió la red del Metro para el horizonte
+2010. El criterio fue el de una «red equilibrada», en la que la oferta de cada
+línea correspondiera a su demanda en la hora de máxima demanda, para evitar
+líneas saturadas o subutilizadas \citep[p.~63]{ddf1985programa}. Las 34 líneas
+iniciales sumaban 655~km y ofrecían 6.23 millones de viajes en esa hora, frente
+a una demanda estimada de 2.20 millones. Para reducir el exceso de oferta, la
+red se simuló varias veces y en cada vuelta se quitaron los corredores que no se
+justificaban por captación (Cuadro~\ref{tab:anillo-pm-depuracion}). En la
+tercera vuelta salió el Periférico Poniente y en la cuarta, el Periférico
+Oriente. La red final quedó en 15 líneas y 315~km.
+
+\begin{table}[H]
+    \centering
+    \caption[Depuración de la red del Metro al horizonte 2010]{%
+    Depuración de la red del Metro al horizonte 2010 en el Programa Maestro:
+    líneas, longitud y corredores eliminados en cada simulación. En negritas,
+    los corredores del Periférico.}
+    \label{tab:anillo-pm-depuracion}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{|l|r|r|X|}
+        \hline
+        \textbf{Paso} & \textbf{Líneas} & \textbf{km} &
+            \textbf{Corredores eliminados o fusionados} \\
+        \hline
+        Red inicial (E-12) & 34 & 655 & --- \\
+        \hline
+        Simulación 1 & 26 & 563 & División del Norte; Ejes Viales 1 Oriente,
+            5 Norte, 4 Sur, 6 Sur y 7-A Sur; fusión de las líneas 19, 26 y 34 \\
+        \hline
+        Simulación 2 & 20 & 454 & Eduardo Molina, Fco. del Paso y Troncoso,
+            Oriente 253; Ejes Viales 5 Oriente, 2 Norte, 7 Sur y 10 Sur \\
+        \hline
+        Simulación 3 & 18 & 397 & \textbf{Periférico Poniente}; Eje Central
+            Lázaro Cárdenas \\
+        \hline
+        Simulación 4 & 16 & 345 & \textbf{Periférico Oriente};
+            Cuitláhuac--Robles Domínguez \\
+        \hline
+        Red 2010 (E-13) & 15 & 315 & Línea 19 y prolongaciones de las líneas
+            4, 12 y 20 \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en
+    \citet[p.~63]{ddf1985programa}.}
+\end{table}
+
+Hubo además un límite administrativo. La red se diseñó dentro del Distrito
+Federal, con la excepción de las Líneas~2 y~14, aunque el propio documento
+reconoce que la demanda habría justificado líneas en el Estado de México
+\citep[p.~66]{ddf1985programa}. Para compensarlo, las líneas que llegaban al
+límite tendrían terrenos para centros de intercambio modal que las unieran con
+el transporte del resto del área metropolitana, una idea muy parecida a la de
+§\ref{subsec:anillo-conclusiones-cetram}. Solo cambia el lugar. En 1985 el
+intercambio se pensaba en la frontera política y no sobre el anillo.
+
+Leído desde esta tesis, el programa ayuda a entender por qué el anillo no se
+construyó. Con la demanda que registró la encuesta de 1983, los corredores del
+Periférico no alcanzaban la captación que exigía una red equilibrada, y la
+evaluación no tenía forma de medir lo que el anillo aportaba a la estructura de
+la red. En las décadas siguientes la \zmvm{} creció más allá del Periférico de
+forma discontinua, con el patrón saltón de la Figura~\ref{fig:sprawl}, y lo
+hizo sin un enlace lateral entre sus nuevas zonas. Hoy la red que diagnosticó
+el Capítulo~\ref{ch:analisis-red-actual} depende del centro para casi cualquier
+viaje largo. El corredor anillar no es, por eso, una ocurrencia. Es una idea
+que la planeación del Metro ya tenía en los años ochenta y que se descartó con
+los indicadores de su época.
+
+Esto no significa que la evaluación de 1985 estuviera mal ni que esta tesis la
+sustituya. Aquella midió con detalle la demanda y no la estructura de la red;
+esta mide la estructura y deja fuera la demanda
+(§\ref{subsec:corredor-anillar-limitaciones}). Lo que aporta la comparación es
+que, a la velocidad del Metro, el anillo acorta los viajes de la periferia y
+quita peso al centro, dos efectos que la captación por corredor no podía
+registrar. La pregunta que llevó a descartarlo, cuánta gente lo usaría, sigue
+abierta y requiere juntar ambos enfoques.
+
+\subsection{Los Nodos de Transbordo como \textsc{cetram} de Nueva Generación}
+\label{subsec:anillo-conclusiones-cetram}
+
+Con el Anillo Metro aparece un tipo de nodo que la red actual no tiene.
+Estaciones como Periférico Oriente/Tláhuac, Constitución de 1917 y Canal
+Nacional, en el oriente y el sur, o Rómulo O'Farril, Barranca del Muerto y Luis
+Cabrera, en el poniente, quedan con una intermediación de 0.12 a 0.16, cercana a
+la de Tacubaya. Su Fuerza Capilar, en cambio, va de 6 a 12 conexiones,
+alrededor de la mediana de la red, que es de 7. Son nodos por los que pasarían
+muchos caminos, pero a los que llegan pocas rutas de superficie. En la red
+actual pasa lo contrario con los \textsc{cetram} formales, que reúnen muchas
+rutas y quedan lejos de los primeros lugares de intermediación
+(§\ref{subsubsec:glosario-hub-cetram}).
+
+Si el anillo se construyera, estas estaciones tendrían que planearse como
+centros de transferencia y no como paradas de paso. Eso implica rutas
+alimentadoras que las unan con las colonias cercanas, espacio para el transbordo
+entre la \textsc{rtp}, los Corredores Concesionados y el anillo, y accesos de
+última milla para quien llega a pie o en bicicleta. Serían \textsc{cetram} de
+nueva generación. A diferencia de Pantitlán o Indios Verdes, que crecieron
+alrededor de terminales de líneas radiales, estarían en la periferia y se
+pensarían desde el inicio para el viaje lateral. Se trata de una recomendación
+que se desprende de la estructura de la red; cuántas personas usarían cada
+estación y qué suelo hay disponible en cada sitio son preguntas que el modelo no
+responde (§\ref{subsec:corredor-anillar-limitaciones}).
+
+\subsection{Modo y Derecho de Vía: el Caso más Favorable}
+\label{subsec:anillo-conclusiones-modo}
+
+Los Casos~2 y~3 comparten trazo, estaciones y penalización por transbordo; solo
+cambian la velocidad y el derecho de vía (§\ref{subsec:anillo-parametros}). Esa
+diferencia basta para separar sus resultados. El Anillo MB, a unos 14~km/h, le
+gana a la \textsc{rtp} que hoy circula por el Periférico, pero no al Metro del
+centro, así que toma el papel de la \textsc{rtp} sin cambiar la forma de la red.
+El Anillo Metro, a 36~km/h, compite con las líneas radiales y por eso cambia la
+jerarquía de la red: baja más el tiempo de viaje, alcanza al sur y al poniente y
+genera los nodos de transbordo descritos arriba. Por estas razones, el Caso~3 es
+el más favorable de los dos.
+
+La conclusión tiene también una lectura histórica. El Periférico se construyó
+para el automóvil, dentro de un programa de obras viales que se impuso a otras
+necesidades de la ciudad (§\ref{subsec:sesgo-vial}), y en esos mismos años el
+Metro se rechazó por costoso e innecesario (§\ref{subsec:rechazo-metro}). Los
+resultados del Caso~3 sugieren que la vialidad hecha para el coche es la que
+mejor podría alojar un transporte masivo lateral, si cuenta con vía exclusiva y
+una velocidad parecida a la del Metro. Con un \brt{} confinado, el anillo acorta
+los viajes, pero repite lo que ya hace la red de superficie. La comparación no
+incluye el costo de construir y operar cada opción.
+
+\subsection{Síntesis}
+\label{subsec:anillo-conclusiones-sintesis}
+
+El Cuadro~\ref{tab:anillo-sintesis} resume la lectura de los dos casos frente a
+la red actual en los cuatro puntos de esta sección. La
+Figura~\ref{fig:anillo-sintesis} los ubica en el territorio, con el cambio del
+tiempo de viaje por demarcación y las estaciones del anillo que reúnen más
+intermediación.
+
+\begin{table}[H]
+    \centering
+    \caption[Síntesis de los Casos~2 y~3]{%
+    Síntesis de la lectura urbana de los Casos~2 y~3 frente a la red actual.
+    El cambio de $T$ corresponde a los 10,610 nodos comunes.
+    Corrida: 2026-10-04.}
+    \label{tab:anillo-sintesis}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{|l|X|X|}
+        \hline
+        \textbf{Aspecto} & \textbf{Caso~2 (Anillo MB)} & \textbf{Caso~3 (Anillo Metro)} \\
+        \hline
+        Cobertura ($C$) & 13.43\,\% de la \zmvm{} (13.29 en el Caso~1); casi sin
+            territorio nuevo & Igual que el Caso~2 \\
+        \hline
+        Tiempo de viaje ($T$) & $-4.1$\,\%; la mejora se concentra en el oriente
+            metropolitano & $-10.1$\,\%; mejoran el oriente, el sur y el poniente \\
+        \hline
+        Intermediación ($B(v)$) & Tacubaya $-3.1$\,\%; los diez primeros nodos
+            siguen en el centro; Gini 0.8012 & Tacubaya $-29.7$\,\%; nueve de los
+            diez primeros nodos están en el anillo; Gini 0.8134 \\
+        \hline
+        Forma de la red & Radial; el anillo releva a la \textsc{rtp} del
+            Periférico & Anillo-radial, con un eje central y otro en el arco sur
+            y oriente \\
+        \hline
+        Nodos de transbordo & Sin cambios relevantes & Seis estaciones con $B(v)$
+            de 0.12 a 0.16 y de 6 a 12 conexiones \\
+        \hline
+        Espectro MJG & Solo mejora $T$ (0.748); 10 nodos cambian de banda
+            dominante & $T$ pasa a 0.75--1.00 (0.822); 21 nodos cambian de banda
+            dominante \\
+        \hline
+        Lectura & Mejora local que conserva la estructura de la red & Caso más
+            favorable: cambia la estructura, aunque no reduce la concentración \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con base en §\ref{sec:anillo-indicadores}
+    y §\ref{sec:anillo-espectro}.}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    % PENDIENTE (Transport-gis-zmvm-mjg): Comparativo_Garibelt_Sintesis.
+    % Especificación en CONTEXTO_CAP6.md §0.
+    \graficapendiente{Comparativo\_Garibelt\_Sintesis}{Cambio del tiempo medio
+    del nodo por demarcación y estaciones del anillo con mayor intermediación
+    en los Casos~2 y~3.}
+    \caption[Síntesis territorial del anillo]{%
+    Síntesis territorial de los Casos~2 (panel~A) y~3 (panel~B): cambio del
+    tiempo medio del nodo por demarcación frente al Caso~1, trazo del
+    \textsc{api-i} y estaciones del anillo con mayor intermediación.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-sintesis}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+En conjunto, el anillo cumple solo una parte de lo que se esperaba de él. Acorta
+los viajes en toda la red y, a la velocidad del Metro, saca del centro una parte
+de la intermediación. No amplía la cobertura. Tampoco reparte la dependencia
+entre más nodos, porque un solo corredor sobre el Periférico no llega a
+territorio nuevo y junta en sus estaciones los caminos que deja el centro. El
+Capítulo~\ref{ch:conclusiones} retoma estos resultados para contrastarlos con la
+pregunta de investigación y la hipótesis.

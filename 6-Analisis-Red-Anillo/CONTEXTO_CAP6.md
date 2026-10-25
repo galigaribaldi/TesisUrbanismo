@@ -1,6 +1,6 @@
 # Contexto del Capítulo 6 — Escenario Hipotético: Anillo Periférico de Alta Capacidad
 
-**Última actualización:** 2026-10-23
+**Última actualización:** 2026-10-25
 **Issue:** #25 (absorbe #14, #20 y #22) · **Corrida vigente:** 2026-10-04 (VFTModel post Fix #23)
 **Rama:** `Feature-version-alpha`
 
@@ -8,44 +8,113 @@ Archivo de trabajo para retomar el capítulo entre sesiones. No se compila.
 
 ---
 
-## 0. RETOMAR AQUÍ (sesión 2026-10-22/23)
+## 0. RETOMAR AQUÍ (sesión 2026-10-24)
 
-**Siguiente paso:** §6.3.3 T, **parte 3 de 6** (gráficas como `\graficapendiente`): G3 (T de los
-tres casos frente a 85 y 180 min), G4 (histograma de t_ij por caso, datos ya existen) y la nueva
-G8 (cambio del tiempo medio por demarcación, barras o mapa; `t_comparativo_origen.csv` trae lon/lat).
-Luego: parte 4 (Caso 2 y Caso 3, con detalle por demarcación citando siempre n de nodos), parte 5
-(contraste con la suposición −24 % del Cap. 3 + advertencias: sin demanda, T_b fijo #32, sin
-contingencias #35), parte 6 (interpretación breve por caso). Después §6.3.4 B(v), §6.4, §6.5.
+**Siguiente paso:** redactar **§6.5 Conclusiones del Escenario** y luego el **Cap. 7** con la
+estructura aprobada (abajo). Antes, confirmar que el usuario ejecutó los 4 commits entregados.
 
-**Flujo acordado:** sección por sección y parte por parte; presentar borrador con score y esperar
-aprobación; el usuario compila (no compilar). Medir el score **por párrafo** (no solo el bloque):
-el hook diluye el score cuando el fragmento trae cuadros. Nada debe quedar ≥ 0.20.
-Tono: resultados con lectura urbana, pocas cifras en prosa; cuadro al inicio; cerrar con
-interpretación breve por caso (mejora / empeora). Sin adjetivos de banda: valor o intervalo.
+**Flujo acordado (sin cambios):** parte por parte; 1 opción (o 2–3 si hace falta) con score
+por párrafo (nada ≥ 0.20); esperar aprobación; el usuario compila y hace los commits
+(sin Co-Authored-By). Escribir `.tex` con Edit/Python, no con `cat >>`. Tono: lectura
+urbana, pocas cifras, intervalos en lugar de adjetivos de banda (#33); en cada indicador,
+«qué mide → por qué cambia con el anillo»; mapas y dashboards en el cuerpo y a página
+completa en el Anexo G (gráficas de `Figures/Cap6/` solo en el cuerpo).
 
-**Logrado en esta sesión:**
-- Issues GH creados: #32 (T_b) y #33–#39 (Revisión-3 del asesor, 2026-10-19); comentarios en #25, #23, #11.
-- Opción B: §6.2.1 ahora define los casos (preguntas, Mexibús, mapas por cuadrante, `tab:anillo-parametros`
-  con Caso 1); §6.3 sin «Escenarios» en el título y con entrada de clave de lectura.
-- §6.3.1 Cobertura ✅ · §6.3.2 FC ✅ (incluye la causa de los 13 nodos, §7) · §6.3.3 T partes 1–2 ✅.
-- Macro nuevo en `Latex/Comands.tex`: `\graficapendiente{archivo}{descripción}` (recuadro gris).
-- Distribución de T calculada por el agente de VFTModel: `VFTModel/notebooks/08_Distribucion_T.ipynb`,
-  CSV en `VFTModel/notebooks/ASSETS/t_distribucion/` (resumen, histograma, origen, alcaldía, comparativos).
+### Logrado el 2026-10-24
+- §6.3.3 T completa (G3, G4, G8; contraste con `tab:tiempo-promedio`; límites; interpretación).
+- §6.3.2 FC: G1 y G2 ya son figuras reales. Gráficas en `Figures/Cap6/TiempoViajePromedio/` (PNG).
+- §6.3.4 B(v) completa: mecanismo (lectura especulativa del reacomodo de caminos), `tab:anillo-bv`,
+  Caso 2 (relevo MB↔RTP en Periférico Sur), Caso 3 (cadena TL → L2 → Mixcoac; 9/10 del anillo),
+  Redistribución (unigráfica top 10, QGIS 4 paneles, G6, G5/Gini), contraste con `tab:betweenness`,
+  5 límites, interpretación.
+- §6.4 Espectro MJG completa (D.1–D.7): `tab:anillo-espectro` (tabularx; sin DI; C con 76),
+  perfil (2 unigráficas), Casos 2–3 (Dashboard_Espectro_* y _Clasificacion_*), clasificación por
+  nodo (banda dominante = intervalo del mínimo entre FC y B(v) normalizadas min–max por caso;
+  G7, 3 mapas, cambio de banda), comparación global (Dashboard_Comparativo_KPI) y límites,
+  interpretación.
+- Cap. 3: párrafo de **banda dominante** al final de `subsubsec:garibelt-procedimiento` (3-3-9-2).
+- Anexo G: G.5 (3 mapas B(v)), G.6 (4 mapas banda dominante), **G.7 (10 recursos Tableau)** a
+  página completa e **índice** `tab:anx-g-indice` (longtable) al inicio; todos los pies del
+  cuerpo remiten al anexo. 24 figuras en el anexo.
+- Cap. 1 alineado: objetivo 5 (Caso 2 = Metrobús, Caso 3 = Metro); 1-5 Fase 3 (MB confinado
+  16.3 km/h, Metro exclusivo 36 km/h, mismas estaciones; C, FC, T, B(v); «DI solo red actual»)
+  y Fase 4. 5-4-2:36 remite a §6.3.3. **La hipótesis NO se modifica**: se contrasta en el Cap. 7.
+- Issues creados: **#40** (formato: archivos > 120 líneas en §6.3 y Cap. 3, baja prioridad) y
+  **#41** (limpieza de rótulos de figuras del Cap. 6, fase «limpia y poda»).
+- `make checar`: 569 labels, 0 duplicados; única ref. sin label: `sec:anillo-interpretacion`.
 
-**Gráficas pendientes en Transport-gis** (prompt entregado al usuario; las genera ese repo, no LaTeX):
-G1 FC estaciones del anillo ≥ 13 conexiones (MB vs Metro) · G2 nodos que ganan conexiones por sistema ·
-G3 T de los tres casos · G4 histograma de t_ij · G5 Lorenz de B(v) · G6 B(v) por alcaldía (hallazgo del
-asesor: Metro reparte al sur) · G7 transición de banda dominante · G8 cambio del tiempo medio por
-demarcación (nueva; datos en VFTModel/notebooks/ASSETS/t_distribucion/, avisar a Transport-gis).
-En la tesis ya hay `\graficapendiente` para G1 y G2 (§6.3.2).
+### Commits entregados al usuario (por confirmar)
+1. `feat(cap6): §6.4 Espectro MJG comparativo…` (6-4)
+2. `docs(cap3): definición de banda dominante…` (3-3-9-2)
+3. `feat(anexos): Anexo G.6–G.7…` (Anexo G + 6-3-5)
+4. `fix(cap1): objetivo 5 y Fases 3–4…` (1-3, 1-5, 5-4-2)
 
-**Pendientes al final del capítulo:** actualizar #34 (dominio CDMX) con lo que hay que rehacer en
-§6.3.1, §6.4 y §5.6 · hallazgos de §8 (T prometido con distribución territorial en §5.4.2 y §1.5) →
-#35/#39 · reportar a VFTModel el snapping por sistema (§7) · lista de rótulos de mapas y dashboards ·
-3 párrafos antiguos en aviso (6-1 glosario 0.276, 6-1 Limitación 3 0.235, 6-2 §6.2.2 0.235) ·
-servidores VFTModel :8001/:8002 no respondían (los grafos se reconstruyeron con el código de VFTModel).
+### Estructura APROBADA para lo que falta
+**Cap. 6 — §6.5 Conclusiones del Escenario** (2–3 pp; cumple la tarea del asesor «conclusiones
+del Cap. 6 + Metro más favorable»):
+- Renombrar `6-5-Interpretacion.tex` → `6-5-Conclusiones-Escenario.tex`; `\section{Conclusiones del
+  Escenario}`, `\label{sec:anillo-conclusiones}`; actualizar `\input` de `1-Analisis-Red-Anillo.tex`
+  y la frase de `6-1:30-31` («la sección~\ref{sec:anillo-interpretacion} los lee desde el urbanismo»).
+- Entrada · 6.5.1 Acercar no es conectar: el anillo en los contornos (T por demarcación: oriente
+  Edomex = Cuarto Contorno en ambos; Metro suma el sur = Tercer Contorno; C casi igual; 41
+  municipios sin cobertura fuera de alcance; `fig:semovi-contornos`) · 6.5.2 De red radial a
+  anillo-radial: reparto de la centralidad (pregunta secundaria 1; Moscú, Melbourne) · 6.5.3 Nodos
+  de transbordo como CETRAM de nueva generación (POT, Constitución de 1917, Rómulo O'Farril,
+  Barranca del Muerto, Luis Cabrera, Canal Nacional; alta B(v), FC ≈ 6 → alimentadoras/última
+  milla; tono de recomendación) · 6.5.4 Modo y derecho de vía: el Caso 3 es el más favorable
+  (MB = relevo de la RTP; Metro cambia la estructura; §2.2 sesgo vial/rechazo al Metro) · cuadro
+  de síntesis por caso.
+- Decisiones: P-2 solo citas ya presentes en la tesis · P-3 cuadro de síntesis sí · P-4 mapa de
+  síntesis nuevo en Transport-gis (dar especificación; `\graficapendiente`) · P-5 CETRAM como
+  recomendación · P-6 NO usar el hallazgo especulativo de transbordos.
+**Cap. 7** (1–2 pp, estructura obligatoria del asesor, #23): `7-Conclusiones/1-Conclusiones.tex`
+padre (`\chapter`, `\label{ch:conclusiones}`, 3 `\input`) + `7-1-Resumen-Resultados.tex`
+(contraste de pregunta e hipótesis: T baja −4.1/−10.1 %; B(v) Tacubaya baja pero Gini sube →
+parcial; DI no evaluable en escenarios) · `7-2-Contribuciones.tex` (cadena replicable Apímetro →
+VFTModel → Transport-gis; Clasificación Garibelt) · `7-3-Trabajo-Futuro.tex` (lista acumulada §5).
 
----
+### §6.5 redactada (2026-10-25)
+`6-5-Conclusiones-Escenario.tex` (renombrado con `git mv`), `sec:anillo-conclusiones`; `\input`
+y cabecera de `1-Analisis-Red-Anillo.tex` y frase de `6-1:30-31` actualizados. Opciones elegidas:
+entrada B; 6.5.1 A/A/A; 6.5.2 A/B/A; 6.5.3 A/A; 6.5.4 A/A; síntesis A. `make checar`: 578 labels,
+0 duplicados, 0 refs sin label.
+- ✅ Programa Maestro del Metro (2026-10-25), al final de §6.5.2: `subsubsec:anillo-pm-1980`
+  (antecedente, `fig:anillo-pm-1982-1983` a página completa, `tab:anillo-pm-corredores` = T-5,
+  `tab:anillo-pm-parametros` = T-4) y `subsubsec:anillo-pm-2010` (red equilibrada,
+  `tab:anillo-pm-depuracion`, límite del D.F., argumento saltón, enfoques complementarios).
+  Cita `ddf1985programa` (DDF/COVITUR, segunda revisión, versión 1985). Anexo G.8
+  `fig:anx-g-pm-1982-1983` (PlanMaestro10, otra toma de E-5/E-6) + renglón en el índice.
+  Las fotos `PlanMaestro2010/` son el horizonte 2010 del mismo documento (pp. 63–66).
+  Opcional sin decidir: E-12 y E-13 (`PlanMaestro2010-2/-3`) en el anexo.
+- Pendiente: 6.5.2 P1 en 0.235 en el archivo; variante con «…solo eje, porque Tacubaya…» da 0.122.
+- **Mapa de síntesis** `fig:anillo-sintesis` (`\graficapendiente`), especificación para Transport-gis:
+  QGIS, dos paneles a la misma escala (A = Caso 2, B = Caso 3); salida
+  `Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Sintesis` (PDF vectorial + PNG).
+  Coropleta: media de `delta_mb_min` / `delta_metro_min` por demarcación de
+  `VFTModel/notebooks/ASSETS/t_distribucion/t_comparativo_origen.csv`, mismas clases en ambos
+  paneles (0–5, 5–10, 10–20, 20–40, > 40 min), achurar demarcaciones con n ≤ 17. Trazo del API-I con
+  las 94 estaciones. Símbolos: estaciones del anillo en el top 10 de B(v) de cada caso
+  (`comparativo/bv_comparativo.csv`, `es_nodo_anillo`, `rank_*`), tamaño por B(v); Tacubaya con su
+  cambio (−3.1 % / −29.7 %). Etiquetas en el panel B: Periférico Oriente/Tláhuac, Constitución de
+  1917/Periférico, Canal Nacional, Rómulo O'Farril, Barranca del Muerto/Periférico, Luis Cabrera.
+  Contornos SEMOVI solo si existe la capa. Rótulos: «Caso 2 (Anillo MB)», «Caso 3 (Anillo Metro)»,
+  «Cambio del tiempo medio del nodo (min)», «Centralidad de intermediación B(v)»; sin «Escenario
+  Metro» ni «Ranking».
+- Hallazgo para #39: `fig:semovi-contornos` pinta Tlalpan y Xochimilco como Segundo Contorno;
+  `1-4:151-153` los llama Tercer Contorno. §6.5.1 dice «que el Capítulo 1 identifica con el Tercer Contorno».
+
+### Pendientes abiertos (además de §6.5 y Cap. 7)
+- Al cerrar el capítulo: actualizar **#34** (dominio CDMX; rehacer §6.3.1, §6.4, §5.6 si se
+  confirma; hoy especulativo), **#25** (checklist), **#35** (contingencias en T y B(v), L5, L6),
+  **#39** (ΔE del objetivo 3; nombre del DI Cap. 3 vs Cap. 5; consistencia), **#32** (T_b fijo).
+- `6-1:211` «como se observa en la Figura~\ref{fig:propuesta-anillo-cuadrantes}» apunta hacia
+  adelante (§6.2.1); añadir remisión.
+- 3 párrafos antiguos en aviso: 6-1 glosario (0.276), 6-1 Limitación 3 (0.235), 6-2 §6.2.2 (0.235).
+- Reportar a VFTModel el snapping por sistema (§7) y el nodo «314 Memorial New's Divine».
+- Opcional: copiar los PDF vectoriales de las gráficas de Transport-gis a `Figures/Cap6/…`;
+  commit del cuaderno `graficas_cap6.ipynb` en Transport-gis.
+- Verificar en el PDF: `tab:anillo-espectro` sin overfull; índice del Anexo G; G.7 girado.
+- Sin cambios: #14 (remisiones a §6.1.1), citas `p.~XX`, propagar API-I (opcional), #40, #41.
 
 ## 1. Estado de los archivos
 
@@ -55,14 +124,14 @@ servidores VFTModel :8001/:8002 no respondían (los grafos se reconstruyeron con
 | `6-1-Corredor-Anillar.tex` | §6.1 El Corredor Anillar como Propuesta | ✅ redactada |
 | `6-2-Escenario-Procesamiento.tex` | §6.2 Escenarios y Procesamiento | ✅ redactada |
 | `6-3-Indicadores-Escenario/6-3-Indicadores-Escenario.tex` | §6.3 Indicadores de la Red con Anillo (`sec:anillo-indicadores`) | ✅ entrada con la clave de lectura (2026-10-22) |
-| ~~`6-3-1-Escenarios.tex`~~ | Integrado en §6.2.1 (opción B, 2026-10-22) | 🗑️ ya no se carga; **borrarlo a mano** (duplica etiquetas) |
+| ~~`6-3-1-Escenarios.tex`~~ | Integrado en §6.2.1 (opción B, 2026-10-22) | 🗑️ borrado (también el huérfano `0-6-3-1-Escenarios.tex`) |
 | `6-3-Indicadores-Escenario/6-3-2-Cobertura.tex` | §6.3.1 C | ✅ redactada 2026-10-22; 2 mapas en cuerpo + Anexo G.2 · ⚠️ #34 pendiente al final |
-| `6-3-Indicadores-Escenario/6-3-3-FuerzaCapilar.tex` | §6.3.2 FC | ✅ completa 2026-10-23; mapas en cuerpo + Anexo G.3; G1 y G2 con `\graficapendiente` |
-| `6-3-Indicadores-Escenario/6-3-4-TiempoViaje.tex` | §6.3.3 T | 🟡 partes 1–2/6 ✅ 2026-10-23 (entrada corregida + cuadro reducido; extendido en Anexo G.4); sigue parte 3 (gráficas) |
-| `6-3-Indicadores-Escenario/6-3-5-Centralidad.tex` | §6.3.4 B(v) | ⏳ cabecera con datos |
-| `6-4-EspectroComparativo.tex` | §6.4 Espectro MJG comparativo (`sec:anillo-espectro`) | ❌ vacío |
-| `6-5-Interpretacion.tex` | §6.5 Interpretación urbanística (`sec:anillo-interpretacion`) | ❌ vacío |
-| `../Anexos/G-Visualizaciones-Anillo.tex` | Anexo G (`anx:visualizaciones-anillo`) | ✅ G.1.1 trazo · G.1.2–G.1.3 cuadrantes MB/Metro · G.2 cobertura (2 mapas) · G.3 FC (2 mapas) · G.4 cuadro extendido de T |
+| `6-3-Indicadores-Escenario/6-3-3-FuerzaCapilar.tex` | §6.3.2 FC | ✅ completa; mapas en cuerpo + Anexo G.3; G1 y G2 integradas (2026-10-24) |
+| `6-3-Indicadores-Escenario/6-3-4-TiempoViaje.tex` | §6.3.3 T | ✅ completa 2026-10-24 (G3, G4, G8; extendido en Anexo G.4) |
+| `6-3-Indicadores-Escenario/6-3-5-Centralidad.tex` | §6.3.4 B(v) | ✅ completa 2026-10-24 (mapas y dashboards en cuerpo; Anexo G.5 y G.7) |
+| `6-4-EspectroComparativo.tex` | §6.4 Espectro MJG comparativo (`sec:anillo-espectro`) | ✅ completa 2026-10-24 (D.1–D.7; Anexo G.6 y G.7) |
+| `6-5-Conclusiones-Escenario.tex` | §6.5 Conclusiones del Escenario (`sec:anillo-conclusiones`) | ✅ redactada 2026-10-25 · ⏳ Plan Maestro 1983 DF y mapa de síntesis (Transport-gis) |
+| `../Anexos/G-Visualizaciones-Anillo.tex` | Anexo G (`anx:visualizaciones-anillo`) | ✅ índice `tab:anx-g-indice` · G.1 propuesta (3) · G.2 cobertura (2) · G.3 FC (2) · G.4 cuadro T · G.5 B(v) (3) · G.6 banda dominante (4) · G.7 Tableau (10) |
 
 `make checar` (2026-10-23): 502 labels; 2 duplicados que vienen SOLO del archivo huérfano
 `6-3-Indicadores-Escenario/0-6-3-1-Escenarios.tex` (borrarlo o comentar sus `\label`); faltan
@@ -164,13 +233,13 @@ Anillo Metro = exclusivo, 36 km/h (como Metro). 94 estaciones compartidas, 4 lí
 ### Del capítulo
 - [x] §6.3.1 Escenarios (2026-10-22)
 - [ ] §6.1.3 (`6-1:210`): «como se observa en la Figura…» apunta hacia adelante; añadir «(§6.3.1)» (pendiente de aprobación)
-- [ ] §6.3.1–§6.3.4 indicadores por caso (archivos 6-3-2 a 6-3-5)
-- [ ] §6.4 Espectro MJG comparativo · §6.5 Interpretación urbanística
-- [ ] Anexo G: agregar los recursos de cada sección al terminarla
+- [x] §6.3.1–§6.3.4 indicadores por caso (2026-10-24)
+- [x] §6.4 Espectro MJG comparativo (2026-10-24) · [ ] §6.5 Conclusiones del Escenario · [ ] Cap. 7
+- [x] Anexo G: recursos de §6.1–§6.4 e índice (2026-10-24)
 - [ ] #14: que los usos de «corredor anillar» en Cap. 1–5 remitan a §6.1.1 (10 sitios)
 
 ### Revisión final de congruencia (al terminar el Cap. 6)
-- [ ] Casos 2/3 invertidos en `1-3-Objetivos.tex:50-51` y `1-5-Metodo-Metodologia.tex:146-153` (también 35 km/h, 22 km/h y paradas 600/1,200 m). El glosario ya está corregido.
+- [x] Casos 2/3 invertidos en `1-3-Objetivos.tex` y `1-5-Metodo-Metodologia.tex` — corregido 2026-10-24 (hipótesis sin cambios, se contrasta en el Cap. 7).
 - [ ] #32: Cap. 3 (`3-3-5`) y Cap. 5 (`5-4-2`) dicen que T_b depende del intervalo de cada sistema; VFTModel usa un valor fijo.
 - [ ] Nombre del DI: Cap. 3 «Índice de Ruta Directa» vs Cap. 5 «Factor de Desviación».
 - [ ] Citas con `p.~XX`: `1-1:34`, `1-4:46`, `1-4:98`.
