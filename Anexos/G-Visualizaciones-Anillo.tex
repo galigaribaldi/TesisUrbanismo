@@ -23,17 +23,78 @@
 %   G.5  Cartografía QGIS — B(v) (§6.3.4, 2026-10-24)
 %        · Clasificacion_Garibelt_Betweenness_Centrality_MB / _Metro
 %        · Comparativo_Garibelt_Betweenness
-%   Pendientes:
-%        · Dashboards por escenario y comparativos (Tableau)
+%   G.6  Cartografía QGIS — Banda dominante (§6.4.2, 2026-10-24)
+%        · Clasificacion_Banda_Dominante (Caso 1) / _MB / _Metro
+%        · Comparativo_Garibelt_Cambio_Banda
+%   G.7  Visualizaciones Tableau (§6.3.4 y §6.4, 2026-10-24)
+%        · Dashboard_Betweenness_MB/_Metro, Unigrafica_Comparativo_Top_10_bv
+%        · Unigrafica_Comparativo_Valor_Normalizado/_Extendido
+%        · Dashboard_Espectro_*/Dashboard_Clasificacion_* (MB, Metro)
+%        · Dashboard_Comparativo_KPI
+%   Índice: tab:anx-g-indice (longtable al inicio). Las gráficas de
+%   Transport-gis (Figures/Cap6/) quedan solo en el cuerpo (decisión del autor).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Este anexo reúne los recursos visuales de los dos escenarios del
 \textsc{api-i}: el Caso~2 (Anillo MB) y el Caso~3 (Anillo Metro). Cumple para
 el Capítulo~\ref{ch:analisis-red-anillo} la función que el Anexo~F cumple para
-la red actual: guarda a página completa los mapas que el capítulo presenta en
-tamaño reducido. Los mapas se produjeron con \textbf{QGIS~3.x} en la
-proyección \textsc{epsg}:32614 (UTM zona~14N), con los datos de la corrida
+la red actual: guarda a página completa los mapas y los \termino{dashboards}
+que el capítulo presenta en tamaño reducido. Los mapas se produjeron con
+\textbf{QGIS~3.x} en la proyección \textsc{epsg}:32614 (UTM zona~14N), y los
+\termino{dashboards}, con \textbf{Tableau}; todos usan los datos de la corrida
 2026-10-04.
+
+El Cuadro~\ref{tab:anx-g-indice} sirve de índice. Para cada recurso indica la
+sección del capítulo donde se comenta, la figura reducida del capítulo y la
+figura o el cuadro de este anexo.
+
+\begin{longtable}{@{}p{6.2cm}lll@{}}
+    \caption[Índice de recursos visuales del Anexo~G]{%
+    Índice de los recursos visuales del Anexo~G: sección del
+    Capítulo~\ref{ch:analisis-red-anillo} donde se comentan, versión
+    reducida en el capítulo y versión de este anexo.}
+    \label{tab:anx-g-indice} \\
+    \toprule
+    \textbf{Recurso} & \textbf{Sección} & \textbf{Capítulo} & \textbf{Anexo} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Recurso} & \textbf{Sección} & \textbf{Capítulo} & \textbf{Anexo} \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endfoot
+    \multicolumn{4}{@{}l}{\textit{Cartografía \textbf{QGIS}}} \\
+    Trazo del \textsc{api-i} & §\ref{subsec:corredor-anillar-pertinencia} & Fig.~\ref{fig:propuesta-anillo} & Fig.~\ref{fig:anx-g-propuesta-base} \\
+    Cuadrantes del \textsc{api-i}, Caso~2 & §\ref{subsec:anillo-parametros} & Fig.~\ref{fig:propuesta-anillo-cuadrantes-mb} & Fig.~\ref{fig:anx-g-cuadrantes-mb} \\
+    Cuadrantes del \textsc{api-i}, Caso~3 & §\ref{subsec:anillo-parametros} & Fig.~\ref{fig:propuesta-anillo-cuadrantes} & Fig.~\ref{fig:anx-g-cuadrantes-metro} \\
+    Cobertura por demarcación con anillo & §\ref{subsec:anillo-cobertura} & Fig.~\ref{fig:anillo-cobertura-mb} & Fig.~\ref{fig:anx-g-cobertura-mb} \\
+    Cobertura: red actual y red con anillo & §\ref{subsec:anillo-cobertura} & Fig.~\ref{fig:anillo-cobertura-comparativo} & Fig.~\ref{fig:anx-g-cobertura-comparativo} \\
+    Fuerza Capilar por nodo, Caso~2 & §\ref{subsec:anillo-fuerza-capilar} & Fig.~\ref{fig:anillo-fc-mb} & Fig.~\ref{fig:anx-g-fc-mb} \\
+    Fuerza Capilar por nodo, Caso~3 & §\ref{subsec:anillo-fuerza-capilar} & Fig.~\ref{fig:anillo-fc-metro} & Fig.~\ref{fig:anx-g-fc-metro} \\
+    Intermediación por nodo, Caso~2 & §\ref{subsec:anillo-centralidad} & Fig.~\ref{fig:anillo-bv-mb} & Fig.~\ref{fig:anx-g-bv-mb} \\
+    Intermediación por nodo, Caso~3 & §\ref{subsec:anillo-centralidad} & Fig.~\ref{fig:anillo-bv-metro} & Fig.~\ref{fig:anx-g-bv-metro} \\
+    Comparativo de intermediación & §\ref{subsec:anillo-centralidad} & Fig.~\ref{fig:anillo-bv-comparativo} & Fig.~\ref{fig:anx-g-bv-comparativo} \\
+    Banda dominante por nodo, Caso~1 & §\ref{subsec:anillo-espectro-nodo} & Fig.~\ref{fig:anillo-banda-caso1} & Fig.~\ref{fig:anx-g-banda-caso1} \\
+    Banda dominante por nodo, Caso~2 & §\ref{subsec:anillo-espectro-nodo} & Fig.~\ref{fig:anillo-banda-mb} & Fig.~\ref{fig:anx-g-banda-mb} \\
+    Banda dominante por nodo, Caso~3 & §\ref{subsec:anillo-espectro-nodo} & Fig.~\ref{fig:anillo-banda-metro} & Fig.~\ref{fig:anx-g-banda-metro} \\
+    Nodos que cambian de banda dominante & §\ref{subsec:anillo-espectro-nodo} & Fig.~\ref{fig:anillo-banda-cambio} & Fig.~\ref{fig:anx-g-banda-cambio} \\
+    \midrule
+    \multicolumn{4}{@{}l}{\textit{Cuadros}} \\
+    Distribución del tiempo de viaje & §\ref{subsec:anillo-tiempo-viaje} & Cuadro~\ref{tab:anillo-t} & Cuadro~\ref{tab:anx-g-t-extendido} \\
+    \midrule
+    \multicolumn{4}{@{}l}{\textit{Visualizaciones \textbf{Tableau}}} \\
+    Intermediación por estación, Caso~2 & §\ref{subsec:anillo-centralidad} & Fig.~\ref{fig:anillo-bv-dashboard-mb} & Fig.~\ref{fig:anx-g-bv-dashboard-mb} \\
+    Intermediación por estación, Caso~3 & §\ref{subsec:anillo-centralidad} & Fig.~\ref{fig:anillo-bv-dashboard-metro} & Fig.~\ref{fig:anx-g-bv-dashboard-metro} \\
+    Diez nodos con mayor intermediación & §\ref{subsec:anillo-centralidad} & Fig.~\ref{fig:anillo-bv-top10} & Fig.~\ref{fig:anx-g-bv-top10} \\
+    Valor normalizado del Espectro MJG & §\ref{subsec:anillo-espectro-perfil} & Fig.~\ref{fig:anillo-espectro-valor} & Fig.~\ref{fig:anx-g-espectro-valor} \\
+    Cambio del Espectro MJG & §\ref{subsec:anillo-espectro-perfil} & Fig.~\ref{fig:anillo-espectro-cambio} & Fig.~\ref{fig:anx-g-espectro-cambio} \\
+    Espectro MJG, Caso~2 & §\ref{subsec:anillo-espectro-perfil} & Fig.~\ref{fig:anillo-espectro-mb} & Fig.~\ref{fig:anx-g-espectro-mb} \\
+    Clasificación Garibelt, Caso~2 & §\ref{subsec:anillo-espectro-perfil} & Fig.~\ref{fig:anillo-espectro-clasificacion-mb} & Fig.~\ref{fig:anx-g-espectro-clasificacion-mb} \\
+    Espectro MJG, Caso~3 & §\ref{subsec:anillo-espectro-perfil} & Fig.~\ref{fig:anillo-espectro-metro} & Fig.~\ref{fig:anx-g-espectro-metro} \\
+    Clasificación Garibelt, Caso~3 & §\ref{subsec:anillo-espectro-perfil} & Fig.~\ref{fig:anillo-espectro-clasificacion-metro} & Fig.~\ref{fig:anx-g-espectro-clasificacion-metro} \\
+    Vista conjunta del Espectro MJG & §\ref{subsec:anillo-espectro-global} & Fig.~\ref{fig:anillo-espectro-kpi} & Fig.~\ref{fig:anx-g-espectro-kpi} \\
+\end{longtable}
 
 % =============================================================================
 \section{Cartografía \textsc{QGIS} — Propuesta del \textsc{api-i}}
@@ -279,3 +340,245 @@ mínimos entre pares de nodos en los tres casos.
   \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
     datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
 \end{figure}
+
+% =============================================================================
+\section{Cartografía \textsc{QGIS} — Banda Dominante con el \textsc{api-i}}
+\label{anx:g-qgis-banda}
+% =============================================================================
+
+% --- G.6.1 -------------------------------------------------------------------
+\subsection{Banda Dominante por Nodo en el Caso~1}
+\label{anx:g-banda-caso1}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/Clasificacion_Banda_Dominante}
+  \caption[Banda dominante por nodo en el Caso~1 (página completa)]{%
+  Banda dominante por nodo en el Caso~1 (red actual). Versión reducida en
+  la Figura~\ref{fig:anillo-banda-caso1}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-banda-caso1}
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.6.2 -------------------------------------------------------------------
+\subsection{Banda Dominante por Nodo en el Caso~2}
+\label{anx:g-banda-mb}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/Clasificacion_Banda_Dominante_MB}
+  \caption[Banda dominante por nodo en el Caso~2 (página completa)]{%
+  Banda dominante por nodo en el Caso~2 (Anillo MB). Versión reducida en
+  la Figura~\ref{fig:anillo-banda-mb}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-banda-mb}
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.6.3 -------------------------------------------------------------------
+\subsection{Banda Dominante por Nodo en el Caso~3}
+\label{anx:g-banda-metro}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Clasificacion_Garibelt/Clasificacion_Banda_Dominante_Metro}
+  \caption[Banda dominante por nodo en el Caso~3 (página completa)]{%
+  Banda dominante por nodo en el Caso~3 (Anillo Metro). Versión reducida
+  en la Figura~\ref{fig:anillo-banda-metro}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-banda-metro}
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.6.4 -------------------------------------------------------------------
+\subsection{Nodos que Cambian de Banda Dominante}
+\label{anx:g-banda-cambio}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Cambio_Banda}
+  \caption[Nodos que cambian de banda dominante con el anillo (página completa)]{%
+  Nodos existentes que cambian de banda dominante en el Caso~2 (panel~A)
+  y en el Caso~3 (panel~B) frente al Caso~1. Versión reducida en la
+  Figura~\ref{fig:anillo-banda-cambio}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-banda-cambio}
+  \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+% =============================================================================
+\section{Visualizaciones \textsc{Tableau} — Escenarios con el \textsc{api-i}}
+\label{anx:g-tableau}
+% =============================================================================
+
+% --- G.7.1 ------------------------------------------------------------------
+\subsection{Intermediación por Estación en el Caso~2}
+\label{anx:g-bv-dashboard-mb}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_MB/Dashboard_Betweenness_MB}
+  \caption[\termino{Dashboard} de intermediación por estación en el Caso~2 (página completa)]{%
+  Diez estaciones con mayor suma de $B(v)$ por nombre en el Caso~2 (Anillo
+  MB). Versión reducida en la
+  Figura~\ref{fig:anillo-bv-dashboard-mb}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-bv-dashboard-mb}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.2 ------------------------------------------------------------------
+\subsection{Intermediación por Estación en el Caso~3}
+\label{anx:g-bv-dashboard-metro}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_Metro/Dashboard_Betweenness_Metro}
+  \caption[\termino{Dashboard} de intermediación por estación en el Caso~3 (página completa)]{%
+  Diez estaciones con mayor suma de $B(v)$ por nombre en el Caso~3 (Anillo
+  Metro). Versión reducida en la
+  Figura~\ref{fig:anillo-bv-dashboard-metro}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-bv-dashboard-metro}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.3 ------------------------------------------------------------------
+\subsection{Diez Nodos con Mayor Intermediación en los Tres Casos}
+\label{anx:g-bv-top10}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/Comparativo_CG/Unigrafica_Comparativo_Top_10_bv}
+  \caption[Diez nodos con mayor intermediación en los tres casos (página completa)]{%
+  Diez nodos con mayor centralidad de intermediación ($B(v)$) en cada caso,
+  ordenados por nodo. Versión reducida en la
+  Figura~\ref{fig:anillo-bv-top10}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-bv-top10}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.4 ------------------------------------------------------------------
+\subsection{Valor Normalizado del Espectro MJG en los Tres Casos}
+\label{anx:g-espectro-valor}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/Comparativo_CG/Unigrafica_Comparativo_Valor_Normalizado}
+  \caption[Valor normalizado del Espectro MJG en los tres casos (página completa)]{%
+  Valor normalizado de cada dimensión del Espectro MJG en los tres casos. Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-valor}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-valor}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.5 ------------------------------------------------------------------
+\subsection{Cambio del Espectro MJG frente a la Red Actual}
+\label{anx:g-espectro-cambio}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/Comparativo_CG/Unigrafica_Comparativo_Extendido}
+  \caption[Cambio del Espectro MJG frente a la red actual (página completa)]{%
+  Cambio del valor normalizado de cada dimensión en los Casos~2 y~3 frente
+  al Caso~1. Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-cambio}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-cambio}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.6 ------------------------------------------------------------------
+\subsection{Espectro MJG en el Caso~2}
+\label{anx:g-espectro-mb}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_MB/Dashboard_Espectro_MB}
+  \caption[Espectro MJG en el Caso~2 (página completa)]{%
+  Espectro MJG en el Caso~2 (Anillo MB). Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-mb}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-mb}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.7 ------------------------------------------------------------------
+\subsection{Clasificación Garibelt en el Caso~2}
+\label{anx:g-espectro-clasificacion-mb}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_MB/Dashboard_Clasificacion_MB}
+  \caption[Clasificación Garibelt y orden de intermediación en el Caso~2 (página completa)]{%
+  Clasificación Garibelt y orden de intermediación en el Caso~2 (Anillo MB). Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-clasificacion-mb}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-clasificacion-mb}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.8 ------------------------------------------------------------------
+\subsection{Espectro MJG en el Caso~3}
+\label{anx:g-espectro-metro}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_Metro/Dashboard_Espectro_Metro}
+  \caption[Espectro MJG en el Caso~3 (página completa)]{%
+  Espectro MJG en el Caso~3 (Anillo Metro). Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-metro}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-metro}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.9 ------------------------------------------------------------------
+\subsection{Clasificación Garibelt en el Caso~3}
+\label{anx:g-espectro-clasificacion-metro}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_Metro/Dashboard_Clasificacion_Metro}
+  \caption[Clasificación Garibelt y orden de intermediación en el Caso~3 (página completa)]{%
+  Clasificación Garibelt y orden de intermediación en el Caso~3 (Anillo
+  Metro). Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-clasificacion-metro}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-clasificacion-metro}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+% --- G.7.10 -----------------------------------------------------------------
+\subsection{Vista Conjunta del Espectro MJG}
+\label{anx:g-espectro-kpi}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[angle=90,height=0.82\textheight]{%
+    Figures/Mapas/Tableau_Resources/Comparativo_CG/Dashboard_Comparativo_KPI}
+  \caption[\termino{Dashboard} comparativo del Espectro MJG (página completa)]{%
+  Vista conjunta del Espectro MJG en los tres casos: valor normalizado y
+  cambio frente al Caso~1. Versión reducida en la
+  Figura~\ref{fig:anillo-espectro-kpi}. Corrida: 2026-10-04.}
+  \label{fig:anx-g-espectro-kpi}
+  \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
