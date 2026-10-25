@@ -1,9 +1,10 @@
 % !TeX root = ../../tesis.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECCIÓN 6.3 — ESCENARIOS E INDICADORES DE LA RED CON ANILLO
-% Issue #25.
+% SECCIÓN 6.3 — INDICADORES DE LA RED CON ANILLO
+% Issue #25. Los casos se definen en §6.2.1 (subsec:anillo-parametros);
+% el antiguo 6-3-1-Escenarios.tex se integró ahí el 2026-10-22.
 %
-% Esquema común de §6.3.2–§6.3.5:
+% Esquema común de §6.3.1–§6.3.4:
 %   1. Entrada: qué mide el indicador (definición en Cap. 3) y su
 %      valor en el Caso 1 (Cap. 5).
 %   2. \subsubsection{Caso 2: Anillo MB}    — valores y mapa
@@ -12,21 +13,31 @@
 %      «Casos 2 y 3» con nota de la diferencia)
 %   4. Lectura comparativa + figura comparativa, si existe.
 % Figuras: se deciden caso por caso (sin tope fijo).
+% Bandas Garibelt: sin adjetivos, solo valor o intervalo (#33).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Escenarios e Indicadores de la Red con Anillo}
+\section{Indicadores de la Red con Anillo}
 \label{sec:anillo-indicadores}
 
-% §6.3.1 — Los escenarios del API-I y sus razones
-\input{6-Analisis-Red-Anillo/6-3-Indicadores-Escenario/6-3-1-Escenarios}
+Esta sección revisa cómo cambian con el \textsc{api-i} cuatro indicadores de
+la red: la cobertura, la Fuerza Capilar, el tiempo de viaje y la
+intermediación. Cada uno se presenta en el mismo orden, primero con su valor
+en el Caso~1, la red como opera hoy (\textit{statu quo}), y después con el que
+resulta en los casos con anillo. La lectura tiene dos pasos. La diferencia
+entre el Caso~1 y los casos con anillo es lo que aporta el corredor. La
+diferencia entre los Casos~2 y~3, que comparten trazo y estaciones, se explica
+por la operación de cada sistema, es decir, por su velocidad y su derecho de
+vía (§\ref{subsec:anillo-parametros}). El $DI$ queda fuera de esta
+comparación porque se calculó solo para la red actual
+(§\ref{subsec:factor-desviacion}).
 
-% §6.3.2 — Nivel de Cobertura Espacial (C)
+% §6.3.1 — Nivel de Cobertura Espacial (C)
 \input{6-Analisis-Red-Anillo/6-3-Indicadores-Escenario/6-3-2-Cobertura}
 
-% §6.3.3 — Fuerza Capilar (FC)
+% §6.3.2 — Fuerza Capilar (FC)
 \input{6-Analisis-Red-Anillo/6-3-Indicadores-Escenario/6-3-3-FuerzaCapilar}
 
-% §6.3.4 — Tiempo de Viaje Promedio (T)
+% §6.3.3 — Tiempo de Viaje Promedio (T)
 \input{6-Analisis-Red-Anillo/6-3-Indicadores-Escenario/6-3-4-TiempoViaje}
 
-% §6.3.5 — Centralidad de Intermediación B(v)
+% §6.3.4 — Centralidad de Intermediación B(v)
 \input{6-Analisis-Red-Anillo/6-3-Indicadores-Escenario/6-3-5-Centralidad}

@@ -1,13 +1,12 @@
 % !TeX root = ../tesis.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECCIÓN 6.2 — ESCENARIOS Y PROCESAMIENTO
-% Issue #25. Pocas figuras: los datos van en cuadros; los mapas de
-% los escenarios se usan en §6.3 (indicadores).
+% Issue #25. Los datos van en cuadros; solo los mapas por cuadrante de
+% los Casos 2 y 3 van aquí (los de resultados se usan en §6.3).
 %
-% PENDIENTE (decisión del autor, 2026-10-18): falta una sección
-% específica que defina los dos escenarios (Caso 2 = Anillo MB,
-% Caso 3 = Anillo Metro) y los explique con sus mapas. Se desarrolla
-% al terminar este archivo; no antes.
+% §6.2.1 define los casos (Caso 2 = Anillo MB con la referencia del
+% Mexibús, Caso 3 = Anillo Metro) con sus mapas por cuadrante
+% (2026-10-22, opción B: absorbe el antiguo 6-3-1-Escenarios.tex).
 %
 % PENDIENTE para la revisión final (#32): Cap. 3 (3-3-5) y Cap. 5
 % (5-4-2) dicen que T_b depende del intervalo de paso de cada
@@ -25,51 +24,118 @@ la corrida y las reglas con las que se arma el grafo son las mismas en los tres;
 en particular, los transbordos peatonales se generan entre estaciones a 85~m o
 menos (§\ref{sec:grafo-topologico}) y la penalización por transbordo se aplica
 como en §\ref{subsec:fase2-tb}. Así, cualquier diferencia en los indicadores se
-puede atribuir al anillo y no a un cambio de método. Esta sección reúne los
-parámetros de cada caso, resume cómo se procesaron con la cadena de
-herramientas y describe el tamaño del grafo que resulta.
+puede atribuir al anillo y no a un cambio de método. Esta sección define cada
+caso y sus parámetros, resume cómo se procesaron con la cadena de herramientas
+y describe el tamaño del grafo que resulta.
 
-\subsection{Parámetros de los Casos}
+\subsection{Los Casos del \textsc{api-i} y sus Parámetros}
 \label{subsec:anillo-parametros}
 
-Cada caso toma los parámetros de un sistema que ya opera en la red, para que
-el anillo se calcule con las mismas reglas que el resto del grafo. El Caso~3
-replica al Metro: 36~km/h sobre vía exclusiva, sin fricción, igual que las
-líneas del Metro en el Cuadro~\ref{tab:validacion-impedancia}. El Caso~2 parte
-de los 16.3~km/h del Metrobús, pero en \texttt{Apímetro} se registró con
-derecho de vía confinado, la categoría del Mexibús, y no exclusivo como las
-líneas de Metrobús de la red actual; con $CF = 1.152$ su velocidad efectiva
-baja a unos 14.2~km/h, la misma que alcanza el Mexibús. Fuera de la operación,
-los dos casos son idénticos: comparten el trazo, las 94 estaciones y los ocho
-ramales descritos en §\ref{subsec:corredor-anillar-cuadrantes}. El
-Cuadro~\ref{tab:anillo-parametros} reúne estos valores.
+Cada caso con anillo responde una pregunta distinta sobre el mismo corredor y
+toma sus parámetros de un sistema que ya opera en la red, para que el anillo se
+calcule con las mismas reglas que el resto del grafo. Los dos son transporte
+público masivo, porque lo que se busca es saber qué cambia en la red cuando el
+Periférico, pensado para el automóvil, también mueve viajes de alta capacidad.
+Fuera de la operación, los dos casos son idénticos: comparten el trazo, las 94
+estaciones y los ocho ramales descritos en
+§\ref{subsec:corredor-anillar-cuadrantes}. Son, por lo tanto, un \brt{} y un
+Metro teóricos (§\ref{subsec:corredor-anillar-limitaciones}), que sirven para
+comparar dos maneras de operar el mismo corredor y no para decidir cuál de
+ellas se puede edificar. El Cuadro~\ref{tab:anillo-parametros} reúne la
+pregunta y los parámetros de cada caso; el Caso~1 aparece con las condiciones
+que hoy tiene el transporte público sobre el Periférico
+(§\ref{subsec:corredor-anillar-pertinencia}).
 
 \begin{table}[H]
     \centering
-    \caption[Parámetros de los casos con anillo]{%
-    Parámetros de operación del \textsc{api-i} en los Casos~2 y~3.
-    Corrida: 2026-10-04.}
+    \caption[Parámetros de los tres casos]{%
+    Pregunta que atiende cada caso y parámetros de operación del transporte
+    público sobre el Periférico. En el Caso~1 se reportan las rutas de
+    superficie que hoy lo recorren. Corrida: 2026-10-04.}
     \label{tab:anillo-parametros}
     \small
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|p{3.3cm}|p{3.3cm}|p{3.3cm}|}
         \hline
-        \textbf{Parámetro} & \textbf{Caso~2 (Anillo MB)} &
-        \textbf{Caso~3 (Anillo Metro)} \\
+        \textbf{Parámetro} & \textbf{Caso~1 (red actual)} &
+        \textbf{Caso~2 (Anillo MB)} & \textbf{Caso~3 (Anillo Metro)} \\
         \hline
-        Sistema que replica       & Metrobús   & Metro \\
-        Derecho de vía            & Confinado  & Exclusivo \\
-        $\alpha$                  & 0.2        & 0.0 \\
-        $CF$                      & 1.152      & 1.000 \\
-        $V_{\text{base}}$ (km/h)  & 16.3       & 36.0 \\
-        $V$ efectiva (km/h)       & 14.2       & 36.0 \\
-        Estaciones                & 94         & 94 \\
-        Líneas / ramales          & 4 / 8      & 4 / 8 \\
+        Pregunta & ¿Cómo funciona hoy la red sin un corredor masivo sobre el
+            Periférico? & ¿Qué cambia con un \brt{} en condiciones
+            metropolitanas? & ¿Qué cambia si el anillo opera con vía
+            exclusiva y mayor velocidad? \\
+        \hline
+        Sistema de referencia     & \textsc{rtp} y Corredores Concesionados &
+            Mexibús & Metro \\
+        Derecho de vía            & Compartido & Confinado & Exclusivo \\
+        $\alpha$                  & 0.5        & 0.2       & 0.0 \\
+        $CF$                      & 1.380      & 1.152     & 1.000 \\
+        $V_{\text{base}}$ (km/h)  & 11.0       & 16.3      & 36.0 \\
+        $V$ efectiva (km/h)       & 8.0        & 14.2      & 36.0 \\
+        Estaciones del anillo     & ---        & 94        & 94 \\
+        Líneas / ramales          & ---        & 4 / 8     & 4 / 8 \\
         \hline
     \end{tabular}
     \fuentefigura{Elaboración propia con \texttt{Apímetro} y
     \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel};
-    $\alpha$ y $CF$ según el Cuadro~\ref{tab:cf-derecho-via}.}
+    $\alpha$ y $CF$ según el Cuadro~\ref{tab:cf-derecho-via}; velocidades
+    del Cuadro~\ref{tab:validacion-impedancia}.}
 \end{table}
+
+\subsubsection{Caso~2: un \texorpdfstring{\brt{}}{BRT} en Condiciones Metropolitanas}
+
+La primera pregunta es qué pasaría con un \brt{} sobre el Periférico. Al
+recorrer el anillo se pasa de las alcaldías centrales de la \cdmx{} a
+Naucalpan de Juárez, Tlalnepantla de Baz, Ecatepec de Morelos y
+Nezahualcóyotl, y las condiciones de la vía cambian de un tramo a otro. Por
+esa diversidad, el Caso~2 no copia al Metrobús de la ciudad, que corre en
+carril exclusivo, sino al Mexibús, el \brt{} que opera en el Estado de México
+con derecho de vía confinado (Cuadro~\ref{tab:cf-derecho-via}). Con ese
+registro, la velocidad base de 16.3~km/h, la misma del Metrobús, baja a unos
+14.2~km/h por la fricción del tránsito. La elección es un supuesto
+especulativo del autor; describe un \brt{} plausible en el contexto
+metropolitano, no uno diseñado para este trazo. La
+Figura~\ref{fig:propuesta-anillo-cuadrantes-mb} muestra el anillo de este caso
+por cuadrante y los sistemas que cruza en cada uno.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Base/Propuesta_Anillar_Extendido_MB}
+    \caption[Cuadrantes del \textsc{api-i} en el Caso~2]{%
+    \textsc{api-i} por cuadrante en el Caso~2 (Anillo MB) y sistemas de
+    transporte que cruza. Las notas de cada cuadrante adelantan resultados
+    que se revisan en §\ref{sec:anillo-indicadores}. Versión a página
+    completa en la Figura~\ref{fig:anx-g-cuadrantes-mb}. Corrida: 2026-10-04.}
+    \label{fig:propuesta-anillo-cuadrantes-mb}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Caso~3: un Metro con Vía Exclusiva}
+
+La segunda pregunta es qué pasaría si el anillo fuera tan rápido como el
+Metro. El Caso~3 mantiene el trazo y las estaciones y cambia la operación:
+36~km/h sobre vía exclusiva, sin fricción, igual que las líneas del Metro en
+el Cuadro~\ref{tab:validacion-impedancia}. Frente al Caso~2, el anillo se
+recorre en menos de la mitad del tiempo, y esa diferencia es la que permite
+separar el efecto del trazo del efecto de la velocidad. La
+Figura~\ref{fig:propuesta-anillo-cuadrantes} presenta el anillo por cuadrante
+en este caso; el trazo y los cruces con la red son los mismos de la
+Figura~\ref{fig:propuesta-anillo-cuadrantes-mb}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Base/Propuesta_Anillar_Extendido_Metro}
+    \caption[Cuadrantes del \textsc{api-i} en el Caso~3]{%
+    \textsc{api-i} por cuadrante en el Caso~3 (Anillo Metro) y sistemas de
+    transporte que cruza. Las notas de cada cuadrante adelantan resultados
+    que se revisan en §\ref{sec:anillo-indicadores}. Versión a página
+    completa en la Figura~\ref{fig:anx-g-cuadrantes-metro}. Corrida: 2026-10-04.}
+    \label{fig:propuesta-anillo-cuadrantes}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
 
 \subsection{Procesamiento con la Cadena de Herramientas}
 \label{subsec:anillo-procesamiento}
