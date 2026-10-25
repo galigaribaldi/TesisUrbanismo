@@ -1,14 +1,215 @@
 % !TeX root = ../../tesis.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% §6.3.3 — FUERZA CAPILAR (FC) EN LOS CASOS CON ANILLO
+% §6.3.2 — FUERZA CAPILAR (FC) EN LOS CASOS CON ANILLO
+% (archivo 6-3-3 por la numeración anterior). Base redactada 2026-10-23.
 %
-% Datos (corrida 2026-10-04): mediana 7 (Q1 6, Q3 10) → 0.250 Débil
-%   en los tres casos; entre MB y Metro cambia el FC de 13 nodos,
-%   todos sobre el Periférico; 2 bajan de Débil a Crítico (Alameda
-%   Oriente, Muyuguarda/Cafetales). Fuente: nota del mapa FC Metro.
-% Estructura: entrada · Casos 2 y 3 (posible subsubsección única
-%   con nota de diferencias) · lectura comparativa.
-% Figuras candidatas:
-%   .../Escenario_MB/Clasificacion_Garibelt/Clasificacion_Garibelt_Fuerza_Capilar_MB
-%   .../Escenario_Metro/Clasificacion_Garibelt/Clasificacion_Garibelt_Fuerza_Capilar_Metro
+% Datos (corrida 2026-10-04; garibelt/escenario-*/fc_distribucion_*.csv,
+%   garibelt_perfil_*.csv y RESPUESTAS_PREGUNTAS_ISSUES.md P3.1):
+%   mediana 7 (Q1 6, Q3 10) → 0.250 en los tres casos (11,115 / 11,209
+%   nodos); fc_puntos (FC ≥ 3): 10,543 → 10,642 (+94 anillo, +5 CC);
+%   142 (MB) / 138 (Metro) nodos existentes ganan +2; ninguno pierde.
+%
+% Completa 2026-10-23. Causa de los 13 nodos con FC distinta entre MB y
+%   Metro: snapping por sistema (Fase 2, KDTree 50 m); ver CONTEXTO_CAP6 §7.
+% Gráficas G1 (Grafica_FC_Estaciones_Anillo) y G2
+%   (Grafica_FC_Ganancia_Sistema) generadas por Transport-gis-zmvm-mjg;
+%   en Figures/Cap6/TiempoViajePromedio/ (integradas 2026-10-24).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Fuerza Capilar (\texorpdfstring{$FC$}{FC})}
+\label{subsec:anillo-fuerza-capilar}
+
+La Fuerza Capilar mide cuántas conexiones llegan a cada nodo o salen de él. En
+la red de la \zmvm{} esas conexiones son, sobre todo, las de las rutas de
+\textsc{rtp}, de los Corredores Concesionados y del Trolebús que alimentan a
+los sistemas estructurados; un nodo con muchas conexiones es un punto donde la
+red de superficie se junta y se vuelve a repartir. El \texttt{VFTModel} calcula
+el caso sin pesos de la Ecuación~\eqref{eq:fuerza-nodal}
+(§\ref{subsec:alimentacion-capilar}), de modo que el valor de cada nodo es su
+grado, como muestra la Ecuación~\eqref{eq:anillo-fc}:
+
+\begin{equation}
+    FC_i = k_{\text{in}}(i) + k_{\text{out}}(i)
+    \label{eq:anillo-fc}
+\end{equation}
+
+\begin{itemize}
+    \item $FC_i$: Fuerza Capilar del nodo $i$.
+    \item $k_{\text{in}}(i)$: número de aristas que llegan al nodo $i$.
+    \item $k_{\text{out}}(i)$: número de aristas que salen del nodo $i$.
+\end{itemize}
+
+Para el Espectro MJG, la red completa se resume con la mediana de $FC_i$, que
+se normaliza con los cuartiles de su propia distribución
+(§\ref{subsubsec:garibelt-procedimiento}). La Ecuación~\eqref{eq:anillo-fc-norm}
+expresa ese paso:
+
+\begin{equation}
+    FC_{\text{norm}} = \frac{\widetilde{FC} - Q_1}{Q_3 - Q_1}
+    \label{eq:anillo-fc-norm}
+\end{equation}
+
+\begin{itemize}
+    \item $FC_{\text{norm}}$: valor de la dimensión en la escala de 0 a 1.
+    \item $\widetilde{FC}$: mediana de $FC_i$ sobre todos los nodos del grafo.
+    \item $Q_1$, $Q_3$: primer y tercer cuartil de la misma distribución.
+\end{itemize}
+
+La normalización compara cada red consigo misma. El valor resume, entonces,
+cómo se reparte la conectividad entre los nodos y no cuánta conectividad tiene
+la red. El Cuadro~\ref{tab:anillo-fc} reúne los resultados de los tres casos.
+
+\begin{table}[H]
+    \centering
+    \caption[Fuerza Capilar en los tres casos]{%
+    Fuerza Capilar en los tres casos. Los rangos de conexiones cuentan los
+    nodos con tres o más conexiones. Corrida: 2026-10-04.}
+    \label{tab:anillo-fc}
+    \small
+    \begin{tabular}{|p{6.0cm}|r|r|r|}
+        \hline
+        & \textbf{Caso~1} & \textbf{Caso~2} & \textbf{Caso~3} \\
+        & \textbf{(red actual)} & \textbf{(Anillo MB)} &
+          \textbf{(Anillo Metro)} \\
+        \hline
+        Nodos del grafo                         & 11,115 & 11,209 & 11,209 \\
+        Conexiones por nodo: mediana (Q1--Q3)   & 7 (6--10) & 7 (6--10) &
+            7 (6--10) \\
+        $FC_{\text{norm}}$                      & 0.250  & 0.250  & 0.250 \\
+        \hline
+        Nodos con 3 o más conexiones            & 10,543 & 10,642 & 10,642 \\
+        \quad con 3 a 12 conexiones             & 8,957  & 9,032  & 9,034 \\
+        \quad con 13 a 21 conexiones            & 1,486  & 1,507  & 1,505 \\
+        \quad con 22 a 31 conexiones            & 95     & 98     & 98 \\
+        \quad con 32 a 41 conexiones            & 5      & 5      & 5 \\
+        \hline
+        Nodos existentes que ganan conexiones   & ---    & 142    & 138 \\
+        Nodos existentes que pierden conexiones & ---    & 0      & 0 \\
+        Estación del anillo con más conexiones  & ---    & 19     & 18 \\
+        \hline
+    \end{tabular}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}.}
+\end{table}
+
+Leído en clave urbana, el cuadro dice que el anillo no cambia la forma en que
+se alimenta la red. En los tres casos, la mitad de los nodos recibe siete
+conexiones o menos. Las 94 estaciones nuevas se suman con pocas conexiones,
+alrededor de seis, porque solo se enlazan con las paradas de superficie que
+quedan a 85~m o menos (§\ref{sec:grafo-topologico}); ninguna se convierte en
+un punto de concentración como los de la Calzada de Tlalpan
+(§\ref{subsec:fuerza-capilar}). Lo que sí cambia está alrededor del trazo: las
+paradas de \textsc{rtp} y de Corredores Concesionados que quedan junto a una
+estación del anillo ganan dos conexiones cada una, y ningún nodo de la red
+pierde conexiones. La Figura~\ref{fig:anillo-fc-ganancia} muestra, para los dos
+casos, a qué sistemas pertenecen las paradas que ganan conexiones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Cap6/TiempoViajePromedio/Grafica_FC_Ganancia_Sistema}
+    \caption[Nodos que ganan conexiones con el anillo, por sistema]{%
+    Nodos existentes que ganan conexiones con el \textsc{api-i}, por sistema,
+    en los Casos~2 y~3: 142 y 138 en total. Corrida: 2026-10-04.}
+    \label{fig:anillo-fc-ganancia}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+
+\subsubsection{Caso~2: Anillo MB}
+
+En el Caso~2 se suman 99 nodos con tres o más conexiones: las 94 estaciones del
+anillo y cinco paradas de Corredores Concesionados sobre el Periférico que, al
+enlazarse con ellas, dejan de estar casi aisladas. Como se observa en la
+Figura~\ref{fig:anillo-fc-mb}, el cambio queda sobre el trazo y no altera el
+patrón de la red, cuyos nodos con más conexiones siguen en la Calzada de
+Tlalpan. Las estaciones del anillo con más conexiones están en el oriente y el
+poniente: Constitución de Apatzingán, en Iztapalapa, y Desierto de los Leones y
+Tarasquillo, en Álvaro Obregón. Alrededor del anillo, 142 nodos existentes
+ganan conexiones; 17 pasan del rango de 3 a 12 al de 13 a 21, y tres paradas
+del oriente, entre ellas Periférico--Tepalcates y Calzada Ermita
+Iztapalapa--Metro Constitución de 1917, pasan al de 22 a 31.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/Clasificacion_Garibelt_Fuerza_Capilar_MB}
+    \caption[Fuerza Capilar por nodo en el Caso~2]{%
+    Fuerza Capilar ($FC$) por nodo en el Caso~2 (Anillo MB). Los rangos de la
+    leyenda corresponden a 3--12, 13--21, 22--31 y 32--41 conexiones. La
+    nota del mapa da una mediana de 8 porque solo cuenta los nodos con tres o
+    más conexiones; la de todos los nodos, que usa el Espectro MJG, es 7.
+    Versión a página completa en la Figura~\ref{fig:anx-g-fc-mb}.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-fc-mb}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Caso~3: Anillo Metro}
+
+El Caso~3 da casi el mismo resultado, como se observa en la
+Figura~\ref{fig:anillo-fc-metro}. Las estaciones nuevas, las paradas que ganan
+conexiones y el patrón de la red son prácticamente los del Caso~2. Entre los
+dos casos solo cambia el número de conexiones de 13 nodos, todos sobre el
+Periférico o junto a él. Los más visibles son Muyuguarda/Cafetales, en
+Xochimilco, y Alameda Oriente, en Venustiano Carranza, que en el Caso~3 tienen
+menos conexiones que en el Caso~2 y bajan al rango de 3 a 12. Los nodos
+existentes que ganan conexiones son 138, cuatro menos que con el Anillo MB.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Clasificacion_Garibelt/Clasificacion_Garibelt_Fuerza_Capilar_Metro}
+    \caption[Fuerza Capilar por nodo en el Caso~3]{%
+    Fuerza Capilar ($FC$) por nodo en el Caso~3 (Anillo Metro). Los rangos de
+    la leyenda corresponden a 3--12, 13--21, 22--31 y 32--41 conexiones. La
+    nota del mapa da una mediana de 8 porque solo cuenta los nodos con tres o
+    más conexiones; la de todos los nodos, que usa el Espectro MJG, es 7.
+    Versión a página completa en la Figura~\ref{fig:anx-g-fc-metro}.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-fc-metro}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+La diferencia viene de una regla del modelo y no de la operación de cada
+sistema. Al construir el grafo, el \texttt{VFTModel} une cada ruta con las
+estaciones de su mismo sistema que quedan a unos 50~m o menos de su trazo
+(§\ref{sec:grafo-topologico}). En el Caso~2 las estaciones del anillo
+pertenecen al Metrobús, así que las líneas de Metrobús que pasan junto a ellas
+las toman como paradas propias; a su vez, el trazo del anillo toma como paradas
+a estaciones de Metrobús cercanas, como Perisur y Villa Olímpica junto a
+Periférico Sur, o CCH Oriente junto a Constitución de Apatzingán. En el Caso~3
+las estaciones del anillo son del Metro y la misma regla solo las une con
+líneas del Metro, algo que en este trazo ocurre únicamente en Río de los
+Remedios, donde la Línea~B toma como parada a la estación del anillo. Por eso
+Periférico Sur, Muyuguarda/Cafetales y Río de los Remedios tienen más
+conexiones con el Anillo MB que con el Anillo Metro. La
+Figura~\ref{fig:anillo-fc-estaciones} compara las estaciones del anillo con más
+conexiones en los dos casos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figures/Cap6/TiempoViajePromedio/Grafica_FC_Estaciones_Anillo}
+    \caption[Estaciones del anillo con más conexiones]{%
+    Conexiones de las siete estaciones del \textsc{api-i} con 13 o más en
+    alguno de los dos casos. La línea punteada marca la mediana de la red
+    (7 conexiones). Corrida: 2026-10-04.}
+    \label{fig:anillo-fc-estaciones}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Interpretación por Caso}
+
+\textbf{Caso~2 (Anillo MB).} La mejora es local y pequeña. El anillo agrega 94
+puntos de transbordo con pocas conexiones y da dos conexiones más a 142 nodos
+cercanos, casi todos paradas de superficie y sobre todo en el oriente. Ningún nodo empeora, pero
+tampoco aparece un nuevo concentrador, y la Fuerza Capilar de la red queda en
+0.250, igual que en la red actual.
+
+\textbf{Caso~3 (Anillo Metro).} Aquí el efecto se repite con algo menos de
+alcance. Son 138 las paradas que ganan conexiones, y dos estaciones del anillo
+terminan con menos que en el Caso~2 por la regla de unión descrita arriba. Que
+el anillo sea un Metro y no un \brt{} no mejora la alimentación capilar: lo que
+distingue a ambos casos es la velocidad, y este indicador no la toma en cuenta.

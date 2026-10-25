@@ -1,15 +1,97 @@
 % !TeX root = ../../tesis.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% §6.3.2 — NIVEL DE COBERTURA ESPACIAL (C) EN LOS CASOS CON ANILLO
+% §6.3.1 — NIVEL DE COBERTURA ESPACIAL (C) EN LOS CASOS CON ANILLO
+% (archivo 6-3-2 por la numeración anterior). Redactada 2026-10-22.
 %
-% Datos (corrida 2026-10-04): C ZMVM 76 = 13.29 % → 13.43 % (Casos
-%   2 y 3 idénticos: mismas estaciones); Nezahualcóyotl +8.85 pts,
-%   Tlalnepantla +4.91, Ecatepec +0.40; 101 demarcaciones en 0 %.
+% Datos (corrida 2026-10-04; RESPUESTAS_PREGUNTAS_ISSUES.md:160,532 y
+%   garibelt/comparativo/cobertura_comparativa.csv):
+%   C ZMVM 76 = 13.29 % → 13.43 % (0.166 → 0.168); CDMX 53.52 → 53.53 %;
+%   municipios 3.92 → 4.09 %; 42 → 41 municipios en cero (Texcoco);
+%   7 demarcaciones cambian; Casos 2 y 3 idénticos (mismas estaciones).
 %   Figuras usan dominio 141 (0.055 → 0.056), decisión C6-1.
-% Estructura: entrada · Casos 2 y 3 (una sola subsubsección) ·
-%   lectura comparativa.
-% Figuras candidatas:
-%   Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/
-%     Clasificacion_Garibelt_Mapa_Cobertura_MB  (= _Metro)
-%   Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Cobertura
+% PENDIENTE #34: recalcular el ámbito CDMX (16 alcaldías) al final.
+% Figuras (decisión del autor: las dos en el cuerpo y en el Anexo G
+%   a página completa):
+%   Clasificacion_Garibelt_Mapa_Cobertura_MB (= _Metro)
+%   Comparativo_Garibelt_Cobertura
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Nivel de Cobertura Espacial (\texorpdfstring{$C$}{C})}
+\label{subsec:anillo-cobertura}
+
+La cobertura indica qué parte del territorio queda a una distancia caminable
+de alguna estación: es el área dentro de \termino{buffers} de 800~m alrededor
+de cada parada, como proporción de la superficie de cada demarcación
+(§\ref{subsec:indicador-cobertura}). En el Caso~1 la red cubre el 13.29\,\% de
+la \zmvm{}, un promedio que reúne situaciones muy distintas. Más de la mitad
+de la \cdmx{} (53.52\,\%) está cerca de una estación; en los 60 municipios
+conurbados la proporción baja a 3.92\,\% y 42 de ellos no tienen cobertura
+(§\ref{subsec:cobertura-espacial}). Normalizado, el indicador vale 0.166 y
+queda en el intervalo 0--0.25 del Espectro MJG
+(Cuadro~\ref{tab:espectro-mjg-diagnostico}).
+
+\subsubsection{Casos~2 y~3}
+
+En la cobertura los dos casos con anillo dan el mismo resultado. El indicador
+depende solo de dónde están las estaciones, no de la velocidad ni del derecho
+de vía, y el Anillo MB y el Anillo Metro tienen las mismas 94. Con ellas, la
+superficie cubierta crece unos 11~km$^2$ y la cobertura de la \zmvm{} pasa de
+13.29 a 13.43\,\%. En la \cdmx{} queda prácticamente igual (53.53\,\%) y en
+los municipios conurbados sube a 4.09\,\%. El valor normalizado pasa de 0.166
+a 0.168, dentro del mismo intervalo. La
+Figura~\ref{fig:anillo-cobertura-mb} muestra la cobertura por demarcación con
+el anillo; el mapa del Caso~2 vale también para el Caso~3, porque los dos son
+idénticos en este indicador.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/Clasificacion_Garibelt_Mapa_Cobertura_MB}
+    \caption[Cobertura por demarcación en la red con anillo]{%
+    Cobertura espacial por demarcación en el Caso~2 (Anillo MB), igual a la
+    del Caso~3. El mapa usa las 141 demarcaciones del conjunto de datos; las
+    cifras del texto corresponden a las 76 de la \zmvm{}. Versión a página
+    completa en la Figura~\ref{fig:anx-g-cobertura-mb}. Corrida: 2026-10-04.}
+    \label{fig:anillo-cobertura-mb}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+Como se observa en la Figura~\ref{fig:anillo-cobertura-comparativo}, siete
+demarcaciones registran algún cambio. Solo en dos se nota: Nezahualcóyotl, que
+pasa de 39.8 a 48.6\,\%, y Tlalnepantla de Baz, que pasa de 53.9 a 58.9\,\%;
+las dos están en el Estado de México, sobre el norte y el oriente del anillo.
+Ecatepec de Morelos, Texcoco, Naucalpan de Juárez, Iztapalapa y Xochimilco
+ganan menos de medio punto, y ninguna demarcación cambia de rango en el mapa.
+Con el anillo, Texcoco deja la cobertura cero y los municipios sin cobertura
+bajan de 42 a 41.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Cobertura}
+    \caption[Cobertura por demarcación: red actual y red con anillo]{%
+    Cobertura espacial por demarcación en el Caso~1 (A) y en los Casos~2 y~3
+    (B), que coinciden porque comparten estaciones. Las demarcaciones
+    achuradas son las de mayor ganancia. El mapa usa las 141 demarcaciones del
+    conjunto de datos; las cifras del texto corresponden a las 76 de la
+    \zmvm{}. Versión a página completa en la
+    Figura~\ref{fig:anx-g-cobertura-comparativo}. Corrida: 2026-10-04.}
+    \label{fig:anillo-cobertura-comparativo}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Lectura Comparativa}
+
+El anillo casi no amplía la cobertura, y la razón está en su trazo. El
+Periférico recorre la parte de la ciudad que ya concentra más estaciones, así
+que en la \cdmx{} los \termino{buffers} de las estaciones nuevas caen casi
+siempre sobre área que ya estaba cubierta. Donde el anillo sale a los
+municipios, en el norte y el oriente, sí agrega superficie, porque ahí la red
+estructurada es escasa. La cobertura mide cercanía, no conexión. Un anillo que
+acerca pocas estaciones a territorio nuevo puede, aun así, cambiar los
+recorridos dentro de la red, y eso es lo que revisan la Fuerza Capilar, el
+tiempo de viaje y la intermediación en los apartados siguientes. Los 41
+municipios que siguen sin cobertura están fuera del alcance del \textsc{api-i}
+y son el territorio que tendría que atender un anillo exterior
+(§\ref{subsec:corredor-anillar-limitaciones}).
