@@ -294,6 +294,15 @@
   \marginpar{\footnotesize\color{red}\textbf{[Pendiente:} #1\textbf{]}}%
 }
 
+% Espacio gris para una gráfica que generará Transport-gis-zmvm-mjg
+% (reemplazar por \includegraphics cuando exista el PDF)
+% Uso: \graficapendiente{Grafica_FC_Estaciones_Anillo}{Descripción breve}
+\newcommand{\graficapendiente}[2]{%
+  \fcolorbox{gray!60}{gray!15}{%
+    \parbox[c][6cm][c]{0.9\textwidth}{\centering\small\color{gray!70!black}%
+      \textbf{Gráfica pendiente:} \texttt{#1}\\[0.3em]#2}}%
+}
+
 % Título de sección con fondo azul tenue — indica revisión pendiente con asesor
 % Uso: \section{\bajoRevision{Nombre de la sección}}
 \newcommand{\bajoRevision}[1]{\texorpdfstring{\colorbox{azulRevision}{#1}}{#1}}
