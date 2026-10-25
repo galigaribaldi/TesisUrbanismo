@@ -1,0 +1,446 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% §6.4 — EL ESPECTRO MJG COMPARATIVO
+% Issue #25. Línea base: §5.6 (tab:espectro-mjg-diagnostico).
+%
+% Datos (corrida 2026-10-04; Transport-gis-zmvm-mjg/tableau/exports/
+%   data/garibelt/comparativo/{kpi_comparativo,transicion_bandas,
+%   distribucion_bandas}.csv):
+%   C (76) 0.166 / 0.168 / 0.168 · C (141, figuras) 0.055 / 0.056 / 0.056
+%   FC 0.250 (mediana 7) en los tres · T 0.696 / 0.748 / 0.822
+%   B(v) 0.199 / 0.199 / 0.187 (Gini 0.8007 / 0.8012 / 0.8134)
+%   DI 0.653 / 0.660 / 0.613 (muestras O-D distintas; no se compara)
+%   Banda dominante por nodo: cambian 10 (MB) y 21 (Metro) nodos.
+%
+% Estructura (plan 2026-10-24):
+%   D.1 entrada + tab:anillo-espectro ✅
+%   D.2 perfil de la red en los tres casos (Unigrafica_Comparativo_
+%       Valor_Normalizado, Unigrafica_Comparativo_Extendido)
+%   D.3 Caso 2 (Dashboard_Espectro_MB, Dashboard_Clasificacion_MB)
+%   D.4 Caso 3 (Dashboard_Espectro_Metro, Dashboard_Clasificacion_Metro)
+%   D.5 clasificación por nodo (G7, Clasificacion_Banda_Dominante
+%       Caso 1/MB/Metro, Comparativo_Garibelt_Cambio_Banda); definir
+%       «banda dominante» aquí y, a la par, en §3.3.9
+%   D.6 comparación global y límites (Dashboard_Comparativo_KPI)
+%   D.7 interpretación por caso
+% Decisiones del autor: DI fuera del cuadro (pies aclaran sus barras);
+%   C con dominio 76 (pie aclara 141); intervalos, no adjetivos de
+%   banda (#33); pies con la nomenclatura de la tesis (rótulos de las
+%   figuras → issue de limpieza al terminar §6.4). Revisar #34 al
+%   cerrar el capítulo.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{El Espectro MJG Comparativo}
+\label{sec:anillo-espectro}
+
+El Espectro MJG reúne en un solo perfil los indicadores de la red, cada uno
+llevado a una escala de 0 a 1 y ubicado en uno de cuatro intervalos: 0--0.25,
+0.25--0.50, 0.50--0.75 y 0.75--1.00 (§\ref{subsec:clasificacion-garibelt}).
+En el Capítulo~\ref{ch:analisis-red-actual} se obtuvo el de la red actual, que
+sirve aquí como línea base (§\ref{subsec:espectro-mjg}). Ninguna dimensión llega
+a 0.75. La cobertura (0.166) y la intermediación (0.199) quedan en el intervalo
+más bajo, la Fuerza Capilar justo en el corte de 0.25, y el tiempo de viaje
+(0.696) en el de 0.50 a 0.75 (Cuadro~\ref{tab:espectro-mjg-diagnostico}). Esta
+sección repite la lectura con el anillo en los Casos~2 y~3.
+
+Con el anillo, el Espectro no se calcula por separado. Sus valores salen de los
+indicadores revisados en la sección anterior (§\ref{sec:anillo-indicadores}),
+de modo que solo se mueve donde se movió el indicador. La cobertura y la Fuerza
+Capilar dependen de dónde están las estaciones y de con qué se enlazan. Las 94
+del anillo son las mismas en los dos casos y la velocidad no forma parte de su
+cálculo, así que esas dos dimensiones cambian poco. El tiempo de viaje y la
+intermediación dependen de los caminos más rápidos, y esos caminos sí cambian
+con la velocidad del anillo. Es ahí donde el Caso~3 se aparta del Caso~2.
+
+Hay tres cuidados de lectura. El Factor de Desviación ($DI$) se analizó solo
+para la red actual (§\ref{subsec:factor-desviacion}); si las figuras de esta
+sección muestran una barra de $DI$ para los Casos~2 y~3, es porque el modelo la
+calcula con otra muestra de pares origen--destino en cada caso, y por eso aquí
+no se compara. La cobertura se reporta para las 76 demarcaciones de la
+\zmvm{}, igual que en el Capítulo~\ref{ch:analisis-red-actual}, mientras que
+las figuras usan las 141 del conjunto de datos. Por último, en el texto se da el
+valor o el intervalo, no el nombre de la banda, ya que los cortes los fijó el
+autor (§\ref{subsubsec:garibelt-escala}).
+
+El Cuadro~\ref{tab:anillo-espectro} reúne los valores de las cuatro dimensiones
+que se comparan, con su medida original, su valor normalizado y su intervalo
+en cada caso.
+
+\begin{table}[H]
+    \centering
+    \caption[Espectro MJG en los tres casos]{%
+    Espectro MJG en los tres casos: medida original, valor normalizado e
+    intervalo de las cuatro dimensiones que se comparan. La cobertura
+    corresponde a las 76 demarcaciones de la \zmvm{}; las figuras de esta
+    sección la calculan sobre las 141 del conjunto de datos (0.055 en el
+    Caso~1 y 0.056 en los Casos~2 y~3). El $DI$ no se incluye porque se
+    analizó solo para la red actual. El valor normalizado de la
+    intermediación es $1-\mathrm{Gini}$. Corrida: 2026-10-04.}
+    \label{tab:anillo-espectro}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabularx}{\textwidth}{|l|X|r|r|r|}
+        \hline
+        \textbf{Dimensión} & \textbf{Medida} & \textbf{Caso~1} &
+            \textbf{Caso~2} & \textbf{Caso~3} \\
+        & & \textbf{(red actual)} & \textbf{(Anillo MB)} &
+            \textbf{(Anillo Metro)} \\
+        \hline
+        Cobertura ($C$)      & Superficie cubierta (\%) & 13.29 & 13.43 & 13.43 \\
+                             & Valor normalizado        & 0.166 & 0.168 & 0.168 \\
+                             & Intervalo                & 0--0.25 & 0--0.25 & 0--0.25 \\
+        \hline
+        Fuerza Capilar ($FC$) & Mediana de conexiones   & 7 & 7 & 7 \\
+                             & Valor normalizado        & 0.250 & 0.250 & 0.250 \\
+                             & Intervalo                & 0.25--0.50 & 0.25--0.50 & 0.25--0.50 \\
+        \hline
+        Tiempo de viaje ($T$) & Promedio (min)          & 113.91 & 108.99 & 101.92 \\
+                             & Valor normalizado        & 0.696 & 0.748 & 0.822 \\
+                             & Intervalo                & 0.50--0.75 & 0.50--0.75 & \textbf{0.75--1.00} \\
+        \hline
+        Intermediación ($B(v)$) & Índice de Gini        & 0.8007 & 0.8012 & 0.8134 \\
+                             & Valor normalizado        & 0.199 & 0.199 & 0.187 \\
+                             & Intervalo                & 0--0.25 & 0--0.25 & 0--0.25 \\
+        \hline
+    \end{tabularx}
+    \fuentefigura{Elaboración propia con \texttt{VFTModel}
+    \citep{cabrera2026VFTModel}; valores de §\ref{sec:anillo-indicadores}
+    y del perfil comparativo de \texttt{Transport-gis-zmvm-mjg}.}
+\end{table}
+
+\subsection{El Perfil de la Red en los Tres Casos}
+\label{subsec:anillo-espectro-perfil}
+
+Como se observa en la Figura~\ref{fig:anillo-espectro-valor}, los tres casos
+tienen casi el mismo perfil. Las barras de cobertura, Fuerza Capilar e
+intermediación apenas se distinguen de un caso a otro. La única que se separa
+con claridad es la del tiempo de viaje, que crece con el Anillo MB y crece más
+con el Anillo Metro, el único caso que pasa el corte de 0.75. Con el anillo, la
+red mejora en una dimensión; en las demás casi no cambia, salvo la
+intermediación del Caso~3, que baja un poco.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/Comparativo_CG/Unigrafica_Comparativo_Valor_Normalizado}
+    \caption[Valor normalizado del Espectro MJG en los tres casos]{%
+    Valor normalizado de cada dimensión del Espectro MJG en los tres casos,
+    con líneas en los cortes de 0.25, 0.50 y 0.75. Las dimensiones
+    corresponden a $C$ (accesibilidad), $B(v)$ (centralidad crítica), $FC$
+    (conectividad capilar), $DI$ (eficiencia de ruta) y $T$ (fluidez global).
+    La cobertura se calcula sobre las 141 demarcaciones del conjunto de datos
+    (en el texto, 76), y la barra de $DI$ de los Casos~2 y~3 no se compara
+    porque cada caso usa otra muestra de pares origen--destino.
+    Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-valor}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-valor}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La Figura~\ref{fig:anillo-espectro-cambio} muestra la diferencia de cada caso
+frente a la red actual. El cambio más grande del perfil es el del tiempo de
+viaje, que sube 0.052 con el Anillo MB y 0.126 con el Anillo Metro. La
+intermediación es la única dimensión que retrocede: baja 0.013 en el Caso~3,
+porque se concentra en las estaciones del anillo
+(§\ref{subsec:anillo-centralidad}). La cobertura gana una milésima en los dos
+casos y la Fuerza Capilar no cambia.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/Comparativo_CG/Unigrafica_Comparativo_Extendido}
+    \caption[Cambio del Espectro MJG frente a la red actual]{%
+    Cambio del valor normalizado de cada dimensión en los Casos~2 y~3 frente
+    al Caso~1; los valores positivos indican mejora. La cobertura se calcula
+    sobre las 141 demarcaciones del conjunto de datos, y el cambio de $DI$ no
+    se interpreta porque cada caso usa otra muestra de pares
+    origen--destino. Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-cambio}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-cambio}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Leído con la pregunta urbana de cada dimensión
+(§\ref{subsubsec:garibelt-preguntas}), el resultado queda así. ¿Cuánto del
+territorio está a una distancia caminable de la red? Casi lo mismo que hoy,
+porque en la \cdmx{} el Periférico pasa por zonas que ya estaban cubiertas
+(§\ref{subsec:anillo-cobertura}). ¿Qué tan variadas son las opciones de
+conexión en cada nodo? Igual que antes. ¿Cuánto dura un viaje típico de un
+extremo a otro? Menos, y bastante menos con el Anillo Metro. ¿Depende la red de
+unos pocos nodos? Sí, en los tres casos, y con el Anillo Metro un poco más,
+aunque esos nodos ya no están solo en el centro.
+
+\subsubsection{Caso~2: Anillo MB}
+
+En el Caso~2 el perfil es el de la red actual con una sola diferencia, como se
+observa en la Figura~\ref{fig:anillo-espectro-mb}. El tiempo de viaje pasa de
+0.696 a 0.748 y queda a 0.0025 del corte de 0.75. A la velocidad del Mexibús,
+el anillo acorta el viaje promedio casi cinco minutos, pero no lo suficiente
+para cambiar de intervalo. Las otras tres dimensiones se quedan donde estaban:
+la cobertura sube de 0.166 a 0.168, y la Fuerza Capilar y la intermediación
+siguen en 0.250 y 0.199.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_MB/Dashboard_Espectro_MB}
+    \caption[Espectro MJG en el Caso~2]{%
+    Espectro MJG en el Caso~2 (Anillo MB): valor normalizado de cada
+    dimensión, con su medida original anotada sobre la barra. La cobertura
+    (4.5\,\%) se calcula sobre las 141 demarcaciones del conjunto de datos;
+    la barra de $DI$ no se compara entre casos, y los 85~min que se anotan en
+    $T$ son el tiempo de referencia del modelo. Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-mb}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-mb}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La Figura~\ref{fig:anillo-espectro-clasificacion-mb} junta ese perfil con las
+diez estaciones de mayor intermediación por nombre, las mismas de la
+Figura~\ref{fig:anillo-bv-dashboard-mb}. Las dos vistas dicen lo mismo desde
+lados distintos. El perfil casi no cambia porque los nodos de los que depende
+la red siguen siendo los del centro, de Tacubaya a La Raza. El Anillo MB hace
+más corto el viaje, pero no toca la estructura que sostiene a la red.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_MB/Dashboard_Clasificacion_MB}
+    \caption[Clasificación Garibelt y orden de intermediación en el Caso~2]{%
+    Clasificación Garibelt en el Caso~2 (Anillo MB): perfil del Espectro MJG,
+    diez estaciones con mayor suma de $B(v)$ por nombre (valor más alto de
+    cada sistema) y medidas originales de cuatro dimensiones. Mismas notas
+    sobre la cobertura y el $DI$ que en la
+    Figura~\ref{fig:anillo-espectro-mb}. Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-clasificacion-mb}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-clasificacion-mb}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsubsection{Caso~3: Anillo Metro}
+
+En el Caso~3 el perfil cambia en dos dimensiones
+(Figura~\ref{fig:anillo-espectro-metro}). El tiempo de viaje sube a 0.822 y
+pasa al intervalo de 0.75 a 1.00, el único caso en que una dimensión del
+Espectro llega ahí. La intermediación baja de 0.199 a 0.187 y sigue en el
+intervalo más bajo. La cobertura y la Fuerza Capilar quedan igual que en el
+Caso~2.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_Metro/Dashboard_Espectro_Metro}
+    \caption[Espectro MJG en el Caso~3]{%
+    Espectro MJG en el Caso~3 (Anillo Metro): valor normalizado de cada
+    dimensión, con su medida original anotada sobre la barra. Mismas notas
+    sobre la cobertura, el $DI$ y el tiempo de referencia del modelo que en
+    la Figura~\ref{fig:anillo-espectro-mb}. Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-metro}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-metro}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Las dos dimensiones que cambian lo hacen en sentidos opuestos, y la
+Figura~\ref{fig:anillo-espectro-clasificacion-metro} ayuda a ver por qué. Junto
+al perfil aparecen las diez estaciones con más intermediación por nombre.
+Tacubaya sigue en el primer lugar, pero Periférico Oriente/Tláhuac e
+Iztapalapa, las dos del anillo, ocupan el segundo y el tercero. El mismo anillo
+que acorta los viajes junta en sus estaciones los caminos que antes cruzaban el
+centro, y eso es lo que baja el valor de la intermediación. Con el Anillo
+Metro, la red tarda menos, pero depende un poco más de unos cuantos nodos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/RedConAnillo/Escenario_Metro/Dashboard_Clasificacion_Metro}
+    \caption[Clasificación Garibelt y orden de intermediación en el Caso~3]{%
+    Clasificación Garibelt en el Caso~3 (Anillo Metro): perfil del Espectro
+    MJG, diez estaciones con mayor suma de $B(v)$ por nombre (valor más alto
+    de cada sistema) y medidas originales de cuatro dimensiones. Mismas notas
+    que en la Figura~\ref{fig:anillo-espectro-mb}. Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-clasificacion-metro}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-clasificacion-metro}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+\subsection{La Clasificación por Nodo}
+\label{subsec:anillo-espectro-nodo}
+
+El Espectro también clasifica cada nodo por separado. A cada uno se le asigna
+una banda dominante, que es el intervalo del menor de dos valores: su Fuerza
+Capilar y su intermediación, normalizadas con el mínimo y el máximo de cada
+caso (§\ref{subsubsec:garibelt-procedimiento}). La
+Figura~\ref{fig:anillo-banda-caso1} muestra el resultado en la red actual. El
+99.4\,\% de los nodos queda en el intervalo de 0 a 0.25, 68 están en el de 0.25
+a 0.50 y solo dos, en Zapata y Mixcoac, llegan al de 0.50 a 0.75. Casi siempre
+es la intermediación la que limita, porque se mide contra la de Tacubaya y muy
+pocos nodos se le acercan. Los que salen del intervalo más bajo dibujan el
+corredor central, de Garibaldi a Barranca del Muerto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/Clasificacion_Banda_Dominante}
+    \caption[Banda dominante por nodo en el Caso~1]{%
+    Banda dominante por nodo en el Caso~1 (red actual). Los colores
+    corresponden a los intervalos 0--0.25, 0.25--0.50 y 0.50--0.75. La nota
+    del mapa da 78 nodos en el intervalo de 0.25 a 0.50; los datos de la
+    corrida dan 68, que es la cifra del texto. Versión a página completa en la
+    Figura~\ref{fig:anx-g-banda-caso1}. Corrida: 2026-10-04.}
+    \label{fig:anillo-banda-caso1}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+Con el anillo la distribución casi no cambia, como se ve en las
+Figuras~\ref{fig:anillo-banda-mb} y~\ref{fig:anillo-banda-metro}. En el Caso~2
+siguen en el intervalo más bajo 11,138 de los 11,209 nodos (99.4\,\%), y en el
+Caso~3, 11,125 (99.3\,\%). De las 94 estaciones del anillo, tres llegan al
+intervalo de 0.25 a 0.50 con el Anillo MB y 13 con el Anillo Metro. Las demás
+se quedan abajo por sus pocas conexiones
+(§\ref{subsec:anillo-fuerza-capilar}), incluso las que en el Caso~3 tienen
+mucha intermediación.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/Clasificacion_Banda_Dominante_MB}
+    \caption[Banda dominante por nodo en el Caso~2]{%
+    Banda dominante por nodo en el Caso~2 (Anillo MB), con los mismos
+    intervalos de la Figura~\ref{fig:anillo-banda-caso1}. Versión a página
+    completa en la Figura~\ref{fig:anx-g-banda-mb}. Corrida: 2026-10-04.}
+    \label{fig:anillo-banda-mb}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Clasificacion_Garibelt/Clasificacion_Banda_Dominante_Metro}
+    \caption[Banda dominante por nodo en el Caso~3]{%
+    Banda dominante por nodo en el Caso~3 (Anillo Metro), con los mismos
+    intervalos de la Figura~\ref{fig:anillo-banda-caso1}. Versión a página
+    completa en la Figura~\ref{fig:anx-g-banda-metro}. Corrida: 2026-10-04.}
+    \label{fig:anillo-banda-metro}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+La Figura~\ref{fig:anillo-banda-transicion} cuenta los nodos existentes que
+cambian de intervalo. Son 10 en el Caso~2, cuatro que suben y seis que bajan, y
+21 en el Caso~3, 11 que suben y 10 que bajan. Todos se mueven entre los dos
+intervalos más bajos, y en todos el cambio viene de la intermediación. Hay 39
+nodos cuya Fuerza Capilar sube de intervalo en los dos casos, pero ninguno
+cambia de banda dominante por esa razón, porque en ellos la intermediación
+sigue siendo el valor más bajo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Cap6/TiempoViajePromedio/Grafica_Espectro_Transicion_Banda}
+    \caption[Cambio de banda dominante por nodo en los Casos~2 y~3]{%
+    Nodos por intervalo de banda dominante en el Caso~1 (filas) y en los
+    Casos~2 y~3 (columnas). Las celdas de color intenso son los nodos
+    existentes que cambian de intervalo; la última fila corresponde a las
+    94 estaciones del anillo, que no existen en el Caso~1.
+    Corrida: 2026-10-04.}
+    \label{fig:anillo-banda-transicion}
+    \fuentefigura{Elaboración propia con \texttt{Transport-gis-zmvm-mjg};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+La Figura~\ref{fig:anillo-banda-cambio} muestra dónde ocurren esos cambios. Con
+el Anillo Metro el patrón es claro. Diez de los 11 nodos que suben están sobre
+el Periférico o a menos de 1.5~km de él, como Periférico Oriente, Constitución
+de 1917, Barranca del Muerto o Luis Cabrera. Nueve de los diez que bajan están
+en el interior, sobre todo en la Calzada de Tlalpan y el Tren Ligero, entre
+Xola y La Virgen, además de Bellas Artes y La Raza. Con el Anillo MB el efecto
+es menor: cuatro nodos suben en el poniente y el oriente del Periférico y seis
+bajan. Conviene una precaución. La intermediación de cada nodo se mide contra
+el máximo de su caso, y ese máximo baja de 0.223 a 0.157 con el Anillo Metro;
+por eso tres nodos que pierden intermediación, entre ellos UAM-I y Chabacano,
+suben de intervalo. En esos tres la mejora es solo relativa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Cambio_Banda}
+    \caption[Nodos que cambian de banda dominante con el anillo]{%
+    Nodos existentes que cambian de banda dominante en el Caso~2 (panel~A,
+    10 nodos) y en el Caso~3 (panel~B, 21 nodos) frente al Caso~1. Los
+    triángulos hacia arriba pasan del intervalo de 0 a 0.25 al de 0.25 a
+    0.50, y los triángulos hacia abajo, al revés. Versión a página completa en la
+    Figura~\ref{fig:anx-g-banda-cambio}. Corrida: 2026-10-04.}
+    \label{fig:anillo-banda-cambio}
+    \fuentefigura{Elaboración propia con \textbf{QGIS};
+    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
+\end{figure}
+
+\subsection{Comparación Global y Límites}
+\label{subsec:anillo-espectro-global}
+
+La Figura~\ref{fig:anillo-espectro-kpi} reúne en una sola vista el perfil de los
+tres casos y su cambio frente a la red actual. Leído en conjunto, el Espectro
+dice que el anillo resuelve una parte del diagnóstico y deja otra como estaba.
+Mejora la fluidez, que ya era la dimensión con el valor más alto, y no toca las
+dos que la línea base mostraba como las más bajas, la cobertura y la
+intermediación. Esas dos dependen de llegar a territorio nuevo y de repartir
+los caminos entre más nodos, y un solo corredor sobre el Periférico no hace
+ninguna de las dos cosas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{%
+        Figures/Mapas/Tableau_Resources/Comparativo_CG/Dashboard_Comparativo_KPI}
+    \caption[\termino{Dashboard} comparativo del Espectro MJG]{%
+    Vista conjunta del Espectro MJG en los tres casos: valor normalizado de
+    cada dimensión (arriba) y cambio de los Casos~2 y~3 frente al Caso~1
+    (abajo). La cobertura se calcula sobre las 141 demarcaciones del
+    conjunto de datos, y la barra de $DI$ no se compara entre casos.
+    Versión a página completa en la
+    Figura~\ref{fig:anx-g-espectro-kpi}. Corrida: 2026-10-04.}
+    \label{fig:anillo-espectro-kpi}
+    \fuentefigura{Elaboración propia con \textbf{Tableau};
+    datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
+\end{figure}
+
+Como en las secciones anteriores, la comparación tiene límites que conviene
+tener presentes:
+
+\begin{itemize}
+    \item \textbf{Mismos supuestos de los indicadores.} El Espectro hereda los
+    límites de $T$ y de $B(v)$: no pondera por demanda, aplica la misma
+    penalización por transbordo en los tres casos y supone una red sin
+    contingencias.
+    \item \textbf{Cortes fijados por el autor.} Los cortes de 0.25, 0.50 y
+    0.75 y el rango de 85 a 180~minutos de $T$ son supuestos. El Caso~2 está
+    tan cerca del corte de 0.75 que bastaría con llevar la cota de 180 a
+    181~minutos para que también lo pasara.
+    \item \textbf{Clasificación por nodo relativa.} La banda dominante se mide
+    contra el máximo de cada caso, así que un nodo puede cambiar de intervalo
+    sin que cambie su intermediación.
+\end{itemize}
+
+\subsection{Interpretación por Caso}
+\label{subsec:anillo-espectro-interpretacion}
+
+\textbf{Caso~2 (Anillo MB).} El Anillo MB deja el Espectro casi igual. Solo
+mejora el tiempo de viaje, que se queda a 0.0025 del intervalo más alto. La
+cobertura, la Fuerza Capilar y la intermediación conservan sus valores, y
+apenas diez nodos cambian de banda dominante. Para el diagnóstico, la red con
+el Anillo MB es la red actual con viajes algo más cortos: llega al mismo
+territorio y depende de los mismos nodos del centro.
+
+\textbf{Caso~3 (Anillo Metro).} El Anillo Metro es el único caso que mueve el
+Espectro. El tiempo de viaje pasa al intervalo de 0.75 a 1.00, la primera
+dimensión de la red que llega ahí. A cambio, la intermediación baja de 0.199 a
+0.187, porque la dependencia de pocos nodos pasa del centro al Periférico. En
+la clasificación por nodo, los que suben están sobre el anillo y los que bajan,
+en la Calzada de Tlalpan y el centro. La red queda más rápida y con su peso
+corrido hacia el sur y el oriente, pero no menos concentrada.
