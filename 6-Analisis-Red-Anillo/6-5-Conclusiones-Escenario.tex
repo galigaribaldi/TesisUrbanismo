@@ -13,7 +13,9 @@
 %              Horizonte 2010; ddf1985programa)
 %   §6.5.3  Los nodos de transbordo como CETRAM de nueva generación
 %   §6.5.4  Modo y derecho de vía: el caso más favorable
-%   §6.5.5  Síntesis (tab:anillo-sintesis, fig:anillo-sintesis)
+%   §6.5.5  Síntesis (tab:anillo-sintesis; remite a las figuras de T,
+%           B(v) y banda dominante. El mapa de síntesis se descartó para la
+%           versión Alfa, 2026-10-25)
 % Corrida: 2026-10-04. T por demarcación sobre los 10,610 nodos comunes
 %   (VFTModel/notebooks/ASSETS/t_distribucion/t_comparativo_origen.csv).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -384,10 +386,11 @@ incluye el costo de construir y operar cada opción.
 \label{subsec:anillo-conclusiones-sintesis}
 
 El Cuadro~\ref{tab:anillo-sintesis} resume la lectura de los dos casos frente a
-la red actual en los cuatro puntos de esta sección. La
-Figura~\ref{fig:anillo-sintesis} los ubica en el territorio, con el cambio del
-tiempo de viaje por demarcación y las estaciones del anillo que reúnen más
-intermediación.
+la red actual en los cuatro puntos de esta sección. Su expresión en el
+territorio ya se mostró antes: el cambio del tiempo de viaje por demarcación
+(Figura~\ref{fig:anillo-t-demarcacion}), el reparto de la intermediación
+(Figura~\ref{fig:anillo-bv-comparativo}) y los nodos que cambian de banda
+dominante (Figura~\ref{fig:anillo-banda-cambio}).
 
 \begin{table}[H]
     \centering
@@ -430,23 +433,6 @@ intermediación.
     \fuentefigura{Elaboración propia con base en §\ref{sec:anillo-indicadores}
     y §\ref{sec:anillo-espectro}.}
 \end{table}
-
-\begin{figure}[H]
-    \centering
-    % PENDIENTE (Transport-gis-zmvm-mjg): Comparativo_Garibelt_Sintesis.
-    % Especificación en CONTEXTO_CAP6.md §0.
-    \graficapendiente{Comparativo\_Garibelt\_Sintesis}{Cambio del tiempo medio
-    del nodo por demarcación y estaciones del anillo con mayor intermediación
-    en los Casos~2 y~3.}
-    \caption[Síntesis territorial del anillo]{%
-    Síntesis territorial de los Casos~2 (panel~A) y~3 (panel~B): cambio del
-    tiempo medio del nodo por demarcación frente al Caso~1, trazo del
-    \textsc{api-i} y estaciones del anillo con mayor intermediación.
-    Corrida: 2026-10-04.}
-    \label{fig:anillo-sintesis}
-    \fuentefigura{Elaboración propia con \textbf{QGIS};
-    datos: \texttt{Apímetro} y \texttt{VFTModel}~\citep{cabrera2025apimetro, cabrera2026VFTModel}.}
-\end{figure}
 
 En conjunto, el anillo cumple solo una parte de lo que se esperaba de él. Acorta
 los viajes en toda la red y, a la velocidad del Metro, saca del centro una parte
