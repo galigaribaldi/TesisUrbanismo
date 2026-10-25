@@ -145,15 +145,17 @@ los indicadores calculados para identificar zonas con déficit de conectividad
 \item \textit{Diseño de los escenarios hipotéticos}: Dos configuraciones de
         corredor anillar de alta capacidad en los cuatro cuadrantes del
         Anillo Periférico. El Caso~2 toma como referencia la operación del
-        Metro: velocidad comercial de 35~km/h y paradas cada 1\,200~m. El
-        Caso~3 toma como referencia el Metrobús: 22~km/h y paradas cada
-        600~m. En ambos, los pesos $\peso{i}{j}$ se calculan igual que en
-        el grafo base y las penalizaciones de transbordo no cambian.
+        Metrobús: vía confinada y velocidad comercial de 16.3~km/h. El
+        Caso~3 toma como referencia el Metro: vía exclusiva y 36~km/h. Los
+        dos comparten trazo y estaciones (§\ref{subsec:anillo-parametros}),
+        los pesos $\peso{i}{j}$ se calculan igual que en el grafo base y las
+        penalizaciones de transbordo no cambian.
 \item \textit{Simulación comparativa}: Se corre \texttt{VFTModel} por
-        separado sobre el Caso~2 y el Caso~3; los valores de $DI$, $T$ y
+        separado sobre el Caso~2 y el Caso~3; los valores de $C$, $FC$, $T$ y
         $B(v)$ se comparan contra el Caso~1 para establecer qué
         configuración anillar produce mayor beneficio topológico en la
-        \zmvm{} \citep{cabrera2026VFTModel}.
+        \zmvm{} \citep{cabrera2026VFTModel}. El $DI$ se calcula solo para la
+        red actual.
     \end{itemize}
 \end{description}
 
@@ -173,9 +175,9 @@ hacen replicable el proceso en otros contextos metropolitanos con datos
     \item[Actividades a
     Desarrollar:]~\begin{itemize}
         \item \textit{Lectura comparativa de indicadores}: Análisis de la
-        variación neta en $DI$, $T$ y $B(v)$ entre la red actual y la red
-        ampliada, valorando la magnitud del impacto topológico del escenario
-        anillar hipotético.
+        variación neta en $C$, $FC$, $T$ y $B(v)$ entre la red actual y la red
+        ampliada, que se lee en conjunto con el Espectro MJG, para valorar la
+        magnitud del impacto topológico del escenario anillar hipotético.
         \item \textit{Documentación de la metodología}: Registro de los
         parámetros, supuestos y limitaciones del proceso analítico, con el
         fin de garantizar su reproducibilidad en contextos similares.
