@@ -1,3 +1,72 @@
 % !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CAPÍTULO 7 — CONCLUSIONES (Issue #23)
+%
+% Plan y decisiones: 7-Conclusiones/CONTEXTO_CAP7.md (D7-1…D7-4).
+% Hilo conductor: «lo que se mide define lo que se construye»
+% (Programa Maestro del Metro 1985, §6.5.2).
+% Cifras: corrida 2026-10-04 (VFTModel 4ef4265).
+%
+% Estructura: entrada (resumen + contraste) · 7.1 Tecnológico ·
+%             7.2 Urbano · 7.3 Académico y Trabajo Futuro (con cierre)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusiones}
 \label{ch:conclusiones}
+
+% ENTRADA — P1 resumen (✅ 2026-11-04, score 0.122).
+La tesis empezó por la forma de la red. En la \zmvm{} el transporte público
+creció hacia el centro y dejó a la periferia con servicios que casi no se
+cruzan. El Periférico rodea la ciudad, pero se hizo para el automóvil y por él
+no corre transporte masivo (Capítulos~\ref{ch:introduccion}
+y~\ref{ch:marco-teorico}). Medir eso pedía una herramienta propia: una cadena
+de tres capas de código abierto (Capítulo~\ref{ch:Capas-codigo}), ocho
+indicadores y la Clasificación Garibelt para leerlos juntos
+(Capítulo~\ref{ch:definiciones}). Con esa cadena se diagnosticó la red actual,
+y el Espectro MJG quedó como línea base (Capítulo~\ref{ch:analisis-red-actual}).
+Luego se probaron sobre el Anillo Periférico Interior dos casos con el mismo
+trazo y las mismas 94 estaciones, el Anillo MB y el Anillo Metro, que solo
+cambian en la operación (Capítulo~\ref{ch:analisis-red-anillo}).
+
+% P2 — contraste con la hipótesis y veredicto de la pregunta
+% (✅ 2026-11-04, score 0.122). DI en la periferia: tendencia sobre
+% pocas rutas (tab:di-alcaldia, n = 1–2). Cifras de la pregunta en 7.2 (D7-8).
+Frente a la hipótesis (§\ref{sec:hipotesis}), el resultado es una
+confirmación parcial. La primera parte se sostiene: la red radial-concéntrica
+tiene vulnerabilidades que se pueden medir. La intermediación se concentra en
+unos cuantos nodos del núcleo, con Tacubaya a la cabeza, y los rodeos más
+largos aparecen en la periferia sur y oriente, aunque sobre pocas rutas
+(§\ref{subsec:factor-desviacion}). Los 122 minutos que la \textsc{semovi}
+reporta para el Cuarto Contorno \citep{semovi2020diagnostico} no se pueden
+contrastar con el modelo, porque su $T$ de 113.91 minutos promedia toda la red.
+La segunda parte también se cumple: la metodología midió esas vulnerabilidades
+y repitió el cálculo en los tres casos con el mismo código. La tercera se
+cumple a medias. Con el anillo bajan el tiempo de viaje y la intermediación de
+Tacubaya, pero la concentración no se reparte, y el $DI$ quedó fuera de la
+comparación porque solo se calculó para la red actual. La pregunta de
+investigación recibe una respuesta del mismo tipo. El anillo mejora la conexión
+de la periferia que ya está cerca de la red, no la de la que queda lejos, y el
+modelo anticipa la estructura de ese escenario, pero no su demanda
+(§\ref{sec:conclusiones-urbano}).
+
+% P3 — objetivos específicos y transición a los tres ejes
+% (✅ 2026-11-04, opción A, score 0.122). ΔE del obj. 3 solo
+% exploratorio (#39). El pasaje de 1985 lo abre 7.1 y lo retoma el cierre.
+De los cinco objetivos específicos (§\ref{subsec:obj-especificos}), tres se
+cumplieron completos y dos en parte. Los \termino{feeds} \gtfs{} se
+sistematizaron en un grafo multimodal, sobre él se calcularon el $DI$, $T$, $C$
+y $FC$ de la red actual, y con la cobertura y la Fuerza Capilar se ubicó el
+mayor déficit, sobre todo en la periferia mexiquense. Los nodos críticos
+quedaron localizados con la intermediación, pero la caída de eficiencia
+$\Delta E$ se quedó en un ejercicio exploratorio. Los dos casos del anillo se
+simularon con $C$, $FC$, $T$ y $B(v)$, y el Anillo Metro resultó el más
+favorable; faltó el $DI$ para completar la comparación. Las secciones que
+siguen ordenan estos resultados en tres ejes. El tecnológico trata del
+instrumento que hizo posible medir la red; el urbano, de lo que esa medición
+dice sobre ella; el académico, de lo que todavía no mide y del trabajo que de
+ahí se desprende.
+% Pregunta de investigación: solo el veredicto (confirmación parcial)
+% con remisión a §\ref{sec:conclusiones-urbano}; las cifras están ahí.
+
+\input{7-Conclusiones/7-1-Eje-Tecnologico}
+\input{7-Conclusiones/7-2-Eje-Urbano}
+\input{7-Conclusiones/7-3-Eje-Academico}

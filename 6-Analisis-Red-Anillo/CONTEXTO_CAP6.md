@@ -10,8 +10,9 @@ Archivo de trabajo para retomar el capítulo entre sesiones. No se compila.
 
 ## 0. RETOMAR AQUÍ (sesión 2026-10-24)
 
-**Siguiente paso:** redactar **§6.5 Conclusiones del Escenario** y luego el **Cap. 7** con la
-estructura aprobada (abajo). Antes, confirmar que el usuario ejecutó los 4 commits entregados.
+**Siguiente paso (actualizado 2026-10-25):** §6.5 ✅. Siguen (1) el commit de LFS de las fotos,
+(2) formato y arquitectura interna: partir §6.5 en directorio + índice + subarchivos y #40, y
+(3) **al final** el **Cap. 7** con la estructura aprobada (abajo).
 
 **Flujo acordado (sin cambios):** parte por parte; 1 opción (o 2–3 si hace falta) con score
 por párrafo (nada ≥ 0.20); esperar aprobación; el usuario compila y hace los commits

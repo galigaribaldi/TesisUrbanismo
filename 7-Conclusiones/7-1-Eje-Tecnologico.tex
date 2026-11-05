@@ -1,0 +1,68 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 7.1 — EJE TECNOLÓGICO (Issue #23)
+% Papel en el hilo: el instrumento que hace medible la estructura.
+% Esquema: problema (1985) → qué se hizo → replicabilidad → aporte →
+% límites y transición a 7.2. Plan: CONTEXTO_CAP7.md §4.
+% Fuera a propósito: T_b fijo (#32), grafo simple (D9), nodo
+% «Memorial», 13 nodos del snapping; TransCAD/NAVTEQ sin verificar.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Eje Tecnológico: un Instrumento para Medir la Estructura}
+\label{sec:conclusiones-tecnologico}
+
+El Programa Maestro del Metro de 1985 descartó los dos corredores del
+Periférico porque no alcanzaban la captación que pedía su red
+(§\ref{subsubsec:anillo-pm-2010}). Sus parámetros salían de la demanda, y con
+ellos la evaluación no tenía forma de medir lo que el anillo aportaba a la
+estructura de la red. Aquel estudio se hizo con otras tecnologías, las de su
+momento. Medir la estructura pide hoy otro tipo de herramienta, y por eso el
+primer resultado de esta tesis es un instrumento: una cadena abierta que mide
+la estructura de la red de transporte con datos públicos.
+
+La cadena tiene tres capas, y cada una cumple una tarea
+(Figura~\ref{fig:macro-arquitectura-stack}). \texttt{Apímetro} reúne la
+información de doce sistemas de transporte y 141 demarcaciones, que cada
+organismo publica a su manera, y la entrega en un solo formato. Con ello cubre
+algo que la Tarjeta MI dejó pendiente en 2019, cuando integró la tarifa pero no
+los datos (§\ref{subsubsec:espectro-cierre}). \texttt{VFTModel} arma con esa
+información un grafo de 11,115 nodos y 45,517 aristas, asigna a cada arista un
+tiempo con la ecuación VFT y calcula los ocho indicadores
+(§\ref{sec:vft-indicadores}). \texttt{Transport-gis-zmvm-mjg}, por último,
+lleva los resultados a mapas de QGIS y a \termino{dashboards} de Tableau, que
+es donde un urbanista puede leerlos.
+
+Que la cadena sirva como instrumento, y no solo para resolver un caso, se
+comprobó en el Capítulo~\ref{ch:analisis-red-anillo}. Los tres escenarios se
+procesaron con el mismo código. Para sumar el anillo bastó registrarlo en
+\texttt{Apímetro} como un sistema más, y cada caso corrió en sus propios
+contenedores, sin que los datos de uno alteraran los de otro
+(§\ref{subsec:anillo-procesamiento}). Con esa separación se pueden comparar
+corredores y estimar el efecto de una línea nueva antes de construirla
+(§\ref{sec:vft-salidas}). Es el mismo ejercicio que hizo el Programa Maestro al
+simular su red varias veces, solo que ahora lo que se compara es la estructura.
+
+El aporte de este eje no se limita a la \zmvm{}. La cadena no depende de
+licencias comerciales y se puede repetir en cualquier ciudad que tenga
+\termino{feeds} \gtfs{} y cartografía de base, algo que ya cumple la mayoría de las ciudades
+latinoamericanas de tamaño parecido \citep{barrington2017world}. El código se
+publica bajo la \textit{Business Source License~1.1}, que pasa a
+\textit{Apache~2.0} en abril de 2029, y viene con una wiki, un foro,
+\texttt{seed.sql} y Docker Compose para que lo use también quien no programa
+(§\ref{subsec:futuro-apimetro}). \citet{gurstein2011open} advierte que los
+datos abiertos solo empoderan a quien puede procesarlos; una herramienta así
+acorta esa distancia. En ese sentido entiende esta tesis la soberanía
+tecnológica: una capacidad de análisis que se queda en la institución pública y
+no se compra a un proveedor.
+
+El instrumento tiene límites, y conviene tenerlos presentes al leer sus
+resultados. Las velocidades de superficie vienen de \texttt{Apímetro} y no se
+han contrastado con velocidades observadas por ruta
+(§\ref{subsec:validacion-impedancia}). La caída de eficiencia $\Delta E$ se
+calculó solo como ejercicio exploratorio, con una corrida anterior a la vigente
+(§\ref{subsec:vulnerabilidad-estructural}). Las cinco estaciones del Tren
+Interurbano quedan fuera de la componente gigante. El límite principal es otro:
+el modelo mide la estructura, no el uso. No calcula demanda ni capacidad, aunque
+\texttt{Apímetro} ya guarda la capacidad de los vehículos. Estos pendientes se
+retoman como trabajo futuro en §\ref{sec:conclusiones-academico}. Con el
+instrumento probado, falta ver qué dice esa medición sobre la red, que es el
+tema de §\ref{sec:conclusiones-urbano}.

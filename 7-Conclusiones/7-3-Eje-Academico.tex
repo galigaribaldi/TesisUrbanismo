@@ -1,0 +1,82 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECCIÓN 7.3 — EJE ACADÉMICO Y TRABAJO FUTURO (Issue #23)
+% Papel en el hilo: lo que falta medir, y cómo unir estructura y
+% demanda. Esquema: aporte Garibelt → L1 consolidar Garibelt →
+% L2 otras redes (país y extranjero) → L3 calibrar lo medido →
+% L4 medir lo que falta (doctorado) → cierre con 1985.
+% Plan: CONTEXTO_CAP7.md §6. Decisiones 2026-11-04: sin IGISC 2026;
+% sin nombrar ciudades concretas en L2 (sería especulativo).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Eje Académico y Trabajo Futuro}
+\label{sec:conclusiones-academico}
+
+El tercer eje reúne lo que la tesis aporta al método y lo que deja abierto. Su
+aporte principal es la Clasificación Garibelt, con el Espectro MJG como
+entregable (§\ref{subsec:clasificacion-garibelt}). Una red tan heterogénea como
+la de la \zmvm{}, con doce sistemas, 76 demarcaciones y una cobertura que cae
+de forma abrupta al salir de la \cdmx{} (§\ref{sec:conclusiones-urbano}), no se
+deja resumir en un solo número. Un promedio de indicadores esconde la dimensión que está mal; es
+el sesgo de compensabilidad que señalan \citet{hossain2024} y \citet{deng2023}
+(§\ref{subsubsec:garibelt-compensabilidad}). La Clasificación normaliza para
+calibrar, no para sumar, como el perfil por ciudad de \citet{kujala2018}, y
+asigna además a cada nodo un intervalo dominante. Así, la red actual sirvió de
+línea base y los escenarios se compararon contra ella: diez nodos cambian de
+intervalo dominante en el Caso~2 y 21 en el Caso~3 (§\ref{subsec:anillo-espectro-nodo}).
+
+Se trata, con todo, de un instrumento en desarrollo, y la primera línea de
+trabajo futuro es consolidarlo. Sus cortes y cotas son supuestos. Bajar la cota
+de $DI$ de 2.5 a 2.0 basta para que el $DI$ de la red actual cambie de intervalo
+(§\ref{subsubsec:garibelt-escala}), y los valores de $T$ y $B(v)$ dependen de
+los parámetros $\alpha$ y $\beta$ del coeficiente de fricción
+(§\ref{subsec:fase2-cf}). Hace falta un análisis de sensibilidad de todos
+ellos. Hay también dos medidas relativas: el intervalo dominante de cada nodo se
+calcula contra el máximo de cada caso, y la $FC$ se normaliza con los cuartiles
+de la propia red, de modo que describe cómo se reparte la conectividad dentro
+de la \zmvm{} sin decir cómo se compara con otras
+(§\ref{subsubsec:garibelt-procedimiento}). Resueltos esos puntos, la
+Clasificación podría servir no solo para diagnosticar una red heterogénea, sino
+para ordenar varias entre sí.
+
+Ahí empieza la segunda línea. La tesis midió una sola red real frente a dos
+casos hipotéticos construidos sobre ella, así que sus resultados solo se
+comparan consigo mismos. El paso siguiente es aplicar la cadena a otras redes:
+las de otras zonas metropolitanas del país y las de ciudades de otros países
+que tengan \termino{feeds} \gtfs{} y cartografía de base
+(§\ref{subsec:datos-herramienta-replicable}). Con varios perfiles del Espectro
+MJG, como los 25 que reunieron \citet{kujala2018}, se sabría si los valores de
+la \zmvm{} son altos o bajos frente a otras ciudades. También se podrían
+sustituir los cuartiles propios de $FC$ por una referencia común. Y la
+replicabilidad que planteó §\ref{sec:conclusiones-tecnologico} quedaría
+probada fuera de la ciudad donde se construyó la herramienta.
+
+La tercera línea es calibrar lo que el modelo ya mide. La cobertura podría
+calcularse con isócronas peatonales sobre la red vial de OpenStreetMap y
+cruzarse con la población por manzana del Censo 2020, para pasar de superficie
+cubierta a personas cubiertas (§\ref{subsec:indicador-cobertura}). La
+penalización por transbordo podría contrastarse con los tiempos que devuelve la
+Google Maps Directions API en horas pico y valle
+(§\ref{subsec:penalizacion-transferencia}). Las velocidades de superficie
+tendrían que compararse con velocidades observadas por ruta. La $FC$, por su
+parte, podría ponderarse por capacidad o por flujo, como en la definición de
+\citet{lee2008}, y contrastarse con el catálogo oficial de \textsc{cetram}
+(§\ref{subsec:fuerza-capilar}).
+
+La cuarta línea es medir lo que hoy queda fuera, y es la que da forma a una
+propuesta de nivel doctoral. La robustez $\Delta E$ pide la eficiencia global
+de \citet{latora2001efficient}, la remoción de Macro-Hubs completos y una
+corrida vigente (§\ref{subsec:vulnerabilidad-estructural}); solo así se sabría
+si la red anillo-radial resiste mejor una falla en el centro. A eso se suman la
+demanda, la población, el ingreso y el costo de cada opción, que el modelo no
+incorpora (§\ref{subsec:corredor-anillar-limitaciones}), y un Anillo Periférico
+Exterior para la periferia actual. El núcleo de esa agenda es unir en un mismo
+modelo los indicadores de estructura con la afluencia y las matrices
+origen-destino.
+
+Esa unión es también el cierre del argumento. En 1985, el Programa Maestro
+preguntó cuánta gente usaría un corredor sobre el Periférico y, con esa sola
+medida, lo descartó. Esta tesis preguntó qué aportaba ese corredor a la
+estructura de la red y encontró efectos que la captación no registraba. Ninguna
+de las dos preguntas basta por separado. La planeación por estructura no
+sustituye a la planeación por demanda; la completa. Si lo que se mide define lo
+que se construye, el trabajo que sigue es medir las dos cosas a la vez.
