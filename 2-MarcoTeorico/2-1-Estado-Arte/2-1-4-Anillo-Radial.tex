@@ -1,16 +1,40 @@
 % !TeX root = ../../tesis.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% §2.1.4 TOPOLOGÍA ANILLO-RADIAL Y CASOS DE ANILLOS — EN BLANCO
-% Origen 1: 2-MarcoTeorico/2-3-Marco-Dispersion.tex (61 l.):
-%   - l. 37-49 «Transiciones de Fase en Redes Urbanas» (aldous2019optimal)
-%     OJO: su primer párrafo (l. 40-44, «A la fecha de realización de
-%     este estudio (2026)…») repite 1-4-Justificacion-Hipotesis l. 124-128.
-%     Es la «sección redundante» del acuerdo 6: no se mueve, se elimina.
-%   - l. 50-61 «Minimización de Transferencias en Redes Anillo-Radiales»
-%     (owais2020)
-% Origen 2: 2-MarcoTeorico/2-4-Teoria-Casos.tex (60 l.):
-%   - l. 26-60 «Casos Similares en Otros Países» (suburbanrailloop2021,
-%     efe2023)
-% Al mover: comparar los casos entre sí (qué midió cada uno, con qué
-%   criterio) en lugar de describirlos uno por uno.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% §2.1.4 — sustituye 2-3-Marco-Dispersion.tex l. 37-61 y 2-4-Teoria-Casos.tex
+% l. 26-59 (#36). «Transiciones de Fase» (repetía 1-4) se eliminó; Aldous sale de §3.3.4.
+
+% -----------------------------------------------------------------------
+\subsection{Topología Anillo-Radial y Casos de Anillos}
+\label{subsec:ea-anillo-radial}
+% -----------------------------------------------------------------------
+
+La teoría de redes ofrece dos argumentos para agregar un anillo a una red
+radial. \citet{aldous2019optimal} buscan la geometría que minimiza el tiempo
+promedio de viaje entre pares de puntos y encuentran que, cuando la longitud
+total de la red rebasa un valor crítico $L_c$, la topología óptima cambia de
+golpe y pasa a incluir un bucle o anillo. Su modelo es idealizado: indica cuándo
+un anillo podría convenir, no dónde trazarlo. \citet{owais2020} llega a la misma
+geometría por otra vía. Muestra que, en un sistema sobre todo radial, un anillo
+reduce los transbordos necesarios para ir de una zona periférica a otra, con lo
+que se acortan los traslados y el viaje multimodal pierde fricción.
+
+\label{sec:casos-similares}
+Dos metrópolis con redes radiales saturadas en el centro han optado por esa
+geometría, con propósitos distintos. La Gran Línea Circular del Metro de Moscú,
+inaugurada en 2023 con 70 kilómetros, se diseñó para descargar las líneas
+radiales del centro y comunicar zonas periféricas sin pasar por las estaciones
+centrales más congestionadas \citep{efe2023}. El \termino{Suburban Rail Loop} de
+Melbourne, todavía en planeación y construcción, parte de otro diagnóstico: los
+suburbios del \termino{Middle-Ring} concentran hospitales, universidades y
+centros de empleo, pero no tienen conexiones laterales entre sí, y el proyecto
+busca convertirlos en una red policéntrica de precintos de empleo
+\citep{suburbanrailloop2021}. En Moscú el anillo resuelve un problema de
+operación del centro; en Melbourne, uno de articulación de la periferia. Ninguna
+de las dos fuentes mide la estructura de la red con indicadores como los de
+§\ref{subsec:ea-indicadores}: una es una nota de prensa sobre la inauguración y
+la otra resume el caso de negocio de un proyecto que aún no opera.
+
+De estos casos se sabe que la geometría que esta tesis prueba sobre el Anillo
+Periférico ya se eligió en otras metrópolis con problemas parecidos. No se sabe
+cuánto cambia una red cuando se le agrega. Eso es lo que mide el
+Capítulo~\ref{ch:analisis-red-anillo} para la \zmvm{}, con el anillo como caso
+de demostración metodológica.

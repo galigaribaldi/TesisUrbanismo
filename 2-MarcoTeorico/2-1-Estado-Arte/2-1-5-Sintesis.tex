@@ -1,19 +1,65 @@
 % !TeX root = ../../tesis.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% §2.1.5 SÍNTESIS: TENDENCIAS, DEBATES Y VACÍOS — EN BLANCO
-% Decisión D36-4: único texto nuevo de §2.1, armado con lo que la tesis
-% ya afirma (pauta del seminario: terminar en «tu problema»).
-% Contenido previsto:
-%   1. Tendencias: grafos + GTFS como estándar para evaluar redes;
-%      software propio y abierto (fortin, moreno, kujala).
-%   2. Debates: índice compuesto frente a perfil multidimensional
-%      (hossain2024, deng2023, kujala2018 → remite a §3.3.9); demanda
-%      frente a estructura (Programa Maestro 1985, §6.5.2).
-%   3. Vacíos: pocas mediciones de la estructura de una red heterogénea
-%      con datos abiertos en América Latina; datos incompletos fuera de
-%      la ciudad central (§5.1.1); brecha técnica (gurstein2011open).
-%   4. Al final (D36-6): el párrafo «De los datos abiertos a la
-%      herramienta replicable» desde 2-MarcoTeorico/2-5-SIG-Datos-Abiertos
-%      l. 78-103 (cadena Apímetro → VFTModel → Transport-gis) como lo que
-%      esta tesis aporta frente a esos vacíos.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% §2.1.5 — síntesis nueva (D36-4) + 2-5-SIG-Datos-Abiertos.tex l. 82-102 (D36-6) (#36)
+
+% -----------------------------------------------------------------------
+\subsection{Síntesis: Tendencias, Debates y Vacíos}
+\label{subsec:ea-sintesis}
+% -----------------------------------------------------------------------
+
+La tendencia más clara es tratar la red de transporte como un grafo construido
+con datos \gtfs{}. \citet{fortin2016innovative} cargan los \termino{feeds} en
+una base de grafos para calcular caminos mínimos e indicadores;
+\citet{kujala2018} normalizan con el mismo estándar las redes de 25 ciudades, y
+\citet{ugur2025} miden la conectividad estación por estación. La segunda
+tendencia es el \termino{software} propio y abierto. \citet{moreno2023}
+defienden el desarrollo modular en Python para que una institución acumule
+capacidad de análisis sin pagar licencias, y la cartografía colaborativa ya
+cubre buena parte de la red vial de las ciudades latinoamericanas grandes
+\citep{barrington2017world}.
+
+Hay dos debates abiertos. El primero es cómo resumir varias dimensiones de una
+red. Un índice compuesto da una sola cifra, pero un valor alto en una dimensión
+puede tapar uno bajo en otra \citep{hossain2024}, y en redes multimodales la
+concentración de flujos en pocos nodos se pierde dentro del índice
+\citep{deng2023}. Por eso \citet{kujala2018} prefirieron un perfil por ciudad,
+y esta tesis toma el mismo partido con la Clasificación Garibelt
+(§\ref{subsubsec:garibelt-compensabilidad}). El segundo debate enfrenta la
+demanda con la estructura. El Programa Maestro del Metro de 1985 midió con
+detalle la demanda; con ella, los corredores del Periférico no alcanzaban la
+captación que se exigía, y la evaluación no podía registrar lo que un anillo
+aporta a la estructura de la red (§\ref{subsubsec:anillo-pm-2010}). Esta tesis
+mide la estructura y deja fuera la demanda, de modo que ninguno de los dos
+enfoques basta solo.
+
+Quedan tres vacíos. El primero: de los anillos de otras metrópolis se conoce el
+propósito, pero no hay una medición de la red (§\ref{subsec:ea-anillo-radial}).
+El segundo está en los datos. \citet{haklay2010good} y
+\citet{barrington2017world} miden la completitud de la red vial, no la de las
+paradas de transporte, y en la \zmvm{} los sistemas que operan solo en el
+Estado de México no tienen \gtfs{} oficial (§\ref{subsec:limitaciones-datos}).
+El tercero es de herramientas. En México el \termino{software} propio de
+análisis apenas empieza; el del Instituto Mexicano del Transporte se presenta
+como primera etapa y trata la asignación de tráfico \citep{moreno2023}. Es la
+brecha que describe \citet{gurstein2011open}: los datos abiertos sirven poco si
+no hay herramientas para quien no programa.
+
+\label{subsec:datos-herramienta-replicable}
+Esta investigación responde a esa brecha con una cadena de tres motores de
+código abierto. \texttt{Apímetro} reúne y normaliza los \termino{feeds}
+\gtfs{}, \texttt{VFTModel} calcula los indicadores y
+\texttt{Transport-gis-zmvm-mjg} los lleva a mapas que un urbanista puede leer sin
+saber programar. Ninguno depende de licencias comerciales, y la cadena se puede
+repetir en cualquier área metropolitana con \termino{feeds} \gtfs{} y
+cartografía \gis{} de base, algo que, según \citet{barrington2017world}, cumple
+la mayoría de las ciudades latinoamericanas de escala comparable a la \zmvm{}.
+
+El argumento de replicabilidad no es secundario, sino central al objetivo
+general de la investigación: demostrar que un planificador urbano con acceso a
+datos abiertos puede, mediante esta metodología, obtener un diagnóstico
+topológico riguroso de su red de transporte y evaluar escenarios alternativos de
+intervención sin depender de \termino{software} propietario ni de equipos técnicos
+especializados. Los referentes de calidad de datos
+\citep{haklay2010good, barrington2017world} y los principios de equidad en el
+acceso al conocimiento \citep{gurstein2011open, neis2012street} constituyen, en
+este sentido, el fundamento teórico que articula la dimensión metodológica de la
+tesis con su dimensión urbanística.

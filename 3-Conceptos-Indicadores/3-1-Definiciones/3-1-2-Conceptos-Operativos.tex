@@ -1,0 +1,102 @@
+% !TeX root = ../../tesis.tex
+% §3.1.2 — definiciones operativas (#36, D36-8). La revisión bibliográfica que
+% estaba en 3-1-2…3-1-5 pasó a §2.1; aquí quedan definición + párrafo del OE.
+
+% -----------------------------------------------------------------------
+\subsection{Conceptos Teórico-Analíticos}
+\label{subsec:conceptos-operativos}
+% -----------------------------------------------------------------------
+
+\subsubsection{Vulnerabilidad Urbana}
+\label{subsec:vulnerabilidad-urbana}
+
+En esta tesis, la vulnerabilidad de una red de transporte es la pérdida de
+eficiencia que sufre cuando falla o se retira uno de sus nodos o aristas, como
+la formulan \citet{ouyang2009vulnerability}. Otras definiciones del término, y
+la diferencia entre fallas aleatorias y ataques dirigidos, se revisan en
+§\ref{subsec:ea-vulnerabilidad}.
+
+La fragilidad estructural revisada en §\ref{subsec:ea-vulnerabilidad} es el
+sustento teórico del Objetivo Específico~3 (§\ref{subsec:obj-especificos}):
+localizar los nodos cuya remoción comprometería la conectividad global del
+sistema. Los indicadores de Centralidad de Intermediación $B(v)$ y Robustez
+Geométrica $\Delta E$, definidos en §\ref{subsec:centralidad-intermediacion} y
+§\ref{subsec:robustez-geometrica}, son la operacionalización computacional de los
+conceptos de falla dirigida y disminución de eficiencia.
+
+\subsubsection{Planeación Estratégica}
+\label{subsec:planeacion-estrategica}
+
+La planeación estratégica del transporte consiste aquí en probar un cambio de
+la red sobre su modelo antes de construirlo: se calculan los mismos indicadores
+en la red actual y en la red modificada y se comparan, lo que
+\citet{fortin2016innovative} llaman \termino{comparación de redes}. Los
+antecedentes de esta forma de planear están en §\ref{subsec:ea-herramientas-datos}.
+
+La comparación cuantitativa de redes es el núcleo metodológico del Objetivo
+Específico 5 (§\ref{subsec:obj-especificos}): calcular los indicadores $DI$, $T$
+y $B(v)$ sobre la red actual y sobre la red ampliada con el corredor anillar, y
+comparar los resultados, es esta forma de planeación estratégica aplicada al
+caso de la \zmvm{}. Con ella se evalúa el Anillo Periférico como escenario
+hipotético. Los resultados del Capítulo~\ref{ch:analisis-red-anillo} no
+anticipan cómo operaría el corredor; muestran qué cambia en la red al agregarlo,
+bajo los supuestos que ahí se declaran.
+
+\subsubsection{Eficiencia Urbana}
+\label{subsec:eficiencia-urbana}
+
+La eficiencia urbana de una red de transporte es su capacidad para unir
+cualquier par de puntos por el camino de menor costo ---en tiempo, transbordos
+o distancia--- y para que la población alcance sus destinos en tiempos
+razonables. La literatura la mide en tres planos, topológico, operativo y
+espacial, que se revisan en §\ref{subsec:ea-indicadores}.
+
+A cada plano le corresponde uno de los indicadores que pide el Objetivo
+Específico~2 (§\ref{subsec:obj-especificos}). El Factor de Desviación $DI$ mide
+la eficiencia de la topología; el Tiempo de Viaje Promedio $T$ incluye las
+condiciones reales de operación, y el Nivel de Cobertura $C$ mide el plano
+espacial de la accesibilidad. Calculados juntos sobre el grafo multimodal, los
+tres dan el diagnóstico de la red actual de la \zmvm{}.
+
+\subsubsection{Interconectividad entre Redes}
+\label{subsec:interconectividad}
+
+La interconectividad entre redes es el grado en que modos y líneas distintos
+funcionan como un solo sistema. En el grafo se representa con aristas de
+transferencia entre nodos de modos o líneas diferentes, y su calidad se mide en
+cada parada (§\ref{subsec:ea-indicadores}).
+
+\label{subsubsec:grafo-multimodal}
+La representación matemática de la interconectividad entre redes exige la
+construcción de un \termino{grafo multimodal} en el que coexistan, sobre una
+misma estructura topológica, los nodos y aristas de los distintos modos de
+transporte, vinculados mediante aristas artificiales de transferencia
+debidamente ponderadas. \citet{mishra2015} señalan que, a diferencia de un
+enlace en una red vial ---que es un segmento físico que conecta un nodo con
+otro---, un enlace en una red de transporte público multimodal forma parte de
+una línea que sirve una secuencia de paradas; dado que diferentes líneas pueden
+servir una misma parada, pueden existir múltiples aristas entre los mismos nodos
+del grafo, lo que exige representaciones formales más complejas que las de una
+red monomodal.
+
+En el modelo computacional implementado en este trabajo, la red de transporte
+metropolitana se representa como un grafo dirigido y ponderado
+$\grafo = \{\nodos,\, \aristas,\, W\}$, donde $\nodos$ comprende el conjunto de
+todas las paradas de todos los modos, $\aristas$ incluye tanto las aristas de
+trayecto (intra-línea) como las aristas de transferencia (inter-modo), y $W$ es
+la función de peso que asigna a cada arista un costo compuesto ---tiempo de
+viaje, tiempo de espera, tiempo de caminata--- calculado a partir de los datos
+\gtfs{} de la red. Sobre este grafo unificado, los algoritmos de caminos mínimos
+permiten evaluar la interconectividad del sistema de manera integral: una
+transferencia deficiente se traduce en un peso elevado en la arista de
+transbordo correspondiente, lo que el algoritmo reflejará automáticamente como
+una ruta subóptima, señalando así los nodos de transferencia que requieren
+intervención prioritaria.
+
+La construcción del grafo multimodal $\grafo = \{\nodos,\, \aristas,\, W\}$ que
+formaliza esta subsección es el resultado tangible que persigue el Objetivo
+Específico 1 (§\ref{subsec:obj-especificos}): sistematizar los datos \gtfs{} de
+todos los operadores de la \zmvm{} y unificarlos en una representación
+matemática que haga posible el análisis cuantitativo. El \texttt{Apímetro}, descrito en
+el \autoref{ch:Capas-codigo}, es la herramienta que ejecuta esta construcción de
+forma automatizada y replicable.

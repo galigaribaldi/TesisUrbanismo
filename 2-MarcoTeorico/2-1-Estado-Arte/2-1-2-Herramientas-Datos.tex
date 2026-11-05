@@ -1,23 +1,158 @@
 % !TeX root = ../../tesis.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% §2.1.2 HERRAMIENTAS COMPUTACIONALES Y DATOS ABIERTOS PARA LA PLANEACIÓN
-%        — EN BLANCO
-% Origen 1: 3-Conceptos-Indicadores/3-1-Definiciones/3-1-3-Planeacion.tex
-%   (118 l.; §3.1.3 «Planeación Estratégica» completo, pedido del asesor):
-%   - l. 8-44  «Caracterización Dinámica de la Oferta de Transporte»
-%              (incluye fig:gtfs-estructura y su cita)
-%   - l. 45-72 «Toma de Decisiones Basada en Algoritmos y Comparación de Redes»
-%   - l. 73-118 «Enfoque en la Sostenibilidad y el Cambio Modal»
-%   Autores: fortin2016innovative, moreno2023, ugur2025, lgmsv2022,
-%   hidalgo2013brt, pojani2015sustainable.
-% Origen 2: 2-MarcoTeorico/2-5-SIG-Datos-Abiertos.tex (103 l.):
-%   - l. 4-20  entrada de la sección
-%   - l. 21-50 «VGI y cobertura de datos a escala metropolitana»
-%   - l. 51-77 «Datos abiertos, comunidad y equidad de acceso»
-%   Autores: haklay2010good, barrington2017world, neis2012street,
-%   gurstein2011open.
-%   (l. 78-103 «De los datos abiertos a la herramienta replicable» NO va
-%   aquí: pasa al final de 2-1-5-Sintesis, decisión D36-6.)
-% Al mover: texto continuo sin \subsubsection; organizar por tema
-%   (grafos+GTFS → software propio → datos abiertos/VGI → brecha técnica).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% §2.1.2 — movido de 3-1-3-Planeacion.tex l. 11-95 (fig. junto a su cita) y de
+% 2-5-SIG-Datos-Abiertos.tex l. 8-75 (entrada reescrita) (#36); 3-1-3 l. 110-118 (OE5) se quedan en §3.1
+
+% -----------------------------------------------------------------------
+\subsection{Herramientas Computacionales y Datos Abiertos para la Planeación}
+\label{subsec:ea-herramientas-datos}
+% -----------------------------------------------------------------------
+
+La planeación estratégica del transporte público ha transitado de un proceso
+reactivo ---centrado en la observación de demandas insatisfechas--- hacia un
+modelo predictivo basado en datos que emplea el modelado computacional para
+anticipar los efectos de cada transformación en la red
+\citep{fortin2016innovative}. Bajo este esquema, el grafo matemático deja de ser
+un producto del análisis y se convierte en el instrumento central de la
+planeación: las decisiones de reestructuración de rutas o de incorporación de
+nuevos servicios se evalúan primero sobre el modelo, antes de ejecutarse en la
+infraestructura física.
+
+Hasta la fecha de su investigación, \citet{fortin2016innovative} constatan la
+ausencia de una herramienta capaz de caracterizar sistemáticamente una red de
+transporte y registrar sus cambios en el tiempo de forma estructurada y
+automatizada. Para cubrir esa brecha proponen un método orientado a grafos: los
+datos \gtfs{} (\textit{General Transit Feed Specification}) se cargan en una
+base de grafos desde la que se calculan algoritmos de caminos mínimos y se
+derivan indicadores de desempeño de forma automatizada. La
+Figura~\ref{fig:gtfs-estructura} muestra cómo se relacionan los archivos del
+estándar. El presente trabajo
+adopta este enfoque; los datos \gtfs{} de la red de la \zmvm{} se procesan para
+construir un grafo que integra la geometría de la red junto con las frecuencias
+y horarios de servicio de cada modo.
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.85\textwidth]{Figures/Cap3/DiagramCompleteDataSetGTFS.png}
+   \caption[Estructura relacional de archivos \gtfs{}]{Diagrama de la estructura
+   relacional de los archivos que componen el estándar \gtfs{}. Traducción de
+   los rótulos: \textit{Required}, obligatorio; \textit{Optional}, opcional;
+   \textit{Diagram of complete GTFS file dataset}, diagrama del conjunto completo
+   de archivos \gtfs{}. Los nombres de los archivos se conservan; «Figure~1» es la
+   numeración de la fuente.}
+   \label{fig:gtfs-estructura}
+   \fuentefigura{\citet{fortin2016innovative}, p.~21.}
+\end{figure}
+
+\citet{moreno2023} refuerzan este enfoque al plantear que una metodología
+robusta para la planeación requiere de una matriz origen-destino (\textsc{od}),
+una red georreferenciada y los algoritmos necesarios para calcular la asignación
+de flujos vehiculares. Señalan que el lenguaje Python y su ecosistema de
+librerías constituyen una plataforma de reconocida eficacia para este propósito,
+dado que permite el desarrollo modular del \termino{software} de análisis, otorgando
+flexibilidad para actualizar los modelos y extender su alcance según las
+necesidades de la investigación. Esta premisa orienta directamente las
+decisiones de implementación tecnológica descritas en los capítulos
+metodológicos posteriores.
+
+Una de las contribuciones más relevantes de la planeación estratégica basada en
+grafos es la posibilidad de comparar cuantitativamente diferentes
+configuraciones de red antes de ejecutar cambios físicos en la infraestructura.
+\citet{fortin2016innovative} proponen explícitamente la
+\termino{comparación de redes} (\textit{Network Comparison}) como herramienta
+central de la planeación: al calcular indicadores derivados de caminos mínimos
+sobre el grafo actual de la red y sobre un grafo hipotético que incorpora
+modificaciones ---como la adición de nuevas líneas o la reestructuración de
+rutas existentes---, es posible evaluar cuantitativamente el impacto de cada
+escenario sobre el desempeño del sistema antes de tomar decisiones de inversión.
+
+La investigación aplica exactamente esa lógica. Cuando se incorpora el corredor
+anillar al grafo de la \zmvm{}, el algoritmo de \dijkstra{} recalcula los
+caminos mínimos de toda la red; los resultados cuantifican cómo varía el tiempo
+de viaje entre cuadrantes periféricos y qué nodos de alta centralidad
+redistribuyen carga. Esa cuantificación precede cualquier decisión de inversión
+en infraestructura.
+
+\citet{moreno2023} complementan esta perspectiva al destacar que el desarrollo
+modular del \termino{software} de asignación permite adaptar el modelo a redes bimodales
+que integren distintos modos de transporte ---como los sistemas
+carretera-ferrocarril o superficie-metro--- y sus posibles intercambios a través
+de estaciones y puntos de transferencia, lo que amplía significativamente el
+alcance analítico de la herramienta más allá del análisis de una red monomodal.
+
+Toda mejora en la red de transporte tiene dimensión territorial. La evidencia lo
+respalda: \citet{ugur2025} muestran que vincular distintos modos entre sí
+---evaluando la conectividad entre líneas y generando oportunidades reales de
+transbordo--- amplía la cobertura de la red (§\ref{subsec:indicador-cobertura}) y
+ensancha el acceso urbano efectivo. Ese resultado tiene además respaldo legal:
+la \citet{lgmsv2022} obliga a que la multimodalidad reduzca la dependencia del
+automóvil y las emisiones contaminantes, situando el cambio modal en el centro
+de cualquier política de transporte.
+
+\citet{hidalgo2013brt} documentan el crecimiento del transporte de alta
+capacidad en ciudades latinoamericanas ---incluidos casos mexicanos--- y
+registran impactos positivos en la reducción de emisiones y en la sustitución de
+viajes en vehículo privado; \citet{pojani2015sustainable} añaden que, en
+ciudades de países en desarrollo, la movilidad sostenible exige articular la
+dimensión ambiental con la equidad social, pues el acceso al transporte público
+de calidad no es variable residual sino objetivo estructural. Esta investigación
+recoge esa premisa: su arquitectura tecnológica de código abierto responde
+además al argumento de \citet{moreno2023} de que el \termino{software} propio de análisis
+de transporte permite a las instituciones acumular capacidades analíticas
+reproducibles sin depender de licencias comerciales.
+
+Un método que se pueda repetir en otras ciudades necesita datos geoespaciales
+abiertos y estandarizados. Esta investigación usa dos fuentes: los
+\termino{feeds} \gtfs{} oficiales de los sistemas de transporte público de la
+\zmvm{} y la cartografía de base que proviene de la información geográfica
+voluntaria (\textsc{vgi}, por sus siglas en inglés). Los trabajos que siguen
+permiten juzgar si esas fuentes alcanzan para un análisis metropolitano y por
+qué conviene que las herramientas que las procesan sean abiertas y estén al
+alcance de los planificadores urbanos.
+
+La validez del análisis topológico propuesto descansa, en parte, en la calidad y
+completitud de los datos geoespaciales de base. \citet{haklay2010good} demostró,
+mediante una comparación sistemática entre datos de OpenStreetMap y los del
+\textit{Ordnance Survey} del Reino Unido, que la información \textsc{vgi}
+alcanza niveles de precisión posicional superiores al 80\,\% en áreas urbanas
+densas, resultado atribuible a la alta concentración de contribuidores activos
+en dichos entornos. Este umbral de calidad es comparable al de fuentes
+cartográficas institucionales, lo que posiciona a los datos colaborativos como
+una alternativa técnicamente válida para el modelado de redes en ciudades con
+cobertura de contribuidores suficiente.
+
+Complementariamente, \citet{barrington2017world} evidenciaron que la red vial de
+OpenStreetMap supera el 80\,\% de completitud a escala global, con niveles aún más
+elevados en las zonas metropolitanas de países de ingresos medios y altos. Su
+análisis también demostró que las ciudades latinoamericanas de escala comparable
+a la \zmvm{} presentan coberturas superiores al promedio global, resultado del
+crecimiento sostenido de comunidades locales de cartografía colaborativa. Estos
+hallazgos sustentan la pertinencia de emplear datos \gis{} de fuentes abiertas
+---en combinación con feeds \gtfs{} oficiales--- como insumo primario para el
+modelado de la red multimodal de la \zmvm{}. Por eso esta tesis recurre a
+OpenStreetMap donde no hay datos oficiales: de ahí se tomaron las paradas y los
+trazos del Mexibús y del Mexicable. La completitud que miden esos estudios es la
+de la red vial, no la de las paradas de transporte, así que su uso se declara
+como limitación (§\ref{subsec:limitaciones-datos}).
+
+\label{subsec:datos-comunidad-equidad}
+La disponibilidad de datos no garantiza, por sí sola, su aprovechamiento
+equitativo. \citet{gurstein2011open} argumenta que la diferencia entre datos
+abiertos y datos verdaderamente útiles reside en la existencia de herramientas
+que traduzcan la información bruta en conocimiento accionable para actores con
+capacidades técnicas heterogéneas; sin dicha mediación, los datos abiertos
+empoderan únicamente a quienes ya cuentan con los recursos computacionales y el
+capital humano para procesarlos, reproduciendo en el plano digital las mismas
+desigualdades de acceso que caracterizan la movilidad metropolitana.
+
+Por su parte, \citet{neis2012street} documentaron cómo la colaboración
+distribuida en OpenStreetMap generó, entre 2007 y 2011, una red vial completa y
+detallada para todo el territorio alemán, demostrando que los datos \gis{} de
+base colaborativa pueden alcanzar la escala y densidad requeridas para el
+análisis urbano de precisión en plazos relativamente cortos. La evolución
+acelerada de la cobertura cartográfica comunitaria valida que las ciudades que
+actualmente disponen de datos incompletos pueden incorporarse progresivamente a
+este tipo de análisis conforme la comunidad local de contribuidores se
+consolida. En conjunto, estas perspectivas justifican la necesidad de
+desarrollar herramientas de código abierto que medien entre los datos
+disponibles y los planificadores urbanos que carecen de formación especializada
+en programación o análisis de redes complejas.
