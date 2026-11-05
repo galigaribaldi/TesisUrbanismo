@@ -8,10 +8,8 @@
 % Mexibús, Caso 3 = Anillo Metro) con sus mapas por cuadrante
 % (2026-10-22, opción B: absorbe el antiguo 6-3-1-Escenarios.tex).
 %
-% PENDIENTE para la revisión final (#32): Cap. 3 (3-3-5) y Cap. 5
-% (5-4-2) dicen que T_b depende del intervalo de paso de cada
-% sistema; VFTModel usa un valor fijo (FALLBACK_FRECUENCIA/2). Por
-% eso aquí no se dan los intervalos de los anillos (3 y 5 min).
+% #32 (2026-11-04): T_b = F/2 con F promedio fijo por sistema
+% (Cuadro tab:tb-sistemas); los anillos heredan F de MB (5) y METRO (3).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Escenarios y Procesamiento}
 \label{sec:anillo-escenarios}
@@ -71,6 +69,7 @@ que hoy tiene el transporte público sobre el Periférico
         $CF$                      & 1.380      & 1.152     & 1.000 \\
         $V_{\text{base}}$ (km/h)  & 11.0       & 16.3      & 36.0 \\
         $V$ efectiva (km/h)       & 8.0        & 14.2      & 36.0 \\
+        $F$ / $T_b$ (min)         & 15 / 7.5   & 5 / 2.5   & 3 / 1.5 \\
         Estaciones del anillo     & ---        & 94        & 94 \\
         Líneas / ramales          & ---        & 4 / 8     & 4 / 8 \\
         \hline

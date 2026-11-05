@@ -22,6 +22,51 @@ factor $\tfrac{1}{2}$ representa la espera media esperada bajo llegadas
 aleatorias al andén: en promedio, el usuario llega en el punto medio del
 intervalo entre dos servicios consecutivos.
 
+En \texttt{VFTModel}, $F$ no se toma línea por línea. Es un intervalo promedio
+por sistema, obtenido del \gtfs{} del Portal de Datos Abiertos de la \cdmx{}
+\citep{adip_gtfs_2024} y fijado en el código, de modo que vale lo mismo a
+cualquier hora del día (Cuadro~\ref{tab:tb-sistemas}). Los sistemas sin un valor
+propio, que son el Tren Interurbano, el Pumabús y el Mexicable, toman un
+intervalo de 10~min. Los dos anillos se registraron como líneas del Metrobús y
+del Metro, y por eso heredan sus intervalos: la espera al transbordar hacia el
+Anillo MB es de 2.5~min y hacia el Anillo Metro, de 1.5~min
+(§\ref{subsec:anillo-parametros}).
+
+\begin{table}[H]
+    \centering
+    \caption[Intervalo de paso y espera de transbordo por sistema]{%
+    Intervalo de paso promedio por sistema ($F$) y espera de transbordo
+    ($T_b = F/2$) que aplica \texttt{VFTModel}. Corrida: 2026-10-04.}
+    \label{tab:tb-sistemas}
+    \small
+    \begin{tabular}{lrr}
+        \toprule
+        \textbf{Sistema} & \textbf{$F$ (min)} & \textbf{$T_b$ (min)} \\
+        \midrule
+        \textsc{Metro}            &  3 & 1.5 \\
+        Metrobús                  &  5 & 2.5 \\
+        Mexibús\textsuperscript{a} &  6 & 3.0 \\
+        Trolebús                  &  8 & 4.0 \\
+        Tren Ligero               & 10 & 5.0 \\
+        Cablebús                  & 10 & 5.0 \\
+        Tren Suburbano            & 12 & 6.0 \\
+        \textsc{rtp}              & 15 & 7.5 \\
+        Corredores Concesionados  & 15 & 7.5 \\
+        Tren Interurbano, Pumabús y Mexicable\textsuperscript{b} & 10 & 5.0 \\
+        \bottomrule
+    \end{tabular}
+    \vspace{0.4em}
+
+    \noindent{\footnotesize \textsuperscript{a}\,El Mexibús no forma parte del
+    \gtfs{} de la \cdmx{} (§\ref{subsec:limitaciones-datos}); su intervalo es un
+    valor de referencia fijado por el autor.
+    \textsuperscript{b}\,Sin valor propio en \texttt{VFTModel}; toman el
+    intervalo por omisión.}
+
+    \fuentefigura{Elaboración propia con base en el \gtfs{} de la \cdmx{}
+    \citep{adip_gtfs_2024} y \texttt{VFTModel} \citep{cabrera2026VFTModel}.}
+\end{table}
+
 La penalización actúa exclusivamente sobre las 20{,}492 aristas de transbordo
 peatonal del grafo y no modifica el tiempo de las aristas de servicio real.
 Estas aristas no se limitan a los cambios entre sistemas distintos: \texttt{VFTModel} las

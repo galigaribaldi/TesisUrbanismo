@@ -205,11 +205,12 @@ es un solo corredor dentro de una red de más de diez mil nodos.
 Estos resultados tienen tres límites. Ni $T$ ni el tiempo medio de cada nodo
 toman en cuenta la demanda, así que los 44 o 60~minutos que gana
 Nezahualcóyotl dicen cuánto se acortan los caminos desde sus nodos y no cuántas
-personas ahorran ese tiempo. Además, la penalización por transbordo se aplica
-en los tres casos igual que en la red actual (§\ref{subsec:fase2-tb}); la
-diferencia entre el Anillo MB y el Anillo Metro sale, por eso, de la velocidad
-de cada uno. Por último, el modelo trata a la red como si siempre operara en
-condiciones normales. Fallas, cierres de estaciones, manifestaciones o lluvias
+personas ahorran ese tiempo. Además, la penalización por transbordo sigue
+la misma regla en los tres casos (§\ref{subsec:fase2-tb}), pero cada anillo
+hereda el intervalo de su sistema: esperar el Anillo MB toma 2.5~min y el Anillo
+Metro, 1.5. La diferencia entre los dos sale de la velocidad y de esa espera.
+Por último, el modelo trata a la red como si siempre operara en condiciones
+normales. Fallas, cierres de estaciones, manifestaciones o lluvias
 alargan los viajes en la práctica, y no hay manera de saber aquí si afectarían
 igual a los dos casos.
 

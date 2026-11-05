@@ -342,9 +342,11 @@ tener presentes cinco límites de su lectura:
 \begin{itemize}
     \item \textbf{Sin demanda.} $B(v)$ cuenta caminos y no pasajeros; que un
     nodo gane intermediación no dice cuánta gente pasaría por él.
-    \item \textbf{Misma penalización por transbordo.} Se aplica en los tres
-    casos igual que en la red actual (§\ref{subsec:fase2-tb}), así que la
-    diferencia entre el Anillo MB y el Anillo Metro sale de la velocidad.
+    \item \textbf{Misma regla de penalización por transbordo.} Se aplica en los
+    tres casos igual que en la red actual (§\ref{subsec:fase2-tb}), pero cada
+    anillo hereda el intervalo de su sistema: esperar el Anillo MB toma 2.5~min y
+    el Anillo Metro, 1.5. La diferencia entre los dos sale de la velocidad, del
+    derecho de vía y de esa espera.
     \item \textbf{Escala de la red.} La componente gigante de los Casos~2 y~3
     tiene 97 nodos más, lo que mueve un poco los valores de muchos nodos
     aunque sus caminos casi no cambien; por eso solo se cuentan los cambios

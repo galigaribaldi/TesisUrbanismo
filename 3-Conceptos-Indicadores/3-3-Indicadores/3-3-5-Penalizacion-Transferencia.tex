@@ -57,7 +57,7 @@ Donde:
     y el andén de abordaje, en minutos.
     \item $T_{\text{wait}}(s, h)$ = Tiempo de espera promedio en el andén de la
     línea $h$, calculado como la mitad del intervalo de paso (\textit{headway})
-    promedio de la línea.
+    promedio del sistema al que pertenece la línea $h$ (§\ref{subsec:fase2-tb}).
 \end{itemize}
 
 
@@ -80,7 +80,8 @@ planificados, no tiempos reales de operación. \citet{fortin2016innovative}
 reconocen esta limitación y señalan que los horarios inscritos pueden ser
 incorrectos debido a la congestión o a errores de codificación. En la
 implementación actual, la penalización se calcula de forma estática como la
-mitad del intervalo de paso de cada sistema, sin calibración con datos
+mitad de un intervalo de paso promedio por sistema, tomado del \gtfs{} y el
+mismo a cualquier hora (§\ref{subsec:fase2-tb}), sin calibración con datos
 observados. Como trabajo futuro, esa estimación podría contrastarse con los
 tiempos de espera y caminata que devuelve la Google Maps Directions API en modo
 \texttt{transit}. Repetir las consultas con distintos valores del parámetro
