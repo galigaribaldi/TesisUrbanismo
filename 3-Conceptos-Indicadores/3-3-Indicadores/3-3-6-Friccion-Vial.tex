@@ -5,8 +5,6 @@
 \label{subsec:friccion-vial}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \citet{fortin2016innovative}
-
 \subsubsection{Definición y Fundamentación}
 
 El Coeficiente de Fricción Vial es un multiplicador dinámico que corrige la
@@ -26,7 +24,9 @@ segregada y mantienen un $CF = 1.0$ constante, y los
 microbuses concesionados), cuyo tiempo de viaje real se incrementa en función de
 la hora del día y las condiciones de la vialidad.
 
-\subsubsection{Fórmula}
+El coeficiente compara el tiempo real de un tramo con el que tendría sin
+tránsito (Ecuación~\eqref{eq:friccion-vial}). Al despejarlo se obtiene el tiempo
+real a partir del ideal (Ecuación~\eqref{eq:tiempo-real}):
 
 \begin{equation}
     CF_h = \frac{T_{\text{real},h}}{T_{\text{ideal}}}
@@ -48,35 +48,9 @@ Donde:
     (referencia: 05:00\,h, sin congestión), en minutos.
 \end{itemize}
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+Los coeficientes de fricción que aplica el modelo según el derecho de vía se
+presentan en §\ref{subsec:fase2-cf}.
 
-Los valores de $T_{\text{real},h}$ que permiten calcular $CF_h$ se obtienen del
-\textbf{TomTom Traffic Index} \citep{tomtom2024}, base de datos histórica que
-registra la velocidad promedio de cada corredor vial de la \cdmx{} por franja
-horaria y día de la semana. Para cada arista de tráfico mixto del grafo, el
-coeficiente se estima como el cociente entre el tiempo real medido a la hora $h$
-y el tiempo de referencia en condiciones de flujo libre (05:00\,h).
-
-\textbf{Tramo de referencia:} Ruta RTP, Insurgentes Norte (5\,km, tiempo en
-flujo libre: 10 minutos).
-
-\begin{table}[H]
-    \centering
-    \caption{Valores del coeficiente $CF_h$ por franja horaria.}
-    \label{tab:friccion-vial}
-    \begin{tabularx}{\textwidth}{X r r}
-        \toprule
-        \textbf{Franja horaria} & \textbf{$T_{\text{real}}$ observado} &
-        \textbf{$CF_h$} \\
-        \midrule
-        05:00\,h (flujo libre)          & 10 min   & 1.00 (referencia) \\
-        08:00\,h (pico máximo)          & 18.5 min & \textbf{1.85} \\
-        15:00\,h (pico vespertino)      & 16 min   & 1.60 \\
-        19:00\,h (pico nocturno)        & 17 min   & 1.70 \\
-        Metro (cualquier hora)          & 10 min   & \textbf{1.00} (confinado) \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
 
 El coeficiente $CF_h$ calibra las aristas de tráfico mixto del grafo construido
 en el Objetivo Específico 1 (§\ref{subsec:obj-especificos}): sin esta

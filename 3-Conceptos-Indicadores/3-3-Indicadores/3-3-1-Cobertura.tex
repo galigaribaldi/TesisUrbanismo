@@ -9,8 +9,6 @@
 \label{subsec:indicador-cobertura}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \citet{fortin2016innovative}
-
 \subsubsection{Definición y Fundamentación}
 
 El nivel de cobertura es el indicador de entrada del modelo: el más
@@ -28,7 +26,8 @@ empleos que quedan dentro de cierta distancia de la infraestructura de
 transporte, lo que permite evaluar el nivel de accesibilidad en el territorio y
 señalar con precisión los lugares donde deben ocurrir las mejoras.
 
-\subsubsection{Fórmula}
+La Ecuación~\eqref{eq:cobertura} define el indicador como la fracción del
+territorio que queda dentro del radio de caminata de alguna parada:
 
 \begin{equation}
     C = \frac{\text{Área Cubierta por Buffers}}{\text{Área Total de la Zona de Estudio}}
@@ -75,32 +74,10 @@ Población y Vivienda 2020 del \textsc{inegi}, se obtiene la
 \termino{población cubierta}: la fracción de habitantes de la zona metropolitana
 que vive dentro del área de influencia de alguna parada.
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+El valor de $C$ para la red de la \zmvm{} se presenta en
+§\ref{subsec:cobertura-espacial} y su cambio con el anillo, en
+§\ref{subsec:anillo-cobertura}.
 
-\textbf{Datos de entrada:} coordenadas georreferenciadas de todas las paradas de
-la red (Metro, Metrobús, RTP, Trolebús, Cablebús, Mexibús) en formato
-\geojson{} y el polígono del área urbana de la \zmvm{}, de $\approx 7{,}866$\,
-km². La población por manzana del Censo 2020 del INEGI no se usa por ahora; se
-incorporaría cuando se calcule la población cubierta.
-
-
-\begin{table}[H]
-    \centering
-    \caption{Estimaciones del indicador $C$ por escenario de red.}
-    \label{tab:cobertura-escenarios}
-    \begin{tabularx}{\textwidth}{X r r}
-        \toprule
-        \textbf{Escenario} & \textbf{Área Cubierta} & \textbf{Cobertura $C$} \\
-        \midrule
-        Red masiva actual (solo Metro + Metrobús + Cablebús)
-            & $\approx 450$\,km² & $C \approx 0.06$ \\
-        Red completa actual (incluyendo RTP y concesionados)
-            & $\approx 2{,}800$\,km² & $C \approx 0.36$ \\
-        Red con propuesta del Anillo Periférico (+60 estaciones)
-            & $\approx 3{,}150$\,km² & $C \approx 0.40$ \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
 
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-cobertura}).

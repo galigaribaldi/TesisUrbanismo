@@ -9,8 +9,6 @@
 \label{subsec:ruta-directa}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \citet{fortin2016innovative}
-
 \subsubsection{Definición y Fundamentación}
 
 El Factor de Desviación cuantifica qué tan eficiente es la topología de la red
@@ -30,7 +28,8 @@ sus condiciones operativas--- y resulta especialmente útil para evaluar el
 trazado de nuevas rutas o comparar configuraciones alternativas antes de
 incorporar la dinámica de tráfico.
 
-\subsubsection{Fórmula}
+La Ecuación~\eqref{eq:detour-factor} compara la distancia que impone la red con
+la distancia en línea recta entre los mismos dos nodos:
 
 \begin{equation}
     DI = \frac{d_{\text{red}}(i,\, j)}{d_{\text{euclidiana}}(i,\, j)}
@@ -61,34 +60,16 @@ fuerza a los usuarios a rodeos significativos respecto al desplazamiento ideal.
     \fuentefigura{Elaboración propia con base en \citet{fortin2016innovative}.}
 \end{figure}
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+El valor de $DI$ para la red de la \zmvm{} se presenta en
+§\ref{subsec:factor-desviacion}.
 
-\begin{table}[H]
-    \centering
-    \caption{Comparativa del indicador $DI$ antes y después del Anillo Periférico.}
-    \label{tab:detour-factor}
-    \begin{tabularx}{\textwidth}{X r r r r r}
-        \toprule
-        \textbf{Par O--D} &
-        $d_{\text{eucl.}}$ &
-        $d_{\text{red}}$ actual &
-        $DI$ actual &
-        $d_{\text{red}}$ con Anillo &
-        $DI$ con Anillo \\
-        \midrule
-        Xochimilco $\to$ Santa Fe    & 15\,km & 28\,km & 1.87 & 18\,km & 1.20 \\
-        Perisur $\to$ Naucalpan      & 18\,km & 42\,km & 2.33 & 26\,km & 1.44 \\
-        Iztapalapa $\to$ Tlalnepantla & 22\,km & 55\,km & 2.50 & 30\,km & 1.36 \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
 
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-detour}).
 
-El indicador $DI$ contribuye tanto al Objetivo Específico 2 ---en su papel de
-métrica del diagnóstico topológico actual de la red--- como al Objetivo
-Específico 5 (§\ref{subsec:obj-especificos}): la reducción del $DI$ entre pares
-origen-destino del Tercer y Cuarto Contorno es uno de los efectos directamente
-esperables y cuantificables de la incorporación del corredor anillar al grafo de
-la \zmvm{}.
+El indicador $DI$ sirve primero al Objetivo Específico 2, como métrica del
+diagnóstico topológico de la red actual. También se planteó para el Objetivo
+Específico 5 (§\ref{subsec:obj-especificos}): se esperaba que el corredor
+anillar redujera el $DI$ entre pares origen-destino del Tercer y Cuarto
+Contorno. Ese contraste quedó fuera, porque el $DI$ solo se calculó para la red
+actual (§\ref{subsec:factor-desviacion}).

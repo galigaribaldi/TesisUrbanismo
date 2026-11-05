@@ -5,8 +5,6 @@
 \label{subsec:tiempo-viaje}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \citet{aldous2019optimal}
-
 \subsubsection{Definición y Fundamentación}
 
 El Tiempo de Viaje Promedio es la métrica de desempeño global del sistema y el
@@ -23,7 +21,8 @@ motivación teórica y no como prueba de que un corredor perimetral, como el
 Anillo Periférico, sea la mejor forma de ampliar la red de la \zmvm{}. Esa
 pregunta se examina con datos en el Capítulo~\ref{ch:analisis-red-anillo}.
 
-\subsubsection{Fórmula}
+La Ecuación~\eqref{eq:tiempo-promedio} promedia el tiempo mínimo de viaje entre
+todos los pares de nodos de la red:
 
 \begin{equation}
     T = \frac{1}{N \cdot (N-1)} \sum_{i \neq j} t_{ij}
@@ -56,7 +55,7 @@ cuantitativa principal de la viabilidad de la propuesta.
 \end{figure}
 
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+\subsubsection{Suposición Previa para la \zmvm{}}
 
 Los valores del Cuadro~\ref{tab:tiempo-promedio} son suposiciones esperadas y
 especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el

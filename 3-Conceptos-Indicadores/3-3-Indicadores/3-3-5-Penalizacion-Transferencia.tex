@@ -25,9 +25,11 @@ caminos mínimos ---específicamente el algoritmo de \dijkstra{} y el algoritmo 
 \floyd{}--- para determinar la ruta óptima entre cada par de nodos una vez que
 los pesos de las aristas reflejan todos los componentes del costo de viaje.
 
-\subsubsection{Fórmulas}
-
-Se presentan dos variantes complementarias:
+Las Ecuaciones~\eqref{eq:penalizacion-estatica} y~\eqref{eq:penalizacion-dinamica}
+presentan dos maneras de calcular la penalización. La primera suma un castigo
+fijo por cada transbordo; la segunda da a cada arista de transferencia su propio
+tiempo de caminata y de espera, y es la que implementa \texttt{VFTModel}
+(§\ref{subsec:fase2-tb}).
 
 \medskip
 \noindent\textbf{Variante 1 --- Penalización Estática (simplificada):}
@@ -111,26 +113,9 @@ la representación matemática del grafo y la geografía urbana real de la red,
 haciendo posible traducir coordenadas de campo en insumos del modelo
 \citep{fortin2016innovative}.
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+Los valores de $T_b$ que aplica el modelo a cada sistema se presentan en
+§\ref{subsec:fase2-tb}.
 
-\textbf{Par de transferencia:} Pantitlán Línea 1 Metro $\to$ Pantitlán Línea 9
-Metro.
-
-\begin{table}[H]
-    \centering
-    \caption{Estimaciones del indicador $W_{s,h}$ en la transferencia Pantitlán L1--L9.}
-    \label{tab:penalizacion}
-    \begin{tabularx}{\textwidth}{X r r}
-        \toprule
-        \textbf{Componente} & \textbf{Valor estático} &
-        \textbf{Valor dinámico (hora pico 8:00\,h)} \\
-        \midrule
-        $T_{\text{walk}}$ (caminata entre andenes) & 3 min & 5 min \\
-        $T_{\text{wait}}$ (espera en andén L9) & 4.5 min & 7 min \\
-        $W_{s,h}$ \textbf{total} & \textbf{7.5 min} & \textbf{12 min} \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
 
 El modelado correcto de $W_{s,h}$ es condición necesaria para que el grafo
 multimodal construido en el Objetivo Específico 1

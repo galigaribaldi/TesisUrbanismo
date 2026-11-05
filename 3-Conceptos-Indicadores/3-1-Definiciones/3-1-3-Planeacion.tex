@@ -24,7 +24,9 @@ transporte y registrar sus cambios en el tiempo de forma estructurada y
 automatizada. Para cubrir esa brecha proponen un método orientado a grafos: los
 datos \gtfs{} (\textit{General Transit Feed Specification}) se cargan en una
 base de grafos desde la que se calculan algoritmos de caminos mínimos y se
-derivan indicadores de desempeño de forma automatizada. El presente trabajo
+derivan indicadores de desempeño de forma automatizada. La
+Figura~\ref{fig:gtfs-estructura} muestra cómo se relacionan los archivos del
+estándar. El presente trabajo
 adopta este enfoque; los datos \gtfs{} de la red de la \zmvm{} se procesan para
 construir un grafo que integra la geometría de la red junto con las frecuencias
 y horarios de servicio de cada modo.
@@ -96,7 +98,11 @@ reproducibles sin depender de licencias comerciales.
    \centering
    \includegraphics[width=0.85\textwidth]{Figures/Cap3/DiagramCompleteDataSetGTFS.png}
    \caption[Estructura relacional de archivos \gtfs{}]{Diagrama de la estructura
-   relacional de los archivos que componen el estándar \gtfs{}.}
+   relacional de los archivos que componen el estándar \gtfs{}. Traducción de
+   los rótulos: \textit{Required}, obligatorio; \textit{Optional}, opcional;
+   \textit{Diagram of complete GTFS file dataset}, diagrama del conjunto completo
+   de archivos \gtfs{}. Los nombres de los archivos se conservan; «Figure~1» es la
+   numeración de la fuente.}
    \label{fig:gtfs-estructura}
    \fuentefigura{\citet{fortin2016innovative}, p.~21.}
  \end{figure}

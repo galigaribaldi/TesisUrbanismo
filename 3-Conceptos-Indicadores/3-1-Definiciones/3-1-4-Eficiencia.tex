@@ -91,12 +91,22 @@ permiten calcular la accesibilidad real desde cualquier nodo de la red hacia
 todos los demás, considerando los horarios y frecuencias del servicio. Esta
 \termino{accesibilidad dinámica}, calculada algorítmicamente sobre el modelo de
 grafo, constituye una medida integral de la eficiencia urbana que se incorporará
-al análisis computacional de la presente investigación.
+al análisis computacional de la presente investigación. La
+Figura~\ref{fig:indices-grafos} resume tres índices clásicos de teoría de
+grafos que \citet{fortin2016innovative} retoman como antecedente, con sus
+ventajas y sus limitaciones.
 
 \begin{figure}[H]
    \centering
    \includegraphics[width=0.85\textwidth]{Figures/Cap3/TablaIndicatorsAdaptedGraphTeory.png}
-   \caption[Índices de Grafos \gtfs{}]{Tabla de indicadores de grafos \gtfs{}.}
+   \caption[Índices de Grafos \gtfs{}]{Tabla de indicadores de grafos \gtfs{}.
+   Traducción: \textit{Name (Author) and Description}, nombre (autor) y
+   descripción; \textit{Equation}, ecuación; \textit{Pros}, ventajas;
+   \textit{Cons}, desventajas. Los índices son el $\alpha$ planar o grado de
+   ciclicidad y el $\gamma$ planar o grado de conectividad, ambos de Garrison y
+   Marble, y el índice de superposición de líneas, de Vuchic y Musso; $e$ es el
+   número de aristas, $v$ el de vértices y $R$ la longitud total de las rutas.
+   Tabla adaptada de Derrible y Kennedy (2011).}
    \label{fig:indices-grafos}
    \fuentefigura{\citet{fortin2016innovative}, p.~23.}
  \end{figure}

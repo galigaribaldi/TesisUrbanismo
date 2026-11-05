@@ -5,8 +5,6 @@
 \label{subsec:robustez-geometrica}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \citet{lotero2014vulnerabilidad}
-
 \subsubsection{Definición y Fundamentación}
 
 La Robustez Geométrica es el indicador de mayor dependencia jerárquica del
@@ -27,7 +25,8 @@ distribución libre de escala son robustas ante fallas aleatorias, pero altament
 vulnerables ante ataques dirigidos a sus nodos más conectados, resultado que es
 la base teórica del experimento de fase final del presente trabajo.
 
-\subsubsection{Fórmula}
+La Ecuación~\eqref{eq:robustez} mide cuánto cae la eficiencia de la red cuando
+se retira un nodo o un conjunto de nodos:
 
 \begin{equation}
     \Delta E = \frac{E_0 - E_f}{E_0}
@@ -72,38 +71,9 @@ de ese nodo produce una degradación severa del servicio.
     \fuentefigura{Elaboración propia con base en \citet{lotero2014vulnerabilidad}.}
 \end{figure}
 
+El ejercicio exploratorio de $\Delta E$ sobre la red de la \zmvm{} se presenta
+en §\ref{subsec:vulnerabilidad-estructural}.
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
-
-Los valores del Cuadro~\ref{tab:robustez} son suposiciones esperadas y
-especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el
-indicador; no son resultados. Se contrastan con los valores calculados en
-§\ref{subsec:vulnerabilidad-estructural} y con el escenario del
-Capítulo~\ref{ch:analisis-red-anillo}, y pueden no coincidir con ellos.
-
-\textbf{Experimento:} Remoción del nodo «Pantitlán» (nodo de mayor $B(v)$ en la
-red actual).
-
-\begin{table}[H]
-    \centering
-    \caption{Impacto supuesto del indicador $\Delta E$ ante la remoción de
-    Pantitlán.}
-    \label{tab:robustez}
-    \begin{tabularx}{\textwidth}{X r r r}
-        \toprule
-        \textbf{Condición} & \textbf{$T$ promedio} &
-        \textbf{$E = 1/T$} & \textbf{$\Delta E$} \\
-        \midrule
-        Red actual completa ($E_0$)          & 85 min & 0.01176 & --- \\
-        Red actual sin Pantitlán ($E_f$)     & 133 min & 0.00752 & $\mathbf{36}$\,\textbf{\%} \\
-        Red con Anillo completo ($E_0'$)     & 65 min & 0.01538 & --- \\
-        Red con Anillo sin Pantitlán ($E_f'$) & 78 min & 0.01282 & $\mathbf{17}$\,\textbf{\%} \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-Si se cumpliera la suposición, el anillo reduciría a cerca de la mitad la
-pérdida de eficiencia ante la remoción del nodo más crítico.
 
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-robustez}).

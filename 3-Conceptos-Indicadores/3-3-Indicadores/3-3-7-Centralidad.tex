@@ -30,7 +30,8 @@ cada estación por su grado y por el flujo de pasajeros que la atraviesa, y
 muestran que unas pocas estaciones concentran una parte desproporcionada de la
 articulación de la red.
 
-\subsubsection{Fórmula}
+La Ecuación~\eqref{eq:betweenness} cuenta, para cada estación, qué fracción de
+los caminos mínimos entre los demás pares de nodos pasa por ella:
 
 \begin{equation}
     B(v) = \frac{1}{(N-1)(N-2)} \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}
@@ -67,7 +68,7 @@ necesariamente las más cortas en distancia.
 \end{figure}
 
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
+\subsubsection{Suposición Previa para la \zmvm{}}
 
 Los valores del Cuadro~\ref{tab:betweenness} son suposiciones esperadas y
 especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el

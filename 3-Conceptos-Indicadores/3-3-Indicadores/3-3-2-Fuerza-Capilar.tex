@@ -5,8 +5,6 @@
 \label{subsec:alimentacion-capilar}
 % -----------------------------------------------------------------------
 
-\textbf{Fuente principal:} \citet{lee2008}
-
 \subsubsection{Definición y Fundamentación}
 
 Una vez que las estaciones están georreferenciadas y las aristas de la red están
@@ -26,7 +24,9 @@ es directamente relevante para la red de la \cdmx{}, donde los macro-CETRAMs
 nodales que concentran la articulación entre las redes capilares de superficie y
 las arterias masivas.
 
-\subsubsection{Fórmula}
+La Ecuación~\eqref{eq:fuerza-nodal} expresa la Fuerza Capilar de una estación
+masiva como la suma de las rutas de superficie que llegan a ella, cada una con
+su peso:
 
 \begin{equation}
     FC_i = \sum_{j \in S} A_{ij} \cdot \peso{i}{j}
@@ -69,30 +69,10 @@ agregada por Macro-Hub, $FC_H$, se presenta en §\ref{subsec:fuerza-capilar}.
     \fuentefigura{Elaboración propia con base en \citet{lee2008}.}
  \end{figure}
 
+El valor de $FC$ para la red de la \zmvm{} se presenta en
+§\ref{subsec:fuerza-capilar} y su cambio con el anillo, en
+§\ref{subsec:anillo-fuerza-capilar}.
 
-\subsubsection{Ejemplo Práctico: \cdmx{} y Zona Metropolitana}
-
-Los valores del Cuadro~\ref{tab:capilar-nodos} son suposiciones esperadas y
-especulativas, planteadas antes de procesar la red para ilustrar cómo se lee el
-indicador; no son resultados. Se contrastan con los valores calculados en
-§\ref{subsec:fuerza-capilar} y pueden no coincidir con ellos.
-
-\begin{table}[H]
-    \centering
-    \caption{Estimaciones del indicador $FC$ en nodos representativos.}
-    \label{tab:capilar-nodos}
-    \begin{tabularx}{\textwidth}{X r r}
-        \toprule
-        \textbf{Estación masiva} &
-        \textbf{$k_{in}$ (rutas capilares)} &
-        \textbf{$FC$ estimado (pax/h)} \\
-        \midrule
-        Pantitlán (Hub CETRAM)          & $\approx 120$ rutas & Alto \\
-        Indios Verdes (CETRAM)          & $\approx 90$ rutas  & Alto \\
-        Nodo Norte propuesto (Periférico) & $\approx 40$ rutas (est.) & Medio-alto \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
 
 La implementación computacional de referencia para este indicador se encuentra
 en el \autoref{anx:indicadores-implementacion} (§\ref{anx:impl-capilar}).
