@@ -72,3 +72,29 @@ componen el análisis, su fase de cálculo y su estado de avance.
     \fuentefigura{Elaboración propia con base en \texttt{VFTModel}
     \citep{cabrera2026VFTModel}.}
 \end{table}
+
+% #35 — Limitación 6 (datos GTFS) y nota de restricción de #34 (2026-11-04)
+\subsection{Limitaciones de los Datos}
+\label{subsec:limitaciones-datos}
+
+La afirmación de que el problema no es la falta de datos vale para la \cdmx{},
+no para toda la \zmvm{}. Los doce sistemas del conjunto no vienen de la misma
+fuente. La mayoría, incluidos el Tren Suburbano y el Tren Interurbano, sale del
+\gtfs{} que publica el Portal de Datos Abiertos de la \cdmx{}
+\citep{adip_gtfs_2024}. El Mexibús y el Mexicable, que operan solo en el Estado
+de México, no tienen un \gtfs{} oficial: sus paradas y trazos se tomaron de
+\termino{OpenStreetMap} \citep{osm2012}, igual que las paradas que faltaban de
+la Línea~13 del Trolebús (§\ref{sec:grafo-topologico}). Las rutas de superficie
+de los municipios mexiquenses no forman parte de los datos procesados. Y las
+cinco estaciones del Tren Interurbano, aunque están en el grafo, quedan fuera de
+la componente gigante sobre la que se calculan $T$ y $B(v)$.
+
+Esto pesa sobre los resultados. En los municipios conurbados los datos casi
+solo registran sistemas de vía exclusiva o confinada, así que su baja cobertura,
+y la distancia que los separa de la ciudad, se explican en parte por lo que falta
+en los datos y no solo por lo que falta en el territorio. Hay que leer con esa
+reserva todo lo que se reporta en ámbito metropolitano. Eso incluye la
+Clasificación Garibelt (§\ref{sec:diagnostico-garibelt}) y su comparación con
+los escenarios del anillo (§\ref{sec:anillo-espectro}). Queda como trabajo
+futuro una versión limitada a las 16 alcaldías de la \cdmx{}, donde todos los
+datos tienen la misma fuente.

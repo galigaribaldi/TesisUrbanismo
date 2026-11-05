@@ -1,26 +1,41 @@
 % !TeX root = ../../tesis.tex
+% Esquema ilustrativo (decisión del autor 2026-11-04): claves y rutas
+% tomadas de VFTModel/src/api/main.py; valores = marcadores de tipo.
 
-\section{Ejemplo de Respuesta: Índice de Ruta Directa \texorpdfstring{($DI$)}{(DI)}}
+\section{Ejemplo de Respuesta: Factor de Desviación \texorpdfstring{($DI$)}{(DI)}}
 \label{anx:vft-out-detour}
 
-Respuesta de referencia del indicador $DI$ (§\ref{subsec:ruta-directa}).
+Esquema ilustrativo de la respuesta del indicador $DI$
+(§\ref{subsec:ruta-directa}). Los nombres de las claves y la ruta son los
+de \texttt{VFTModel}; los valores son marcadores de tipo. Las cifras de la
+corrida 2026-10-04 se reportan en el Capítulo~\ref{ch:analisis-red-actual}.
+
+A diferencia de los demás, este \termino{endpoint} está en la raíz de la \api{},
+fuera del prefijo \texttt{/api/v1/network/}.
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Estructura de respuesta del endpoint \texttt{/detour-factor}
-           (valores de referencia).},
+  caption={Esquema de respuesta del endpoint \texttt{/get\_detour\_factor}
+           (ilustrativo; \texttt{visualize} = falso).},
   label=lst:out-detour]
 {
-  "indicador": "indice_ruta_directa",
-  "DI_promedio_global": 0.0,
-  "muestra_pares_od": 0,
-  "pares_od": [
-    {
-      "origen":              "PENDIENTE",
-      "destino":             "PENDIENTE",
-      "DI":                  0.0,
-      "distancia_red_km":    0.0,
-      "distancia_directa_km": 0.0
-    }
+  "status": "success",
+  "parametros": { "muestra_estadistica": <número>,
+                  "modo_grafo": "REALISTIC_INTEGRATION",
+                  "visualizacion_activa": false },
+  "data": [
+    { "Origen": "<texto>", "Sistema_Origen": "<sistema>",
+      "Destino": "<texto>", "Sistema_Destino": "<sistema>",
+      "Sistemas_Involucrados": ["<sistema>"],
+      "Ruta_Estaciones": ["<estación>"],
+      "Saltos_Topologicos": <número>,
+      "Distancia_Recta_km": <número>,
+      "Distancia_Red_km": <número>,
+      "Factor_Desviacion": <número>,
+      "Consideraciones_Reales": {
+        "Caminata_1ra_Milla_m": <número>,
+        "Caminata_Ultima_Milla_m": <número>,
+        "Estacion_Abordaje": "<estación>",
+        "Estacion_Descenso": "<estación>" } }
   ]
 }
 \end{lstlisting}

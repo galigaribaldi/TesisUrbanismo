@@ -107,7 +107,7 @@ Esta fase tiene una ponderación del 30\,\% y cubre los
 
     \item[Actividades a
     Desarrollar:]~\begin{itemize}
-\item \textit{Cálculo del Índice de Ruta Directa ($DI$) y Tiempo de Viaje
+\item \textit{Cálculo del Factor de Desviación ($DI$) y Tiempo de Viaje
         Promedio ($T$)}: Aplicación del motor \texttt{VFTModel}
         \citep{cabrera2026VFTModel} para obtener los indicadores base de
 eficiencia en la configuración topológica actual. El $DI$ mide la desviación
@@ -144,12 +144,15 @@ los indicadores calculados para identificar zonas con déficit de conectividad
         intermediación \citep{mishra2015, ugur2025}.
 \item \textit{Diseño de los escenarios hipotéticos}: Dos configuraciones de
         corredor anillar de alta capacidad en los cuatro cuadrantes del
-        Anillo Periférico. El Caso~2 toma como referencia la operación del
-        Metrobús: vía confinada y velocidad comercial de 16.3~km/h. El
-        Caso~3 toma como referencia el Metro: vía exclusiva y 36~km/h. Los
-        dos comparten trazo y estaciones (§\ref{subsec:anillo-parametros}),
-        los pesos $\peso{i}{j}$ se calculan igual que en el grafo base y las
-        penalizaciones de transbordo no cambian.
+        Anillo Periférico. El Caso~2 toma como referencia un autobús de tránsito rápido
+        (\termino{Bus Rapid Transit}, \brt{}) con vía
+        confinada, como el Mexibús: parte de la velocidad comercial del
+        Metrobús, 16.3~km/h, que la fricción del tránsito baja a unos
+        14.2~km/h. El Caso~3 toma como referencia el Metro: vía exclusiva y
+        36~km/h. Los dos comparten trazo y estaciones
+        (§\ref{subsec:anillo-parametros}), los pesos $\peso{i}{j}$ se
+        calculan igual que en el grafo base y las penalizaciones de
+        transbordo no cambian.
 \item \textit{Simulación comparativa}: Se corre \texttt{VFTModel} por
         separado sobre el Caso~2 y el Caso~3; los valores de $C$, $FC$, $T$ y
         $B(v)$ se comparan contra el Caso~1 para establecer qué

@@ -2,14 +2,15 @@
 
 % =============================================================================
 %  ANEXO D — Implementaciones Computacionales de Indicadores
-%  Prototipo teórico — sustituir con código de producción verificado
+%  Fragmentos ilustrativos (decisión del autor 2026-11-04): no son el código
+%  de producción; los resultados de la tesis salen de VFTModel (Anexo B).
 % =============================================================================
 
-Este anexo reúne los prototipos de implementación en Python de cada indicador
-definido en §\ref{sec:indicadores-formulas}. El código aquí presentado
-corresponde a implementaciones teóricas de referencia; la versión de producción
----validada sobre los datos reales de la \zmvm{}--- se desarrollará en
-investigaciones posteriores o en la fase de cierre del presente trabajo.
+Los fragmentos en Python de este anexo son ilustrativos. Cada uno toma un
+indicador de §\ref{sec:indicadores-formulas} y muestra cómo queda la fórmula
+escrita en código, sin el manejo de datos que exige una red real. Los
+resultados de la tesis no salen de aquí, sino de \texttt{VFTModel}, que se
+documenta en el Anexo~\ref{anx:vftmodel-tecnico}.
 
 % -----------------------------------------------------------------------
 \section{Cobertura de la Red \texorpdfstring{$C$}{C}}
@@ -56,7 +57,7 @@ capilar_strength = {
 \end{lstlisting}
 
 % -----------------------------------------------------------------------
-\section{\textit{Detour Factor} --- Índice de Ruta Directa \texorpdfstring{($DI$)}{(DI)}}
+\section{Factor de Desviación --- \textit{Detour Factor} \texorpdfstring{($DI$)}{(DI)}}
 \label{anx:impl-detour}
 % -----------------------------------------------------------------------
 
@@ -65,7 +66,7 @@ Implementación de referencia del indicador $DI$ definido en
 \textbf{NetworkX} para el camino mínimo ponderado por distancia en km.
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Cálculo del \textit{Detour Factor} $DI$ (prototipo).},
+  caption={Cálculo del Factor de Desviación $DI$ (prototipo).},
   label={lst:detour}]
 from geopy.distance import geodesic
 import networkx as nx

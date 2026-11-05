@@ -1,27 +1,30 @@
 % !TeX root = ../../tesis.tex
+% Esquema ilustrativo (decisión del autor 2026-11-04): claves y rutas
+% tomadas de VFTModel/src/api/main.py; valores = marcadores de tipo.
 
 \section{Ejemplo de Respuesta: Coeficiente de Fricción Vial \texorpdfstring{($CF_h$)}{(CFh)}}
 \label{anx:vft-out-friccion}
 
-El indicador $CF_h$ no expone un endpoint independiente: su valor queda embebido
-en el atributo \texttt{weight} de cada arista del grafo. La estructura de
-referencia muestra cómo se almacena en los metadatos de arista
-(§\ref{subsec:friccion-vial}).
+El indicador $CF_h$ no expone un \termino{endpoint} independiente: su valor queda
+guardado como atributo de cada arista de tránsito del grafo, junto con el
+tiempo que produce (§\ref{subsec:friccion-vial}). El esquema es ilustrativo:
+los nombres de los atributos son los de \texttt{VFTModel} y los valores son
+marcadores de tipo. Las aristas de transbordo no llevan este atributo.
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Metadatos de arista que incluyen el valor de $CF_h$
-           (valores de referencia).},
+  caption={Atributos de una arista de tránsito que incluyen $CF_h$
+           (ilustrativo).},
   label=lst:out-friccion]
 {
-  "arista": {
-    "origen":          "PENDIENTE",
-    "destino":         "PENDIENTE",
-    "sistema":         "PENDIENTE",
-    "derecho_de_via":  "PENDIENTE",
-    "CF_h":            0.0,
-    "velocidad_kmh":   0.0,
-    "distancia_m":     0.0,
-    "weight_minutos":  0.0
-  }
+  "sistema": "<sistema>",
+  "tipo": "transit",
+  "derecho_de_via": "<exclusivo | confinado | compartido | mixto>",
+  "velocidad_promedio_kmh": <número>,
+  "frecuencia_minutos": <número>,
+  "distancia_segmento_m": <número>,
+  "coeficiente_friccion": <número>,
+  "travel_time_min": <número>,
+  "boarding_cost_min": <número>,
+  "weight": <número>
 }
 \end{lstlisting}

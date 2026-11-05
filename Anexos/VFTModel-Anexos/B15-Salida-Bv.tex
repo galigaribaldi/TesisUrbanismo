@@ -1,23 +1,38 @@
 % !TeX root = ../../tesis.tex
+% Esquema ilustrativo (decisión del autor 2026-11-04): claves y rutas
+% tomadas de VFTModel/src/api/main.py; valores = marcadores de tipo.
 
 \section{Ejemplo de Respuesta: Centralidad de Intermediación \texorpdfstring{($B(v)$)}{(B(v))}}
 \label{anx:vft-out-betweenness}
 
-Respuesta de referencia del indicador $B(v)$
-(§\ref{subsec:centralidad-intermediacion}).
+Esquema ilustrativo de la respuesta del indicador $B(v)$
+(§\ref{subsec:centralidad-intermediacion}). Los nombres de las claves y la ruta son los
+de \texttt{VFTModel}; los valores son marcadores de tipo. Las cifras de la
+corrida 2026-10-04 se reportan en el Capítulo~\ref{ch:analisis-red-actual}.
+
+El orden va de mayor a menor $B(v)$ y se recorta al valor de \texttt{limit}.
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Estructura de respuesta del endpoint
-           \texttt{/betweenness-centrality} (valores de referencia).},
+  caption={Esquema de respuesta del endpoint
+           \texttt{/topological/betweenness-centrality} (ilustrativo).},
   label=lst:out-betweenness]
 {
-  "indicador":            "centralidad_intermediacion",
-  "normalizado":          true,
-  "top_nodos": [
-    { "nombre": "PENDIENTE", "B_v": 0.0, "rango": 1 },
-    { "nombre": "PENDIENTE", "B_v": 0.0, "rango": 2 },
-    { "nombre": "PENDIENTE", "B_v": 0.0, "rango": 3 }
-  ],
-  "total_nodos_evaluados": 0
+  "status": "success",
+  "parametros": { "modo_grafo": "REALISTIC_INTEGRATION",
+                  "tolerancia_transbordo_m": <número> },
+  "data": {
+    "summary": {
+      "total_stations_ranked": <número>,
+      "top_5": [ { "...": "mismas claves que ranking" } ],
+      "reference": { "expected_top_cdmx": ["<estación>"],
+                     "expected_B_approx": <número> }
+    },
+    "ranking": [
+      { "node_id": "<texto>", "nombre": "<estación>", "sistema": "<sistema>",
+        "alcaldia_municipio": "<texto>", "es_cetram": <booleano>,
+        "lon": <número>, "lat": <número>,
+        "betweenness_centrality": <número> }
+    ]
+  }
 }
 \end{lstlisting}

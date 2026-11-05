@@ -1,20 +1,28 @@
 % !TeX root = ../../tesis.tex
+% Esquema ilustrativo (decisión del autor 2026-11-04): claves y rutas
+% tomadas de VFTModel/src/api/main.py; valores = marcadores de tipo.
 
 \section{Ejemplo de Respuesta: Tiempo de Viaje Promedio \texorpdfstring{($T$)}{(T)}}
 \label{anx:vft-out-tiempo}
 
-Respuesta de referencia del indicador $T$ (§\ref{subsec:tiempo-viaje}).
+Esquema ilustrativo de la respuesta del indicador $T$
+(§\ref{subsec:tiempo-viaje}). Los nombres de las claves y la ruta son los
+de \texttt{VFTModel}; los valores son marcadores de tipo. Las cifras de la
+corrida 2026-10-04 se reportan en el Capítulo~\ref{ch:analisis-red-actual}.
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Estructura de respuesta del endpoint \texttt{/average-travel-time}
-           (valores de referencia).},
+  caption={Esquema de respuesta del endpoint
+           \texttt{/topological/average-travel-time} (ilustrativo).},
   label=lst:out-tiempo]
 {
-  "indicador":        "tiempo_viaje_promedio",
-  "T_minutos":        0.0,
-  "muestra_pares_od": 0,
-  "modo_integracion": "REALISTIC_INTEGRATION",
-  "umbral_snapping_m": 85,
-  "algoritmo":        "DIJKSTRA"
+  "status": "success",
+  "parametros": { "modo_grafo": "REALISTIC_INTEGRATION",
+                  "tolerancia_transbordo_m": <número> },
+  "data": {
+    "T_average_travel_time_minutes": <número>,
+    "graph_info": { "nodes": <número>, "edges": <número>,
+                    "is_strongly_connected": <booleano> },
+    "reference": { "expected_cdmx_approx": <número>, "unit": "<texto>" }
+  }
 }
 \end{lstlisting}

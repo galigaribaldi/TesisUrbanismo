@@ -5,7 +5,7 @@
 % =============================================================================
 
 % -----------------------------------------------------------------------
-\subsection{Índice de Ruta Directa --- \texorpdfstring{\textit{Detour Factor} ($DI$)}{Detour Factor (DI)}}
+\subsection{Factor de Desviación --- \texorpdfstring{\textit{Detour Factor} ($DI$)}{Detour Factor (DI)}}
 \label{subsec:ruta-directa}
 % -----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@
 
 \subsubsection{Definición y Fundamentación}
 
-El Índice de Ruta Directa cuantifica qué tan eficiente es la topología de la red
+El Factor de Desviación cuantifica qué tan eficiente es la topología de la red
 en términos geométricos puros: mide cuánto se alarga un viaje al estar obligado
 a seguir la infraestructura real de la red en lugar de desplazarse en línea
 recta entre origen y destino. \citet{fortin2016innovative} proponen este
@@ -39,7 +39,7 @@ incorporar la dinámica de tráfico.
 
 Donde:
 \begin{itemize}
-    \item $DI$ = Índice de Ruta Directa (adimensional, siempre $DI \geq 1.0$).
+    \item $DI$ = Factor de Desviación (adimensional, siempre $DI \geq 1.0$).
 \item $d_{\text{red}}(i, j)$ = Distancia del camino mínimo entre los nodos $i$
     y $j$ medida a lo largo de las aristas del grafo, en km.
     \item $d_{\text{euclidiana}}(i, j)$ = Distancia en línea recta (distancia
@@ -54,7 +54,7 @@ fuerza a los usuarios a rodeos significativos respecto al desplazamiento ideal.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Cap3/DistanciaEuclidiana.png}
-    \caption[Diagrama del \textit{Detour Factor} $DI$]{Comparación entre la
+    \caption[Diagrama del Factor de Desviación $DI$]{Comparación entre la
     distancia en red (arco curvado) y la distancia euclidiana (línea punteada)
     entre origen O y destino D.}
     \label{fig:indicador-DI}

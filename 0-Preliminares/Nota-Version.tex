@@ -1,0 +1,66 @@
+% !TeX root = ../tesis.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTA SOBRE ESTA VERSIÓN (#39, acuerdo 4 de la reunión 2026-10-19)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Nota sobre esta versión}
+\addcontentsline{toc}{chapter}{Nota sobre esta versión}
+
+Esta versión reúne las correcciones acordadas en las revisiones de octubre y
+noviembre de 2026. Para quien haya leído una versión anterior, el
+Cuadro~\ref{tab:nota-version} resume qué cambió de nombre, de valor o de
+criterio, y dónde se explica cada cambio. Las cifras del documento salen de una
+sola corrida de \texttt{VFTModel}, la del 2026-10-04; cuando una figura o un
+cuadro usa otra, su pie lo indica.
+
+\begin{table}[H]
+\centering
+\caption[Equivalencias entre versiones]{Equivalencias entre la versión
+anterior y esta versión.}
+\label{tab:nota-version}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.3cm}
+  >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}p{2.1cm}}
+\toprule
+\textbf{Tema} & \textbf{Versión anterior} & \textbf{Esta versión} &
+\textbf{Dónde} \\
+\midrule
+Corrida de \texttt{VFTModel}
+  & Varias corridas, de abril a septiembre de 2026
+  & Corrida única del 2026-10-04 (\texttt{VFTModel} \texttt{4ef4265}); $\Delta E$
+    sigue como corrida exploratoria del 2026-09-02
+  & Pies de figuras y cuadros; §\ref{subsec:vulnerabilidad-estructural} \\
+Ámbito geográfico
+  & Texto y figuras con las 141 demarcaciones del conjunto de datos
+  & Texto: \zmvm{} de 76 demarcaciones. Figuras: las 141 del conjunto de
+    datos. La Clasificación Garibelt se reporta en ámbito metropolitano
+  & §\ref{subsec:cobertura-espacial}, §\ref{subsec:limitaciones-datos} \\
+Casos del anillo
+  & Caso~2: Metro, 35~km/h, estaciones cada 1,200~m. Caso~3: Metrobús,
+    22~km/h, cada 600~m
+  & Caso~2: Anillo MB, autobús en vía confinada como el Mexibús, 16.3~km/h que bajan
+    a unos 14.2~km/h. Caso~3: Anillo Metro, 36~km/h. Los dos comparten las 94
+    estaciones
+  & §\ref{subsec:anillo-parametros}, §\ref{subsec:corredor-anillar-limitaciones} \\
+Referencia de $T$
+  & «Referencia CDMX» de 85~min
+  & Tiempo de referencia del modelo; rango de 85 a 180~min como supuesto del
+    autor
+  & §\ref{subsubsec:garibelt-procedimiento} \\
+Escala Garibelt
+  & Bandas Crítico, Débil, Aceptable e Idóneo; «banda dominante»
+  & Intervalos 0.00--0.25, 0.25--0.50, 0.50--0.75 y 0.75--1.00; «intervalo
+    dominante»
+  & §\ref{subsubsec:garibelt-escala} \\
+Nombre de $DI$
+  & Índice de Ruta Directa; símbolo $DF$ en los anexos
+  & Factor de Desviación, con símbolo $DI$ en todo el documento
+  & §\ref{subsec:ruta-directa} \\
+Fuerza Capilar de Macro-Hub
+  & $FC_h$ en el Anexo F
+  & $FC_H$ en todo el documento
+  & §\ref{subsec:fuerza-capilar} \\
+\bottomrule
+\end{tabularx}
+\fuentefigura{Elaboración propia.}
+\end{table}

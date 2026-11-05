@@ -124,11 +124,11 @@ Capítulo~\ref{ch:analisis-red-actual} la intermediación aparece concentrada en
 unos pocos nodos del eje Tacubaya--Mixcoac y del centro: Tacubaya
 ($B(v) = 0.2232$) y Mixcoac (0.1923) encabezan la jerarquía, y ocho de los
 diez nodos con mayor $B(v)$ están en Benito Juárez o Cuauhtémoc
-(§\ref{subsec:fase3-centralidad}). La Fuerza Capilar queda en banda Débil
+(§\ref{subsec:fase3-centralidad}). La Fuerza Capilar queda en el intervalo 0.25--0.50
 (§\ref{subsec:fuerza-capilar}) y la cobertura cae al salir de la \cdmx{}: es de
 53.52\,\% en la ciudad y de 3.92\,\% en los 60 municipios conurbados, 42 de los
 cuales no tienen cobertura (§\ref{subsec:cobertura-espacial}). El Espectro MJG
-resume ese cuadro con la Centralidad y la Accesibilidad en banda Crítica
+resume ese cuadro con la Centralidad y la Accesibilidad en el intervalo 0.00--0.25
 (Cuadro~\ref{tab:espectro-mjg-diagnostico}). Es el patrón que el
 Cuadro~\ref{tab:radial-anillar} atribuye a una red radial: los viajes entre
 periferias pasan por el centro y los nodos centrales cargan con ellos. El
@@ -231,7 +231,7 @@ pierde con el anillo se revisa en §\ref{sec:anillo-indicadores}.
 
 Con la definición, la justificación y el trazo, la propuesta ya se puede
 llevar al grafo. Antes de hacerlo conviene dejar claro qué representa el modelo
-y qué deja fuera. Las principales limitaciones de la propuesta son cuatro:
+y qué deja fuera. Las principales limitaciones de la propuesta son cinco:
 
 \begin{enumerate}
     \item \textbf{No incluye las condiciones físicas del trazo.} Los escenarios
@@ -267,6 +267,17 @@ y qué deja fuera. Las principales limitaciones de la propuesta son cuatro:
     periferia actual de la \zmvm{}. Ese caso no se desarrolla en este
     documento: por la metodología que exige, la extensión del territorio y el
     tiempo disponible, requiere un estudio propio.
+
+    \item \textbf{Los dos casos comparten las mismas estaciones.} El Anillo MB y el
+    Anillo Metro usan el mismo trazo y las mismas 94 estaciones; solo cambia la
+    operación (§\ref{subsec:anillo-parametros}). En la práctica, un \brt{} tiene
+    sus estaciones más próximas entre sí que un Metro, así que un Anillo MB real
+    tendría más paradas que las que aquí se modelan. Se conservó un solo conjunto
+    de estaciones para que la diferencia entre los Casos~2 y~3 se deba a la
+    velocidad y al derecho de vía, y no también al número y la ubicación de las
+    paradas. Para reproducir los casos, las estaciones y el registro de cada anillo
+    están en el repositorio de \texttt{Apímetro}
+    (\texttt{ETL/Data/Anillar/} y \texttt{db/migrations/v4.0\_anillar\_*.sql}).
 \end{enumerate}
 
 Con estas limitaciones a la vista, §\ref{sec:anillo-escenarios} describe cómo

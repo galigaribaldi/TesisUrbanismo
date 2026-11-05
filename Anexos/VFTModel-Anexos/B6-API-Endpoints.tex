@@ -34,8 +34,8 @@ topológicos escalares o tabulares; los de la capa \textit{geolayers}
             & GET  & Nodos ordenados por Fuerza Capilar \\
         \texttt{/topological/geo-capillary}
             & GET  & Detección de Macro-Hubs por proximidad espacial \\
-        \texttt{/topological/detour-factor}
-            & GET  & Factor de desviación general o por par O-D \\
+        \texttt{/get\_detour\_factor}\textsuperscript{a}
+            & GET  & Factor de desviación sobre una muestra O-D \\
         \texttt{/topological/average-travel-time}
             & GET  & Tiempo de viaje promedio ($T$) \\
         \texttt{/topological/betweenness-centrality}
@@ -51,6 +51,11 @@ topológicos escalares o tabulares; los de la capa \textit{geolayers}
             & GET  & Factor de desviación con trayectorias O-D \\
         \hline
     \end{tabularx}
+    \vspace{0.3em}
+
+    \noindent{\footnotesize \textsuperscript{a}\,Está en la raíz de la \api{}, fuera
+    del prefijo \texttt{/api/v1/network/}; el cálculo para un par O-D usa
+    \texttt{POST /get\_detour\_factor\_any\_node}.}
 \end{table}
 
 \subsection*{Parámetros del endpoint \texttt{build-auto}}

@@ -1,23 +1,35 @@
 % !TeX root = ../../tesis.tex
+% Esquema ilustrativo (decisión del autor 2026-11-04): claves y rutas
+% tomadas de VFTModel/src/api/main.py; valores = marcadores de tipo.
 
 \section{Ejemplo de Respuesta: Fuerza Capilar \texorpdfstring{($FC$)}{(FC)}}
 \label{anx:vft-out-capilar}
 
-Respuesta de referencia del indicador $FC$ (§\ref{subsec:alimentacion-capilar}
-).
+Esquema ilustrativo de la respuesta del indicador $FC$
+(§\ref{subsec:alimentacion-capilar}). Los nombres de las claves y la ruta son los
+de \texttt{VFTModel}; los valores son marcadores de tipo. Las cifras de la
+corrida 2026-10-04 se reportan en el Capítulo~\ref{ch:analisis-red-actual}.
+
+Los registros vienen ordenados de mayor a menor \texttt{Fuerza\_Capilar\_Total}.
 
 \begin{lstlisting}[style=estiloPython,
-  caption={Respuesta del endpoint \texttt{/capillary-strength}
-           (valores de referencia).},
+  caption={Esquema de respuesta del endpoint
+           \texttt{/topological/capillary-strength} (ilustrativo).},
   label=lst:out-capilar]
 {
-  "indicador": "alimentacion_capilar",
-  "top_nodos": [
-    { "nombre": "PENDIENTE", "C_i": 0.0, "rutas_superficie": 0 },
-    { "nombre": "PENDIENTE", "C_i": 0.0, "rutas_superficie": 0 },
-    { "nombre": "PENDIENTE", "C_i": 0.0, "rutas_superficie": 0 }
-  ],
-  "promedio_red": 0.0,
-  "total_nodos": 0
+  "status": "success",
+  "parametros": { "modo_grafo": "REALISTIC_INTEGRATION",
+                  "tolerancia_transbordo_grafo_m": <número>,
+                  "tolerancia_agrupacion_algoritmo_m": <número> },
+  "data": [
+    { "Nodo_ID": "(<lon>, <lat>)",
+      "Estacion": "<estación>",
+      "Sistemas_Integrados": ["<sistema>"],
+      "Detalle_Estaciones": { "<sistema>": ["<estación>"] },
+      "Estaciones_Agrupadas": 1,
+      "Conexiones_Entrada": <número>,
+      "Conexiones_Salida": <número>,
+      "Fuerza_Capilar_Total": <número> }
+  ]
 }
 \end{lstlisting}
