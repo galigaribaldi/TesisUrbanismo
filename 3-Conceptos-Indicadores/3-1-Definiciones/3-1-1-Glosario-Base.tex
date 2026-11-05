@@ -132,6 +132,18 @@ disociación entre volumen de pasajeros y posición topológica es un hallazgo
 relevante para la priorización de intervenciones
 \citep{lotero2014vulnerabilidad}.
 
+% D33-3 (#33, 2026-11-04): umbral fijo por percentil. Falta la cifra P99 de
+% B(v) de la corrida 2026-10-04 (NOTAS_TRANSPORT_GIS.md §4).
+\subsubsection{Alta intermediación}
+\label{subsubsec:glosario-alta-intermediacion}
+Se dice que un nodo tiene alta intermediación cuando su $B(v)$ normalizada
+(§\ref{subsec:centralidad-intermediacion}) llega a $0.0XXX$ o más. Ese valor
+se fijó con el percentil~99 de la red actual en la corrida 2026-10-04: lo
+alcanza uno de cada cien nodos. Por arriba del umbral el intervalo llega hasta
+Tacubaya, el máximo de la red, con 0.2232. Para los Casos~2 y~3 no se recalcula;
+se usa la misma cifra, y así el anillo se compara contra un corte que no se
+mueve con él.\pendiente{Cifra P99 de $B(v)$ (VFTModel)}
+
 \subsubsection{Corredor de alta capacidad anillar}
 \label{subsubsec:glosario-corredor-anillar}
 Bajo la categoría de corredor de alta capacidad \citep{douma2003} se agrupan líneas de transporte
@@ -178,23 +190,28 @@ adopta, en cambio, el enfoque de perfil multidimensional empleado por
 \citet{kujala2018} para redes \gtfs{} de 25 ciudades: un espectro de
 diagnóstico, no una jerarquía.
 
-La clasificación utiliza la \textbf{Escala Garibelt}, una escala de cuatro
-bandas que traduce el valor normalizado $[0,\,1]$ a una categoría de diagnóstico
-urbano:
+La clasificación utiliza la \textbf{Escala Garibelt}, que divide el valor
+normalizado $[0,\,1]$ en cuatro intervalos de igual amplitud. Cada intervalo
+indica en qué parte del rango de referencia cae una dimensión, es decir, qué
+tan cerca está de la cota inferior o de la superior que se fijaron para ella
+(§\ref{sec:indicadores-formulas}). Los intervalos se nombran solo por sus
+límites y no llevan calificativos: describen una posición en la escala, no un
+juicio sobre la red, y su validación frente a otras redes queda como trabajo
+futuro (Cuadro~\ref{tab:escala-garibelt}).
 
 \begin{table}[htbp]
 \centering
-\caption[Escala Garibelt]{Escala Garibelt: bandas de diagnóstico topológico.}
+\caption[Escala Garibelt]{Escala Garibelt: intervalos del valor normalizado.}
 \label{tab:escala-garibelt}
 \small
-\begin{tabular}{@{} l c p{7.5cm} @{}}
+\begin{tabular}{@{} c c p{7.5cm} @{}}
 \toprule
-\textbf{Banda} & \textbf{Rango normalizado} & \textbf{Interpretación urbana} \\
+\textbf{Intervalo} & \textbf{Límites} & \textbf{Posición en el rango de referencia} \\
 \midrule
-Crítico   & $[0.00,\;0.25)$ & Deficiencia estructural severa; intervención prioritaria. \\
-Débil     & $[0.25,\;0.50)$ & Rendimiento en la mitad inferior del rango de referencia; área de mejora identificada. \\
-Aceptable & $[0.50,\;0.75)$ & Desempeño adecuado para la función urbana de la dimensión. \\
-Idóneo    & $[0.75,\;1.00]$ & La red es estructuralmente apta en esta dimensión. \\
+0.00--0.25 & $[0.00,\;0.25)$ & Primer cuarto, junto a la cota inferior. \\
+0.25--0.50 & $[0.25,\;0.50)$ & Segundo cuarto. \\
+0.50--0.75 & $[0.50,\;0.75)$ & Tercer cuarto. \\
+0.75--1.00 & $[0.75,\;1.00]$ & Último cuarto; incluye la cota superior. \\
 \bottomrule
 \end{tabular}
 \smallskip
@@ -203,8 +220,8 @@ Idóneo    & $[0.75,\;1.00]$ & La red es estructuralmente apta en esta dimensió
 \end{table}
 
 El producto final del instrumento es el \textbf{Espectro MJG}: una tabla
-descriptiva que presenta, dimensión por dimensión, la banda asignada y el valor
-normalizado correspondiente. La definición formal, sus cinco dimensiones y los
+descriptiva que presenta, dimensión por dimensión, el valor normalizado y el
+intervalo en que cae. La definición formal, sus cinco dimensiones y los
 criterios de normalización de cada una se desarrollan en la
 \autoref{sec:indicadores-formulas}.
 

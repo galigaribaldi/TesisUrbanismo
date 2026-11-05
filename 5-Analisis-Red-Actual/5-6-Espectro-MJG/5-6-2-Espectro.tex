@@ -14,14 +14,14 @@
 \label{subsec:espectro-mjg}
 
 Los valores obtenidos en las Fases~1 a~3 ---calculados sobre el grafo de la
-\zmvm{} al 2025--- constituyen la entrada directa de la Clasificación Garibelt.
+\zmvm{} con la corrida 2026-10-04--- constituyen la entrada directa de la Clasificación Garibelt.
 La aplicación del instrumento a esos resultados produce el
-\textbf{Espectro MJG} : el perfil de cinco bandas que describe, sin colapsar
+\textbf{Espectro MJG} : el perfil de cinco dimensiones que describe, sin colapsar
 dimensiones inconmensurables en un escalar, la condición estructural actual de
 la red de transporte colectivo de la metrópoli.
 
 % =====================================================================
-\subsubsection{El perfil de cinco bandas}
+\subsubsection{El perfil de cinco dimensiones}
 \label{subsubsec:espectro-tabla}
 % =====================================================================
 
@@ -29,8 +29,8 @@ La Figura~\ref{fig:espectro-mjg-barras} reúne el resultado de aplicar la
 Clasificación Garibelt a los valores calculados en las Fases~1 a~3. Cada barra
 horizontal corresponde a una dimensión del instrumento y su longitud indica el
 valor normalizado en la escala $[0,\,1]$; los valores brutos de cada indicador
-quedan anotados sobre la barra. Las líneas punteadas verticales delimitan los
-umbrales entre bandas.
+quedan anotados sobre la barra. Las líneas punteadas verticales marcan los
+límites entre intervalos.
 
 El Cuadro~\ref{tab:indicadores-espectro} recoge los cinco indicadores con su
 símbolo y expresión formal.
@@ -71,9 +71,9 @@ símbolo y expresión formal.
         Dashboard_Espectro_Red_Actual}
     \caption[Espectro MJG --- perfil Garibelt de la \zmvm{} 2026]{%
     Perfil de la Clasificación Garibelt aplicado a la red de transporte
-    de la \zmvm{} al 2025. Barras horizontales sobre la Escala Garibelt
+    de la \zmvm{} con la corrida 2026-10-04. Barras horizontales sobre la Escala Garibelt
     $[0,\,1]$; valor bruto del indicador anotado sobre cada barra;
-    líneas punteadas en los umbrales de banda. Corrida: 2026-10-04.}
+    líneas punteadas en los límites de los intervalos. Corrida: 2026-10-04.}
     \label{fig:espectro-mjg-barras}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel}.}
@@ -82,7 +82,7 @@ símbolo y expresión formal.
 \begin{table}[H]
 \centering
 \caption[Espectro MJG --- diagnóstico cuantitativo de la red actual]{%
-    Espectro MJG: valor bruto, valor normalizado y banda de la Escala Garibelt
+    Espectro MJG: valor bruto, valor normalizado e intervalo de la Escala Garibelt
     para cada dimensión de la Clasificación Garibelt aplicada a la red de la
     \zmvm{}. Corrida: 2026-10-04.}
 \label{tab:espectro-mjg-diagnostico}
@@ -90,38 +90,40 @@ símbolo y expresión formal.
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X c >{\raggedright\arraybackslash}X c c}
     \toprule
     \textbf{Dimensión} & \textbf{Sím.} & \textbf{Valor bruto} &
-    \textbf{Valor $[0,1]$} & \textbf{Banda} \\
+    \textbf{Valor $[0,1]$} & \textbf{Intervalo} \\
     \midrule
     Accesibilidad — Cobertura Espacial
         & $C$    & 13.3\,\% (área cubierta 800\,m / área total, \zmvm{} de 76 demarcaciones)
-        & 0.166 & \textbf{Crítico} \\
+        & 0.166 & 0.00--0.25 \\
     Conectividad capilar — Fuerza Capilar
         & $FC$   & mediana $= 7.0$\enspace (Q1\,=\,6;\enspace Q3\,=\,10)
-        & 0.250 & \textbf{Débil} \\
+        & 0.250 & 0.25--0.50 \\
     Eficiencia de ruta — Factor de Desviación
         & $DI$   & mediana $= 1.52$
-        & 0.653 & Aceptable \\
+        & 0.653 & 0.50--0.75 \\
     Fluidez global — Tiempo de Viaje Promedio
         & $T$    & 113.91\,min
-        & 0.696 & Aceptable \\
+        & 0.696 & 0.50--0.75 \\
     Centralidad crítica — Intermediación
         & $B(v)$ & $\mathrm{Gini}(B) = 0.801$
-        & 0.199 & \textbf{Crítico} \\
+        & 0.199 & 0.00--0.25 \\
     \bottomrule
 \end{tabularx}
 \smallskip
 \fuentefigura{Elaboración propia. Valores calculados con
 \texttt{VFTModel}~\citep{cabrera2026VFTModel} sobre el grafo de
-la \zmvm{} al 2025. Métodos de normalización por dimensión:
+la \zmvm{} (corrida 2026-10-04). Métodos de normalización por dimensión:
 véase \autoref{tab:clasificacion-garibelt-dims}.}
 \end{table}
 
-Ninguna dimensión alcanza la banda Idóneo. Dos quedan en Crítico ---$C$ y $B(v)$
----, una en Débil ---$FC$--- y dos en Aceptable ---$T$ y $DI$. No se trata de
-una red inoperante: las dimensiones de servicio directo al usuario funcionan en
-rango aceptable. Lo que el espectro expone es una red que sirve razonablemente
-bien al pasajero que ya está dentro de ella, pero que no llega al territorio de
-manera uniforme y que descansa su efectividad sobre un número reducido de nodos.
+Ninguna dimensión llega al intervalo 0.75--1.00. $C$ y $B(v)$ quedan en
+0.00--0.25; $FC$ cae justo en el borde inferior de 0.25--0.50, con 0.250, y
+$DI$ y $T$ están en 0.50--0.75. La separación sigue lo que mide cada
+dimensión. Las dos que describen el viaje de quien ya usa la red, el rodeo y
+el tiempo, quedan en la mitad superior de la escala. Las que describen cuánto
+territorio alcanza la red y cómo reparte sus caminos más cortos quedan en el
+cuarto inferior: la red cubre una parte pequeña de la \zmvm{} y depende de
+pocos nodos.
 
 % =====================================================================
 \subsubsection{Lectura por dimensión}
@@ -146,7 +148,9 @@ del propio dato: la \cdmx{} alcanza el 53.5\,\% y Cuauhtémoc registra hasta 99\
 \% de cobertura bajo Corredores Concesionados (
 \autoref{subsubsec:cobertura-estructurados}), mientras 42 de los 60 municipios
 conurbados reportan cobertura cero en el escenario actual (
-\autoref{subsubsec:cobertura-deficit}).
+\autoref{subsubsec:cobertura-deficit}). Una parte de esa distancia viene de los datos: en
+los municipios casi solo están registrados los sistemas de vía exclusiva o
+confinada (\autoref{subsec:limitaciones-datos}).
 
 \begin{figure}[H]
     \centering
@@ -155,10 +159,10 @@ conurbados reportan cobertura cero en el escenario actual (
         Clasificacion_Garibelt_Mapa_Cobertura}
     \caption[Clasificación Garibelt --- cobertura peatonal 800\,m sobre la \zmvm{}]{%
     Distribución territorial de la cobertura peatonal (800\,m) sobre
-    las 141 demarcaciones del conjunto de datos del \texttt{Apímetro}, coloreada por banda de la
+    las 141 demarcaciones del conjunto de datos del \texttt{Apímetro}, coloreada por intervalo de la
     Escala Garibelt. Las zonas sin cobertura se concentran en la
     corona periférica sur y oriente de la cuenca.
-    Corrida: 2026-09-24.}
+    Corrida: 2026-10-04.}
     \label{fig:mapa-garibelt-cobertura}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel},
@@ -183,10 +187,10 @@ conectividad sobre la que descansa la mayor parte de la circulación periférica
         Clasificacion_Garibelt_Fuerza_Capilar}
     \caption[Clasificación Garibelt --- Fuerza Capilar $FC$ sobre la \zmvm{}]{%
     Distribución territorial del grado nodal ($FC$) sobre la \zmvm{},
-    coloreada por banda de la Escala Garibelt. Los nodos en banda
-    Crítico dominan la periferia; los nodos en bandas superiores se
+    coloreada por intervalo de la Escala Garibelt. Los nodos en
+    0.00--0.25 dominan la periferia; los de intervalos superiores se
     concentran en el corredor central de la cuenca.
-    Corrida: 2026-09-24.}
+    Corrida: 2026-10-04.}
     \label{fig:mapa-garibelt-capilar}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel},
@@ -198,13 +202,12 @@ conectividad sobre la que descansa la mayor parte de la circulación periférica
 Una mediana de $DI = 1.52$ indica que el viaje en la red recorre, en promedio,
 un 52\,\% más de distancia que la línea recta entre el mismo par origen-destino:
 por cada kilómetro que separa al viajero de su destino, la red le exige
-trasladarse 1.52\,km sobre la infraestructura. El resultado queda en banda
-Aceptable, lo que señala que la red no impone rodeos severos en la mayoría de
-los trayectos. Sin embargo, la distribución no es homogénea: el extremo superior
-de la muestra ---$DI_{\text{máx}} = 4.42$, \autoref{subsubsec:di-casos}---
-corresponde a viajes entre periferias opuestas de la cuenca, donde la ausencia
-de conectividad transversal obliga a internar el recorrido hacia el centro antes
-de salir de nuevo hacia la periferia contraria.
+trasladarse 1.52\,km sobre la infraestructura. Normalizado da 0.653, en el
+intervalo 0.50--0.75, y la mitad de los trayectos de la muestra no rebasa ese
+rodeo. La otra mitad se dispersa mucho más. El caso extremo,
+$DI_{\text{máx}} = 4.42$ (\autoref{subsubsec:di-casos}), une periferias
+opuestas de la cuenca: sin conexión transversal, el recorrido tiene que entrar
+hacia el centro y volver a salir hacia el lado contrario.
 
 \paragraph{$T$ --- Tiempo de Viaje Promedio}
 
@@ -215,11 +218,11 @@ aproximadamente 29\,min tiene origen metodológico y no implica sobrestimación
 del sistema (\autoref{subsec:tiempo-viaje-promedio}). Para situar ese valor en
 términos cotidianos: un trabajador que tardara 114\,min en llegar a su destino y
 otros tantos en regresar destinaría más de tres horas y media diarias al
-traslado ---casi la mitad de una jornada de ocho horas solo en desplazarse. Que
-este indicador alcance la banda Aceptable refleja que la red cumple su función
-de conectar nodos en tiempos razonables para la cuenca; que no alcance Idóneo
-señala el margen estructural que una red de mayor capilaridad y menor
-concentración de carga podría reducir.
+traslado ---casi la mitad de una jornada de ocho horas solo en desplazarse.
+Normalizado, $T$ vale 0.696 y queda en el intervalo 0.50--0.75, más cerca de
+los 85\,min de referencia que del techo de 180\,min. Lo que le falta para llegar
+a 1 es el margen que una red con más capilaridad y menos concentración de carga
+podría reducir.
 
 \paragraph{$B(v)$ --- Centralidad de Intermediación}
 
@@ -247,10 +250,10 @@ más alta del experimento.
     \caption[Clasificación Garibelt --- centralidad de intermediación
     $B(v)$ sobre la \zmvm{}]{%
     Distribución territorial de la centralidad de intermediación
-    ($B(v)$) sobre la \zmvm{}, coloreada por banda de la Escala
+    ($B(v)$) sobre la \zmvm{}, coloreada por intervalo de la Escala
     Garibelt. El corredor de alta intermediación traza una banda
-    estrecha en el centro-poniente; la periferia registra valores en
-    banda Crítico de forma generalizada. Corrida: 2026-09-24.}
+    estrecha en el centro-poniente; la periferia registra en general
+    valores en 0.00--0.25. Corrida: 2026-10-04.}
     \label{fig:mapa-garibelt-betweenness}
     \fuentefigura{Elaboración propia con \textbf{QGIS};
     datos: \texttt{VFTModel}~\citep{cabrera2026VFTModel},
@@ -287,7 +290,7 @@ esos valores brutos en un panel de indicadores.
         Dashboard_KPI_Red_Actual}
     \caption[KPI de indicadores estructurales --- \zmvm{} 2026]{%
     Valores brutos de los cuatro indicadores síntesis de la red de
-    transporte de la \zmvm{}; color por banda de la Escala Garibelt.
+    transporte de la \zmvm{}; color por intervalo de la Escala Garibelt.
     Corrida: 2026-10-04.}
     \label{fig:kpi-red-actual}
     \fuentefigura{Elaboración propia con \textbf{Tableau};
@@ -410,4 +413,4 @@ pregunta ---¿en qué condición estructural se encuentra la red al año 2026?--
 lo hace con el rigor que permite el estado actual de los datos. Los capítulos
 siguientes utilizarán ese diagnóstico como línea base para explorar si, y en qué
 medida, la incorporación de un anillo de transporte periférico modifica el
-perfil de las cinco bandas.
+perfil de las cinco dimensiones.

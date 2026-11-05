@@ -17,26 +17,27 @@ conserva su propio rango y su propio significado, y donde las diferencias
 estructurales permanecen visibles.
 
 Agregar cinco indicadores en un promedio parece resolver el problema de la
-heterogeneidad, pero introduce otro: el sesgo de compensabilidad. Una red puede
-obtener una nota global «aceptable» si dos dimensiones son excelentes, aunque
-una tercera esté en estado crítico; el promedio absorbe ese dato en lugar de
-exhibirlo \citep{hossain2024}. \citet{deng2023} documentan este riesgo en redes
-multimodales: la concentración de flujo en nodos clave no queda visible en
-índices compuestos, y esa invisibilidad dificulta la priorización de
-intervenciones. La Figura~\ref{fig:compensabilidad-garibelt} ilustra el
-contraste con la Red~$\beta$: el índice ponderado arroja $0.56$ —Aceptable—
-mientras el Espectro MJG deja en primer plano la dimensión de eficiencia en
-estado Crítico.
+heterogeneidad, pero introduce otro: el sesgo de compensabilidad. Hay
+compensabilidad cuando un valor alto en una dimensión cubre, dentro del
+promedio, un valor bajo en otra. Dos dimensiones cerca de 1 pueden llevar el
+índice a la mitad de la escala aunque una tercera esté junto a 0, y el número
+final ya no deja ver esa tercera \citep{hossain2024}. \citet{deng2023}
+documentan este riesgo en redes multimodales: la concentración de flujo en
+nodos clave no queda visible en índices compuestos, y esa invisibilidad
+dificulta la priorización de intervenciones. La
+Figura~\ref{fig:compensabilidad-garibelt} lo muestra con la Red~$\beta$: el
+índice ponderado da $0.56$, en el intervalo 0.50--0.75, mientras el Espectro
+MJG deja a la vista que la eficiencia de ruta vale 0.20.
 
 \begin{figure}[htbp]
 \centering
 \input{Figures/TiKz_Libraries/Diagramas/garibelt-compensabilidad}
 \caption[Problema de compensabilidad en índices compuestos de transporte]{%
     Problema de compensabilidad en una red hipotética ($\beta$). A la
-    izquierda, el índice ponderado produce $0.56$ (Aceptable), ocultando
-    que la eficiencia de ruta está en estado Crítico. A la derecha, el
-    Espectro MJG preserva esa información al mantener cada dimensión
-    en su propia banda.}
+    izquierda, el índice ponderado da $0.56$ (intervalo 0.50--0.75) y no
+    deja ver que la eficiencia de ruta vale 0.20. A la derecha, el Espectro
+    MJG conserva ese dato porque mantiene cada dimensión con su propio valor
+    e intervalo.}
 \label{fig:compensabilidad-garibelt}
 \fuentefigura{Elaboración propia. Ejemplo hipotético con fines ilustrativos.}
 \end{figure}
@@ -54,8 +55,8 @@ transporte para 25 ciudades normalizando los datos \gtfs{} de cada una, pero sin
 producir un índice global: el resultado de su trabajo es un perfil
 multidimensional por ciudad, precisamente porque normalizar y agregar son
 operaciones con propósitos distintos. La Clasificación Garibelt sigue esa misma
-lógica: normaliza para que las cinco dimensiones se lean en la misma escala de
-bandas, no para sumarlas.
+lógica: normaliza para que las cinco dimensiones se lean en la misma escala, no
+para sumarlas.
 
 % =====================================================================
 \subsubsection{Calibraciones distintas para naturalezas distintas}

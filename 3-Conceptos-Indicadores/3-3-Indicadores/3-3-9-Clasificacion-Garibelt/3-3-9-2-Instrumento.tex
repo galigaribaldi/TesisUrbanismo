@@ -6,36 +6,35 @@
 % =====================================================================
 
 El resultado normalizado de cada dimensión cae en algún punto del intervalo
-$[0, 1]$. La Escala Garibelt divide ese intervalo en cuatro bandas que traducen
-el valor numérico a un diagnóstico territorial. Crítico $[0.00, 0.25)$ señala
-una deficiencia estructural severa: la dimensión requiere intervención antes que
-cualquier otra. Débil $[0.25, 0.50)$ indica rendimiento en la mitad inferior del
-rango de referencia normalizada; no constituye una emergencia, pero requiere un
-plan de mejora. Aceptable $[0.50, 0.75)$ describe una dimensión que cumple su
-función urbana sin destacar. Idóneo $[0.75, 1.00]$ reserva el extremo superior
-para redes con solidez estructural en ese aspecto. La
-Figura~\ref{fig:escala-garibelt-barra} muestra la distribución como espectro continuo.
+$[0, 1]$, donde 0 corresponde a la cota inferior de su rango de referencia y 1
+a la superior (§\ref{subsubsec:garibelt-procedimiento}). La Escala Garibelt
+divide ese intervalo en cuatro tramos: $[0.00, 0.25)$, $[0.25, 0.50)$,
+$[0.50, 0.75)$ y $[0.75, 1.00]$. Cada tramo se nombra solo por sus límites.
+Decir que una dimensión está en 0.00--0.25 significa que su valor bruto quedó
+en el primer cuarto del camino entre las dos cotas. No es un juicio sobre la
+red, porque las cotas mismas son supuestos y no se han validado contra otras
+redes. La Figura~\ref{fig:escala-garibelt-barra} muestra la escala completa.
 
 Los cortes en 0.25, 0.50 y 0.75 son un supuesto del autor: dividen el rango
-normalizado en cuatro bandas de igual ancho, sin dar más peso a ninguna, para
-que la lectura sea la misma en las cinco dimensiones. Esa simplicidad tiene un
-costo. Como la normalización depende de las cotas de referencia de cada
-dimensión (§\ref{subsubsec:garibelt-procedimiento}), moverlas puede cambiar la
-banda aunque el valor bruto sea el mismo. Con los valores de la red actual
-(§\ref{subsec:espectro-mjg}), bajar el techo de $T$ de 180 a 150~min llevaría su
-valor normalizado de 0.70 a 0.56, todavía en Aceptable; en cambio, bajar la cota
-de $DI$ de 2.5 a 2.0 llevaría la mediana de 1.52 de 0.65 a 0.48 y la haría pasar
-de Aceptable a Débil. Por ello, en el Capítulo~5 cada banda se reporta junto con
-su valor normalizado, y un análisis de sensibilidad sistemático de cortes y
-cotas queda como trabajo futuro.
+normalizado en cuatro intervalos de igual ancho, sin dar más peso a ninguno,
+para que la lectura sea la misma en las cinco dimensiones. Esa simplicidad
+tiene un costo. Como la normalización depende de las cotas de referencia de
+cada dimensión (§\ref{subsubsec:garibelt-procedimiento}), moverlas puede
+cambiar el intervalo aunque el valor bruto sea el mismo. Con los valores de la
+red actual (§\ref{subsec:espectro-mjg}), bajar el techo de $T$ de 180 a
+150~min llevaría su valor normalizado de 0.70 a 0.56, todavía en 0.50--0.75;
+en cambio, bajar la cota de $DI$ de 2.5 a 2.0 llevaría la mediana de 1.52 de
+0.65 a 0.48 y la haría pasar de 0.50--0.75 a 0.25--0.50. Por ello, en el
+Capítulo~5 cada intervalo se reporta junto con su valor normalizado, y un
+análisis de sensibilidad sistemático de cortes y cotas queda como trabajo
+futuro.
 
 \begin{figure}[htbp]
 \centering
 \input{Figures/TiKz_Libraries/Diagramas/garibelt-escala-barra}
-\caption[Escala Garibelt: espectro de cuatro bandas de diagnóstico]{%
-    Escala Garibelt: distribución del intervalo $[0,1]$ en cuatro bandas
-    de diagnóstico territorial. Cada dimensión del Espectro MJG recibe
-    una banda según su valor normalizado.}
+\caption[Escala Garibelt: cuatro intervalos del valor normalizado]{%
+    Escala Garibelt: el intervalo $[0,1]$ dividido en cuatro tramos. Cada
+    dimensión del Espectro MJG se ubica en uno según su valor normalizado.}
 \label{fig:escala-garibelt-barra}
 \fuentefigura{Elaboración propia.}
 \end{figure}
@@ -52,16 +51,16 @@ conviene tener presente qué pregunta urbana responde cada dimensión:
           radio de caminata de la red?
     \item Fuerza capilar~$FC$: ¿qué tan variadas son las opciones de
           conexión disponibles en cada nodo?
-    \item Índice de ruta directa~$DI$: ¿obliga la red a recorrer
+    \item Factor de desviación~$DI$: ¿obliga la red a recorrer
           trayectos muy alejados de la distancia mínima?
     \item Tiempo promedio~$T$: ¿cuánto dura un viaje típico de extremo
           a extremo de la red?
     \item Intermediación~$B(v)$: ¿depende el flujo de la red de unos
           pocos nodos críticos o está distribuido entre muchos?
 \end{itemize}
-Cada banda del Espectro se lee como la respuesta a esa pregunta: Crítico
-significa que la respuesta es desfavorable en grado severo; Idóneo, que la red
-cumple con solidez estructural en esa dimensión.
+El intervalo de cada dimensión no responde la pregunta con un sí o un no. Dice
+qué tan cerca quedó la red de la cota superior que se fijó para esa dimensión:
+0 es la cota inferior y 1 la superior.
 
 % =====================================================================
 \subsubsection{El procedimiento de normalización}
@@ -71,9 +70,9 @@ cumple con solidez estructural en esa dimensión.
 Llevar un valor bruto a la escala $[0, 1]$ de la Clasificación Garibelt requiere
 un rango de referencia. Para~$T$, el rango es un supuesto del autor: 85 min es
 el tiempo de referencia del modelo y 180 min la cota a partir de la cual un
-traslado se considera inaceptable, de modo que 85 min normaliza a $1.0$ (Idóneo)
-y 180 min a $0.0$ (Crítico); la sensibilidad de la banda de $T$ a ambos valores
-queda como trabajo futuro. Para~$DI$, la teoría de grafos fija el piso en $1.0$
+traslado se considera inaceptable, de modo que 85 min normaliza a $1.0$ y
+180 min a $0.0$; la sensibilidad del intervalo de $T$ a ambos valores queda como
+trabajo futuro. Para~$DI$, la teoría de grafos fija el piso en $1.0$
 ---ruta directa perfecta--- y la práctica urbana establece el techo en $2.5$
 ---desviación que ya resulta inaceptable para el usuario. Para~$C$, el estándar
 peatonal urbano de 80\,\% es la referencia. Para~$FC$, el rango es el del propio
@@ -87,7 +86,7 @@ Esta regla hace que la dimensión $FC$ sea relativa por construcción. Como la
 mediana de cualquier red cae entre su propio Q1 y su propio Q3, el valor
 normalizado depende solo de la forma de la distribución de grado y no de un
 estándar externo: dos redes con conectividades muy distintas pueden recibir la
-misma banda. $FC$ describe, por tanto, cómo se reparte la conectividad capilar
+mismo intervalo. $FC$ describe, por tanto, cómo se reparte la conectividad capilar
 dentro de la \zmvm{}, sin compararla con otras redes. Sustituir los cuartiles
 propios por una referencia comparativa, como las 25 redes de \citet{kujala2018},
 queda como trabajo futuro.
@@ -96,27 +95,24 @@ Además del perfil de la red, el instrumento clasifica cada nodo. Para hacerlo,
 normaliza la Fuerza Capilar y la intermediación del nodo con el mínimo y el
 máximo del caso analizado, de modo que el nodo con más conexiones y el de más
 intermediación valen 1, y toma el menor de los dos valores. El intervalo en que
-cae ese valor es la banda dominante del nodo e indica cuál de las dos
+cae ese valor es el intervalo dominante del nodo e indica cuál de las dos
 dimensiones lo limita más. Los nodos que quedan fuera de la componente gigante
 no tienen intermediación y se clasifican solo por su Fuerza Capilar. Como la
-escala es relativa al máximo de cada caso, la banda dominante sirve para
+escala es relativa al máximo de cada caso, el intervalo dominante sirve para
 comparar nodos dentro de una misma red; entre casos distintos, un cambio de
-banda puede deberse a que cambió el máximo y no el nodo.
+intervalo puede deberse a que cambió el máximo y no el nodo.
 
 % =====================================================================
 \subsubsection{Un tablero, no un marcador}
 \label{subsubsec:garibelt-tablero}
 % =====================================================================
 
-Una ciudad puede cubrir la cuota legal de suministro de agua y tener, al mismo
-tiempo, colonias con presión insuficiente, cortes en horas punta y parámetros de
-saneamiento fuera de norma. Un clasificador escalar único ---«porcentaje de
-cobertura hídrica»--- tendería a ocultar esos puntos de falla detrás de un valor
-promedio que parece satisfactorio. El transporte metropolitano enfrenta el mismo
-problema de escala: la red puede mostrar tiempos de viaje razonables y, en
-paralelo, tener toda su carga concentrada en dos o tres nodos que la vuelven
-estructuralmente frágil. La Clasificación Garibelt mantiene las cinco
-dimensiones separadas precisamente para no perder esa información.
-\citet{deng2023} articulan el principio como \termino{Safe-to-Fail}: evaluar una
-red es localizar sus vulnerabilidades, no suavizarlas en un promedio. La
+Un solo número no deja saber cuál de las cinco dimensiones explica el
+resultado. La red de la \zmvm{} sirve de ejemplo (§\ref{subsec:espectro-mjg}).
+Sus rodeos y su tiempo de viaje quedan en la mitad superior de la escala, y la
+cobertura y el reparto de la intermediación, en el cuarto inferior; el
+promedio de las cinco dimensiones daría 0.39, una cifra que no corresponde a
+ninguna de ellas. Por eso la Clasificación Garibelt las mantiene separadas.
+\citet{deng2023} articulan el principio como \termino{Safe-to-Fail}: evaluar
+una red es localizar sus vulnerabilidades, no suavizarlas en un promedio. La
 subsección siguiente presenta el procedimiento con un ejemplo hipotético.

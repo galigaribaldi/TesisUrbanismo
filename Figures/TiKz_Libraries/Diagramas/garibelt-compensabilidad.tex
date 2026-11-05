@@ -47,17 +47,17 @@
 \draw[gray!55, thin] (2.50, 4.10) -- (2.50, 4.85);
 \draw[gray!55, thin] (3.75, 4.10) -- (3.75, 4.85);
 
-% Etiquetas de banda
-\node[font=\tiny\bfseries, white]  at (0.625, 4.475) {Crít.};
-\node[font=\tiny\bfseries]         at (1.875, 4.475) {Débil};
-\node[font=\tiny\bfseries]         at (3.125, 4.475) {Acept.};
-\node[font=\tiny\bfseries, white]  at (4.375, 4.475) {Idón.};
+% Etiquetas de intervalo (#33, D33-1: solo números)
+\node[font=\tiny\bfseries, white]  at (0.625, 4.475) {0--0.25};
+\node[font=\tiny\bfseries]         at (1.875, 4.475) {0.25--0.5};
+\node[font=\tiny\bfseries]         at (3.125, 4.475) {0.5--0.75};
+\node[font=\tiny\bfseries, white]  at (4.375, 4.475) {0.75--1};
 
 % Marcador en 0.56 → x = 0.56 × 5 = 2.80
 \fill[unamAzul!80]
     (2.80, 4.10) -- (2.67, 3.86) -- (2.93, 3.86) -- cycle;
 \node[font=\footnotesize\bfseries, anchor=north]
-    at (2.80, 3.85) {$0.56$ — Aceptable};
+    at (2.80, 3.85) {$0.56$ (0.50--0.75)};
 
 % Ticks de escala inferior
 \foreach \xval/\lab in {0.00/0.0, 1.25/0.25, 2.50/0.50, 3.75/0.75, 5.00/1.0}{
@@ -87,33 +87,33 @@
 % Fila 1 — Accesibilidad 0.80 Idóneo
 \node[etiq] at (8.0, 4.90) {Accesibilidad ($C$)};
 \node[casilla, fill=green!50, draw=gray!40]
-    at (11.80, 4.90) {$0.80$ — \textbf{Idóneo}};
+    at (11.80, 4.90) {$0.80$ · 0.75--1.00};
 
 % Fila 2 — Conectividad 0.75 Idóneo
 \node[etiq] at (8.0, 4.08) {Conectividad ($FC$)};
 \node[casilla, fill=green!50, draw=gray!40]
-    at (11.80, 4.08) {$0.75$ — \textbf{Idóneo}};
+    at (11.80, 4.08) {$0.75$ · 0.75--1.00};
 
 % Fila 3 — Eficiencia 0.20 Crítico (resaltada)
 \node[etiq, font=\small\bfseries] at (8.0, 3.26) {Eficiencia ($DI$)};
 \node[casilla, fill=red!65, text=white, draw=red!70, line width=0.8pt]
-    at (11.80, 3.26) {$0.20$ — \textbf{Crítico}};
+    at (11.80, 3.26) {$0.20$ · 0.00--0.25};
 
 % Fila 4 — Fluidez 0.45 Débil
 \node[etiq] at (8.0, 2.44) {Fluidez ($T$)};
 \node[casilla, fill=orange!65, draw=gray!40]
-    at (11.80, 2.44) {$0.45$ — Débil};
+    at (11.80, 2.44) {$0.45$ · 0.25--0.50};
 
 % Fila 5 — Centralidad 0.60 Aceptable
 \node[etiq] at (8.0, 1.62) {Centralidad ($B(v)$)};
 \node[casilla, fill=yellow!55!green!35, draw=gray!40]
-    at (11.80, 1.62) {$0.60$ — Aceptable};
+    at (11.80, 1.62) {$0.60$ · 0.50--0.75};
 
 % Nota al pie del panel derecho
 \node[font=\scriptsize\itshape, color=red!60,
       anchor=north, text width=4.6cm, align=center]
     at (10.30, 1.15)
-    {Dimensión Crítica: visible en el espectro,\\
+    {Eficiencia en 0.20: visible en el espectro,\\
      oculta en el índice compuesto};
 
 \end{tikzpicture}

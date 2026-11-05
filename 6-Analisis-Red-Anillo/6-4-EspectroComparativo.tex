@@ -26,8 +26,7 @@
 % Decisiones del autor: DI fuera del cuadro (pies aclaran sus barras);
 %   C con dominio 76 (pie aclara 141); intervalos, no adjetivos de
 %   banda (#33); pies con la nomenclatura de la tesis (rótulos de las
-%   figuras → issue de limpieza al terminar §6.4). Revisar #34 al
-%   cerrar el capítulo.
+%   figuras → issue de limpieza al terminar §6.4).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{El Espectro MJG Comparativo}
 \label{sec:anillo-espectro}
@@ -57,9 +56,11 @@ sección muestran una barra de $DI$ para los Casos~2 y~3, es porque el modelo la
 calcula con otra muestra de pares origen--destino en cada caso, y por eso aquí
 no se compara. La cobertura se reporta para las 76 demarcaciones de la
 \zmvm{}, igual que en el Capítulo~\ref{ch:analisis-red-actual}, mientras que
-las figuras usan las 141 del conjunto de datos. Por último, en el texto se da el
-valor o el intervalo, no el nombre de la banda, ya que los cortes los fijó el
-autor (§\ref{subsubsec:garibelt-escala}).
+las figuras usan las 141 del conjunto de datos; en los dos ámbitos, la de los
+municipios conurbados está limitada por los datos disponibles
+(§\ref{subsec:limitaciones-datos}). Por último, cada dimensión se da
+con su valor y su intervalo, y los cortes entre intervalos los fijó el autor
+(§\ref{subsubsec:garibelt-escala}).
 
 El Cuadro~\ref{tab:anillo-espectro} reúne los valores de las cuatro dimensiones
 que se comparan, con su medida original, su valor normalizado y su intervalo
@@ -272,8 +273,8 @@ Metro, la red tarda menos, pero depende un poco más de unos cuantos nodos.
 \label{subsec:anillo-espectro-nodo}
 
 El Espectro también clasifica cada nodo por separado. A cada uno se le asigna
-una banda dominante, que es el intervalo del menor de dos valores: su Fuerza
-Capilar y su intermediación, normalizadas con el mínimo y el máximo de cada
+un intervalo dominante, que es el intervalo en que cae el menor de dos
+valores: su Fuerza Capilar y su intermediación, normalizadas con el mínimo y el máximo de cada
 caso (§\ref{subsubsec:garibelt-procedimiento}). La
 Figura~\ref{fig:anillo-banda-caso1} muestra el resultado en la red actual. El
 99.4\,\% de los nodos queda en el intervalo de 0 a 0.25, 68 están en el de 0.25
@@ -286,8 +287,8 @@ corredor central, de Garibaldi a Barranca del Muerto.
     \centering
     \includegraphics[width=\textwidth]{%
         Figures/Mapas/Qgis_Resources/RedActual/Clasificacion_Garibelt/Clasificacion_Banda_Dominante}
-    \caption[Banda dominante por nodo en el Caso~1]{%
-    Banda dominante por nodo en el Caso~1 (red actual). Los colores
+    \caption[Intervalo dominante por nodo en el Caso~1]{%
+    Intervalo dominante por nodo en el Caso~1 (red actual). Los colores
     corresponden a los intervalos 0--0.25, 0.25--0.50 y 0.50--0.75. La nota
     del mapa da 78 nodos en el intervalo de 0.25 a 0.50; los datos de la
     corrida dan 68, que es la cifra del texto. Versión a página completa en la
@@ -310,8 +311,8 @@ mucha intermediación.
     \centering
     \includegraphics[width=\textwidth]{%
         Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_MB/Clasificacion_Garibelt/Clasificacion_Banda_Dominante_MB}
-    \caption[Banda dominante por nodo en el Caso~2]{%
-    Banda dominante por nodo en el Caso~2 (Anillo MB), con los mismos
+    \caption[Intervalo dominante por nodo en el Caso~2]{%
+    Intervalo dominante por nodo en el Caso~2 (Anillo MB), con los mismos
     intervalos de la Figura~\ref{fig:anillo-banda-caso1}. Versión a página
     completa en la Figura~\ref{fig:anx-g-banda-mb}. Corrida: 2026-10-04.}
     \label{fig:anillo-banda-mb}
@@ -323,8 +324,8 @@ mucha intermediación.
     \centering
     \includegraphics[width=\textwidth]{%
         Figures/Mapas/Qgis_Resources/RedConAnillo/Escenario_Metro/Clasificacion_Garibelt/Clasificacion_Banda_Dominante_Metro}
-    \caption[Banda dominante por nodo en el Caso~3]{%
-    Banda dominante por nodo en el Caso~3 (Anillo Metro), con los mismos
+    \caption[Intervalo dominante por nodo en el Caso~3]{%
+    Intervalo dominante por nodo en el Caso~3 (Anillo Metro), con los mismos
     intervalos de la Figura~\ref{fig:anillo-banda-caso1}. Versión a página
     completa en la Figura~\ref{fig:anx-g-banda-metro}. Corrida: 2026-10-04.}
     \label{fig:anillo-banda-metro}
@@ -337,15 +338,15 @@ cambian de intervalo. Son 10 en el Caso~2, cuatro que suben y seis que bajan, y
 21 en el Caso~3, 11 que suben y 10 que bajan. Todos se mueven entre los dos
 intervalos más bajos, y en todos el cambio viene de la intermediación. Hay 39
 nodos cuya Fuerza Capilar sube de intervalo en los dos casos, pero ninguno
-cambia de banda dominante por esa razón, porque en ellos la intermediación
+cambia de intervalo dominante por esa razón, porque en ellos la intermediación
 sigue siendo el valor más bajo.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{%
         Figures/Cap6/TiempoViajePromedio/Grafica_Espectro_Transicion_Banda}
-    \caption[Cambio de banda dominante por nodo en los Casos~2 y~3]{%
-    Nodos por intervalo de banda dominante en el Caso~1 (filas) y en los
+    \caption[Cambio de intervalo dominante por nodo en los Casos~2 y~3]{%
+    Nodos por intervalo dominante en el Caso~1 (filas) y en los
     Casos~2 y~3 (columnas). Las celdas de color intenso son los nodos
     existentes que cambian de intervalo; la última fila corresponde a las
     94 estaciones del anillo, que no existen en el Caso~1.
@@ -371,8 +372,8 @@ suben de intervalo. En esos tres la mejora es solo relativa.
     \centering
     \includegraphics[width=\textwidth]{%
         Figures/Mapas/Qgis_Resources/Comparativo_CG/Comparativo_Garibelt_Cambio_Banda}
-    \caption[Nodos que cambian de banda dominante con el anillo]{%
-    Nodos existentes que cambian de banda dominante en el Caso~2 (panel~A,
+    \caption[Nodos que cambian de intervalo dominante con el anillo]{%
+    Nodos existentes que cambian de intervalo dominante en el Caso~2 (panel~A,
     10 nodos) y en el Caso~3 (panel~B, 21 nodos) frente al Caso~1. Los
     triángulos hacia arriba pasan del intervalo de 0 a 0.25 al de 0.25 a
     0.50, y los triángulos hacia abajo, al revés. Versión a página completa en la
@@ -422,7 +423,7 @@ tener presentes:
     0.75 y el rango de 85 a 180~minutos de $T$ son supuestos. El Caso~2 está
     tan cerca del corte de 0.75 que bastaría con llevar la cota de 180 a
     181~minutos para que también lo pasara.
-    \item \textbf{Clasificación por nodo relativa.} La banda dominante se mide
+    \item \textbf{Clasificación por nodo relativa.} El intervalo dominante se mide
     contra el máximo de cada caso, así que un nodo puede cambiar de intervalo
     sin que cambie su intermediación.
 \end{itemize}
@@ -433,7 +434,7 @@ tener presentes:
 \textbf{Caso~2 (Anillo MB).} El Anillo MB deja el Espectro casi igual. Solo
 mejora el tiempo de viaje, que se queda a 0.0025 del intervalo más alto. La
 cobertura, la Fuerza Capilar y la intermediación conservan sus valores, y
-apenas diez nodos cambian de banda dominante. Para el diagnóstico, la red con
+apenas diez nodos cambian de intervalo dominante. Para el diagnóstico, la red con
 el Anillo MB es la red actual con viajes algo más cortos: llega al mismo
 territorio y depende de los mismos nodos del centro.
 
