@@ -8,7 +8,8 @@
 Esta versión reúne las correcciones acordadas en las revisiones de octubre y
 noviembre de 2026. Para quien haya leído una versión anterior, el
 Cuadro~\ref{tab:nota-version} resume qué cambió de nombre, de valor o de
-criterio, y dónde se explica cada cambio. Las cifras del documento salen de una
+criterio, y el Cuadro~\ref{tab:nota-version-estructura} qué se movió de lugar;
+los dos indican dónde se explica cada cambio. Las cifras del documento salen de una
 sola corrida de \texttt{VFTModel}, la del 2026-10-04; cuando una figura o un
 cuadro usa otra, su pie lo indica.
 
@@ -66,6 +67,51 @@ Fuerza Capilar de Macro-Hub
   & $FC_h$ en el Anexo F
   & $FC_H$ en todo el documento
   & §\ref{subsec:fuerza-capilar} \\
+\bottomrule
+\end{tabularx}
+\fuentefigura{Elaboración propia.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption[Cambios de estructura entre versiones]{Cambios de estructura entre la
+versión anterior y esta versión.}
+\label{tab:nota-version-estructura}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.3cm}
+  >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X
+  >{\raggedright\arraybackslash}p{2.1cm}}
+\toprule
+\textbf{Tema} & \textbf{Versión anterior} & \textbf{Esta versión} &
+\textbf{Dónde} \\
+\midrule
+Capítulo~2
+  & «Antecedentes y Marco Teórico»: historia, marco teórico, casos y datos
+    abiertos en seis secciones
+  & «Estado del Arte y Marco Teórico»: estado del arte, antecedentes
+    históricos y marco teórico, en ese orden
+  & Cap.~\ref{ch:marco-teorico} \\
+Revisión de la literatura
+  & Repartida entre §3.1.2--§3.1.5 (vulnerabilidad, planeación, eficiencia,
+    interconectividad) y §2.5--§2.6 (casos y datos abiertos), autor por autor
+  & Reunida en una sección, ordenada por temas, que termina en una síntesis
+    de tendencias, debates y vacíos
+  & §\ref{sec:estado-arte}, §\ref{subsec:ea-sintesis} \\
+Conceptos del Capítulo~3
+  & Cada concepto con su revisión bibliográfica completa
+  & Definición operativa breve y su relación con un objetivo específico; la
+    bibliografía se remite al estado del arte
+  & §\ref{subsec:conceptos-operativos} \\
+Anillos de Moscú y Melbourne
+  & Descritos uno por uno como «geometría probada»
+  & Comparados por su propósito; ninguna de las dos fuentes mide la red
+  & §\ref{sec:casos-similares} \\
+Transiciones de fase
+  & Subsección propia que repetía un párrafo de
+    §\ref{sec:justificacion}
+  & Se eliminó; el resultado de Aldous y Barthélemy se resume en el estado
+    del arte y se desarrolla con el indicador~$T$
+  & §\ref{subsec:ea-anillo-radial}, §\ref{subsec:tiempo-viaje} \\
 \bottomrule
 \end{tabularx}
 \fuentefigura{Elaboración propia.}
