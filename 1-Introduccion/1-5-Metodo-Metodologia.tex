@@ -30,16 +30,18 @@ alternativos \citep{fortin2016innovative}.
 Las herramientas y fuentes de datos que articulan el proceso metodológico son:
 
 \begin{itemize}
-\item \textbf{Feeds \gtfs{}} de la red de Movilidad Integrada de la \cdmx{} y
-    los sistemas del Estado de México (Mexibús, Mexicable), como fuente primaria
-    de datos estructurados de la red de transporte.
-\item \texttt{Apímetro} \citep{cabrera2025apimetro}: motor de adquisición,
-normalización y construcción del grafo multimodal georreferenciado a partir de
-    datos \gtfs{}.
-\item \texttt{VFTModel} \citep{cabrera2026VFTModel}: motor analítico para el
-    cálculo de indicadores de eficiencia urbana ($DI$, $T$), centralidad de
-    intermediación ($B(v)$) y robustez geométrica ($\Delta E$) sobre el grafo
-    construido.
+\item \textbf{Feeds \gtfs{}} de la red de Movilidad Integrada de la \cdmx{},
+    como fuente primaria de datos estructurados de la red de transporte. El
+    Mexibús y el Mexicable, que operan en el Estado de México, no tienen un
+    \gtfs{} oficial; sus paradas y trazos se tomaron de \termino{OpenStreetMap}
+    \citep{osm2012} (§\ref{subsec:limitaciones-datos}).
+\item \texttt{Apímetro} \citep{cabrera2025apimetro}: motor de adquisición y
+    normalización de los datos de transporte (\gtfs{} y \termino{OpenStreetMap}),
+    que entrega a \texttt{VFTModel} en un solo formato.
+\item \texttt{VFTModel} \citep{cabrera2026VFTModel}: motor analítico que
+    construye el grafo multimodal georreferenciado y calcula sobre él los
+    indicadores de eficiencia urbana ($DI$, $T$), centralidad de
+    intermediación ($B(v)$) y robustez geométrica ($\Delta E$).
 \item \texttt{Transport-gis-zmvm-mjg} \citep{cabrera2026transportgis}: motor de
     visualización cartográfica para la generación de mapas temáticos
     georreferenciados a partir de los indicadores calculados por
@@ -51,6 +53,16 @@ normalización y construcción del grafo multimodal georreferenciado a partir de
     \item \textbf{Sistemas de Información Geográfica (\gis{})}: QGIS y GeoPandas
 para la visualización, validación espacial y análisis territorial de resultados.
 \end{itemize}
+
+En esta tesis los modos se agrupan por su capacidad. Son masivos el Metro, los
+autobuses de tránsito rápido (Metrobús y Mexibús) y los trenes (Tren Ligero,
+Tren Suburbano y Tren Interurbano). No son masivos el Trolebús, el Cablebús, el
+Mexicable, la \textsc{rtp}, los Corredores Concesionados y el Pumabús. Esta
+división no coincide del todo con la que se usa al construir el grafo, que
+separa los sistemas por derecho de vía: estructurados, con vía exclusiva o
+confinada, y de superficie, en vía compartida (§\ref{sec:grafo-topologico}). El
+Cablebús y el Mexicable, por ejemplo, tienen vía exclusiva, pero su capacidad no
+los hace masivos.
 
 %-----------------------------------------------------------------------
 \section{Metodología}
@@ -142,8 +154,9 @@ Esta fase tiene una ponderación del 35\,\% y cubre los
 los indicadores calculados para identificar zonas con déficit de conectividad
         lateral, tiempos de traslado elevados y dependencia de nodos de alta
         intermediación \citep{mishra2015, ugur2025}.
-\item \textit{Diseño de los escenarios hipotéticos}: Dos configuraciones de
-        corredor anillar de alta capacidad en los cuatro cuadrantes del
+\item \textit{Diseño de los escenarios hipotéticos}: El Caso~1 es la red
+        actual, el \textit{statu quo}, que sirve de referencia. A él se suman
+        dos configuraciones de corredor anillar de alta capacidad en los cuatro cuadrantes del
         Anillo Periférico. El Caso~2 toma como referencia un autobús de tránsito rápido
         (\termino{Bus Rapid Transit}, \brt{}) con vía
         confinada, como el Mexibús: parte de la velocidad comercial del

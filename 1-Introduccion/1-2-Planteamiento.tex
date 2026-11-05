@@ -9,7 +9,10 @@ La problemática expuesta anteriormente revela que la Zona Metropolitana del
 Valle de México (ZMVM) padece una desarticulación topográfica profunda, donde el
 sistema de transporte masivo estructurado presenta una cobertura insuficiente en
 las franjas periféricas que componen el \textbf{Tercer y Cuarto Contorno}
-metropolitano \citep{semovi2020diagnostico}. Esta limitación técnica genera una
+metropolitano \citep{semovi2020diagnostico}. Los contornos son las coronas
+concéntricas en que el diagnóstico de movilidad de la \textsc{semovi} divide la
+metrópoli alrededor de la Ciudad Central; el tercero y el cuarto son los más
+alejados del centro (Figura~\ref{fig:semovi-contornos}). Esta limitación técnica genera una
 dependencia crítica del transporte público concesionado de baja capacidad y del
 automóvil particular, lo cual resulta ineficiente para mitigar una demanda de
 movilidad que desborda las fronteras administrativas de la capital.
@@ -21,7 +24,7 @@ de zonas periféricas en el \textbf{Norte (Ecatepec, Naucalpan)},
 realizar desplazamientos radiales que saturan los nodos del núcleo central
 \citep{obras2025}. Esta configuración no solo incrementa los tiempos de traslado
 ---superando en promedio los 122 minutos para los habitantes del cuarto
-contorno---, sino que eleva la \textit{vulnerabilidad funcional} del sistema
+contorno \citep{semovi2020diagnostico}---, sino que eleva la \textit{vulnerabilidad funcional} del sistema
 ante fallas operativas en hubs críticos como Pantitlán, Indios Verdes o Taxqueña
 \citep{lotero2014vulnerabilidad}.
 
@@ -53,7 +56,9 @@ las alcaldías y municipios del cinturón metropolitano. A diferencia de la
 \textbf{Ciudad Central}, donde la conectividad en red facilita desplazamientos
 multidireccionales, estos parches periféricos operan como islas conectadas
 únicamente por arterias radiales que tienden al colapso crónico. Desde la
-perspectiva del motor \texttt{VFTModel}, esta desconexión implica que los
+perspectiva de \texttt{VFTModel}, el motor de esta tesis que representa la red
+como un grafo y calcula sobre él los indicadores (§\ref{sec:metodo}), esta
+desconexión implica que los
 caminos mínimos entre dos nodos periféricos aledaños tienen un
 \textbf{Factor de Desviación ($DI$)} significativamente elevado, ya que la red
 vial obliga a los usuarios a converger hacia el centro para luego retornar a su
@@ -61,11 +66,15 @@ zona de destino \citep{fortin2016innovative}.
 
 Complementariamente, la teoría de redes de \citet{owais2020} sostiene que en
 ciudades con estructuras no ortogonales, la carencia de conexiones transversales
-entre estos parches fragmentados genera una pérdida de robustez sistémica. Esta
+entre estos parches fragmentados genera una pérdida de robustez sistémica. Por
+robustez sistémica se entiende aquí la capacidad de la red de conservar su
+conectividad y su eficiencia cuando falla uno de sus nodos; la tesis la mide
+con la caída de eficiencia $\Delta E$ (§\ref{subsec:robustez-geometrica}). Esta
 teoría valida la tesis central de este trabajo: la problemática de la periferia
 de la ZMVM no es únicamente una cuestión de capacidad vehicular, sino una
 \textbf{desconexión geométrica estructural}. Mediante el procesamiento de datos
-en \texttt{Apímetro}, se indaga si corredores anillares en los cuatro cuadrantes
+en \texttt{Apímetro}, la herramienta que reúne y normaliza los datos de
+transporte (§\ref{sec:metodo}), se indaga si corredores anillares en los cuatro cuadrantes
 del Anillo Periférico articulan esos parches periféricos; de ser así, los viajes
 entre zonas vecinas dejarían de depender del paso obligado por el núcleo
 central.

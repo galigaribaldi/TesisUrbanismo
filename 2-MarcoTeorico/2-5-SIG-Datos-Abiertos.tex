@@ -41,7 +41,11 @@ a la \zmvm{} presentan coberturas superiores al promedio global, resultado del
 crecimiento sostenido de comunidades locales de cartografía colaborativa. Estos
 hallazgos sustentan la pertinencia de emplear datos \gis{} de fuentes abiertas
 ---en combinación con feeds \gtfs{} oficiales--- como insumo primario para el
-modelado de la red multimodal de la \zmvm{}.
+modelado de la red multimodal de la \zmvm{}. Por eso esta tesis recurre a
+OpenStreetMap donde no hay datos oficiales: de ahí se tomaron las paradas y los
+trazos del Mexibús y del Mexicable. La completitud que miden esos estudios es la
+de la red vial, no la de las paradas de transporte, así que su uso se declara
+como limitación (§\ref{subsec:limitaciones-datos}).
 
 % -----------------------------------------------------------------------
 \subsection{Datos abiertos, comunidad y equidad de acceso}
@@ -75,18 +79,16 @@ en programación o análisis de redes complejas.
 \label{subsec:datos-herramienta-replicable}
 % -----------------------------------------------------------------------
 
-La cadena metodológica propuesta en esta investigación ---\texttt{Apímetro} para
-la adquisición y normalización de feeds \gtfs{}, \texttt{VFTModel} para el
-cálculo de indicadores topológicos y \texttt{Transport-gis-zmvm-mjg} para la
-visualización cartográfica de resultados--- representa una respuesta concreta a
-la brecha identificada por \citet{gurstein2011open}: tres motores de código
-abierto que transforman datos estandarizados en diagnósticos cuantitativos
-comprensibles para urbanistas sin especialización en ciencias de datos. Esta
-arquitectura metodológica es, por diseño, independiente de licencias comerciales
-y reproducible en cualquier área metropolitana que disponga de feeds \gtfs{} y
-cartografía \gis{} de base, condición que, conforme a los hallazgos de
-\citet{barrington2017world}, se cumple en la gran mayoría de las ciudades
-latinoamericanas de escala comparable a la \zmvm{}.
+Esta investigación responde a esa brecha, que en \citet{gurstein2011open} es
+técnica: separa a quien tiene los datos de quien además puede procesarlos
+(§\ref{subsec:datos-comunidad-equidad}). La respuesta es una cadena de tres
+motores de código abierto. \texttt{Apímetro} reúne y normaliza los feeds
+\gtfs{}, \texttt{VFTModel} calcula los indicadores y
+\texttt{Transport-gis-zmvm-mjg} los lleva a mapas que un urbanista puede leer sin
+saber programar. Ninguno depende de licencias comerciales, y la cadena se puede
+repetir en cualquier área metropolitana con feeds \gtfs{} y cartografía \gis{}
+de base, algo que, según \citet{barrington2017world}, cumple la mayoría de las
+ciudades latinoamericanas de escala comparable a la \zmvm{}.
 
 El argumento de replicabilidad no es secundario, sino central al objetivo
 general de la investigación: demostrar que un planificador urbano con acceso a
