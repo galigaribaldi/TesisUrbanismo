@@ -30,8 +30,8 @@ investigación. Se presentan antes de los desarrollos teóricos de las secciones
 subsecuentes porque son condición de lectura de los indicadores, los algoritmos
 y los resultados.
 
-\subsubsection{Sistema de Información Geográfica (\gis{})}
-\label{subsubsec:glosario-gis}
+\subsubsection*{Sistema de Información Geográfica (\gis{})}
+\phantomsection\label{subsubsec:glosario-gis}
 Un \gis{} es un sistema informático que captura, almacena, verifica y despliega
 datos vinculados a posiciones en la superficie terrestre \citep{longley2015}. Su
 aplicación al análisis de redes de transporte permite integrar capas de
@@ -42,8 +42,8 @@ investigación, el \gis{} se implementa con herramientas de código abierto
 ---PostGIS, GeoPandas y QGIS--- \citep{mappinggis2024, mappinggis2020}, cuya cadena de procesamiento produce los
 indicadores definidos en \autoref{sec:indicadores-formulas}.
 
-\subsubsection{Información Geográfica Voluntaria (\textsc{vgi})}
-\label{subsubsec:glosario-vgi}
+\subsubsection*{Información Geográfica Voluntaria (\textsc{vgi})}
+\phantomsection\label{subsubsec:glosario-vgi}
 El término Información Geográfica Voluntaria ---\textsc{vgi}, del inglés
 \textit{Volunteered Geographic Information}--- refiere a los datos geoespaciales
 producidos y publicados colectivamente por ciudadanos en plataformas abiertas en
@@ -61,8 +61,8 @@ en zonas urbanas densas no difiere significativamente de la de fuentes
 cartográficas institucionales \citep{barrington2017world, haklay2010good}, lo
 que sustenta su uso como complemento de la cartografía oficial en este análisis.
 
-\subsubsection{Estándar de datos abiertos de transporte (\gtfs{})}
-\label{subsubsec:glosario-gtfs}
+\subsubsection*{Estándar de datos abiertos de transporte (\gtfs{})}
+\phantomsection\label{subsubsec:glosario-gtfs}
 El \gtfs{} (\textit{General Transit Feed Specification}) es el formato de
 archivos de texto plano mediante el cual los operadores de transporte público
 publican rutas, paradas, frecuencias y horarios de forma interoperable
@@ -74,8 +74,8 @@ ciudad \citep{adip_gtfs_2024}--- constituyen el insumo primario que el \texttt{A
 descarga e integra para construir el grafo multimodal de análisis
 (§\ref{sec:apimetro-intro}).
 
-\subsubsection{Normalización de datos de transporte}
-\label{subsubsec:glosario-normalizacion}
+\subsubsection*{Normalización de datos de transporte}
+\phantomsection\label{subsubsec:glosario-normalizacion}
 La normalización de datos es el proceso mediante el cual registros de distintas
 fuentes se reorganizan en un esquema relacional canónico, libre de redundancias
 y anomalías de actualización \citep{ramakrishnan2003}. En el contexto de esta
@@ -87,8 +87,8 @@ distintas. El \texttt{Apímetro} aplica este proceso sobre \textsc{postgresql}
 unificado; condición indispensable para construir el grafo multimodal $\grafo$
 descrito en el \autoref{ch:Capas-codigo}.
 
-\subsubsection{Grafo de transporte ponderado y dirigido}
-\label{subsubsec:glosario-grafo}
+\subsubsection*{Grafo de transporte ponderado y dirigido}
+\phantomsection\label{subsubsec:glosario-grafo}
 Un grafo de transporte es la representación matemática de la red en la que cada
 parada o estación corresponde a un nodo $v \in \nodos$ y cada conexión operada
 entre dos paradas es una arista dirigida $e \in \aristas$
@@ -101,8 +101,8 @@ los indicadores del \autoref{sec:indicadores-formulas} mediante el algoritmo de
 topológicas e implementación computacional, se desarrolla en la
 \autoref{sec:grafos-matematicos}.
 
-\subsubsection{Red de transporte multimodal de la \zmvm{}}
-\label{subsubsec:glosario-red-multimodal}
+\subsubsection*{Red de transporte multimodal de la \zmvm{}}
+\phantomsection\label{subsubsec:glosario-red-multimodal}
 La red de transporte multimodal de la \zmvm{} comprende doce sistemas de
 transporte ---Metro, Metrobús, Trolebús, Tren Ligero, Tren Suburbano, Tren
 Interurbano, Cablebús, Mexicable, Mexibús, \textsc{rtp}, Corredores
@@ -113,8 +113,8 @@ conectan modos distintos en el mismo punto físico, con un peso que refleja el
 tiempo de caminata entre andenes y el tiempo de espera según la frecuencia del
 servicio \citep{molinero2002}.
 
-\subsubsection{\textit{Hub} y Centro de Transferencia Modal (\textsc{cetram})}
-\label{subsubsec:glosario-hub-cetram}
+\subsubsection*{\textit{Hub} y Centro de Transferencia Modal (\textsc{cetram})}
+\phantomsection\label{subsubsec:glosario-hub-cetram}
 En la teoría de redes, un \termino{hub} es un nodo con un grado de conexión
 excepcionalmente alto respecto a la distribución del resto del sistema
 \citep{newman2010networks}. En el transporte metropolitano de la \cdmx{}, los
@@ -137,8 +137,8 @@ relevante para la priorización de intervenciones
 
 % D33-3 (#33, 2026-11-04): umbral fijo por percentil. Falta la cifra P99 de
 % B(v) de la corrida 2026-10-04 (NOTAS_TRANSPORT_GIS.md §4).
-\subsubsection{Alta intermediación}
-\label{subsubsec:glosario-alta-intermediacion}
+\subsubsection*{Alta intermediación}
+\phantomsection\label{subsubsec:glosario-alta-intermediacion}
 Se dice que un nodo tiene alta intermediación cuando su $B(v)$ normalizada
 (§\ref{subsec:centralidad-intermediacion}) llega a $0.0XXX$ o más. Ese valor
 se fijó con el percentil~99 de la red actual en la corrida 2026-10-04: lo
@@ -147,38 +147,38 @@ Tacubaya, el máximo de la red, con 0.2232. Para los Casos~2 y~3 no se recalcula
 se usa la misma cifra, y así el anillo se compara contra un corte que no se
 mueve con él.\pendiente{Cifra P99 de $B(v)$ (VFTModel)}
 
-\subsubsection{Corredor de alta capacidad anillar}
-\label{subsubsec:glosario-corredor-anillar}
-Bajo la categoría de corredor de alta capacidad \citep{douma2003} se agrupan líneas de transporte
-público con infraestructura exclusiva ---carril confinado, plataformas de
-abordaje a nivel, control centralizado de frecuencias--- que alcanzan
-rendimientos operativos comparables a los sistemas ferroviarios a una fracción
-de su costo \citep{molinero2002}. La variante anillar se distingue de los
-trazados radiales por su geometría: en lugar de converger al centro, el corredor
-describe un arco concéntrico paralelo a la frontera entre el área central y la
-primera corona periférica, articulando cuadrantes de la periferia entre sí y
-desviando los flujos que de otro modo saturarían los nodos de alta
-intermediación \citep{aldous2019optimal}. Dos proyectos recientes ilustran la
-viabilidad del modelo: el orbital ferroviario de 90\,km en Melbourne
-\citep{suburbanrailloop2021} y la Gran Línea Circular de 54 estaciones
-inaugurada en Moscú en 2023 \citep{efe2023}. Para la \zmvm{}, cuya periferia
-carece de vínculos directos de transporte estructurado entre cuadrantes
-\citep{obras2025}, esta investigación evalúa el impacto hipotético de
-implementar corredores anillares en los cuatro cuadrantes del Anillo Periférico
-de la \cdmx{} como escenario de demostración metodológica.
+\subsubsection*{Corredor de alta capacidad anillar}
+\phantomsection\label{subsubsec:glosario-corredor-anillar}
+Bajo la categoría de corredor de alta capacidad \citep{douma2003} se agrupan
+las líneas de transporte público con infraestructura exclusiva: carril
+confinado, abordaje a nivel y control central de frecuencias. Con eso alcanzan
+rendimientos parecidos a los de un tren por una fracción de su costo
+\citep{molinero2002}. La variante anillar cambia la geometría. En lugar de
+llegar al centro, el corredor traza un arco entre el área central y la primera
+corona periférica; une así los cuadrantes de la periferia entre sí y desvía
+flujos que de otro modo cargarían a los nodos de alta intermediación
+\citep{aldous2019optimal}. Hay dos proyectos recientes de este tipo: el
+orbital ferroviario de 90\,km de Melbourne \citep{suburbanrailloop2021} y la
+Gran Línea Circular de Moscú, de 70\,km, que se inauguró en 2023
+\citep{efe2023}. En la \zmvm{} la periferia no tiene vínculos directos de
+transporte estructurado entre cuadrantes \citep{obras2025}. Por eso esta
+investigación evalúa, como escenario de demostración metodológica, el impacto
+hipotético de corredores anillares en los cuatro cuadrantes del Anillo
+Periférico de la \cdmx{}.
 
-Para el análisis comparativo, este trabajo distingue dos variantes hipotéticas
-del corredor anillar según el modo que replican. El \textbf{Caso~2}, o Anillo
-MB, adopta la operación del Metrobús: 16.3~km/h sobre vía confinada, que con
-el Coeficiente de Fricción Vial ($CF = 1.152$) quedan en unos 14.2~km/h. El
-\textbf{Caso~3}, o Anillo Metro, adopta la del Metro de la \cdmx{}: 36~km/h
-sobre vía exclusiva, sin fricción. Ambos usan el mismo trazo y las mismas 94
-estaciones, y se incorporan al grafo multimodal como nodos y aristas
-adicionales; la comparación de sus indicadores con los del Caso~1 (red actual o \textit{statu quo})
-permite estimar el impacto diferencial de cada modo.
+Para el análisis comparativo se distinguen dos variantes hipotéticas del
+corredor anillar, según el modo que replican. El \textbf{Caso~2}, o Anillo MB,
+toma como referencia al Mexibús, el autobús de tránsito rápido del Estado de
+México. Parte de la velocidad base del Metrobús, 16.3~km/h, y en vía confinada,
+con el Coeficiente de Fricción Vial ($CF = 1.152$), baja a unos 14.2~km/h. El
+\textbf{Caso~3}, o Anillo Metro, opera como el Metro de la \cdmx{}: 36~km/h en
+vía exclusiva y sin fricción. Los dos usan el mismo trazo y las mismas 94
+estaciones, que entran al grafo multimodal como nodos y aristas adicionales.
+Al comparar sus indicadores con los del Caso~1 (la red actual o
+\textit{statu quo}) se estima el efecto de cada modo.
 
-\subsubsection{Clasificación Garibelt y Escala Garibelt}
-\label{subsubsec:glosario-clasificacion-garibelt}
+\subsubsection*{Clasificación Garibelt y Escala Garibelt}
+\phantomsection\label{subsubsec:glosario-clasificacion-garibelt}
 La Clasificación Garibelt es un instrumento de síntesis diagnóstica que compila
 los cinco indicadores topológicos calculados por \texttt{VFTModel} sobre el
 grafo multimodal de la \zmvm{}. Su propósito es revelar las fortalezas y
@@ -228,8 +228,8 @@ intervalo en que cae. La definición formal, sus cinco dimensiones y los
 criterios de normalización de cada una se desarrollan en la
 \autoref{sec:indicadores-formulas}.
 
-\subsubsection{Términos de arquitectura de \texorpdfstring{\termino{software}}{software}}
-\label{subsubsec:glosario-software}
+\subsubsection*{Términos de arquitectura de \texorpdfstring{\termino{software}}{software}}
+\phantomsection\label{subsubsec:glosario-software}
 
 Los siguientes términos corresponden a estándares y patrones de ingeniería de
 \termino{software} empleados en la implementación del \texttt{Apímetro}. Se definen aquí para que
@@ -273,8 +273,8 @@ es la entrada de la siguiente \citep{ramakrishnan2003}. En este trabajo, el
 término designa la cadena \texttt{Apímetro} $\to$ \texttt{VFTModel} $\to$ motor de indicadores que
 transforma feeds \gtfs{} crudos en resultados de análisis urbano.
 
-\subsubsection{Herramientas de \texorpdfstring{\termino{software}}{software} de la investigación}
-\label{subsubsec:glosario-herramientas}
+\subsubsection*{Herramientas de \texorpdfstring{\termino{software}}{software} de la investigación}
+\phantomsection\label{subsubsec:glosario-herramientas}
 
 Esta investigación desarrolló tres herramientas de código abierto que articulan
 la cadena metodológica completa. Se presentan aquí en una línea cada una; su
