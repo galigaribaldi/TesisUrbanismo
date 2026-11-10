@@ -6,8 +6,7 @@
 \subsection{Entradas y Validación de Datos}
 \label{sec:vft-entradas}
 
-\subsubsection{Formato de Ingesta: GeoJSON}
-\label{subsec:vft-geojson}
+\phantomsection\label{subsec:vft-geojson}
 
 \texttt{VFTModel} recibe los datos geográficos producidos por \texttt{Apímetro} en formato
 \geojson{} \citep{butler2016geojson} —primera transferencia del flujo de
@@ -26,11 +25,10 @@ entrega una \texttt{FeatureCollection} con dos tipos de geometrías:
 \end{itemize}
 
 Antes de incorporar cualquier elemento al grafo, \texttt{VFTModel} somete cada
-\texttt{Feature} a una validación estricta descrita en la
-Sección~\ref{subsec:vft-pydantic}.
+\texttt{Feature} a una validación estricta, descrita a
+continuación.
 
-\subsubsection{Validación Estricta con Pydantic}
-\label{subsec:vft-pydantic}
+\phantomsection\label{subsec:vft-pydantic}
 
 El modelo utiliza \textbf{Pydantic} como compuerta de calidad: cada
 \texttt{Feature} entrante es verificada contra los contratos de tipo definidos
@@ -53,8 +51,7 @@ indicadores topológicos (Figura~\ref{fig:vft-pydantic}).
 El contrato abarca ocho campos críticos; su especificación completa se presenta
 en el Cuadro~\ref{tab:vft-campos-validados} del Anexo~\ref{anx:vft-validacion}.
 
-\subsubsection{Catálogo de Sistemas de Transporte}
-\label{subsec:vft-sistemas}
+\phantomsection\label{subsec:vft-sistemas}
 
 \texttt{VFTModel} reconoce exactamente doce sistemas de transporte metropolitano. Cuando
 los datos de velocidad o frecuencia no llegan desde \texttt{Apímetro}, el modelo recurre

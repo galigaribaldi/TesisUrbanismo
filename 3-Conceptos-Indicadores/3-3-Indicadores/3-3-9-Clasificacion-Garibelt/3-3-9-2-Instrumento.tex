@@ -7,7 +7,7 @@
 
 El resultado normalizado de cada dimensión cae en algún punto del intervalo
 $[0, 1]$, donde 0 corresponde a la cota inferior de su rango de referencia y 1
-a la superior (§\ref{subsubsec:garibelt-procedimiento}). La Escala Garibelt
+a la superior (véase más adelante «El procedimiento de normalización»). La Escala Garibelt
 divide ese intervalo en cuatro tramos: $[0.00, 0.25)$, $[0.25, 0.50)$,
 $[0.50, 0.75)$ y $[0.75, 1.00]$. Cada tramo se nombra solo por sus límites.
 Decir que una dimensión está en 0.00--0.25 significa que su valor bruto quedó
@@ -19,7 +19,7 @@ Los cortes en 0.25, 0.50 y 0.75 son un supuesto del autor: dividen el rango
 normalizado en cuatro intervalos de igual ancho, sin dar más peso a ninguno,
 para que la lectura sea la misma en las cinco dimensiones. Esa simplicidad
 tiene un costo. Como la normalización depende de las cotas de referencia de
-cada dimensión (§\ref{subsubsec:garibelt-procedimiento}), moverlas puede
+cada dimensión (véase más adelante «El procedimiento de normalización»), moverlas puede
 cambiar el intervalo aunque el valor bruto sea el mismo. Con los valores de la
 red actual (§\ref{subsec:espectro-mjg}), bajar el techo de $T$ de 180 a
 150~min llevaría su valor normalizado de 0.70 a 0.56, todavía en 0.50--0.75;
@@ -40,8 +40,8 @@ futuro.
 \end{figure}
 
 % =====================================================================
-\subsubsection{Qué pregunta responde cada dimensión}
-\label{subsubsec:garibelt-preguntas}
+\paragraph{Qué pregunta responde cada dimensión.}
+\phantomsection\label{subsubsec:garibelt-preguntas}
 % =====================================================================
 
 Para leer el Espectro MJG sin necesidad de conocer los detalles computacionales,
@@ -63,8 +63,8 @@ qué tan cerca quedó la red de la cota superior que se fijó para esa dimensió
 0 es la cota inferior y 1 la superior.
 
 % =====================================================================
-\subsubsection{El procedimiento de normalización}
-\label{subsubsec:garibelt-procedimiento}
+\paragraph{El procedimiento de normalización.}
+\phantomsection\label{subsubsec:garibelt-procedimiento}
 % =====================================================================
 
 Llevar un valor bruto a la escala $[0, 1]$ de la Clasificación Garibelt requiere
@@ -103,8 +103,8 @@ comparar nodos dentro de una misma red; entre casos distintos, un cambio de
 intervalo puede deberse a que cambió el máximo y no el nodo.
 
 % =====================================================================
-\subsubsection{Un tablero, no un marcador}
-\label{subsubsec:garibelt-tablero}
+\paragraph{Un tablero, no un marcador.}
+\phantomsection\label{subsubsec:garibelt-tablero}
 % =====================================================================
 
 Un solo número no deja saber cuál de las cinco dimensiones explica el
