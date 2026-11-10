@@ -18,17 +18,18 @@ resume la estructura de cada tabla.
 
 \begin{table}[htbp]
     \centering
+    \footnotesize
     \caption[Tablas del \termino{WDC} de \texttt{Apímetro} para Tableau]{Tablas
     expuestas por el conector \textsc{wdc}, con su identificador interno
     y el endpoint de \texttt{Apímetro} que las alimenta.}
     \label{tab:tg-wdc-tablas}
-    \begin{tabularx}{\textwidth}{|l|l|r|X|}
+    \begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|r|>{\raggedright\arraybackslash}p{4.6cm}|}
         \hline
         \textbf{ID tabla} & \textbf{Endpoint \texttt{Apímetro}} & \textbf{Registros} & \textbf{Descripción} \\
         \hline
-        \texttt{afluencia\_linea}    & \texttt{/movilidad/analitico/afluencia-linea}    & 1\,197  & Afluencia mensual por línea (CBB, MB, METRO, TL, TROLE) \\
-        \texttt{afluencia\_estacion} & \texttt{/movilidad/analitico/afluencia-estacion} & 38\,219 & Afluencia mensual por estación Metro~\cdmx{} 2010--2026 \\
-        \texttt{estaciones}          & \texttt{/movilidad/mapas/geojsonEstacion}        & variable & Estaciones con latitud y longitud para mapas Tableau \\
+        \texttt{afluencia\_linea}    & \nolinkurl{/movilidad/analitico/afluencia-linea}    & 1\,197  & Afluencia mensual por línea (CBB, MB, METRO, TL, TROLE) \\
+        \texttt{afluencia\_estacion} & \nolinkurl{/movilidad/analitico/afluencia-estacion} & 38\,219 & Afluencia mensual por estación Metro~\cdmx{} 2010--2026 \\
+        \texttt{estaciones}          & \nolinkurl{/movilidad/mapas/geojsonEstacion}        & variable & Estaciones con latitud y longitud para mapas Tableau \\
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en \texttt{apimetro\_wdc.html}

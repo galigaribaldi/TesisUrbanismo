@@ -21,20 +21,21 @@ Cuadro~ \ref{tab:tg-geoproxy-endpoints} lista todos los endpoints disponibles.
 
 \begin{table}[htbp]
     \centering
+    \footnotesize
     \caption[Endpoints del \termino{GeoProxy} para Tableau Spatial File]{Rutas
     del servidor \textbf{GeoProxy} disponibles como fuentes espaciales
     en Tableau Desktop mediante el conector \termino{Spatial File}.}
     \label{tab:tg-geoproxy-endpoints}
-    \begin{tabularx}{\textwidth}{|l|l|X|}
+    \begin{tabularx}{\textwidth}{|l|l|>{\raggedright\arraybackslash}X|}
         \hline
         \textbf{URL local (:5050)} & \textbf{Geometría} & \textbf{Endpoint origen} \\
         \hline
-        \texttt{/apimetro/lineas.geojson}     & MultiLineString & \texttt{Apimetro/movilidad/mapas/geojsonLinea} \\
-        \texttt{/apimetro/poligonos.geojson}  & MultiPolygon    & \texttt{Apimetro/movilidad/mapas/geojsonPoligono} \\
-        \texttt{/apimetro/estaciones.geojson} & Point           & \texttt{Apimetro/movilidad/mapas/geojsonEstacion} \\
-        \texttt{/vftmodel/cobertura.geojson}  & Polygon         & \texttt{VFTModel/api/v1/network/geolayers/coverage} \\
-        \texttt{/vftmodel/capillary.geojson}  & Point           & \texttt{VFTModel/api/v1/network/geolayers/capillary} \\
-        \texttt{/vftmodel/detour.geojson}     & Point           & \texttt{VFTModel/api/v1/network/geolayers/detour} \\
+        \texttt{/apimetro/lineas.geojson}     & MultiLineString & \nolinkurl{Apimetro/movilidad/mapas/geojsonLinea} \\
+        \texttt{/apimetro/poligonos.geojson}  & MultiPolygon    & \nolinkurl{Apimetro/movilidad/mapas/geojsonPoligono} \\
+        \texttt{/apimetro/estaciones.geojson} & Point           & \nolinkurl{Apimetro/movilidad/mapas/geojsonEstacion} \\
+        \texttt{/vftmodel/cobertura.geojson}  & Polygon         & \nolinkurl{VFTModel/api/v1/network/geolayers/coverage} \\
+        \texttt{/vftmodel/capillary.geojson}  & Point           & \nolinkurl{VFTModel/api/v1/network/geolayers/capillary} \\
+        \texttt{/vftmodel/detour.geojson}     & Point           & \nolinkurl{VFTModel/api/v1/network/geolayers/detour} \\
         \hline
     \end{tabularx}
     \fuentefigura{Elaboración propia con base en \texttt{geo\_proxy/main.py}
@@ -60,7 +61,7 @@ uvicorn main:app --port 5050 --reload
 Una vez activo, Tableau Desktop puede conectarse mediante
 \textbf{Conectar~$\to$ Más\ldots~$\to$ Archivo espacial} escribiendo la
 \textsc{url} del endpoint deseado (por ejemplo,
-\texttt{http://localhost:5050/apimetro/lineas.geojson}).
+\nolinkurl{http://localhost:5050/apimetro/lineas.geojson}).
 
 El Código~\ref{lst:tg-geoproxy-proxy} presenta la función \texttt{\_proxy} y el
 Código~\ref{lst:tg-geoproxy-endpoint} un endpoint representativo.

@@ -75,7 +75,8 @@ def recolectar():
             for m in RE_LABEL.finditer(linea):
                 labels[m.group(1) or m.group(2)].append(pos)
             for m in RE_REF.finditer(linea):
-                refs += [(k, pos) for k in separar(m.group(1))]
+                # Se omiten los argumentos de macros (\ref{#1} en Comands.tex)
+                refs += [(k, pos) for k in separar(m.group(1)) if "#" not in k]
             for m in RE_CITA.finditer(linea):
                 if m.group(1) == "cite":
                     cite_directo.append(pos)
