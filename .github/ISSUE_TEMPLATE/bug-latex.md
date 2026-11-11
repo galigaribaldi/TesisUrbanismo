@@ -8,11 +8,11 @@ assignees: galigaribaldi
 
 ## Tipo de error
 - [ ] Error de compilación (XeLaTeX)
-- [ ] Error de bibliografía (Biber)
+- [ ] Error de bibliografía (BibTeX / natbib)
 - [ ] `\label` duplicado
 - [ ] `\ref` sin `\label` correspondiente
 - [ ] Paquete incompatible o cargado dos veces
-- [ ] Figura no encontrada (`\includegraphics`)
+- [ ] Figura no encontrada (`\includegraphics`; en CI revisar mayúsculas y `.gitattributes`)
 - [ ] Otro
 
 ## Descripción del error
@@ -23,7 +23,7 @@ assignees: galigaribaldi
 ```
 
 ## Archivo y línea aproximada
-<!-- Ej: 3-Conceptos-Indicadores/3-2-Grafos-Matematicas.tex, línea 45 -->
+<!-- Ej: 3-Conceptos-Indicadores/3-2-Grafos-Matematicos/3-2-Grafos-Matematicas.tex, línea 45 -->
 
 ## Pasos para reproducirlo
 1.

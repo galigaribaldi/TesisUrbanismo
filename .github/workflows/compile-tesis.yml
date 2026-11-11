@@ -17,29 +17,13 @@ jobs:
         with:
           lfs: true
 
-      - name: Compilar tesis con XeLaTeX + Biber
+      # latexmk toma la configuración de .latexmkrc (XeLaTeX + BibTeX, --shell-escape).
+      # La imagen texlive-full ya trae todos los paquetes.
+      - name: Compilar tesis con XeLaTeX + BibTeX
         uses: xu-cheng/latex-action@v3
         with:
           root_file: tesis.tex
           latexmk_use_xelatex: true
-          extra_packages: >-
-            biber
-            biblatex
-            babel-spanish
-            csquotes
-            microtype
-            emptypage
-            setspace
-            fancyhdr
-            titlesec
-            bookmark
-            caption
-            subcaption
-            listings
-            xcolor
-            tikz
-            pgf
-            animate
 
       - name: Subir PDF como artefacto descargable
         uses: actions/upload-artifact@v4

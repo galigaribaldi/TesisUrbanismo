@@ -40,12 +40,12 @@ borrador:
 	$(MOTOR) -interaction=nonstopmode \
 	  "\def\borrador{}\input{$(DOCUMENTO)}"
 
-## solo: compilar un capítulo — uso: make solo CAP=6-Analisis.../1-Analisis
+## solo: compilar un capítulo — uso: make solo CAP=6-Analisis-Red-Anillo/1-Analisis-Red-Anillo
 CAP ?=
 solo:
 	@if [ -z "$(CAP)" ]; then \
 	  echo "Uso: make solo CAP=<ruta/archivo>"; \
-	  echo "Ejemplo: make solo CAP=6-Analisis-SocioEspacial/1-Analisis"; \
+	  echo "Ejemplo: make solo CAP=6-Analisis-Red-Anillo/1-Analisis-Red-Anillo"; \
 	  exit 1; \
 	fi
 	$(MOTOR) -interaction=nonstopmode \
@@ -148,7 +148,7 @@ ayuda:
 	@echo "  Flujos comunes:"
 	@echo "    make latexmk                               — uso diario"
 	@echo "    make borrador                              — editar prosa (sin imágenes)"
-	@echo "    make solo CAP=6-Analisis.../1-Analisis     — compilar solo Cap. 6"
+	@echo "    make solo CAP=6-Analisis-Red-Anillo/1-Analisis-Red-Anillo — compilar solo Cap. 6"
 	@echo "    make compilar-limpio                       — después de cambios estructurales"
 	@echo "    make tikz-clean && make compilar-limpio    — regenerar diagramas TikZ"
 	@echo "    make checar                                — verificar citas, labels y refs antes de enviar"

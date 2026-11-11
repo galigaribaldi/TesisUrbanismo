@@ -15,7 +15,7 @@ Reglas de formateo:
   - Párrafos de prosa: word-wrap al ancho objetivo (default 80)
   - Líneas ya dentro del límite: pasan intactas
   - Líneas en blanco: se preservan (separan párrafos)
-  - Comandos LaTeX inline (\textit{}, \parencite{}, etc.) nunca se parten
+  - Comandos LaTeX inline (\textit{}, \citep{}, etc.) nunca se parten
 
 Carpetas escaneadas (sin argumento):
   [1-7]-*/   →  todos los .tex en capítulos (recursivo)
@@ -23,10 +23,10 @@ Carpetas escaneadas (sin argumento):
 
 Uso:
     python3 tools/formatter.py
-    python3 tools/formatter.py --cap 2-MarcoTeorico/1-Antecedentes.tex
-    python3 tools/formatter.py --cap 5-Resultados/5-2-1-Fase1/5-2-1-2-Cobertura.tex
+    python3 tools/formatter.py --cap 2-MarcoTeorico/2-3-Marco-Teorico/2-3-1-Dispersion.tex
+    python3 tools/formatter.py --cap 5-Analisis-Red-Actual/5-3-Fase1/5-3-2-Cobertura.tex
     make formatear
-    make formatear CAP=2-MarcoTeorico/1-Antecedentes.tex
+    make formatear CAP=2-MarcoTeorico/2-3-Marco-Teorico/2-3-1-Dispersion.tex
 """
 
 from __future__ import annotations

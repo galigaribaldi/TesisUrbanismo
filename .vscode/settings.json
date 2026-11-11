@@ -19,5 +19,7 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#832561",
-    "cSpell.language": "en,es-ES"
+    "cSpell.language": "en,es-ES",
+    "latex-workshop.latex.autoBuild.run": "never",
+    "latex-workshop.latex.autoClean.run": "never"
 }
