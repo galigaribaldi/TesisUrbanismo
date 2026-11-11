@@ -8,6 +8,11 @@ hilo conductor y los hallazgos que entrarán al capítulo.
 > y 7.3 P1 sin repetir 53.52/3.92 %. ~2,600 palabras (D7-3: sin recorte).
 > Listo para cerrar #23. Pendiente externo: #34 puede cambiar «76 demarcaciones»
 > y «diez… 21 nodos» de 7.3 P1. Ver §10 (bitácora) y §11 (retomar aquí).
+>
+> **Actualización (2026-11-11):** #23 cerrado; el capítulo está en el borrador Alfa
+> (release `v-alfa`, commit 01258d6). #34 quedó fuera de alcance, así que «76
+> demarcaciones» se conserva. Las marcas ⏳ de abajo (p. ej., «falta la entrada» en
+> §1 y §3) son de la bitácora: la entrada ya está redactada.
 
 - **Fecha de apertura:** 2026-11-03
 - **Archivo padre:** `7-Conclusiones/1-Conclusiones.tex` ✅ (encabezado,

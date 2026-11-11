@@ -1,6 +1,17 @@
 # §5.6 Diagnóstico Territorial — Clasificación Garibelt
 ## Nota de contexto y plan editorial — 2026-09-18
 
+> **⚠️ Documento histórico (actualizado el 2026-11-11).** Las cifras y el plan de
+> este archivo son de septiembre de 2026 y no se deben citar. Valores vigentes, de la
+> corrida 2026-10-04: $T$ = 113.91 min; Gini de $B(v)$ = 0.8007 (Tacubaya, 0.2232);
+> $DI$ mediana = 1.52; $C$ = 13.3 % en 76 demarcaciones de la ZMVM; grafo de
+> 11,115 nodos y 45,517 aristas (25,025 de servicio y 20,492 de transbordo). Desde
+> #33 la Escala Garibelt usa intervalos (0–0.25, 0.25–0.50, …) en lugar de bandas
+> cualitativas. El indicador se llama Factor de Desviación ($DI$), y la referencia
+> de 85 min es un supuesto del autor, no un dato de ENOE. El plan de archivos de abajo no se
+> siguió: §5.6 quedó en `5-6-Espectro-MJG/` (5-6-1-Contexto, 5-6-2-Espectro) y el
+> fundamento pasó a §3.3.9 (`3-3-9-Clasificacion-Garibelt/`).
+
 ---
 
 ## Qué es la Clasificación Garibelt

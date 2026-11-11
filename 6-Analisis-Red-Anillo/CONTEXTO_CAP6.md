@@ -6,6 +6,12 @@
 
 Archivo de trabajo para retomar el capítulo entre sesiones. No se compila.
 
+> **Estado (2026-11-11):** ✅ Cap. 6 completo e incluido en el borrador Alfa
+> (release `v-alfa`, commit 01258d6). El Cap. 7 también está terminado (#23 cerrado).
+> §6.3.1 pasó a texto continuo con #42. Quedan abiertos #33 (visual en Transport-gis),
+> #34 (fuera de alcance), #40 (partir archivos largos, baja prioridad) y #41 (rótulos de
+> las figuras del Cap. 6). La sección 0 de abajo es la bitácora de octubre.
+
 ---
 
 ## 0. RETOMAR AQUÍ (sesión 2026-10-24)
