@@ -10,6 +10,7 @@ Configuración en: `.latexmkrc` (portable, no editar sin motivo)
 | Comando | Qué hace | Tiempo aprox. |
 |---|---|---|
 | `make latexmk` | Compilación automática multi-pasada. Detecta qué necesita recompilar. **Opción por defecto.** | ~35 seg |
+| `make pdf` | Compilación completa en cuatro pasadas fijas (XeLaTeX → BibTeX → XeLaTeX × 2). La misma secuencia que usa el CI. | ~3–4 min |
 | `make rapido` | Una sola pasada XeLaTeX. Para cambios menores de texto sin citas nuevas. | ~15 seg |
 | `make borrador` | Sin imágenes (cajas vacías). Para editar prosa sin esperar gráficos. | ~12 seg |
 | `make watch` | Recompila automáticamente al guardar cualquier `.tex`. | continuo |
@@ -19,16 +20,18 @@ Configuración en: `.latexmkrc` (portable, no editar sin motivo)
 ## Compilar un solo capítulo
 
 ```bash
-make solo CAP=6-Analisis-SocioEspacial/1-Analisis   # Cap. 6
-make solo CAP=7-Conclusiones/1-Conclusiones          # Cap. 7
-make solo CAP=5-Resultados/1-Resultados              # Cap. 5
-make solo CAP=4-Capas-Codigo/4-Capas                 # Cap. 4 completo
-make solo CAP=1-Introduccion/1-Introduccion          # Cap. 1 completo
+make solo CAP=6-Analisis-Red-Anillo/1-Analisis-Red-Anillo    # Cap. 6
+make solo CAP=7-Conclusiones/1-Conclusiones                  # Cap. 7
+make solo CAP=5-Analisis-Red-Actual/1-Analisis-Red-Actual    # Cap. 5
+make solo CAP=4-Capas-Codigo/4-Capas                         # Cap. 4
+make solo CAP=1-Introduccion/1-Introduccion                  # Cap. 1
 ```
 
-> Solo muestra las páginas de ese capítulo (~89 pág. en lugar de ~232).
+> Genera `tesis_<carpeta>.pdf` solo con ese capítulo, en lugar del documento
+> completo (~372 pág.). Los anexos no se incluyen; la bibliografía sí.
 > Las referencias cruzadas a otros capítulos aparecen como **??** — es normal.
 > Si hay citas nuevas, correr `make bib` antes.
+> `make solo` mueve `tesis.pdf`: correr `make pdf` antes si se necesita el completo.
 
 ---
 
@@ -59,9 +62,10 @@ las siguientes los reutilizan (~35 seg).
 ## Verificación de integridad
 
 ```bash
+make checar            # Las tres verificaciones de abajo
 make checar-bib        # Citas usadas en .tex vs. entradas en referencias.bib
 make checar-etiquetas  # Detectar \label duplicados en todo el documento
-make checar-refs       # Detectar \ref sin \label correspondiente
+make checar-refs       # Detectar \ref, \eqref, \autoref y \pageref sin \label
 ```
 
 ---
@@ -70,7 +74,7 @@ make checar-refs       # Detectar \ref sin \label correspondiente
 
 ```bash
 make formatear                                      # Todos los capítulos (80 cols)
-make formatear CAP=6-Analisis-SocioEspacial/...tex  # Un archivo específico
+make formatear CAP=6-Analisis-Red-Anillo/6-1-Corredor-Anillar.tex  # Un archivo
 make formatear-preview                              # Ver cambios sin aplicar
 ```
 
@@ -83,7 +87,7 @@ make formatear-preview                              # Ver cambios sin aplicar
 make latexmk
 
 # Estoy escribiendo solo Cap. 6 y quiero compilar rápido
-make solo CAP=6-Analisis-SocioEspacial/1-Analisis
+make solo CAP=6-Analisis-Red-Anillo/1-Analisis-Red-Anillo
 
 # Estoy editando prosa, no me importan las imágenes
 make borrador
@@ -108,9 +112,28 @@ make limpiar-todo && make bib
 | Capítulo | CAP= |
 |---|---|
 | Introducción | `1-Introduccion/1-Introduccion` |
-| Marco Teórico | `2-MarcoTeorico/2-MarcoTeorico` |
+| Estado del Arte y Marco Teórico | `2-MarcoTeorico/2-MarcoTeorico` |
 | Conceptos e Indicadores | `3-Conceptos-Indicadores/3-Conceptos` |
 | Capas de Código | `4-Capas-Codigo/4-Capas` |
-| Resultados | `5-Resultados/1-Resultados` |
-| Análisis Socioespacial | `6-Analisis-SocioEspacial/1-Analisis` |
+| Análisis de la Red Actual | `5-Analisis-Red-Actual/1-Analisis-Red-Actual` |
+| Escenario Hipotético: Anillo | `6-Analisis-Red-Anillo/1-Analisis-Red-Anillo` |
 | Conclusiones | `7-Conclusiones/1-Conclusiones` |
+
+---
+
+## Compilación en GitHub (releases)
+
+Cada tag `v*` dispara `.github/workflows/compile-tesis.yml`, que compila con
+latexmk en Linux y publica `tesis.pdf` en Releases (con guion en el nombre →
+*pre-release*).
+
+```bash
+git tag -a v-alfa -m "Borrador Alfa de la tesis"
+git push origin v-alfa
+```
+
+- El runner distingue mayúsculas: toda extensión de imagen debe estar en
+  `.gitattributes` tal como aparece en el nombre (`*.jpeg` y `*.JPEG` son reglas
+  distintas). Comprobar con
+  `git -c core.ignorecase=false check-attr filter -- <archivo>`.
+- Las rutas de `\includegraphics` deben coincidir en mayúsculas con el archivo.
