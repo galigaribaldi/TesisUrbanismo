@@ -4,16 +4,18 @@
 \label{sec:metodo}
 %-----------------------------------------------------------------------
 
-La presente investigación adopta un enfoque \textbf{cuantitativo} fundamentado
+La presente investigación adopta un enfoque cuantitativo fundamentado
 en la teoría de grafos y el modelado de redes complejas de transporte. Este
 enfoque permite representar formalmente la red multimodal de la \zmvm{} como un
 grafo dirigido y ponderado $\grafo = (\nodos, \aristas, \peso{i}{j})$, sobre el
-cual se calculan indicadores de eficiencia, vulnerabilidad y conectividad de
-manera objetiva y reproducible \citep{allauca2023, owais2020}.
+cual se calculan indicadores de eficiencia, vulnerabilidad y conectividad 
+ \citep{allauca2023, owais2020}.
 
-La elección de este método responde a tres condiciones estructurales de la
+La elección del enfoque cuantitativo responde a tres condiciones 
+de la
 investigación: (1)~la disponibilidad de datos abiertos estandarizados en formato
-\gtfs{} para la totalidad de los sistemas de transporte público de la \cdmx{};
+\gtfs{} para la totalidad de los sistemas de transporte público de la \cdmx{} administrados
+por el gobierno de la ciudad;
 (2)~la existencia de motores computacionales de autoría propia ---
 \texttt{Apímetro} \citep{cabrera2025apimetro} y \texttt{VFTModel}
 \citep{cabrera2026VFTModel}--- que permiten procesar dichos datos a escala
@@ -21,7 +23,7 @@ metropolitana; y (3)~la naturaleza cuantificable de las preguntas de
 investigación, centradas en la reducción de tiempos de traslado, la distribución
 de centralidad y la robustez geométrica de la red.
 
-A diferencia de los enfoques tradicionales de modelación basados en matrices
+A diferencia de los enfoques de modelación basados en matrices
 origen-destino, el análisis mediante grafos no requiere calibración de encuestas
 de movilidad, lo que lo hace especialmente adecuado para la evaluación
 estructural de redes existentes y la simulación de escenarios topológicos
@@ -30,7 +32,7 @@ alternativos \citep{fortin2016innovative}.
 Las herramientas y fuentes de datos que articulan el proceso metodológico son:
 
 \begin{itemize}
-\item \textbf{Feeds \gtfs{}} de la red de Movilidad Integrada de la \cdmx{},
+\item \textbf{Conjuntos de datos en formato \gtfs{}} de la red de Movilidad Integrada de la \cdmx{},
     como fuente primaria de datos estructurados de la red de transporte. El
     Mexibús y el Mexicable, que operan en el Estado de México, no tienen un
     \gtfs{} oficial; sus paradas y trazos se tomaron de \termino{OpenStreetMap}
@@ -39,7 +41,7 @@ Las herramientas y fuentes de datos que articulan el proceso metodológico son:
     normalización de los datos de transporte (\gtfs{} y \termino{OpenStreetMap}),
     que entrega a \texttt{VFTModel} en un solo formato.
 \item \texttt{VFTModel} \citep{cabrera2026VFTModel}: motor analítico que
-    construye el grafo multimodal georreferenciado y calcula sobre él los
+    construye el grafo multimodal georreferenciado y calcula  los
     indicadores de eficiencia urbana ($DI$, $T$), centralidad de
     intermediación ($B(v)$) y robustez geométrica ($\Delta E$).
 \item \texttt{Transport-gis-zmvm-mjg} \citep{cabrera2026transportgis}: motor de
@@ -50,19 +52,23 @@ Las herramientas y fuentes de datos que articulan el proceso metodológico son:
 \item \textbf{Python y Go (Golang)}: lenguajes de programación empleados en el
     procesamiento de datos, análisis espacial y desarrollo de los motores
     computacionales.
-    \item \textbf{Sistemas de Información Geográfica (\gis{})}: QGIS y GeoPandas
-para la visualización, validación espacial y análisis territorial de resultados.
+\item \textbf{Sistemas de Información Geográfica (\gis{})}: QGIS y GeoPandas
+    para la visualización, validación espacial y análisis territorial de resultados.
 \end{itemize}
 
-En esta tesis los modos se agrupan por su capacidad. Son masivos el Metro, los
-autobuses de tránsito rápido (Metrobús y Mexibús) y los trenes (Tren Ligero,
-Tren Suburbano y Tren Interurbano). No son masivos el Trolebús, el Cablebús, el
-Mexicable, la \textsc{rtp}, los Corredores Concesionados y el Pumabús. Esta
+En esta tesis los modos de transporte público se agrupan por su capacidad. 
+Los modos masivos son; el Metro, los sistemas BRT
+ (Metrobús y Mexibús) y los trenes (Tren Ligero,
+
+ Tren Suburbano y Tren Interurbano). Los modos no masivos son el 
+ Trolebús, el Cablebús, el
+Mexicable, el \textsc{rtp}, los corredores concesionados y el Pumabús 
+(sistema de transporte público universitario). Esta
 división no coincide del todo con la que se usa al construir el grafo, que
 separa los sistemas por derecho de vía: estructurados, con vía exclusiva o
 confinada, y de superficie, en vía compartida (§\ref{sec:grafo-topologico}). El
-Cablebús y el Mexicable, por ejemplo, tienen vía exclusiva, pero su capacidad no
-los hace masivos.
+Cablebús y el Mexicable, por ejemplo, tienen vía exclusiva, pero por su capacidad 
+no se consideran masivos.
 
 %-----------------------------------------------------------------------
 \section{Metodología}
@@ -71,9 +77,11 @@ los hace masivos.
 
 La investigación se estructura en cuatro fases secuenciales e interdependientes,
 cada una orientada a cubrir uno o más de los objetivos específicos planteados.
-El hilo que las une es la pregunta sobre el anillo: los datos se procesan para
+El hilo que las une es la pregunta sobre la necesidad de implementar 
+rutas de transporte público anillares: los datos se procesan para
 construir el grafo, el grafo se analiza para diagnosticar la red actual, y ese
-diagnóstico es el referente contra el que se mide el escenario hipotético
+diagnóstico es el referente contra el que se mide los escenario hipotéticos
+de implementar rutas de transporte público masivas sobre el Anillo Periférico
 \citep{allauca2023}.
 
 \subsection{Fase 1: Adquisición y construcción del grafo multimodal}
@@ -84,21 +92,25 @@ cubre el \textbf{Objetivo Específico~1}.
 
 \begin{description}
 \item[Objetivo de la Fase:] Construir el grafo multimodal georreferenciado de
-    la \zmvm{} a partir del procesamiento sistemático de los feeds \gtfs{} de la
-    totalidad de los sistemas de transporte público de la región.
+    la \zmvm{} a partir del procesamiento sistemático del
+     
+    conjuntos de datos en formato \gtfs{} de la red de transporte púlbico} .
 
     \item[Actividades a
     Desarrollar:]~\begin{itemize}
         \item \textit{Adquisición y normalización de datos \gtfs{}}: Descarga y
-        limpieza de los feeds oficiales mediante el motor \texttt{Apímetro}
+        limpieza de los conjuntos de datos en formato \gtfs{} oficiales 
+        mediante el motor \texttt{Apímetro} 
 \citep{cabrera2025apimetro}. Este proceso incluye la validación de la
         integridad estructural de los archivos (\texttt{stops.txt},
 \texttt{routes.txt}, \texttt{trips.txt}, \texttt{stop\_times.txt}) conforme
         al estándar \gtfs{} \citep{fortin2016innovative}.
 \item \textit{Construcción del grafo dirigido y ponderado}: Transformación
-de los datos normalizados en un grafo $\grafo = (\nodos, \aristas)$, donde
-        cada nodo $v \in \nodos$ representa una estación o parada y cada arista
-        $e \in \aristas$ un segmento de ruta ponderado por tiempo de viaje
+de los datos \gtfs{} en un grafo $\grafo = (\nodos, \aristas)$, donde
+        cada nodo $v \in \nodos$ representa una estación o parada de transporte público
+        y cada arista
+        $e \in \aristas$ un segmento de ruta entre dos paradas consecutivas
+         ponderado por tiempo de viaje
         $\peso{i}{j}$.
         \item \textit{Georreferenciación y validación espacial}: Asociación de
 coordenadas geográficas a cada nodo y verificación de la topología resultante
@@ -122,8 +134,8 @@ Esta fase tiene una ponderación del 30\,\% y cubre los
 \item \textit{Cálculo del Factor de Desviación ($DI$) y Tiempo de Viaje
         Promedio ($T$)}: Aplicación del motor \texttt{VFTModel}
         \citep{cabrera2026VFTModel} para obtener los indicadores base de
-eficiencia en la configuración topológica actual. El $DI$ mide la desviación
-de los trayectos reales respecto a la distancia euclidiana óptima; valores
+eficiencia en la configuración topológica actual. El indicador $DI$ mide la desviación
+de los trayectos reales respecto a la distancia euclidiana; valores
 elevados indican ineficiencia geométrica en la red \citep{owais2020}.
         \item \textit{Cálculo de la Centralidad de Intermediación ($B(v)$)}:
 Identificación de los nodos con mayor flujo de rutas mínimas, localizando
@@ -155,21 +167,22 @@ los indicadores calculados para identificar zonas con déficit de conectividad
         lateral, tiempos de traslado elevados y dependencia de nodos de alta
         intermediación \citep{mishra2015, ugur2025}.
 \item \textit{Diseño de los escenarios hipotéticos}: El Caso~1 es la red
-        actual, el \textit{statu quo}, que sirve de referencia. A él se suman
-        dos configuraciones de corredor anillar de alta capacidad en los cuatro cuadrantes del
-        Anillo Periférico. El Caso~2 toma como referencia un autobús de tránsito rápido
-        (\termino{Bus Rapid Transit}, \brt{}) con vía
-        confinada, como el Mexibús: parte de la velocidad comercial del
-        Metrobús, 16.3~km/h, que la fricción del tránsito baja a unos
-        14.2~km/h. El Caso~3 toma como referencia el Metro: vía exclusiva y
-        36~km/h. Los dos comparten trazo y estaciones
+        actual, el \textit{statu quo}, que sirve de referencia.
+        El Caso~2 toma como referencia una ruta 
+        de BRT
+         con carril
+        confinado con una velocidad comercial 
+         16.3~km/h. 
+         El Caso~3 toma como referencia una linea de Metro con 
+         una velocidad comercial de
+        36~km/h. Las dos rutas propuestas (BRT y Metro) comparten trazo y estaciones
         (§\ref{subsec:anillo-parametros}), los pesos $\peso{i}{j}$ se
         calculan igual que en el grafo base y las penalizaciones de
         transbordo no cambian.
 \item \textit{Simulación comparativa}: Se corre \texttt{VFTModel} por
         separado sobre el Caso~2 y el Caso~3; los valores de $C$, $FC$, $T$ y
         $B(v)$ se comparan contra el Caso~1 para establecer qué
-        configuración anillar produce mayor beneficio topológico en la
+        ruta anillar produce mayor beneficio topológico en la
         \zmvm{} \citep{cabrera2026VFTModel}. El $DI$ se calcula solo para la
         red actual.
     \end{itemize}
@@ -191,9 +204,12 @@ hacen replicable el proceso en otros contextos metropolitanos con datos
     \item[Actividades a
     Desarrollar:]~\begin{itemize}
         \item \textit{Lectura comparativa de indicadores}: Análisis de la
-        variación neta en $C$, $FC$, $T$ y $B(v)$ entre la red actual y la red
-        ampliada, que se lee en conjunto con el Espectro MJG, para valorar la
-        magnitud del impacto topológico del escenario anillar hipotético.
+        variación neta en $C$, $FC$, $T$ y $B(v)$ 
+        entre el Caso 1 vs los Casos 2 y 3, 
+        que se lee en conjunto con el Espectro MJG (Referencia) que sirve
+        para valorar el impacto topológico que
+        tendría sobre la red de transporte público una line o ruta de transporte masivo
+        sobre el anillo periférico.
         \item \textit{Documentación de la metodología}: Registro de los
         parámetros, supuestos y limitaciones del proceso analítico, con el
         fin de garantizar su reproducibilidad en contextos similares.

@@ -5,19 +5,19 @@
 \label{sec:planteamiento}
 %-----------------------------------------------------------------------
 
-La problemática expuesta anteriormente revela que la Zona Metropolitana del
+La problemática expuesta en la sección anterior revela que la Zona Metropolitana del
 Valle de México (ZMVM) padece una desarticulación topográfica profunda, donde el
 sistema de transporte masivo estructurado presenta una cobertura insuficiente en
 las franjas periféricas que componen el \textbf{Tercer y Cuarto Contorno}
-metropolitano \citep{semovi2020diagnostico}. Los contornos son las coronas
+metropolitano \citep{semovi2020diagnostico} compuestos por la alcaldías de XX, XX, XX. Los contornos son las coronas
 concéntricas en que el diagnóstico de movilidad de la \textsc{semovi} divide la
 metrópoli alrededor de la Ciudad Central; el tercero y el cuarto son los más
 alejados del centro (Figura~\ref{fig:semovi-contornos}). Esta limitación técnica genera una
 dependencia crítica del transporte público concesionado de baja capacidad y del
 automóvil particular, lo cual resulta ineficiente para mitigar una demanda de
-movilidad que desborda las fronteras administrativas de la capital.
+movilidad .
 
-Diversos diagnósticos urbanos coinciden en que la red masiva (Metro y Metrobús)
+Diversos diagnósticos urbanos coinciden en que la red de transporte masivo (Metro y Metrobús)
 se ha consolidado bajo una lógica de centralización, obligando a los habitantes
 de zonas periféricas en el \textbf{Norte (Ecatepec, Naucalpan)},
 \textbf{Oriente (Iztapalapa, Chalco)} y \textbf{Sur (Tlalpan, Xochimilco)} a
@@ -25,17 +25,17 @@ realizar desplazamientos radiales que saturan los nodos del núcleo central
 \citep{obras2025}. Esta configuración no solo incrementa los tiempos de traslado
 ---superando en promedio los 122 minutos para los habitantes del cuarto
 contorno \citep{semovi2020diagnostico}---, sino que eleva la \textit{vulnerabilidad funcional} del sistema
-ante fallas operativas en hubs críticos como Pantitlán, Indios Verdes o Taxqueña
+ante fallas operativas en centros de transbordo críticos como Pantitlán, Indios Verdes o Taxqueña
 \citep{lotero2014vulnerabilidad}.
 
 Aunque el Anillo Periférico fue proyectado como una infraestructura estratégica
-para conectar la capital, su diseño priorizó históricamente la automovilidad
-privada, dejando una brecha topográfica para el transporte masivo transversal.
-La adopción de geometrías anillares ha demostrado ser una alternativa robusta en
-grandes metrópolis para descomprimir el centro y articular las periferias
+para conectar la capital, su diseño priorizó históricamente 
+al automóvil privado, dejando una brecha topográfica para el transporte masivo .
+La adopción de vías anillares ha demostrado ser una alternativa robusta en
+grandes metrópolis para descomprimir la congestión del centro y articular las periferias
 \citep{efe2023}; de este modo, surge la necesidad de contar con herramientas que
-permitan evaluar cuantitativamente el impacto topológico de escenarios anillares
-hipotéticos en la red metropolitana.
+permitan evaluar cuantitativamente el impacto topológico de escenarios con vialidades anillares
+hipotéticas en la red metropolitana.
 
 %-----------------------------------------------------------------------
 \subsection{La morfología y topología en la periferia de la ZMVM}
@@ -45,16 +45,15 @@ hipotéticos en la red metropolitana.
 La estructura urbana de la periferia metropolitana no constituye una extensión
 continua y ordenada de la traza central. Siguiendo el análisis de
 \citet{ortiz2007}, la morfología de la Ciudad de México se define como una
-jerarquía de centros que da lugar a un ``\textit{Patchwork of offset grids}''
-(mosaico de retículas desfasadas). En este modelo, cada sector periférico
+jerarquía de centros que da lugar a un \textit{Patchwork of offset grids}
+(mosaico de retículas desfasadas). Donde cada sector periférico
 (Norte, Oriente, Poniente o Sur) actúa como un ``parche'' geométricamente
 aislado, cuya trama interna no se alinea con la estructura vial primaria de la
-ciudad.
-
-Esta fragmentación morfológica es el factor determinante de la ineficiencia en
-las alcaldías y municipios del cinturón metropolitano. A diferencia de la
+ciudad. Y según \citet{ortiz2007} esta fragmentación  es uno de los factores 
+ de la ineficiencia en las alcaldías y municipios de la 
+ ZMVM. A diferencia de la
 \textbf{Ciudad Central}, donde la conectividad en red facilita desplazamientos
-multidireccionales, estos parches periféricos operan como islas conectadas
+multidireccionales, estos ``parches'' periféricos operan como islas conectadas
 únicamente por arterias radiales que tienden al colapso crónico. Desde la
 perspectiva de \texttt{VFTModel}, el motor de esta tesis que representa la red
 como un grafo y calcula sobre él los indicadores (§\ref{sec:metodo}), esta
@@ -66,16 +65,19 @@ zona de destino \citep{fortin2016innovative}.
 
 Complementariamente, la teoría de redes de \citet{owais2020} sostiene que en
 ciudades con estructuras no ortogonales, la carencia de conexiones transversales
-entre estos parches fragmentados genera una pérdida de robustez sistémica. Por
+entre estos ``parches'' fragmentados genera una pérdida de robustez sistémica. Por
 robustez sistémica se entiende aquí la capacidad de la red de conservar su
-conectividad y su eficiencia cuando falla uno de sus nodos; la tesis la mide
-con la caída de eficiencia $\Delta E$ (§\ref{subsec:robustez-geometrica}). Esta
-teoría valida la tesis central de este trabajo: la problemática de la periferia
+conectividad y su eficiencia cuando falla uno de sus nodos. En la 
+presente tesis esta robustez se mide
+con la caída de eficiencia $\Delta E$ (§\ref{subsec:robustez-geometrica}). 
+
+Por lo que la problemática de la periferia
 de la ZMVM no es únicamente una cuestión de capacidad vehicular, sino una
 \textbf{desconexión geométrica estructural}. Mediante el procesamiento de datos
 en \texttt{Apímetro}, la herramienta que reúne y normaliza los datos de
-transporte (§\ref{sec:metodo}), se indaga si corredores anillares en los cuatro cuadrantes
-del Anillo Periférico articulan esos parches periféricos; de ser así, los viajes
-entre zonas vecinas dejarían de depender del paso obligado por el núcleo
-central.
+transporte (§\ref{sec:metodo}), se indaga si es posible que rutas de transporte masivo anillares que pasen por los cuatro cuadrantes
+del Anillo Periférico conecten los ``parches'' periféricos. 
+Para así, los viajes
+entre zonas vecinas dejen de depender del paso obligado por
+el centro de la ZMVM.
 

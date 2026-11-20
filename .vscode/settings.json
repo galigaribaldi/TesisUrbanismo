@@ -19,7 +19,14 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#832561",
-    "cSpell.language": "en,es-ES",
+    "cSpell.language": "es-ES",
+    "cSpell.enabled": true,
+    "cSpell.enabledLanguageIds": [
+    "latex"
+    ],
+    "cSpell.caseSensitive": false,
     "latex-workshop.latex.autoBuild.run": "never",
-    "latex-workshop.latex.autoClean.run": "never"
+    "latex-workshop.latex.autoClean.run": "never",
+    "texPreview.spellcheck.enabled": true,
+    "texPreview.spellcheck.language": "es_ES"
 }
